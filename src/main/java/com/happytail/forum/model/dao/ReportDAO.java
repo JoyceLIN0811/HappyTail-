@@ -1,0 +1,15 @@
+package com.happytail.forum.model.dao;
+
+import java.util.List;
+
+import com.happytail.forum.model.Report;
+
+public interface ReportDAO {
+	
+	public Report insert(Report report);
+	
+	public Report update(Report report);
+	
+	public Report select(Integer id);
+	
+}

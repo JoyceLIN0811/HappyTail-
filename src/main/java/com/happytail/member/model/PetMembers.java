@@ -171,16 +171,11 @@ public class PetMembers {
 
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder( "PetMembers {") ;
-		sb.append("id='").append(id).append('\'');
-		sb.append(", email='").append(email).append('\'');
-		sb.append(", password='").append(password).append('\'');
-		sb.append(", username='").append(username).append('\'');
-		sb.append(", gender='").append(gender).append('\'');
-		sb.append(", age='").append(age).append('\'');
-		sb.append('}');
-		return sb.toString();		
-			
+		return "PetMembers [id=" + id + ", account=" + account + ", email=" + email + ", password=" + password
+				+ ", username=" + username + ", gender=" + gender + ", age=" + age + ", bday=" + bday + ", address="
+				+ address + ", phone=" + phone + ", memberImage=" + memberImage + ", createDate=" + createDate
+				+ ", updateDate=" + updateDate + "]";
 	}
+
 
 }

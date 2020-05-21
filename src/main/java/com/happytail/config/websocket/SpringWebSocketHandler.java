@@ -19,7 +19,7 @@ public class SpringWebSocketHandler extends DefaultHandshakeHandler {
 			Map<String, Object> attributes) {
 		String userId = "-1";
 		if (attributes.containsKey("loginUser")) {
-			userId = ((PetMembers) attributes.get("loginUser")).getMemberId().toString();
+			userId = ((PetMembers) attributes.get("loginUser")).getId().toString();
 		}
 		return new SpringWebSocketPrincipal(userId);
 	}
