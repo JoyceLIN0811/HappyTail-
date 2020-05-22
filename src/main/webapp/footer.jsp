@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-<title style="font-family:Chelsea Market;">This is Top</title>
 
 <!-- CSS  -->
-<link href="/css/footerstyle.css" type="text/css" rel="stylesheet"
+<link href="<c:url value='/css/footerstyle.css'/>" type="text/css" rel="stylesheet"
 	media="screen,projection" />
 <!-- <link -->
 <!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" -->
@@ -31,12 +23,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-<body>
-
 	<!--JavaScript at end of body for optimized loading-->
-	<script type="text/javascript" src="js/materialize.min.js">
+	<script type="text/javascript" <c:url value='/js/materialize.min.js'/>>
 		
 	</script>
 	<svg class="svg--source" width="0" height="0" aria-hidden="true">
@@ -145,10 +133,4 @@ c9.24,0,15.36-6.5,15.36-15.64c0-1.17-0.11-2.29-0.31-3.36C31.05,21,16,21,16,21z" 
 			</div>
 		</div>
 	</footer>
-	<!--JavaScript at end of body for optimized loading-->
-	<script type="text/javascript" src="js/materialize.min.js">
-		
-	</script>
-</body>
 
-</html>

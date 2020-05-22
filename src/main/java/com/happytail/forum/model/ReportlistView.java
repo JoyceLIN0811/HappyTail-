@@ -13,38 +13,42 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "Report")
-public class Report {
+@Table(name = "ReportlistView")
+public class ReportlistView {
 	
 	private Integer id;
 	private Integer topicId;
+	private String title;
 	private Integer userId;
 	private String username;
+	private String email;	
 	private String isDone;
 	private String message;
 	private Integer categoryId;
+	private String category;
 	private Timestamp createDate;
-	private Timestamp updateDate;
 	
-	public Report(Integer topicId, Integer userId, String username
-	,String isDone, String message,Integer categoryId, Timestamp createDate, Timestamp updateDate) {
+	public ReportlistView(Integer topicId, String title, Integer userId, String username
+			, String email, String isDone, String message,Integer categoryId 
+			, String category, Timestamp createDate) {
 		this.topicId = topicId;
+		this.title = title;
 		this.userId = userId;
 		this.username = username;
+		this.email = email;
 		this.isDone = isDone;
 		this.message = message;
 		this.categoryId = categoryId;
+		this.category = category;
 		this.createDate =createDate;
-		this.updateDate = updateDate;
 	}
 	
-	public Report() {
+	public ReportlistView() {
 		
 	}
 
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
@@ -60,6 +64,15 @@ public class Report {
 
 	public void setTopicId(Integer topicId) {
 		this.topicId = topicId;
+	}
+
+	@Column(name = "title")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Column(name = "userId")
@@ -80,6 +93,15 @@ public class Report {
 		this.username = username;
 	}
 
+	@Column(name = "email")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Column(name = "isDone")
 	public String getIsDone() {
 		return isDone;
@@ -97,8 +119,7 @@ public class Report {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
 	@Column(name = "categoryId")
 	public Integer getCategoryId() {
 		return categoryId;
@@ -106,6 +127,15 @@ public class Report {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	@Column(name = "category")
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	@Column(name = "createDate")
@@ -117,20 +147,11 @@ public class Report {
 		this.createDate = createDate;
 	}
 
-	@Column(name = "updateDate")
-	public Timestamp getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
-
 	@Override
 	public String toString() {
-		return "Report [id=" + id + ", topicId=" + topicId + ", userId=" + userId + ", username=" + username
-				+ ", isDone=" + isDone + ", message=" + message + ", categoryId=" + categoryId + ", createDate="
-				+ createDate + ", updateDate=" + updateDate + "]";
+		return "ReportlistView [id=" + id + ", topicId=" + topicId + ", title=" + title + ", userId=" + userId
+				+ ", username=" + username + ", email=" + email + ", isDone=" + isDone + ", message=" + message
+				+ ", categoryId=" + categoryId + ", category=" + category + ", createDate=" + createDate + "]";
 	}
 
 	

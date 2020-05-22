@@ -15,20 +15,20 @@ public class ThumbsUp {
 	private Integer replyId;
 	private Integer userId;
 	private String username;
-	private Integer likeTypeId;
+	private Integer categoryId;
 	private Timestamp createDate;
 	private Timestamp updateDate;
 	
 	
 	public ThumbsUp(String type, Integer topicId, Integer replyId
-	,Integer userId, String username, Integer likeTypeId, Timestamp createDate
+	,Integer userId, String username, Integer categoryId, Timestamp createDate
 	, Timestamp updateDate) {
 		this.type = type;
 		this.topicId = topicId;
 		this.replyId = replyId;
 		this.userId = userId;
 		this.username = username;
-		this.likeTypeId = likeTypeId;
+		this.categoryId = categoryId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		}
@@ -93,13 +93,13 @@ public class ThumbsUp {
 		this.username = username;
 	}
 
-	@Column(name = "likeTypeId")
-	public Integer getLikeTypeId() {
-		return likeTypeId;
+	@Column(name = "categoryId")
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setLikeTypeId(Integer likeTypeId) {
-		this.likeTypeId = likeTypeId;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	@Column(name = "createDate")
@@ -123,9 +123,9 @@ public class ThumbsUp {
 	@Override
 	public String toString() {
 		return "ThumbsUp [id=" + id + ", type=" + type + ", topicId=" + topicId + ", replyId=" + replyId + ", userId="
-				+ userId + ", username=" + username + ", likeTypeId=" + likeTypeId + ", createDate=" + createDate
+				+ userId + ", username=" + username + ", categoryId=" + categoryId + ", createDate=" + createDate
 				+ ", updateDate=" + updateDate + "]";
 	}
-	
+
 	
 }

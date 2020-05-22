@@ -32,7 +32,7 @@ public class RootAppConfig {
 			// server context.xml can find the Jndiname
 			jndiBean.setProxyInterface(DataSource.class);
 			// interface to use for the JNDI object
-			jndiBean.setLookupOnStartup(false);
+//			jndiBean.setLookupOnStartup(false);
 			// ProxyInterface default is false
 			jndiBean.afterPropertiesSet();
 		} catch (IllegalArgumentException e) {
