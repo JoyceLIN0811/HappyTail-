@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name = "ReportlistView")
@@ -139,6 +141,7 @@ public class ReportlistView {
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}

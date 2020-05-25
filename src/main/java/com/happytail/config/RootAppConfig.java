@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
@@ -21,7 +22,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 		"com.happytail.shop.model",
 		"com.happytail.reservation.model", 
 		"com.happytail.admin.model", 
-		"com.happytail.member.model" })
+		"com.happytail.member.model",
+		"com.happytail.general.model"})
+@Import(com.happytail.config.SpringWebSocketJavaConfig.class)
 public class RootAppConfig {
 
 	@Bean
@@ -54,7 +57,12 @@ public class RootAppConfig {
 		builder.addProperties(hibernateProperties());
 		// setProperties might cover the original setting
 		// could happen unknown exception so do not use it!!
-		builder.addPackages(new String[] { "com.happytail.forum.model" });
+		builder.scanPackages(new String[] { "com.happytail.forum.model", 
+				"com.happytail.shop.model",
+				"com.happytail.reservation.model", 
+				"com.happytail.admin.model", 
+				"com.happytail.member.model",
+				"com.happytail.general.model"});
 		return builder.buildSessionFactory();
 //		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 //		LocalSessionFactoryBean for xml
@@ -66,12 +74,12 @@ public class RootAppConfig {
 
 	private Properties hibernateProperties() {
 		Properties properties = new Properties();
-		properties.put("hibernate.dialect", org.hibernate.dialect.SQLServer2008Dialect.class);
+		properties.put("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
 		properties.put("hibernate.show_sql", true);
 		properties.put("hibernate.format_sql", true);
 //		properties.put("hibernate.current_session_context_class", "thread");
 //		properties.put("default_batch_fetch_size", 10);
-//		properties.put("hibernate.hbm2ddl.auto", "validate");
+		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;
 	}
 

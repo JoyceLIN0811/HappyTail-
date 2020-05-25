@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name = "Report")
@@ -23,8 +25,8 @@ public class Report {
 	private String isDone;
 	private String message;
 	private Integer categoryId;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	
 	public Report(Integer topicId, Integer userId, String username
 	,String isDone, String message,Integer categoryId, Timestamp createDate, Timestamp updateDate) {
@@ -109,6 +111,7 @@ public class Report {
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -118,6 +121,7 @@ public class Report {
 	}
 
 	@Column(name = "updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}

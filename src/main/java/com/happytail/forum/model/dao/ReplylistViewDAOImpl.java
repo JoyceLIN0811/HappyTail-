@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.happytail.forum.model.ReplylistView;
 
 @Repository
-public class ReplylistViewDAO_impl implements ReplylistViewDAO{
+public class ReplylistViewDAOImpl implements ReplylistViewDAO{
 
 	@Autowired
 //	@Qualifier(value = "sessionfactory")
@@ -23,7 +23,7 @@ public class ReplylistViewDAO_impl implements ReplylistViewDAO{
 	}
 	
 	private final String selectAllReply =
-			"SELECT * FROM com.happytail.forum.model.dao.ReplylistView WHERE topicId=:topicId ORDER BY createTime DESC";
+			"FROM com.happytail.forum.model.dao.ReplylistView WHERE topicId=:topicId ORDER BY createTime DESC";
 	
 	private final String AllReplyCounts = 
 			"SELECT COUNT(*) FROM com.happytail.forum.model.ReplylistView";

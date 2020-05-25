@@ -10,6 +10,6 @@ public interface CodeMapDAO {
 	
 	public CodeMap update(CodeMap CodeMap);
 	
-	public CodeMap select(Integer id);
+	public CodeMap selectValue(String module, String type, String key);
 
 }

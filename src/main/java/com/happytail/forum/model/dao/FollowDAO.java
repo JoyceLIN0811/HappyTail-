@@ -8,7 +8,7 @@ public interface FollowDAO {
 
 	public boolean delete(Integer id);
 	
-	//update改變status
+	//update改變status或更新文章
 	public Follow update(Follow follow);
 	
 	public Follow select(Integer id);

@@ -5,19 +5,18 @@ import javax.persistence.NoResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.happytail.forum.model.ThumbsUp;
 import com.happytail.forum.model.Topic;
 
 @Repository
-public class TopicDAO_impl implements TopicDAO {
-
+public class ThumbsUpDAOImpl implements ThumbsUpDAO {
+	
 	@Autowired
-//	@Qualifier(value = "sessionFactory")
 	private SessionFactory sessionFactory;
 
-	public TopicDAO_impl() {
+	public ThumbsUpDAOImpl() {
 	}
 
 	public Session getSession() {
@@ -26,10 +25,10 @@ public class TopicDAO_impl implements TopicDAO {
 	}
 
 	@Override
-	public Topic insert(Topic topic) {
+	public ThumbsUp insert(ThumbsUp thumbsUp) {
 		try {
-			if (topic != null) {
-				getSession().save(topic);
+			if (thumbsUp != null) {
+				getSession().save(thumbsUp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -37,15 +36,15 @@ public class TopicDAO_impl implements TopicDAO {
 			return null;
 		}
 
-		return topic;
+		return thumbsUp;
 	}
 
 	@Override
 	public boolean delete(Integer id) {
-		Topic topic = getSession().get(Topic.class, id);
+		ThumbsUp thumbsUp = getSession().get(ThumbsUp.class, id);
 		try {
-			if (topic != null) {
-				getSession().delete(topic);
+			if (thumbsUp != null) {
+				getSession().delete(thumbsUp);
 			}
 
 		} catch (Exception e) {
@@ -54,13 +53,14 @@ public class TopicDAO_impl implements TopicDAO {
 			return false;
 		}
 		return true;
+
 	}
 
 	@Override
-	public Topic update(Topic topic) {
+	public ThumbsUp update(ThumbsUp thumbsUp) {
 		try {
-			if (topic != null) {
-				getSession().update(topic);
+			if (thumbsUp != null) {
+				getSession().update(thumbsUp);
 			}
 
 		} catch (Exception e) {
@@ -68,22 +68,21 @@ public class TopicDAO_impl implements TopicDAO {
 			System.out.println("Update fail");
 			return null;
 		}
-		return topic;
+		return thumbsUp;
 	}
 
 	@Override
-	public Topic select(Integer id) {
-		Topic topic = null;
-
+	public ThumbsUp select(Integer id) {
+		ThumbsUp thumbsUp = getSession().get(ThumbsUp.class, id);
 		try {
-			topic = getSession().get(Topic.class, id);
+			thumbsUp = getSession().get(ThumbsUp.class, id);
 		} catch (NoResultException e) {
 			e.printStackTrace();
 			System.out.println("No result");
 			return null;
 		}
 
-		return topic;
+		return thumbsUp;
 	}
 
 }

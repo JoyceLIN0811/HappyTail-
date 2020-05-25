@@ -3,10 +3,19 @@ package com.happytail.general.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Component
+@Entity
+@Table(name = "CodeMap")
 public class CodeMap {
 	
 	private Integer id;
@@ -14,8 +23,8 @@ public class CodeMap {
 	private String type;
 	private String key;
 	private String value;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	
 	public CodeMap(String module, String type, String key, String value
 	,Timestamp createDate, Timestamp updateDate) {
@@ -60,7 +69,7 @@ public class CodeMap {
 		this.type = type;
 	}
 
-	@Column(name = "key")
+	@Column(name = "[key]")
 	public String getKey() {
 		return key;
 	}
@@ -79,6 +88,7 @@ public class CodeMap {
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -88,6 +98,7 @@ public class CodeMap {
 	}
 
 	@Column(name = "updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}

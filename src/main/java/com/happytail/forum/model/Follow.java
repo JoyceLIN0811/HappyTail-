@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component
 @Entity
@@ -20,12 +23,12 @@ public class Follow {
 	private Integer userId;
 	private String username;
 	private Integer topicId;
-	private String status;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Boolean status = true;
+	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 
 	public Follow(Integer userId, String username, Integer topicId
-	,String status, Timestamp createDate, Timestamp updateDate) {
+	,Boolean status, Timestamp createDate, Timestamp updateDate) {
 		this.userId = userId;
 		this.username = username;
 		this.topicId = topicId;
@@ -76,16 +79,18 @@ public class Follow {
 		this.topicId = topicId;
 	}
 
+	@Type(type="yes_no")
 	@Column(name = "status")
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -95,6 +100,7 @@ public class Follow {
 	}
 
 	@Column(name = "updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}

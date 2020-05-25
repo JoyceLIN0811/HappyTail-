@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name = "TopicImage")
@@ -20,8 +22,8 @@ public class TopicImage {
 	private Integer topidId;
 	private String imageUrl;
 	private String isCover;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 
 	public TopicImage(Integer topidId, String imageUrl,
 	String isCover, Timestamp createDate, Timestamp updateDate) {
@@ -75,6 +77,7 @@ public class TopicImage {
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -84,6 +87,7 @@ public class TopicImage {
 	}
 
 	@Column(name = "updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}

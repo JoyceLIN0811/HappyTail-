@@ -3,10 +3,19 @@ package com.happytail.forum.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Component
+@Entity
+@Table(name = "ThumbsUp")
 public class ThumbsUp {
 	
 	private Integer id;
@@ -16,8 +25,8 @@ public class ThumbsUp {
 	private Integer userId;
 	private String username;
 	private Integer categoryId;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	
 	
 	public ThumbsUp(String type, Integer topicId, Integer replyId
@@ -103,6 +112,7 @@ public class ThumbsUp {
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -112,6 +122,7 @@ public class ThumbsUp {
 	}
 
 	@Column(name = "updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}

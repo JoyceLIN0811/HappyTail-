@@ -1,78 +1,90 @@
 package com.happytail.forum.model.dao;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.forum.model.Reply;
+import com.happytail.forum.model.Follow;
+import com.happytail.forum.model.ThumbsUp;
 
 @Repository
-public class ReplyDAO_impl implements ReplyDAO {
-
+public class FollowDAOImpl implements FollowDAO {
+	
 	@Autowired
-//	@Qualifier(value = "sessionfactory")
-	private SessionFactory sessionfactory;
+	private SessionFactory sessionFactory;
 
-	public Session getSession() {
-		Session session = sessionfactory.getCurrentSession();
-		return session;
+	public FollowDAOImpl() {
 	}
 
+	public Session getSession() {
+		Session session = sessionFactory.getCurrentSession();
+		return session;
+	}
+	
+	
 	@Override
-	public Reply insert(Reply reply) {
+	public Follow insert(Follow follow) {
 		try {
-			if (reply != null) {
-				getSession().save(reply);
+			if (follow != null) {
+				getSession().save(follow);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Insert fail");
 			return null;
 		}
-		return reply;
+
+		return follow;
 	}
+
 
 	@Override
 	public boolean delete(Integer id) {
+		Follow follow = getSession().get(Follow.class, id);
 		try {
-			if (id != null) {
-				getSession().delete(id);
+			if (follow != null) {
+				getSession().delete(follow);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Delete fail");
 			return false;
 		}
 		return true;
+
 	}
 
 	@Override
-	public Reply update(Reply reply) {
+	public Follow update(Follow follow) {
 		try {
-			if(reply != null) {
-				getSession().update(reply);
+			if (follow != null) {
+				getSession().update(follow);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Update fail");
 			return null;
 		}
-		return reply;
+		return follow;
 	}
 
 	@Override
-	public Reply select(Integer id) {
-		Reply reply = null;
+	public Follow select(Integer id) {
+		Follow follow = getSession().get(Follow.class, id);
 		try {
-			reply = getSession().get(Reply.class, id);
-		} catch (Exception e) {
+			follow = getSession().get(Follow.class, id);
+		} catch (NoResultException e) {
 			e.printStackTrace();
 			System.out.println("No result");
 			return null;
 		}
-		return reply;
+
+		return follow;
 	}
 
 }

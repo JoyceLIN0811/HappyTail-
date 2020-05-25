@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.happytail.forum.model.TopiclistView;
 
 @Repository
-public class TopiclistViewDAO_impl implements TopiclistViewDAO {
+public class TopiclistViewDAOImpl implements TopiclistViewDAO {
 
 	@Autowired
 //	@Qualifier(value = "sessionfactory")
@@ -23,9 +23,9 @@ public class TopiclistViewDAO_impl implements TopiclistViewDAO {
 		return session;
 	}
 
-	private final String selectAllTopic = "SELECT * FROM com.happytail.forum.model.TopiclistView ORDER BY createTime DESC";
-	private final String SelectByCategoryId = "SELECT * FROM com.happytail.forum.model.TopiclistView WHERE categoryId=:categoryId ORDER BY createTime DESC";
-	private final String selectByMemberId = "SELECT * FROM com.happytail.forum.model.TopiclistView WHERE memberId=:memberId ORDER BY createTime DESC";
+	private final String selectAllTopic = "FROM com.happytail.forum.model.TopiclistView ORDER BY createTime DESC";
+	private final String SelectByCategoryId = "FROM com.happytail.forum.model.TopiclistView WHERE categoryId=:categoryId ORDER BY createTime DESC";
+	private final String selectByMemberId = "FROM com.happytail.forum.model.TopiclistView WHERE memberId=:memberId ORDER BY createTime DESC";
 	private final String AllTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView";
 	private final String CategoryTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE categoryId=:categoryId";
 	private final String MyTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE memberId=:memberId";
@@ -57,7 +57,7 @@ public class TopiclistViewDAO_impl implements TopiclistViewDAO {
 	public List<TopiclistView> selectByMemberId(Integer memberId) {
 		List<TopiclistView> list = null;
 		try {
-			list = getSession().createQuery(SelectByCategoryId, TopiclistView.class).setParameter("memberId", memberId)
+			list = getSession().createQuery(selectByMemberId, TopiclistView.class).setParameter("memberId", memberId)
 					.getResultList();
 		} catch (Exception e) {
 			return null;

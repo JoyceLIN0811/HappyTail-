@@ -1,5 +1,7 @@
 package com.happytail.general.model.dao;
 
+import java.util.List;
+
 import com.happytail.general.model.Notice;
 
 public interface NoticeDAO {
@@ -11,4 +13,6 @@ public interface NoticeDAO {
 	public Notice update(Notice notice);
 	
 	public Notice select(Integer id);
-}
+	
+	public List<Notice> selectAll();
+	}

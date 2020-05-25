@@ -3,6 +3,7 @@ package com.happytail.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
@@ -10,7 +11,7 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 import com.happytail.config.websocket.SpringWebSocketHandler;
 
 @Configuration
-@EnableWebSocket
+@EnableWebSocketMessageBroker
 public class SpringWebSocketJavaConfig  implements WebSocketMessageBrokerConfigurer  {
 	
 	@Override

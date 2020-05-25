@@ -20,13 +20,15 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 		"com.happytail.shop.controller",
 		"com.happytail.reservation.controller",
 		"com.happytail.admin.controller",
-		"com.happytail.member.controller"})
+		"com.happytail.member.controller",
+		"com.happytail.general.controller"})
 //@Import()
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
 	//Static Resources
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		System.out.println("test!!");
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/static/css/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/static/js/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/static/img/");

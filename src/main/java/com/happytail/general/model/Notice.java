@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component
 @Entity
@@ -22,13 +25,13 @@ public class Notice {
 	private String username;
 	private String message;
 	private String link;
-	private String isRead;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Boolean isRead = false;
+	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 
 	
 	public Notice(String module,Integer userId,String username,
-			String message,String link,String isRead,Timestamp createDate,
+			String message,String link,Boolean isRead,Timestamp createDate,
 			Timestamp updateDate) {
 		this.module = module;
 		this.userId = userId;
@@ -100,16 +103,18 @@ public class Notice {
 		this.link = link;
 	}
 
+	@Type(type="yes_no")
 	@Column(name = "isRead")
-	public String getIsRead() {
+	public Boolean getIsRead() {
 		return isRead;
 	}
 
-	public void setIsRead(String isRead) {
+	public void setIsRead(Boolean isRead) {
 		this.isRead = isRead;
 	}
 
 	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -119,6 +124,7 @@ public class Notice {
 	}
 
 	@Column(name = "updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}

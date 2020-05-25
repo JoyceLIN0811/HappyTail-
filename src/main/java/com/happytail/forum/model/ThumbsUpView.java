@@ -119,7 +119,7 @@ public class ThumbsUpView {
 		return categoryId;
 	}
 
-	public void setCategory(Integer categoryId) {
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
 

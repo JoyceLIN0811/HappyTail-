@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name = "LimitPost")
@@ -20,7 +22,7 @@ public class LimitPost {
 	private Integer userId;
 	private String username;
 	private String imageUrl;
-	private Timestamp expireTime;
+	private Timestamp expireTime = new Timestamp(System.currentTimeMillis()); 
 	
 	public LimitPost(Integer userId, String username, String imageUrl
 	,Timestamp expireTime) {
@@ -73,6 +75,7 @@ public class LimitPost {
 	}
 
 	@Column(name = "expireTime")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getExpireTime() {
 		return expireTime;
 	}

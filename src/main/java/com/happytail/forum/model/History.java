@@ -1,6 +1,7 @@
 package com.happytail.forum.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name = "History")
@@ -20,7 +23,7 @@ public class History {
 	private Integer topicId;
 	private Integer userId;
 	private String username;
-	private Date readDate;
+	private Date readDate  = new Date(System.currentTimeMillis());
 	
 	public History(Integer topicId, Integer userId, String username
 	,Date readDate) {
@@ -72,6 +75,7 @@ public class History {
 	}
 
 	@Column(name = "readDate")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	public Date getReadDate() {
 		return readDate;
 	}
