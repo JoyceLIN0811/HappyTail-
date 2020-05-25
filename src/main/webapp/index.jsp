@@ -1,86 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
-<head>
 <meta charset="UTF-8">
 <title>Happy Tail</title>
+<!-- CSS  -->
+<link href="<c:url value='/css/style.css'/>" type="text/css"
+	rel="stylesheet" media="screen,projection" />
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-	crossorigin="anonymous">
-</head>
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!--Let browser know website is optimized for mobile-->
+<!--jQuery-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<!--JavaScript at end of body for optimized loading-->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.slider').slider({
+			// 不顯示操控圓鈕
+			indicators : false,
+			// 每張照片播五秒
+			interval : 2000
+		})
+	})
+</script>
 <body>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-		crossorigin="anonymous"></script>
-
-	<%@ include file="top.jsp"%>
-	<%-- 	<jsp:include page="top.jsp" /> --%>
-	<section>
-		<div id="carouselExampleCaptions" class="carousel slide"
-			data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#carouselExampleCaptions" data-slide-to="0"
-					class="active"></li>
-				<li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-				<li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-			</ol>
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img <c:url value='/img/first.jpg'/> class="d-block w-100"
-						alt="...">
-					<div class="carousel-caption d-none d-md-block"
-						style="margin-bottom: 130px; font-family: monospace;">
-						<h1>
-							Caring for <br>Your Furry <br>Friends
-						</h1>
-
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img <c:url value='/img/second.jpg'/> class="d-block w-100"
-						alt="...">
-					<div class="carousel-caption d-none d-md-block"
-						style="margin-bottom: 130px; font-family: monospace;">
-						<h1>
-							Caring for <br>Your Furry <br>Friends
-						</h1>
-					</div>
-				</div>
-				<div class="carousel-item">
-					<img <c:url value='/img/third.jpg'/> class="d-block w-100"
-						alt="...">
-					<div class="carousel-caption d-none d-md-block"
-						style="margin-bottom: 130px; font-family: monospace;">
-						<h1>
-							Caring for <br>Your Furry <br>Friends
-						</h1>
-					</div>
-				</div>
-			</div>
-			<a class="carousel-control-prev" href="#carouselExampleCaptions"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleCaptions"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
-		</div>
-	</section>
+<%-- 	<%@ include file="top.jsp"%> --%>
+	<jsp:include page="/top.jsp"></jsp:include>
+	<div class="slider">
+		<ul class="slides">
+			<li><img src="<c:url value='/img/first.jpg'/>" /> <!--         <img src="image/first.jpg"> -->
+				<div class="caption left-align grey-text text-lighten-5">
+					<h1 style="text-align: center;">
+						Caring for <br>Your Furry <br>Friends
+					</h1>
+				</div></li>
+			<li><img src="<c:url value='/img/second.jpg'/>" /> <!--         <img src="image/second.jpg"> -->
+				<div class="caption center-align grey-text text-lighten-4">
+					<h1 style="text-align: center;">
+						Caring for <br>Your Furry <br>Friends
+					</h1>
+				</div></li>
+			<li><img src="<c:url value='/img/third.jpg'/>" /> <!-- 			<li><img src="image/third.jpg"> -->
+				<div class="caption right-align grey-text text-lighten-4">
+					<h1 style="text-align: center;">
+						Caring for <br>Your Furry <br>Friends
+					</h1>
+				</div></li>
+		</ul>
+	</div>
+	
 	<%@ include file="footer.jsp"%>
 
-	<%-- 	<jsp:include page="footer.jsp" /> --%>
-
-
 </body>
+
 </html>
