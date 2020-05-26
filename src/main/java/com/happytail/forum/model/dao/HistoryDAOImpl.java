@@ -7,28 +7,29 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.forum.model.Follow;
+import com.happytail.forum.model.History;
 
 @Repository
-public class FollowDAOImpl implements FollowDAO {
+public class HistoryDAOImpl implements HistoryDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	public FollowDAOImpl() {
+	
+	public HistoryDAOImpl() {
+		
 	}
-
+	
 	public Session getSession() {
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
 	
-	
+
 	@Override
-	public Follow insert(Follow follow) {
+	public History insert(History history) {
 		try {
-			if (follow != null) {
-				getSession().save(follow);
+			if (history != null) {
+				getSession().save(history);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,16 +37,16 @@ public class FollowDAOImpl implements FollowDAO {
 			return null;
 		}
 
-		return follow;
+		return history;
 	}
 
 
 	@Override
 	public boolean delete(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
+		History history = getSession().get(History.class, id);
 		try {
-			if (follow != null) {
-				getSession().delete(follow);
+			if (history != null) {
+				getSession().delete(history);
 			}
 
 		} catch (Exception e) {
@@ -54,36 +55,24 @@ public class FollowDAOImpl implements FollowDAO {
 			return false;
 		}
 		return true;
-
 	}
 
 	@Override
-	public Follow update(Follow follow) {
-		try {
-			if (follow != null) {
-				getSession().update(follow);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Update fail");
+	public History select(Integer id) {
+		if(id == null) {
 			return null;
 		}
-		return follow;
-	}
-
-	@Override
-	public Follow select(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
+		History history = null;
 		try {
-			follow = getSession().get(Follow.class, id);
+			history = getSession().get(History.class, id);
 		} catch (NoResultException e) {
 			e.printStackTrace();
 			System.out.println("No result");
 			return null;
 		}
 
-		return follow;
+		return history;
 	}
+
 
 }

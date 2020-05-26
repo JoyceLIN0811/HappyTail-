@@ -31,6 +31,7 @@ public class PetMembers {
 	private String memberImage;
 	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
 	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
+	private Integer status = 0;
 
 	public PetMembers(String account, 
 			String email, String password, String username, 
@@ -173,13 +174,22 @@ public class PetMembers {
 		this.updateDate = updateDate;
 	}
 
+	@Column(name = "status")
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "PetMembers [id=" + id + ", account=" + account + ", email=" + email + ", password=" + password
 				+ ", username=" + username + ", gender=" + gender + ", age=" + age + ", bday=" + bday + ", address="
 				+ address + ", phone=" + phone + ", memberImage=" + memberImage + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + "]";
+				+ ", updateDate=" + updateDate + ", status=" + status + "]";
 	}
 
-
+	
 }

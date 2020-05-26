@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.happytail.forum.model.ReplylistView;
@@ -14,11 +14,10 @@ import com.happytail.forum.model.ReplylistView;
 public class ReplylistViewDAOImpl implements ReplylistViewDAO{
 
 	@Autowired
-//	@Qualifier(value = "sessionfactory")
-	private SessionFactory sessionfactory;
+	private SessionFactory sessionFactory;
 	
 	public Session getSession() {
-		Session session = sessionfactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
 	
@@ -31,14 +30,18 @@ public class ReplylistViewDAOImpl implements ReplylistViewDAO{
 
 	@Override
 	public List<ReplylistView> select(int topicId) {
-		// TODO Auto-generated method stub
-		return null;
+		Query<ReplylistView> query = getSession().createQuery(selectAllReply, ReplylistView.class);
+		query.setParameter("topicId", topicId);
+		List<ReplylistView> list = query.list();
+		return list;
 	}
 
 	@Override
 	public long AllReplyCounts(int topicId) {
-		// TODO Auto-generated method stub
-		return 0;
+		Query query = getSession().createQuery(AllReplyCounts);
+		query.setParameter("topicId", topicId);
+		long count = (long)query.uniqueResult();
+		return count;
 	}
 
 }

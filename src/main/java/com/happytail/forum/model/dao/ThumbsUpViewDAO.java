@@ -13,8 +13,11 @@ public interface ThumbsUpViewDAO {
 
 	public List<ThumbsUpView> selectByMemberId(Integer memberId);
 	
-	public long AllCounts(Integer topicId);
+	public Long TopicAllCounts(Integer topicId);
 	
-	public long CategoryCounts(Integer categoryId);
+	public Long TopicCategoryCounts(Integer categoryId);
+	
+	public Long ReplyAllCounts(Integer replyId);
+
 
 }

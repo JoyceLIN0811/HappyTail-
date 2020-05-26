@@ -8,6 +8,6 @@ public interface ReportlistViewDAO {
 	
 	public List<ReportlistView> select();
 	
-	public long Counts();
+	public Long Counts();
 
 }

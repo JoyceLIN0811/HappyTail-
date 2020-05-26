@@ -3,7 +3,6 @@ package com.happytail.forum.model.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.happytail.forum.model.Reply;
@@ -12,11 +11,10 @@ import com.happytail.forum.model.Reply;
 public class ReplyDAOImpl implements ReplyDAO {
 
 	@Autowired
-//	@Qualifier(value = "sessionfactory")
-	private SessionFactory sessionfactory;
+	private SessionFactory sessionFactory;
 
 	public Session getSession() {
-		Session session = sessionfactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
 	

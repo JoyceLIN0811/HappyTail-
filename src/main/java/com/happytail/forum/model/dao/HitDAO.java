@@ -7,5 +7,8 @@ public interface HitDAO {
 	public Hit insert(Hit hit);
 	
 	public Hit update(Hit hit);
+	
+	public Hit select(Integer id);
+
 
 }

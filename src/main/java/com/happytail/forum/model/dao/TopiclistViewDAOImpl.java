@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.happytail.forum.model.TopiclistView;
@@ -16,11 +15,15 @@ public class TopiclistViewDAOImpl implements TopiclistViewDAO {
 
 	@Autowired
 //	@Qualifier(value = "sessionfactory")
-	private SessionFactory sessionfactory;
+	private SessionFactory sessionFactory;
 
 	public Session getSession() {
-		Session session = sessionfactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		return session;
+	}
+	
+	public TopiclistViewDAOImpl() {
+		
 	}
 
 	private final String selectAllTopic = "FROM com.happytail.forum.model.TopiclistView ORDER BY createTime DESC";

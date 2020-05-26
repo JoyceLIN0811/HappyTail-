@@ -4,7 +4,7 @@ import com.happytail.forum.model.History;
 
 public interface HistoryDAO {
 
-	public History saveTopic(History history);
+	public History insert(History history);
 
 	public boolean delete(Integer id);
 

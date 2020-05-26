@@ -1,16 +1,12 @@
 package com.happytail.general.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +28,7 @@ public class ImageUploadController {
 
 		if (imageUrl != null) {
 			map.put("uploaded", "true");
-			map.put("url", "imageUrl");
+			map.put("url", imageUrl);
 			System.out.println("imageUrl=" + imageUrl);
 		} else {
 			map.put("uploaded", "false");

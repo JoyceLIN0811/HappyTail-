@@ -7,28 +7,27 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.forum.model.Follow;
+import com.happytail.forum.model.LimitPost;
 
 @Repository
-public class FollowDAOImpl implements FollowDAO {
+public class LimitPostDAOImpl implements LimitPostDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public FollowDAOImpl() {
+	public LimitPostDAOImpl() {
 	}
 
 	public Session getSession() {
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
-	
-	
+
 	@Override
-	public Follow insert(Follow follow) {
+	public LimitPost insert(LimitPost limitPost) {
 		try {
-			if (follow != null) {
-				getSession().save(follow);
+			if (limitPost != null) {
+				getSession().save(limitPost);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,16 +35,15 @@ public class FollowDAOImpl implements FollowDAO {
 			return null;
 		}
 
-		return follow;
+		return limitPost;
 	}
-
 
 	@Override
 	public boolean delete(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
+		LimitPost limitPost = getSession().get(LimitPost.class, id);
 		try {
-			if (follow != null) {
-				getSession().delete(follow);
+			if (limitPost != null) {
+				getSession().delete(limitPost);
 			}
 
 		} catch (Exception e) {
@@ -54,36 +52,23 @@ public class FollowDAOImpl implements FollowDAO {
 			return false;
 		}
 		return true;
-
 	}
 
 	@Override
-	public Follow update(Follow follow) {
-		try {
-			if (follow != null) {
-				getSession().update(follow);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Update fail");
+	public LimitPost select(Integer id) {
+		if(id == null) {
 			return null;
 		}
-		return follow;
-	}
-
-	@Override
-	public Follow select(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
+		LimitPost limitPost = null;
 		try {
-			follow = getSession().get(Follow.class, id);
+			limitPost = getSession().get(LimitPost.class, id);
 		} catch (NoResultException e) {
 			e.printStackTrace();
 			System.out.println("No result");
 			return null;
 		}
 
-		return follow;
+		return limitPost;
 	}
 
 }

@@ -7,28 +7,29 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.forum.model.Follow;
+import com.happytail.forum.model.Hit;
 
 @Repository
-public class FollowDAOImpl implements FollowDAO {
+public class HitDAOImpl implements HitDAO {
+	
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	public FollowDAOImpl() {
+	
+	public HitDAOImpl() {
+		
 	}
 
 	public Session getSession() {
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
-	
-	
+
 	@Override
-	public Follow insert(Follow follow) {
+	public Hit insert(Hit hit) {
 		try {
-			if (follow != null) {
-				getSession().save(follow);
+			if (hit != null) {
+				getSession().save(hit);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,32 +37,14 @@ public class FollowDAOImpl implements FollowDAO {
 			return null;
 		}
 
-		return follow;
-	}
-
-
-	@Override
-	public boolean delete(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
-		try {
-			if (follow != null) {
-				getSession().delete(follow);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Delete fail");
-			return false;
-		}
-		return true;
-
+		return hit;
 	}
 
 	@Override
-	public Follow update(Follow follow) {
+	public Hit update(Hit hit) {
 		try {
-			if (follow != null) {
-				getSession().update(follow);
+			if (hit != null) {
+				getSession().update(hit);
 			}
 
 		} catch (Exception e) {
@@ -69,21 +52,24 @@ public class FollowDAOImpl implements FollowDAO {
 			System.out.println("Update fail");
 			return null;
 		}
-		return follow;
+		return hit;
 	}
 
 	@Override
-	public Follow select(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
+	public Hit select(Integer id) {
+		if(id == null) {
+			return null;
+		}
+		Hit hit = null;
 		try {
-			follow = getSession().get(Follow.class, id);
+			hit = getSession().get(Hit.class, id);
 		} catch (NoResultException e) {
 			e.printStackTrace();
 			System.out.println("No result");
 			return null;
 		}
 
-		return follow;
+		return hit;
 	}
 
 }
