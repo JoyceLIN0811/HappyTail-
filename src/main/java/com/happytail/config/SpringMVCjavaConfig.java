@@ -13,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
@@ -22,7 +24,7 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 		"com.happytail.admin.controller",
 		"com.happytail.member.controller",
 		"com.happytail.general.controller",
-		"com.happytail"})
+		"com.happytail.shopping"})
 //@Import()
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
@@ -68,5 +70,19 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		messageSource.setBasenames("MemberMessage", "ValidationMessages");
 		return messageSource;
 	}
+	
+	@Bean 
+	public InternalResourceViewResolver viewResolver() {
+//		System.out.println("使用viewResolver() 方法  將網頁前面增加/WEB-INF/pet/");
+//		System.out.println("網頁後面增加.jsp");
+//		System.out.println("優先度為2，只低於DispatcherServletInitalizer");
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class); //預設就有  JSTL
+		viewResolver.setPrefix("/WEB-INF/pet/");
+		viewResolver.setSuffix(".jsp");
+		viewResolver.setOrder(2);
+		return viewResolver;
+	}
+	
 	
 }

@@ -71,9 +71,11 @@ public class ProductDaoImpl implements ProductDao  {
 	@Override
 	public  List<ProductBean> selectCategory(Integer categoryId){
 		String newid = String.valueOf(categoryId);
+		System.out.println(newid);
 		String hql ="from ProductBean  where categoryId=:categoryId";
 		Query<ProductBean> selectCate = getSession().createQuery(hql,ProductBean.class);
 		selectCate.setParameter("categoryId", newid);
+		System.out.println("抓到資料準備回傳");
 		return selectCate.getResultList();
 	}
 	

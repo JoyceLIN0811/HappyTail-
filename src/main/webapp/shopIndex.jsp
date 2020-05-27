@@ -81,7 +81,7 @@
 
 	<div class="fh5co-loader"></div>
 
-		<jsp:include page="top.jsp" />
+		<jsp:include page="shopTop.jsp" />
 
 	<div id="page">
 		

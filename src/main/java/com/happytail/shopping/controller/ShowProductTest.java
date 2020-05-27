@@ -68,13 +68,12 @@ public class  ShowProductTest{
 
 		@PostMapping("/showProductByCategory")
 		public String showProductByCategory(Model m,HttpServletRequest request,@RequestParam("categoryId") Integer categoryId ) {
-//			System.out.println("進categoryId_#showProductByCategory");
-//			System.out.println("傳入資料狀況:"+categoryId);	
+
+			System.out.println("傳入資料狀況:"+categoryId);	
 			List<ProductBean> list = dao.selectCategory(categoryId);
 			m.addAttribute("productList", list);
-//			System.out.println("categoryId="+categoryId);
-//			System.out.println("list"+list);
-//			System.out.println("list"+list.get(0).getBiPhoto());
+			System.out.println("抓取資料成功");
+
 			return "showProduct";
 		}
 	
