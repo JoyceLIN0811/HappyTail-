@@ -21,7 +21,8 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 		"com.happytail.reservation.controller",
 		"com.happytail.admin.controller",
 		"com.happytail.member.controller",
-		"com.happytail.general.controller"})
+		"com.happytail.general.controller",
+		"com.happytail"})
 //@Import()
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
@@ -33,6 +34,10 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/static/js/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/static/img/");
 		registry.addResourceHandler("/template/**").addResourceLocations("/WEB-INF/pages/template/");
+		registry.addResourceHandler("/shopCss/**").addResourceLocations("/WEB-INF/static/shopCss/");
+		registry.addResourceHandler("/shopJs/**").addResourceLocations("/WEB-INF/static/shopJs/");
+//		registry.addResourceHandler("/shopFonts/**").addResourceLocations("/WEB-INF/static/shopFonts/");
+		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/static/shopImages/");
 	}
 	
 	// for file upload
