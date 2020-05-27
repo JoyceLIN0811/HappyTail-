@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
+
+import net.bytebuddy.asm.Advice.This;
 @Component
 @Entity
 @Table(name = "ProductLike")
@@ -24,6 +27,8 @@ public class ProductLike {
 	private Integer petMemberId;
 	@Column(name="updatetime")
 	private java.sql.Timestamp updatetime;
+	@Transient
+	private ProductBean bean;
 	
 	
 	
@@ -38,9 +43,7 @@ public class ProductLike {
 		
 	}
 	
-	public int getLikeId() {
-		return productLikeId;
-	}
+
 	public void setProductLikeId(int productLikeId) {
 		this.productLikeId = productLikeId;
 	}
@@ -62,5 +65,16 @@ public class ProductLike {
 	public void setUpdatetime(java.sql.Timestamp updatetime) {
 		this.updatetime = updatetime;
 	}
+	public ProductBean getBean() {
+		return bean;
+	}
+	public void setBean(ProductBean bean) {
+		this.bean = bean;
+	}
+	public int getProductLikeId() {
+		return productLikeId;
+	}
+	
+	
 	
 }

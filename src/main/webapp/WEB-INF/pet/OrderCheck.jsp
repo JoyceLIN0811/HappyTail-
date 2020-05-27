@@ -138,7 +138,7 @@
 							<div class="col-md-4">
 								<!-- <label for="fname">First Name</label> -->
 								<div class="form-control" style='text-align: center'>
-								會員編號:${LoginOK.getMemberId()}
+								會員編號:${LoginOK.getId()}
 								</div>
 							</div>
 							<div class="col-md-4">
