@@ -19,12 +19,12 @@ public interface PetMembersService {
 	
 	public boolean deletePetMembers(int memberId);
 
-	PetMembers selectPetMembers(String password, String username);
+	PetMembers selectPetMembers(String password, String account);
 
 	PetMembers updatePetMembers(PetMembers petMember);
 
-	PetMembers checkLogin(String username, String password);
+	PetMembers checkLogin(String account, String password);
 
-	String selectPetMembers(String username);
+	String selectPetMembers(String account);
 	
 }

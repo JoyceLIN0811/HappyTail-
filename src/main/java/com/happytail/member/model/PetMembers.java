@@ -34,7 +34,8 @@ public class PetMembers {
 	private Blob memberImage;
 	private String fileName;
 	private Timestamp registerTime = new Timestamp(System.currentTimeMillis());
-	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateDate;
+//	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	private Integer status = 0;
 
 	public PetMembers(String account, 

@@ -21,13 +21,13 @@ public interface PetMembersDAO {
 	
 	public boolean deletePetMembers(int memberId);
 
-	PetMembers selectPetMembers(String password, String username);
+	PetMembers selectPetMembers(String password, String account);
 
 	PetMembers updatePetMembers(PetMembers petMember);
 
 	PetMembers checkLogin(String memberId, String password);
 
-	public String selectPetMembers(String username);
+	public String selectPetMembers(String account);
 	
 	
 }

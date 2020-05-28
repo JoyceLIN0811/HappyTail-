@@ -19,9 +19,9 @@ public class PetMembersServiceImpl implements PetMembersService{
 	
 	
 	@Override
-	public PetMembers checkLogin(String username,String password) {
+	public PetMembers checkLogin(String account,String password) {
 		
-		PetMembers petMember = petMembersDAO.selectPetMembers(username, password);
+		PetMembers petMember = petMembersDAO.selectPetMembers(account, password);
 	
 			return petMember;	
 	}
@@ -44,17 +44,17 @@ public class PetMembersServiceImpl implements PetMembersService{
 	}
 	
 	@Override
-	public String selectPetMembers(String username) {
+	public String selectPetMembers(String account) {
 		
-		String petMember = petMembersDAO.selectPetMembers(username);
+		String petMember = petMembersDAO.selectPetMembers(account);
 	
 		return  petMember;
 	}
 	
 	@Override
-	public PetMembers selectPetMembers(String password, String username) {
+	public PetMembers selectPetMembers(String password, String account) {
 		
-		PetMembers petMember = petMembersDAO.selectPetMembers(password,username);
+		PetMembers petMember = petMembersDAO.selectPetMembers(password,account);
 		
 		return  petMember;
 	}

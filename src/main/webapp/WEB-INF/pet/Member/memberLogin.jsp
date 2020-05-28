@@ -10,15 +10,26 @@
 <body style="background-color: lightblue">
 
 	<h2>會員登入</h2>
-	<form action="<c:url value="#" />" method="post">
+	<form action="<c:url value="loginCheck" />" method="post">
 		<table>
 			<tr>
-				<td>Username :	</td>
-				<td><input type="text" name="username" /></td>
+				<td>Account :	</td>
+				<td><input type="text" name="account"  value = "${param.account }"/></td>
+				<td><font color='red' size="-1">${requestScope.ErrorMsg.accountError }</font></td>
+				
 			</tr>
 			<tr>
 				<td>Password : 	</td>
-				<td><input type="password" name="password" /></td>
+				<td><input type="password" name="password"  value = "${param.password }"/></td>
+				<td><font color='red' size="-1">${requestScope.ErrorMsg.passwordError }</font></td>
+				
+			</tr>
+			<tr><td><font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font></td></tr>
+			<tr>
+				<td>
+					<a href=""><small>忘記密碼?</small></a>
+				<td>
+				
 			</tr>
 		</table>
 		<button  type="submit" name="login">登入</button>

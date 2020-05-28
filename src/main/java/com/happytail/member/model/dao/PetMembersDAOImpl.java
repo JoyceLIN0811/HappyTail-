@@ -26,15 +26,12 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}	
 	
 	@Override
-	public PetMembers checkLogin(String username,String password) {
+	public PetMembers checkLogin(String account,String password) {
 		
-		PetMembers result = selectPetMembers(username, password);
+		PetMembers result = selectPetMembers(account, password);
 	
 			return result;	
-	}
-	
-	
-	
+	}	
 	
 	@Override
 	public PetMembers insertPetMembers(PetMembers petMembers) {
@@ -46,8 +43,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 			petMembers.setRegisterTime(new Timestamp(System.currentTimeMillis()));
 			getSession().save(petMembers);
 			return petMembers;
-		}
-		
+		}		
 		return null;
 	}
 	
@@ -58,31 +54,30 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}
 	
 	@Override
-	public String selectPetMembers(String username) {
-		Query<PetMembers> query = getSession().createQuery("From PetMembers where username=:username", PetMembers.class);
-		query.setParameter("username", username);
+	public String selectPetMembers(String account) {
+		Query<PetMembers> query = getSession().createQuery("From PetMembers where account=:account", PetMembers.class);
+		query.setParameter("account", account);
 		PetMembers bean = (PetMembers) query.uniqueResult();
 		if(bean == null) {
 			return null;
 		}
-		return bean.getUsername();
+		return bean.getAccount();
 	}
 	
 	@Override
-	public PetMembers selectPetMembers(String username, String password) {		
+	public PetMembers selectPetMembers(String account, String password) {		
 		
-		Query<PetMembers> query = getSession().createQuery("from PetMembers where username=?1 and password=?2", PetMembers.class);
-		query.setParameter(1, username);
+		Query<PetMembers> query = getSession().createQuery("from PetMembers where account=?1 and password=?2", PetMembers.class);
+		query.setParameter(1, account);
 		query.setParameter(2, password);
-		System.out.println(username + "  " + password);
+		System.out.println(account + "  " + password);
 		PetMembers result = null;
 		try {
 			result = (PetMembers) query.getSingleResult();
 		}catch(NoResultException nre) {
 			nre.printStackTrace();
 			return result;
-		}
-		
+		}		
 		return result;
 	}
 	
@@ -91,8 +86,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 		
 		Query<PetMembers> query = getSession().createQuery("from PetMembers", PetMembers.class);
 		List<PetMembers> list = query.list();
-		return list;
-		
+		return list;		
 	}
 	
 	@Override
@@ -101,6 +95,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 		PetMembers pMember = getSession().get(PetMembers.class, petMember.getMemberId());
 		
 		if(pMember != null) {
+			pMember.setAccount(petMember.getAccount());
 			pMember.setEmail(petMember.getEmail());
 			pMember.setPassword(petMember.getPassword());
 			pMember.setUsername(petMember.getUsername());
@@ -114,8 +109,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 			pMember.setFileName(petMember.getFileName());
 			
 			getSession().update(pMember);
-		}
-		
+		}		
 		return petMember;
 	}
 	
@@ -126,10 +120,8 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 		if(petMember!=null) {
 			getSession().delete(petMember);
 			return true;
-		}
-		
+		}		
 		return false;
-	}	
-	
+	}		
 	
 }
