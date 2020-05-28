@@ -48,7 +48,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}
 	
 	@Override
-	public PetMembers selectPetMembers(int memberId) {		
+	public PetMembers selectPetMembers(Integer memberId) {		
 		
 		return getSession().get(PetMembers.class , memberId);
 	}
@@ -114,7 +114,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}
 	
 	@Override
-	public boolean deletePetMembers(int memberId) {
+	public boolean deletePetMembers(Integer memberId) {
 		PetMembers petMember = getSession().get(PetMembers.class, memberId);
 		
 		if(petMember!=null) {
