@@ -40,6 +40,8 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/shopJs/**").addResourceLocations("/WEB-INF/static/shopJs/");
 		registry.addResourceHandler("/shopFonts/**").addResourceLocations("/WEB-INF/static/fonts/");
 		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/static/shopImages/");
+		//後台系統
+		registry.addResourceHandler("/admin/**").addResourceLocations("/WEB-INF/static/admin/");
 	}
 	
 	// for file upload
