@@ -1,4 +1,4 @@
-package com.happytail.member.model.dao;
+package com.happytail.member.model.service;
 
 import java.util.List;
 
@@ -6,9 +6,7 @@ import com.happytail.member.model.PetMembers;
 
 
 
-
-
-public interface PetMembersDAO {
+public interface PetMembersService {
 	
 	public PetMembers insertPetMembers(PetMembers petMembers);
 	
@@ -25,9 +23,8 @@ public interface PetMembersDAO {
 
 	PetMembers updatePetMembers(PetMembers petMember);
 
-	PetMembers checkLogin(String memberId, String password);
+	PetMembers checkLogin(String username, String password);
 
-	public String selectPetMembers(String username);
-	
+	String selectPetMembers(String username);
 	
 }

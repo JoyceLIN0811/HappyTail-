@@ -1,5 +1,6 @@
 package com.happytail.member.model;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -18,25 +19,28 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "PetMembers")
 public class PetMembers {
-	private Integer id;
+	private Integer memberId;
 	private String account;
 	private String email;
 	private String password;
+	private String startCode;
+	private String temporaryPassword;
 	private String username;
 	private String gender;
 	private Integer age;
 	private Date bday ;
 	private String address;
 	private String phone;
-	private String memberImage;
-	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
+	private Blob memberImage;
+	private String fileName;
+	private Timestamp registerTime = new Timestamp(System.currentTimeMillis());
 	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	private Integer status = 0;
 
 	public PetMembers(String account, 
 			String email, String password, String username, 
 			String gender, Integer age, Date bday, String address,
-			String phone, String memberImage, Timestamp createDate,Timestamp updateDate) {
+			String phone, Blob memberImage, Timestamp createDate,Timestamp updateDate) {
 		this.account = account;
 		this.email = email;
 		this.password = password;
@@ -47,7 +51,7 @@ public class PetMembers {
 		this.address = address;
 		this.phone = phone;
 		this.memberImage = memberImage;
-		this.createDate = createDate;
+		this.registerTime = createDate;
 		this.updateDate = updateDate;
 	}
 
@@ -57,12 +61,12 @@ public class PetMembers {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getId() {
-		return id;
+	public Integer getMemberId() {
+		return memberId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
 	}
 	
 	@Column(name = "account")
@@ -146,22 +150,49 @@ public class PetMembers {
 	}
 
 	@Column(name = "memberImage")
-	public String getMemberImage() {
+	public Blob getMemberImage() {
 		return memberImage;
 	}
 
-	public void setMemberImage(String memberImage) {
+	public void setMemberImage(Blob memberImage) {
 		this.memberImage = memberImage;
 	}
 	
 	@Column(name = "createDate")
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
-	public Timestamp getCreateDate() {
-		return createDate;
+	public Timestamp getRegisterTime() {
+		return registerTime;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
+	public void setRegisterTime(Timestamp registerTime) {
+		this.registerTime = registerTime;
+	}
+	
+	@Column(name = "startCode")
+	public String getStartCode() {
+		return startCode;
+	}
+
+	public void setStartCode(String startCode) {
+		this.startCode = startCode;
+	}
+
+	@Column(name = "temporaryPassword")
+	public String getTemporaryPassword() {
+		return temporaryPassword;
+	}
+
+	public void setTemporaryPassword(String temporaryPassword) {
+		this.temporaryPassword = temporaryPassword;
+	}
+	
+	@Column(name = "memberFileName")
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	@Column(name = "updateDate")
@@ -185,9 +216,9 @@ public class PetMembers {
 
 	@Override
 	public String toString() {
-		return "PetMembers [id=" + id + ", account=" + account + ", email=" + email + ", password=" + password
+		return "PetMembers [id=" + memberId + ", account=" + account + ", email=" + email + ", password=" + password
 				+ ", username=" + username + ", gender=" + gender + ", age=" + age + ", bday=" + bday + ", address="
-				+ address + ", phone=" + phone + ", memberImage=" + memberImage + ", createDate=" + createDate
+				+ address + ", phone=" + phone + ", memberImage=" + memberImage + ", createDate=" + registerTime
 				+ ", updateDate=" + updateDate + ", status=" + status + "]";
 	}
 
