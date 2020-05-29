@@ -42,6 +42,10 @@ public class NoticeUtil {
 			case NoticeType.UpdateTopic:
 				template = "追蹤的文章 %s 更新了，快去看看吧！";
 				break;
+			
+			case NoticeType.ReceiveReservation:
+				template = "使用者 %s %s 了";
+				break;
 				
 			default: 
 				template = "";

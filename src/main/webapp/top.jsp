@@ -128,7 +128,7 @@
 		<li><a href="#!">one</a></li>
 		<li><a href="#!">two</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">three</a></li>
+		<li><a href="<c:url value='queryback' />">reservation</a></li>
 		<li><a href="#!">three</a></li>
 		<li><a href="#!">three</a></li>
 		<li><a href="#!">three</a></li>
@@ -139,7 +139,7 @@
 	<ul id='dropdown2' class='dropdown-content'>
 		<li><a href="#!">Online Shop</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">Reservation Service</a></li>
+		<li><a href="<c:url value='/Evaluationlist' />">Reservation Service</a></li>
 		<li class="divider"></li>
 		<li><a href="#!">Pet Forum</a></li>
 	</ul>

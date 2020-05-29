@@ -16,10 +16,13 @@ import com.happytail.general.model.Notice;
 import com.happytail.general.model.dao.CodeMapDAO;
 import com.happytail.general.model.dao.NoticeDAO;
 import com.happytail.general.util.Const;
+import com.happytail.general.util.Const.Admin;
 import com.happytail.general.util.Const.NoticeType;
 import com.happytail.general.util.NoticeUtil;
 import com.happytail.member.model.PetMembers;
 import com.happytail.member.model.dao.PetMembersDAO;
+import com.happytail.reservation.model.ReservationBean;
+import com.happytail.reservation.model.dao.ReservationDao;
 
 @Service
 @Transactional
@@ -37,9 +40,38 @@ public class NoticeService {
 	@Autowired
 	private CodeMapDAO codeMapDAO;
 	
+	@Autowired
+	private ReservationDao reservationDao;
+	
 //	@Resource(name="brokerMessagingTemplate")
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
+	
+	public void sendReservationNotice(ReservationBean reservation) {
+		
+		ReservationBean reservationBean = reservationDao.select(reservation.getReservationId());
+		if (reservationBean != null) {
+			String statuss = reservationBean.getStatuss();
+			String reservationUsername = reservation.getUsername();
+			String template = NoticeUtil.getNoticeTemplate(NoticeType.ReceiveReservation);
+			String module = Const.ModuleType.Reservation;
+			String noticeMsg = String.format(template, reservationUsername, statuss);
+			
+			Notice notice = new Notice();
+			String sadminUserId= NoticeUtil.getNoticeTemplate(Admin.AdminUserId);
+			Integer adminUserId =  Integer.parseInt(sadminUserId);
+			notice.setId(adminUserId);
+			notice.setUsername(NoticeUtil.getNoticeTemplate(Admin.AdminUserName));
+			notice.setModule(module);
+			notice.setMessage(noticeMsg);
+			saveNotice(notice);
+			sendNotice(notice);
+		} else {
+			System.out.println("cannot find the topicId: " + reservation.getReservationId());
+		}
+			
+	}
+
 	
 	public void sendReplyTopicNotice(Reply reply) {
 		// "replyusername 回覆了你的文章 title"

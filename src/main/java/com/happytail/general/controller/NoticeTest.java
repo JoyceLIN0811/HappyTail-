@@ -20,6 +20,8 @@ import com.happytail.general.model.Notice;
 import com.happytail.general.model.dao.NoticeDAO;
 import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Const.ThumbsUpType;
+import com.happytail.reservation.model.ReservationBean;
+import com.happytail.reservation.model.dao.ReservationDao;
 
 @RestController
 //@RequestMapping("/happytail")
@@ -38,7 +40,10 @@ public class NoticeTest {
 	private ThumbsUpDAO thumbsUpDAO;
 	
 	@Autowired
-	FollowDAO followDAO;
+	private FollowDAO followDAO;
+	
+	@Autowired
+	private ReservationDao reservationDao;
 
 	@PostMapping("/insertnotice")
 	public Map<String, String> post(@ModelAttribute Notice notice) {
@@ -105,5 +110,17 @@ public class NoticeTest {
 		map.put("insert", "success");
 		return map;
 	}
+	
+	@PostMapping("/insertReservationNotice")
+	public Map<String, String> postReservation(@ModelAttribute ReservationBean reservation){
+		
+		Map<String, String> map = new HashMap<String, String>();
+		reservationDao.save(reservation);
+		noticeService.sendReservationNotice(reservation);
+		
+		map.put("insert", "success");
 
+		return map;
+	}
+	
 }

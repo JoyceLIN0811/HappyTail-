@@ -8,10 +8,17 @@ public class Const {
 		public static final String LikeTopic = "LikeTopic";
 		public static final String LikeReply = "LikeReply";
 		public static final String UpdateTopic = "UpdateTopic";
+		public static final String ReceiveReservation = "ReceiveReservation";
 	}
-
+	
+	public static class Admin {
+		public static final String AdminUserId = "999";
+		public static final	String AdminUserName = "scott";
+	}
+	
 	public static class ModuleType {
 		public static final String Forum = "Forum";
+		public static final String Reservation = "Reservation";
 	}
 	
 	public static class CategoryType {
