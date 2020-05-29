@@ -101,7 +101,7 @@ public class NoticeService {
 	public void sendAtReplyNotice(Reply reply, Integer userId) {
 		//"replyusername 在回覆中提及了你"
 
-		PetMembers petmembers = petMembersDAO.select(userId);
+		PetMembers petmembers = petMembersDAO.selectPetMembers(userId);
 		if (petmembers != null) {
 			String username = petmembers.getUsername();
 			String module = Const.ModuleType.Forum;
