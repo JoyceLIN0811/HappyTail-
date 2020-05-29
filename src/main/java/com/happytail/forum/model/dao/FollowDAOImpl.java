@@ -1,9 +1,11 @@
 package com.happytail.forum.model.dao;
 
-import javax.persistence.NoResultException;
+import java.util.List;
+
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,9 @@ public class FollowDAOImpl implements FollowDAO {
 		return session;
 	}
 	
+	private final String selectIsFollowed =
+			"FROM com.happytail.forum.model.Follow WHERE topicId=:topicId and userId=:userId"; 
+
 	
 	@Override
 	public Follow insert(Follow follow) {
@@ -73,17 +78,19 @@ public class FollowDAOImpl implements FollowDAO {
 	}
 
 	@Override
-	public Follow select(Integer id) {
-		Follow follow = getSession().get(Follow.class, id);
-		try {
-			follow = getSession().get(Follow.class, id);
-		} catch (NoResultException e) {
-			e.printStackTrace();
+	public Follow select(Integer topicId, Integer userId) {
+		Query<Follow> check = getSession().createQuery(selectIsFollowed, Follow.class);
+		check.setParameter("topicId", topicId);
+		check.setParameter("userId", userId);
+		
+		List<Follow> list = check.list();
+		
+		if(list == null || list.size() == 0) {
 			System.out.println("No result");
 			return null;
 		}
 
-		return follow;
+		return list.get(0);
 	}
 
 }

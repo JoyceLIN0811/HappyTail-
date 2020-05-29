@@ -1,9 +1,12 @@
 package com.happytail.forum.model.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +26,12 @@ public class ThumbsUpDAOImpl implements ThumbsUpDAO {
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
+	
+	private final String selectTopicIsThumbsUp =
+			"FROM com.happytail.forum.model.ThumbsUp WHERE topicId=:topicId and userId=:userId"; 
+	private final String selectReplyIsThumbsUp =
+			"FROM com.happytail.forum.model.ThumbsUp WHERE topicId=:topicId and userId=:userId and replyId=: replyId"; 
+
 
 	@Override
 	public ThumbsUp insert(ThumbsUp thumbsUp) {
@@ -72,17 +81,36 @@ public class ThumbsUpDAOImpl implements ThumbsUpDAO {
 	}
 
 	@Override
-	public ThumbsUp select(Integer id) {
-		ThumbsUp thumbsUp = getSession().get(ThumbsUp.class, id);
-		try {
-			thumbsUp = getSession().get(ThumbsUp.class, id);
-		} catch (NoResultException e) {
-			e.printStackTrace();
+	public ThumbsUp selectByTopic(Integer topicId, Integer userId) {
+		Query<ThumbsUp> check = getSession().createQuery(selectTopicIsThumbsUp, ThumbsUp.class);
+		check.setParameter("topicId", topicId);
+		check.setParameter("userId", userId);
+		
+		List<ThumbsUp> list = check.list();
+		
+		if(list == null || list.size() == 0) {
 			System.out.println("No result");
 			return null;
 		}
 
-		return thumbsUp;
+		return list.get(0);
+	}
+	
+	@Override
+	public ThumbsUp selectByReply(Integer topicId, Integer replyId,Integer userId) {
+		Query<ThumbsUp> check = getSession().createQuery(selectReplyIsThumbsUp, ThumbsUp.class);
+		check.setParameter("topicId", topicId);
+		check.setParameter("replyId", replyId);
+		check.setParameter("userId", userId);
+		
+		List<ThumbsUp> list = check.list();
+		
+		if(list == null || list.size() == 0) {
+			System.out.println("No result");
+			return null;
+		}
+
+		return list.get(0);
 	}
 
 }

@@ -1,17 +1,22 @@
 package com.happytail.forum.model.dao;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.forum.model.Reply;
+import com.happytail.forum.model.TopicImage;
 
 @Repository
-public class ReplyDAOImpl implements ReplyDAO {
+public class TopicImageDAOImpl implements TopicImageDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	public TopicImageDAOImpl() {
+	}
 
 	public Session getSession() {
 		Session session = sessionFactory.getCurrentSession();
@@ -19,25 +24,28 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public Reply insert(Reply reply) {
+	public TopicImage insert(TopicImage topicImage) {
 		try {
-			if (reply != null) {
-				getSession().save(reply);
+			if (topicImage != null) {
+				getSession().save(topicImage);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Insert fail");
 			return null;
 		}
-		return reply;
+
+		return topicImage;
 	}
 
 	@Override
 	public boolean delete(Integer id) {
+		TopicImage topicImage = getSession().get(TopicImage.class, id);
 		try {
-			if (id != null) {
-				getSession().delete(id);
+			if (topicImage != null) {
+				getSession().delete(topicImage);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Delete fail");
@@ -47,43 +55,35 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public Reply update(Reply reply) {
+	public TopicImage update(TopicImage topicImage) {
 		try {
-			if (reply != null) {
-				getSession().update(reply);
+			if (topicImage != null) {
+				getSession().update(topicImage);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Update fail");
 			return null;
 		}
-		return reply;
+		return topicImage;
 	}
 
 	@Override
-	public Reply select(Integer id) {
-		Reply reply = null;
+	public TopicImage select(Integer topicId) {
+		if(topicId == null) {
+			return null;
+		}
+		TopicImage topicImage = null;
 		try {
-			reply = getSession().get(Reply.class, id);
-		} catch (Exception e) {
+			topicImage = getSession().get(TopicImage.class, topicId);
+		} catch (NoResultException e) {
 			e.printStackTrace();
 			System.out.println("No result");
 			return null;
 		}
-		return reply;
-	}
 
-	@Override
-	public Reply selectByTopicId(Integer topicId) {
-		Reply reply = null;
-		try {
-			reply = getSession().get(Reply.class, topicId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("No result");
-			return null;
-		}
-		return reply;
+		return topicImage;
 	}
 
 }

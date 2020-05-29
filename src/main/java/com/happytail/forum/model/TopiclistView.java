@@ -141,7 +141,7 @@ public class TopiclistView {
 		this.likeNum = likeNum;
 	}
 
-	@Column(name = "key")
+	@Column(name = "[key]")
 	public String getKey() {
 		return key;
 	}

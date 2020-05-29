@@ -1,11 +1,15 @@
 package com.happytail.forum.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component
 @Entity
@@ -22,10 +26,12 @@ public class ThumbsUpView {
 	private String type;
 	private Integer categoryId;
 	private String category;
+	private Timestamp createDate;
+
 	
 	public ThumbsUpView(Integer memberId, String username, Integer topicId
 	,String title, Integer replyId, String replyContent, String type
-	,Integer categoryId, String category) {
+	,Integer categoryId, String category, Timestamp createDate) {
 		this.memberId  = memberId;
 		this.username = username;
 		this.topicId = topicId;
@@ -35,6 +41,8 @@ public class ThumbsUpView {
 		this.type = type;
 		this.categoryId = categoryId;
 		this.category = category;
+		this.createDate = createDate;
+
 	}
 	
 	public ThumbsUpView() {
@@ -132,11 +140,21 @@ public class ThumbsUpView {
 		this.category = category;
 	}
 
+	@Column(name = "createDate")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ThumbsUpView [id=" + id + ", memberId=" + memberId + ", username=" + username + ", topicId=" + topicId
 				+ ", title=" + title + ", replyId=" + replyId + ", replyContent=" + replyContent + ", type=" + type
-				+ ", categoryId=" + categoryId + ", category=" + category + "]";
+				+ ", categoryId=" + categoryId + ", category=" + category + ", createDate=" + createDate + "]";
 	}
 	
 	

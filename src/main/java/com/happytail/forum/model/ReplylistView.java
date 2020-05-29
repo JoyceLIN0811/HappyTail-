@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,8 @@ public class ReplylistView {
 	private String replyContent;
 	private Timestamp createDate;
 	private Integer likeNum;
+	private Boolean isThumbsUp;
+
 	
 	public ReplylistView(Integer replyId, Integer memberId, String username
 	, Integer topicId, String title, String replyContent, Timestamp createDate
@@ -115,13 +118,23 @@ public class ReplylistView {
 	public void setLikeNum(Integer likeNum) {
 		this.likeNum = likeNum;
 	}
+	
+	@Transient
+	public Boolean getIsThumbsUp() {
+		return isThumbsUp;
+	}
+
+
+	public void setIsThumbsUp(Boolean isThumbsUp) {
+		this.isThumbsUp = isThumbsUp;
+	}
 
 	@Override
 	public String toString() {
 		return "ReplylistView [replyId=" + replyId + ", memberId=" + memberId + ", username=" + username + ", topicId="
 				+ topicId + ", title=" + title + ", replyContent=" + replyContent + ", createDate=" + createDate
-				+ ", likeNum=" + likeNum + "]";
+				+ ", likeNum=" + likeNum + ", isThumbsUp=" + isThumbsUp + "]";
 	}
-	
-	
+
+
 }

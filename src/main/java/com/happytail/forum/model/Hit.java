@@ -59,7 +59,7 @@ public class Hit {
 		this.topicId = topicId;
 	}
 
-	@Column(name = "count")
+	@Column(name = "[count]")
 	public Integer getCount() {
 		return count;
 	}

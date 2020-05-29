@@ -1,13 +1,18 @@
 package com.happytail.forum.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.happytail.forum.model.ReportlistView;
+import com.happytail.general.util.Page;
+import com.happytail.general.util.PageInfo;
 
 public interface ReportlistViewDAO {
 	
-	public List<ReportlistView> select();
+	public Page<ReportlistView> getAllReplylist(PageInfo pageInfo);
 	
-	public Long Counts();
+	public Long counts();
+
+//	public List<ReportlistView> select();
 
 }

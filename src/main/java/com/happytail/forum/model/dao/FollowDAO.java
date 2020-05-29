@@ -11,6 +11,6 @@ public interface FollowDAO {
 	//update改變status或更新文章
 	public Follow update(Follow follow);
 	
-	public Follow select(Integer id);
+	public Follow select(Integer topicId, Integer userId);
 
 }

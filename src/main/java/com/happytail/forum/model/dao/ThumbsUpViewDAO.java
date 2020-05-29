@@ -9,15 +9,17 @@ public interface ThumbsUpViewDAO {
 	
 	public List<ThumbsUpView> selectByTopicId(Integer topicId);
 
+	public List<String> selectBriefThumbsUp(Integer topicId, String type);
+	
 	public List<ThumbsUpView> selectByReplyId(Integer replyId);
 
 	public List<ThumbsUpView> selectByMemberId(Integer memberId);
 	
-	public Long TopicAllCounts(Integer topicId);
+	public Long topicAllCounts(Integer topicId);
 	
-	public Long TopicCategoryCounts(Integer categoryId);
+	public Long topicCategoryCounts(Integer categoryId);
 	
-	public Long ReplyAllCounts(Integer replyId);
+	public Long replyAllCounts(Integer replyId);
 
 
 }

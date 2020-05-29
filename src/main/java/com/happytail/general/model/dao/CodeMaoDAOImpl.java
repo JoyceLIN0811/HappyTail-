@@ -29,6 +29,9 @@ public class CodeMaoDAOImpl implements CodeMapDAO{
 	private final String selectValue =
 			"FROM com.happytail.general.model.CodeMap WHERE module=:module and type=:type and key=:key";
 
+	private final String selectValueList =
+			"FROM com.happytail.general.model.CodeMap WHERE module=:module and type=:type";
+
 
 	@Override
 	public CodeMap insert(CodeMap codeMap) {
@@ -64,5 +67,22 @@ public class CodeMaoDAOImpl implements CodeMapDAO{
 			return list.get(0);
 		}
 	}
+
+	@Override
+	public List<CodeMap> selectValueList(String module, String type) {
+		Query<CodeMap> check = getSession().createQuery(selectValueList, CodeMap.class);
+		check.setParameter("module", module);
+		check.setParameter("type", type);
 		
+		List<CodeMap> list = check.list();
+		
+		if(list == null || list.size() == 0) {
+			System.out.println("No result");
+			return null;
+		}
+		else {
+			return list;
+		}
+	}
+	
 }

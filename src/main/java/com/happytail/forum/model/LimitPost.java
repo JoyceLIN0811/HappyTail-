@@ -73,7 +73,7 @@ public class LimitPost {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-
+	
 	@Column(name = "expireTime")
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	public Timestamp getExpireTime() {
@@ -89,6 +89,6 @@ public class LimitPost {
 		return "LimitPost [id=" + id + ", userId=" + userId + ", username=" + username + ", imageUrl=" + imageUrl
 				+ ", expireTime=" + expireTime + "]";
 	}
-	
+
 	
 }

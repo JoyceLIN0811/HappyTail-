@@ -6,9 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.happytail.forum.model.ThumbsUpView;
-
+@Repository
 public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 
 	@Autowired
@@ -26,6 +27,7 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 	private final String SelectByTopicId = "FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId";
 	private final String SelectByReplyId = "FROM com.happytail.forum.model.ThumbsUpView WHERE replyId=:replyId";
 	private final String SelectByMemberId = "FROM com.happytail.forum.model.ThumbsUpView WHERE memberId=:memberId";
+	private final String SelectBriefThumbsUp = "SELECT DISTINCT FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId AND type=: type";
 	private final String TopicAllLikeCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId";
 	private final String TopicCategoryLikeCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId and categoryId =:categoryId";
 	private final String ReplyAllLikeCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.ThumbsUpView WHERE replyId=:replyId";
@@ -46,7 +48,8 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 	public List<ThumbsUpView> selectByReplyId(Integer replyId) {
 		List<ThumbsUpView> list = null;
 		try {
-			list = getSession().createQuery(SelectByReplyId, ThumbsUpView.class).setParameter("replyId", replyId)
+			list = getSession().createQuery(SelectByReplyId, ThumbsUpView.class)
+					.setParameter("replyId", replyId)
 					.getResultList();
 		} catch (Exception e) {
 			return null;
@@ -65,9 +68,23 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<String> selectBriefThumbsUp(Integer topicId, String type) {
+		List<String> list = null;
+		try {
+			list = getSession().createQuery(SelectBriefThumbsUp, String.class)
+					.setParameter("topicId", topicId)
+					.setParameter("type", type)
+					.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+		return list;
+	}
 
 	@Override
-	public Long TopicAllCounts(Integer topicId) {
+	public Long topicAllCounts(Integer topicId) {
 		Long count = null;
 		try {
 			Query query = getSession().createQuery(TopicAllLikeCounts);
@@ -79,7 +96,7 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 	}
 
 	@Override
-	public Long TopicCategoryCounts(Integer categoryId) {
+	public Long topicCategoryCounts(Integer categoryId) {
 		Long count = null;
 		try {
 			Query query = getSession().createQuery(TopicCategoryLikeCounts);
@@ -91,7 +108,7 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 	}
 
 	@Override
-	public Long ReplyAllCounts(Integer replyId) {
+	public Long replyAllCounts(Integer replyId) {
 		Long count = null;
 		try {
 			Query query = getSession().createQuery(ReplyAllLikeCounts);

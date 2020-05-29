@@ -54,6 +54,7 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 	@Bean
 	public ViewResolver beanNameViewResolver() {
 		BeanNameViewResolver bnvr = new BeanNameViewResolver();
+		bnvr.setOrder(0);
 		return bnvr;
 	}
 	

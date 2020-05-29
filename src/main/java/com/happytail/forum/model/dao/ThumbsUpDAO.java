@@ -10,5 +10,7 @@ public interface ThumbsUpDAO {
 	
 	public ThumbsUp update(ThumbsUp thumbsUp);
 	
-	public ThumbsUp select(Integer id);
+	public ThumbsUp selectByTopic(Integer topicId, Integer userId);
+
+	public ThumbsUp selectByReply(Integer topicId, Integer replyId, Integer userId);
 }
