@@ -23,7 +23,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 		"com.happytail.reservation.model", 
 		"com.happytail.admin.model", 
 		"com.happytail.member.model",
-		"com.happytail.general.model"})
+		"com.happytail.general.model",
+		"com.happytail.shopping"})
 @Import(com.happytail.config.SpringWebSocketJavaConfig.class)
 public class RootAppConfig {
 
@@ -62,7 +63,8 @@ public class RootAppConfig {
 				"com.happytail.reservation.model", 
 				"com.happytail.admin.model", 
 				"com.happytail.member.model",
-				"com.happytail.general.model"});
+				"com.happytail.general.model",
+				"com.happytail.shopping"});
 		return builder.buildSessionFactory();
 //		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 //		LocalSessionFactoryBean for xml
@@ -75,6 +77,7 @@ public class RootAppConfig {
 	private Properties hibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
+//		properties.put("hibernate.dialect", org.hibernate.dialect.SQLServer2012Dialect.class);
 		properties.put("hibernate.show_sql", true);
 		properties.put("hibernate.format_sql", true);
 //		properties.put("hibernate.current_session_context_class", "thread");
