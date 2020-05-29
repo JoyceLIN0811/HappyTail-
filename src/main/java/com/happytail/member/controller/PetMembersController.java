@@ -165,7 +165,7 @@ public class PetMembersController {
 	public String selectPetMembers(HttpServletRequest request, Model model) {		
 		HttpSession session = request.getSession();
 		PetMembers pMember = (PetMembers) session.getAttribute("LoginOK");
-		PetMembers petmember = service.selectPetMembers(Integer.valueOf(pMember.getMemberId()));
+		PetMembers petmember = service.selectPetMembers(Integer.valueOf(pMember.getId()));
 		
 		String gen = "M";		
 		boolean re =  petmember.getGender().equalsIgnoreCase(gen) ;
@@ -205,15 +205,19 @@ public class PetMembersController {
 		Map<String, String> errorMsg = new HashMap<String, String>();	
 		model.addAttribute("errorMsg", errorMsg);
 		
-		if(username == null || username.trim().length() == 0) {
-			errorMsg.put("usernameError", "帳號欄不可空白");
-		}else if(!username.isEmpty()) {
-			String un = service.selectPetMembers(username);
+		if(account == null || account.trim().length() == 0) {
+			errorMsg.put("accountError", "帳號欄不可空白");
+		}else if(!account.isEmpty()) {
+			String un = service.selectPetMembers(account);
 			
 			if(un != null) {
-				errorMsg.put("userIsExist", "會員帳號重複");				
+				errorMsg.put("accountIsExist", "會員帳號重複");				
 			}			
-		}		
+		}	
+		
+		if(username == null || username.trim().length() == 0) {
+			errorMsg.put("usernameError", "姓名欄不可空白");
+		}
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
@@ -236,9 +240,9 @@ public class PetMembersController {
 			errorMsg.put("mAge", "年齡格式錯誤");
 		}		
 		
-		if(memberImage.getSize() == 0) {
-			errorMsg.put("noImage", "請附上圖片");
-		} 
+//		if(memberImage.getSize() == 0) {
+//			errorMsg.put("noImage", "請附上圖片");
+//		} 
 		
 		if (!errorMsg.isEmpty()) {	
 			String gen = "M";

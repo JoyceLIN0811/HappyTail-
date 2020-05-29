@@ -36,9 +36,9 @@ public class PetMembersServiceImpl implements PetMembersService{
 	}
 
 	@Override
-	public PetMembers selectPetMembers(Integer memberId) {
+	public PetMembers selectPetMembers(Integer id) {
 		
-		PetMembers petMember = petMembersDAO.selectPetMembers(memberId);
+		PetMembers petMember = petMembersDAO.selectPetMembers(id);
 	
 		return  petMember;
 	}
@@ -76,9 +76,9 @@ public class PetMembersServiceImpl implements PetMembersService{
 	}
 
 	@Override
-	public boolean deletePetMembers(Integer memberId) {
+	public boolean deletePetMembers(Integer id) {
 		
-		boolean result = petMembersDAO.deletePetMembers(memberId);
+		boolean result = petMembersDAO.deletePetMembers(id);
 		
 		return result;
 	}

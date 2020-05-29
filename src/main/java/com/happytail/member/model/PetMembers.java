@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "PetMembers")
 public class PetMembers {
-	private Integer memberId;
+	private Integer id;
 	private String account;
 	private String email;
 	private String password;
@@ -62,12 +62,12 @@ public class PetMembers {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getMemberId() {
-		return memberId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setId(Integer memberId) {
+		this.id = memberId;
 	}
 	
 	@Column(name = "account")
@@ -217,7 +217,7 @@ public class PetMembers {
 
 	@Override
 	public String toString() {
-		return "PetMembers [id=" + memberId + ", account=" + account + ", email=" + email + ", password=" + password
+		return "PetMembers [id=" + id + ", account=" + account + ", email=" + email + ", password=" + password
 				+ ", username=" + username + ", gender=" + gender + ", age=" + age + ", bday=" + bday + ", address="
 				+ address + ", phone=" + phone + ", memberImage=" + memberImage + ", createDate=" + registerTime
 				+ ", updateDate=" + updateDate + ", status=" + status + "]";

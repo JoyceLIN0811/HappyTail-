@@ -36,11 +36,11 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	@Override
 	public PetMembers insertPetMembers(PetMembers petMembers) {
 		
-		Query<PetMembers> query = getSession().createQuery("From PetMembers where username=:username", PetMembers.class);
-		query.setParameter("username", petMembers.getUsername());
+		Query<PetMembers> query = getSession().createQuery("From PetMembers where account=:account", PetMembers.class);
+		query.setParameter("account", petMembers.getAccount());
 		PetMembers bean = (PetMembers) query.uniqueResult();
 		if(bean == null) {
-			petMembers.setRegisterTime(new Timestamp(System.currentTimeMillis()));
+//			petMembers.setRegisterTime(new Timestamp(System.currentTimeMillis()));
 			getSession().save(petMembers);
 			return petMembers;
 		}		
@@ -48,9 +48,9 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}
 	
 	@Override
-	public PetMembers selectPetMembers(Integer memberId) {		
+	public PetMembers selectPetMembers(Integer id) {		
 		
-		return getSession().get(PetMembers.class , memberId);
+		return getSession().get(PetMembers.class , id);
 	}
 	
 	@Override
@@ -92,7 +92,7 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	@Override
 	public PetMembers updatePetMembers(PetMembers petMember) {
 		
-		PetMembers pMember = getSession().get(PetMembers.class, petMember.getMemberId());
+		PetMembers pMember = getSession().get(PetMembers.class, petMember.getId());
 		
 		if(pMember != null) {
 			pMember.setAccount(petMember.getAccount());
@@ -114,8 +114,8 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}
 	
 	@Override
-	public boolean deletePetMembers(Integer memberId) {
-		PetMembers petMember = getSession().get(PetMembers.class, memberId);
+	public boolean deletePetMembers(Integer id) {
+		PetMembers petMember = getSession().get(PetMembers.class,id);
 		
 		if(petMember!=null) {
 			getSession().delete(petMember);
