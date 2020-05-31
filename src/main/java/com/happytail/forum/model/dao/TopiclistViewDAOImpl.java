@@ -31,96 +31,124 @@ public class TopiclistViewDAOImpl implements TopiclistViewDAO {
 	public TopiclistViewDAOImpl() {
 
 	}
-
-	private final String SelectAllTopic = "FROM com.happytail.forum.model.TopiclistView ORDER BY createTime DESC";
-	private final String SelectByCategoryId = "FROM com.happytail.forum.model.TopiclistView WHERE categoryId=:categoryId ORDER BY createTime DESC";
-	private final String SelectByMemberId = "FROM com.happytail.forum.model.TopiclistView WHERE memberId=:memberId ORDER BY createTime DESC";
-	private final String SelectHitAllTopic = "FROM com.happytail.forum.model.TopiclistView ORDER BY count DESC";
-	private final String SelectHitCategoryTopic = "FROM com.happytail.forum.model.TopiclistView WHERE categoryId=:categoryId ORDER BY count DESC";
+	//all topic
+	private final String SelectAllTopic = "FROM com.happytail.forum.model.TopiclistView ORDER BY createDate DESC";
 	private final String AllTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView";
+	
+	//per category topic
+	private final String SelectByCategoryId = "FROM com.happytail.forum.model.TopiclistView t WHERE t.categoryId = :categoryId ORDER BY t.createDate DESC";
 	private final String CategoryTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE categoryId=:categoryId";
+
+	//self topic
+	private final String SelectByMemberId = "FROM com.happytail.forum.model.TopiclistView WHERE memberId=:memberId ORDER BY createDate DESC";
 	private final String MyTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE memberId=:memberId";
+
+	//self follow or thumbsUp topic
+	private final String SelectByTopicIdList = "FROM com.happytail.forum.model.TopiclistView WHERE topicId in (:topicIdList) ORDER BY createDate DESC";
+	private final String FollowOrThumbsUpTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE topicId in (:topicIdList)";
+
+	//self favorite category topic
+	private final String SelectByFavorteCategoryId = "FROM com.happytail.forum.model.TopiclistView WHERE categoryId in (:categoryId) ORDER BY createDate DESC";
+	private final String FavorateTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE categoryId in (:categoryIdList)";
+
+	//all hit topic
+	private final String SelectHitAllTopic = "FROM com.happytail.forum.model.TopiclistView t ORDER BY t.count DESC";
+	
+	//per category hit topic
+	private final String SelectHitTopicByCategoryId = "FROM com.happytail.forum.model.TopiclistView t WHERE t.categoryId=:categoryId ORDER BY t.count DESC";
+
+	
 
 	@Override
 	public Page<TopiclistView> getAllTopiclist(PageInfo pageInfo) {
 
 		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
-		List<TopiclistView> resultList = getSession()
-				.createQuery(SelectAllTopic, TopiclistView.class)
-				.setFirstResult(startPosition)
-				.setMaxResults(pageInfo.getPageSize())
-				.getResultList();
+		List<TopiclistView> resultList = getSession().createQuery(SelectAllTopic, TopiclistView.class)
+				.setFirstResult(startPosition).setMaxResults(pageInfo.getPageSize()).getResultList();
 		Query query = getSession().createQuery(AllTopicCounts);
 		Long totalCount = (Long) query.uniqueResult();
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}
-
+	
 	@Override
-	public Page<TopiclistView> getCategoryTopiclist(PageInfo pageInfo,Integer categoryId) {
-
+	public Page<TopiclistView> getCategoryTopiclist(Integer categoryId, PageInfo pageInfo){
 		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
-		List<TopiclistView> resultList = getSession()
-				.createQuery(SelectByCategoryId, TopiclistView.class)
-				.setParameter("categoryId", categoryId)
-				.setFirstResult(startPosition)
-				.setMaxResults(pageInfo
-						.getPageSize())
-				.getResultList();
+		System.out.println("categoryId = " + categoryId);
+		System.out.println("pageInfo.getPageSize() = " + pageInfo.getPageSize());
+		System.out.println("pageInfo.getPageNum() = " + pageInfo.getPageNum());
+		
+		List<TopiclistView> resultList = getSession().createQuery(SelectByCategoryId, TopiclistView.class)
+				.setParameter("categoryId", categoryId).setFirstResult(startPosition)
+				.setMaxResults(pageInfo.getPageSize()).getResultList();
 		Query query = getSession().createQuery(CategoryTopicCounts);
+		query.setParameter("categoryId", categoryId);
 		Long totalCount = (Long) query.uniqueResult();
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}
 
 	@Override
-	public Page<TopiclistView> getMemberIdTopiclist(PageInfo pageInfo, Integer memberId) {
+	public Page<TopiclistView> getMemberIdTopiclist(Integer memberId, PageInfo pageInfo) {
 		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
-		List<TopiclistView> resultList = getSession()
-				.createQuery(SelectByMemberId, TopiclistView.class)
-				.setParameter("memberId", memberId)
-				.setFirstResult(startPosition)
-				.setMaxResults(pageInfo
-				.getPageSize())
+		List<TopiclistView> resultList = getSession().createQuery(SelectByMemberId, TopiclistView.class)
+				.setParameter("memberId", memberId).setFirstResult(startPosition).setMaxResults(pageInfo.getPageSize())
 				.getResultList();
 		Query query = getSession().createQuery(MyTopicCounts);
 		Long totalCount = (Long) query.uniqueResult();
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}
-	
+
 	@Override
 	public Page<TopiclistView> getHitAllTopiclist(PageInfo pageInfo) {
 
 		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
-		List<TopiclistView> resultList = getSession()
-				.createQuery(SelectHitAllTopic, TopiclistView.class)
-				.setFirstResult(startPosition)
-				.setMaxResults(pageInfo.getPageSize())
-				.getResultList();
+		List<TopiclistView> resultList = getSession().createQuery(SelectHitAllTopic, TopiclistView.class)
+				.setFirstResult(startPosition).setMaxResults(pageInfo.getPageSize()).getResultList();
 		Query query = getSession().createQuery(AllTopicCounts);
 		Long totalCount = (Long) query.uniqueResult();
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}
-	
+
 	@Override
-	public Page<TopiclistView> getHitCategoryTopiclist(PageInfo pageInfo,Integer categoryId) {
+	public Page<TopiclistView> getHitCategoryTopiclist(Integer categoryId, PageInfo pageInfo) {
 
 		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
-		List<TopiclistView> resultList = getSession()
-				.createQuery(SelectHitCategoryTopic, TopiclistView.class)
-				.setParameter("categoryId", categoryId)
-				.setFirstResult(startPosition)
-				.setMaxResults(pageInfo
-						.getPageSize())
-				.getResultList();
+		List<TopiclistView> resultList = getSession().createQuery(SelectHitTopicByCategoryId , TopiclistView.class)
+				.setParameter("categoryId", categoryId).setFirstResult(startPosition)
+				.setMaxResults(pageInfo.getPageSize()).getResultList();
 		Query query = getSession().createQuery(CategoryTopicCounts);
+		query.setParameter("categoryId", categoryId);
 		Long totalCount = (Long) query.uniqueResult();
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}
 
+	@Override
+	public Page<TopiclistView> getFollowOrThumbsUplist(List<Integer> topicIdList, PageInfo pageInfo){
+		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
+		List<TopiclistView> resultList = getSession().createQuery(SelectByTopicIdList , TopiclistView.class)
+				.setParameterList("topicIdList", topicIdList).setFirstResult(startPosition)
+				.setMaxResults(pageInfo.getPageSize()).getResultList();
+		Query query = getSession().createQuery(FollowOrThumbsUpTopicCounts);
+		Long totalCount = (Long) query.uniqueResult();
+
+		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
+	}
+
+	@Override
+	public Page<TopiclistView> getFavorateCategoryTopiclist(List<Integer> categoryIdList, PageInfo pageInfo) {
+		Integer startPosition = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
+		List<TopiclistView> resultList = getSession().createQuery(SelectByFavorteCategoryId, TopiclistView.class)
+				.setParameterList("categoryIdList", categoryIdList).setFirstResult(startPosition)
+				.setMaxResults(pageInfo.getPageSize()).getResultList();
+		Query query = getSession().createQuery(FavorateTopicCounts);
+		Long totalCount = (Long) query.uniqueResult();
+
+		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
+	}
 
 	@Override
 	public Long allTopicCounts() {

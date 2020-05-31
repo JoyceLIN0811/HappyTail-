@@ -15,6 +15,12 @@ public class PageInfo {
 	// current page Number
 
 	private Sort sort;
+	
+	public PageInfo(Integer pageSize, Integer pageNum) {
+		this.pageSize = (pageSize != null) ? pageSize : Const.DEFAULT_PAGE_SIZE;
+		this.pageNum = (pageNum != null) ? pageNum : Const.FIRST_PAGE_NUM;
+		// check the value and use the default setting
+	}
 
 	public PageInfo(Integer pageSize, Integer pageNum, Sort sort) {
 		this.pageSize = (pageSize != null) ? pageSize : Const.DEFAULT_PAGE_SIZE;

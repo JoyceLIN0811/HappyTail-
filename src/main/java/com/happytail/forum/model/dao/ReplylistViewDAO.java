@@ -10,9 +10,9 @@ import com.happytail.general.util.PageInfo;
 
 public interface ReplylistViewDAO {
 	
-	public Page<ReplylistView> getAllReplylist(PageInfo pageInfo, int topicId);
+	public Page<ReplylistView> getAllReplylist(Integer topicId, PageInfo pageInfo);
 
-	public long AllReplyCounts(int topicId);
+	public long AllReplyCounts(Integer topicId);
 
 //	public List<ReplylistView> select(int topicId);
 

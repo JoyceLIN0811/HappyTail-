@@ -1,7 +1,6 @@
 package com.happytail.forum.model.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.happytail.forum.model.TopiclistView;
 import com.happytail.general.util.Page;
@@ -9,16 +8,27 @@ import com.happytail.general.util.PageInfo;
 
 public interface TopiclistViewDAO {
 
+	//all topic
 	public Page<TopiclistView> getAllTopiclist(PageInfo pageInfo);
 
-	public Page<TopiclistView> getCategoryTopiclist(PageInfo pageInfo, Integer categoryId);
+	//per category topic
+	public Page<TopiclistView> getCategoryTopiclist(Integer categoryId, PageInfo pageInfo);
 
-	public Page<TopiclistView> getMemberIdTopiclist(PageInfo pageInfo, Integer memberId);
+	//self topic
+	public Page<TopiclistView> getMemberIdTopiclist(Integer memberId, PageInfo pageInfo);
 
+	//self follow or thumbsUp topic
+	public Page<TopiclistView> getFollowOrThumbsUplist(List<Integer> topicIdList, PageInfo pageInfo);
+	
+	//self favorate category topic
+	public Page<TopiclistView> getFavorateCategoryTopiclist(List<Integer> categoryIdList, PageInfo pageInfo);
+
+	//all hit topic
 	public Page<TopiclistView> getHitAllTopiclist(PageInfo pageInfo);
 	
-	public Page<TopiclistView> getHitCategoryTopiclist(PageInfo pageInfo, Integer categoryId);
-	
+	//per category hit topic
+	public Page<TopiclistView> getHitCategoryTopiclist(Integer categoryId, PageInfo pageInfo);
+
 	public Long allTopicCounts();
 
 	public Long categoryTopicCounts(Integer categoryId);

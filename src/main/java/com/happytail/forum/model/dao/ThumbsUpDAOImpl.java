@@ -31,6 +31,9 @@ public class ThumbsUpDAOImpl implements ThumbsUpDAO {
 			"FROM com.happytail.forum.model.ThumbsUp WHERE topicId=:topicId and userId=:userId"; 
 	private final String selectReplyIsThumbsUp =
 			"FROM com.happytail.forum.model.ThumbsUp WHERE topicId=:topicId and userId=:userId and replyId=: replyId"; 
+	private final String selectTopicIdList =
+			"SELECT topicId FROM com.happytail.forum.model.ThumbsUp WHERE userId=:userId and type='topic'"; 
+
 
 
 	@Override
@@ -112,5 +115,22 @@ public class ThumbsUpDAOImpl implements ThumbsUpDAO {
 
 		return list.get(0);
 	}
+
+	@Override
+	public List<Integer> selectTopicIdList(Integer userId, String type) {
+		Query<Integer> check = getSession().createQuery(selectTopicIdList,Integer.class);
+		check.setParameter("userId", userId);
+		check.setParameter("type", type);
+		
+		List<Integer> list = check.list();
+		
+		if(list == null || list.size() == 0) {
+			System.out.println("No result");
+			return null;
+		}
+
+		return list;
+	}		
+	
 
 }

@@ -76,6 +76,7 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 			list = getSession().createQuery(SelectBriefThumbsUp, String.class)
 					.setParameter("topicId", topicId)
 					.setParameter("type", type)
+					.setMaxResults(3)
 					.getResultList();
 		} catch (Exception e) {
 			return null;

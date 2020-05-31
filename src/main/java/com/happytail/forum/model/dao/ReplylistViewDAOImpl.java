@@ -1,5 +1,6 @@
 package com.happytail.forum.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,15 +25,19 @@ public class ReplylistViewDAOImpl implements ReplylistViewDAO{
 		return session;
 	}
 	
+	public ReplylistViewDAOImpl() {
+
+	}
+	
 	private final String selectAllReply =
-			"FROM com.happytail.forum.model.dao.ReplylistView WHERE topicId=:topicId ORDER BY createTime DESC";
+			"FROM com.happytail.forum.model.ReplylistView r WHERE r.topicId=:topicId ORDER BY r.createDate DESC";
 	
 	private final String AllReplyCounts = 
-			"SELECT COUNT(*) FROM com.happytail.forum.model.ReplylistView";
+			"SELECT COUNT(*) FROM com.happytail.forum.model.ReplylistView r WHERE r.topicId=:topicId";
 	
 
 	@Override
-	public Page<ReplylistView> getAllReplylist(PageInfo pageInfo, int topicId) {
+	public Page<ReplylistView> getAllReplylist(Integer topicId, PageInfo pageInfo) {
 		Integer startPosition = pageInfo.getPageSize()*(pageInfo.getPageNum() - 1);
 		List<ReplylistView> resultlist = getSession()
 				.createQuery(selectAllReply, ReplylistView.class)
@@ -42,13 +47,14 @@ public class ReplylistViewDAOImpl implements ReplylistViewDAO{
 				.getResultList();
 		
 		Query query = getSession().createQuery(AllReplyCounts);
+		query.setParameter("topicId", topicId);
 		Long totalCount = (Long) query.uniqueResult();
 		
 		return new Page<ReplylistView>(resultlist, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}
 	
 	@Override
-	public long AllReplyCounts(int topicId) {
+	public long AllReplyCounts(Integer topicId) {
 		Query query = getSession().createQuery(AllReplyCounts);
 		query.setParameter("topicId", topicId);
 		long count = (long)query.uniqueResult();
