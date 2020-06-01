@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 
@@ -14,8 +15,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/admin/plugins/fontawesome-free/css/all.min.css">
 <!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- DataTables -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -181,8 +181,8 @@
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="adminIndex" class="brand-link">
-				<img src="${pageContext.request.contextPath}/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-					class="brand-image img-circle elevation-3" style="opacity: .8">
+				<img src="${pageContext.request.contextPath}/admin/dist/img/AdminLTELogo.png"
+					alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">AdminLTE 3</span>
 			</a>
 
@@ -195,14 +195,14 @@
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 						<li class="nav-item">
-							<a href="adminIndex" class="nav-link">
+							<a href="admin-Index" class="nav-link">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>首頁</p>
 							</a>
 						</li>
 
 						<li class="nav-item">
-							<a href="selectMembers" class="nav-link">
+							<a href="admin-AllMembers" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>會員資料管理</p>
 							</a>
@@ -218,31 +218,31 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="./index4.html" class="nav-link">
+									<a href="admin-ShoppingIndex" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>總覽</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-AllProjects" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>商品列表</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-InsertProject" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>新增商品</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-OrderInfo" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單狀態</p>
 									</a>
@@ -290,9 +290,6 @@
 						<div class="col-12">
 
 							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">DataTable with default features</h3>
-								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
 									<table id="example1" class="table table-bordered table-striped">
@@ -337,10 +334,10 @@
 																<i class="fas fa-pencil-alt"></i>
 																修改
 															</button>
-															<button class="btn btn-danger btn-sm">
+															<a class="btn btn-danger btn-sm"  href="<c:url value='update-status' />" >
 																<i class="fas fa-trash"> </i>
 																停權
-															</button>
+															</a>
 														</td>
 													</tr>
 												</c:forEach>
@@ -395,120 +392,42 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- 會員更新表單 -->
-	<div class="modal fade" id="member-update">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">修改資料</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- Form表單 -->
-					<form role="form">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>姓名</label>
-										<input type="text" class="form-control" id="upadte-name">
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<!-- radio -->
-									<div class="form-group">
-										<label>姓別</label>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="radio1">
-											<label class="form-check-label">男性</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="radio1">
-											<label class="form-check-label">女性</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>年齡</label>
-										<input type="text" class="form-control" id="upadte-age">
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>生日</label>
-										<input type="date" class="form-control" id="upadte-bday">
-									</div>
-								</div>
 
-							</div>
-							<div class="form-group">
-								<label for="exampleInputemail">E-mail</label>
-								<input type="password" class="form-control" id="update-email">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputaddress">地址</label>
-								<input type="password" class="form-control" id="update-address">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputFile">上傳照片</label>
-								<div class="input-group">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="exampleInputFile">
-										<label class="custom-file-label" for="exampleInputFile">選擇檔案</label>
-									</div>
-								</div>
-							</div>
-							<!-- /.card-body -->
-					</form>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary">修改</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
 
-		<!-- jQuery -->
-		<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
-		<!-- Bootstrap 4 -->
-		<script src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- DataTables -->
-		<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-		<!-- AdminLTE App -->
-		<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
-		<!-- AdminLTE for demo purposes -->
-		<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
-		<!-- page script -->
-		<script>
-			$(function() {
-				$("#example1").DataTable({
-					"responsive" : true,
-					"autoWidth" : false,
-				});
-				$('#example2').DataTable({
-					"paging" : true,
-					"lengthChange" : false,
-					"searching" : false,
-					"ordering" : true,
-					"info" : true,
-					"autoWidth" : false,
-					"responsive" : true,
-				});
+	<!-- jQuery -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- DataTables -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
+	<!-- page script -->
+	<script>
+		$(function() {
+			$("#example1").DataTable({
+				"responsive" : true,
+				"autoWidth" : false,
 			});
-		</script>
+			$('#example2').DataTable({
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
+			});
+		});
+	</script>
 </body>
 
 </html>

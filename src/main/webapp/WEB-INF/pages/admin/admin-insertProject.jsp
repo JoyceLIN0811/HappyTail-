@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>後臺管理系統</title>
+<title>新增商品</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
@@ -32,7 +33,7 @@
 					</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="admin-Index" class="nav-link">Home</a>
+					<a href="adminIndex" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="#" class="nav-link">Contact</a>
@@ -203,31 +204,31 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="./index4.html" class="nav-link">
+									<a href="admin-ShoppingIndex" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>總覽</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-AllProjects" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>商品列表</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-InsertProject" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>新增商品</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-OrderInfo" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單狀態</p>
 									</a>
@@ -256,7 +257,54 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			
+			<section class="content">
+				<div class="col">
+					<!-- general form elements -->
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">新增商品</h3>
+						</div>
+						<!-- /.card-header -->
+						<!-- form start -->
+						<form:form method="POST" modelAttribute="productBean" enctype='multipart/form-data'>
+							<div class="card-body">
+								<div class="form-group">
+									<label for="exampleInputEmail1">商品名稱</label>
+									<form:input path='name' class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">商品價格</label>
+									<form:input path='price' class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">商品數量</label>
+									<form:input path='amount' class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">商品描述</label>
+									<form:input path='descriptrion' class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile">照片</label>
+									<div class="input-group">
+										<div class="custom-file">
+											<form:input path='productImage' type='file' class="custom-file-input" id="exampleInputFile"/>
+											<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+										</div>
+									
+									</div>
+								</div>
+							</div>
+							<!-- /.card-body -->
+
+							<div class="card-footer">
+								<button type="submit" class="btn btn-primary float-right">送出</button>
+								<button type="submit" class="btn btn-default float-right">取消</button>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</section>
 		</div>
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">

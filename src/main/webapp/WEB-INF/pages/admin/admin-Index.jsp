@@ -32,7 +32,7 @@
 					</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="adminIndex" class="nav-link">Home</a>
+					<a href="admin-Index" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="#" class="nav-link">Contact</a>
@@ -164,7 +164,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="adminIndex" class="brand-link">
+			<a href="admin-Index" class="brand-link">
 				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
 					class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">後臺管理</span>
@@ -180,14 +180,14 @@
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 						<li class="nav-item">
-							<a href="adminIndex" class="nav-link">
+							<a href="admin-Index" class="nav-link">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>首頁</p>
 							</a>
 						</li>
 
 						<li class="nav-item">
-							<a href="selectMembers" class="nav-link">
+							<a href="admin-AllMembers" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>會員資料管理</p>
 							</a>
