@@ -40,10 +40,10 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/static/js/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/static/img/");
 		registry.addResourceHandler("/template/**").addResourceLocations("/WEB-INF/pages/template/");
-		registry.addResourceHandler("/shopCss/**").addResourceLocations("/WEB-INF/static/shopCss/");
-		registry.addResourceHandler("/shopJs/**").addResourceLocations("/WEB-INF/static/shopJs/");
-		registry.addResourceHandler("/shopFonts/**").addResourceLocations("/WEB-INF/static/fonts/");
-		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/static/shopImages/");
+		registry.addResourceHandler("/shopCss/**").addResourceLocations("/WEB-INF/pages/shop/shopCss/");
+		registry.addResourceHandler("/shopJs/**").addResourceLocations("/WEB-INF/pages/shop/shopJs/");
+		registry.addResourceHandler("/shopFonts/**").addResourceLocations("/WEB-INF/pages/shop/fonts/");
+		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/pages/shop/images/");
 		//後台系統
 		registry.addResourceHandler("/admin/**").addResourceLocations("/WEB-INF/static/admin/");
 	}

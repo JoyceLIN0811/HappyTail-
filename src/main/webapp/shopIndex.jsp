@@ -292,7 +292,6 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$(section1).click(function() {
-
 			$("html, body").animate({
 				scrollTop : $(product).offset().top
 			}, "show");
@@ -302,11 +301,9 @@
 		$("#testh").click(function(){
 			alert("go to shopping!");
 			})
-
 	})
 </script>
 	<!-- Modernizr JS -->
 
 </body>
 </html>
-
