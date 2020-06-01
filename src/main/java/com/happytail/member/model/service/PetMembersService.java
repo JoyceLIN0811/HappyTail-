@@ -28,7 +28,9 @@ public interface PetMembersService {
 	String selectPetMembers(String account);
 
 	boolean checkStartCode(String code);
+	
+	void sendTemporaryPassword(String temporaryPasswordAccount);
 
-	PetMembers checkTemporaryPassword(String account, String temporaryPassword);
+	PetMembers checkTemporaryPassword(String temporaryPasswordAccount, String temporaryPassword);
 	
 }

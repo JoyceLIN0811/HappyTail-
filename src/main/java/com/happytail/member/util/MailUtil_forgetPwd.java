@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage.RecipientType;
 
 public class MailUtil_forgetPwd implements Runnable{
 	private String email;	//收件人電子信箱
-	private String code;	//用戶激活碼
+	private String code;	//臨時密碼
 	
 	
 	public MailUtil_forgetPwd(String email, String code) {

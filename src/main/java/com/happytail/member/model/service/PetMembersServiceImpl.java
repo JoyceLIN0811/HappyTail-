@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.member.model.dao.PetMembersDAO;
+import com.happytail.member.util.MailCodeUtil;
 import com.happytail.member.util.MailUtil;
+import com.happytail.member.util.MailUtil_forgetPwd;
 
 @Service
 @Transactional
@@ -50,9 +52,15 @@ public class PetMembersServiceImpl implements PetMembersService{
 	}	
 	
 	@Override
-	public PetMembers checkTemporaryPassword(String account, String temporaryPassword) {
+	public void sendTemporaryPassword(String temporaryPasswordAccount) {	
+		String temporaryPassword = MailCodeUtil.forgetPwdCode();
+		new Thread(new MailUtil_forgetPwd(temporaryPasswordAccount,temporaryPassword)).start();		
 		
-		PetMembers pMember = petMembersDAO.checkTemporaryPassword(account, temporaryPassword);
+	}	
+	
+	@Override
+	public PetMembers checkTemporaryPassword(String temporaryPasswordAccount,String temporaryPassword) {		
+		PetMembers pMember = petMembersDAO.checkTemporaryPassword(temporaryPasswordAccount ,temporaryPassword);		
 		return pMember;
 	}	
 	

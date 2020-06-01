@@ -31,7 +31,7 @@ public interface PetMembersDAO {
 
 	PetMembers checkStartCode(String code);
 
-	PetMembers checkTemporaryPassword(String account, String temporaryPassword);
+	public PetMembers checkTemporaryPassword(String temporaryPasswordAccount, String temporaryPassword);
 	
 	
 }

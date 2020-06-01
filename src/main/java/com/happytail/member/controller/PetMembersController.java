@@ -66,6 +66,7 @@ public class PetMembersController {
 	@PostMapping(value = "/sendTemporaryPassword")
 	public String sendTemporaryPassword(
 		@RequestParam(name="temporaryPasswordAccount") String temporaryPasswordAccount,
+		HttpServletRequest request,
 		Model model
 		) {
 		Map<String, String> errorMsg = new HashMap<String, String>();	
@@ -79,12 +80,35 @@ public class PetMembersController {
 				errorMsg.put("temporaryPasswordAccount", "該帳號不存在，請重新輸入");			
 			}		
 		}
+		if (!errorMsg.isEmpty()) {			
+			return "temporaryPetMemberPage1";
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("temporaryPasswordAccount", temporaryPasswordAccount);
+		service.sendTemporaryPassword(temporaryPasswordAccount);
 		
-		
-		
-		
-		return "";		
+		return "temporaryPetMemberPage2";
+	
 	}
+	
+	@PostMapping(value = "/changePassword")
+	public String changePassword(
+			@RequestParam(name="password") String password,
+			Model model, HttpServletRequest request
+			
+			) {
+		Map<String, String> errorMsg = new HashMap<String, String>();	
+		model.addAttribute("errorMsg", errorMsg);	
+
+		if(password == null || password.trim().length() == 0) {
+			errorMsg.put("passwordError", "密碼欄不可空白");
+		}		
+		HttpSession session = request.getSession();
+	
+		
+		return "";
+	}
+	
 	
 	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
 	public String updatePetMembers(
@@ -98,7 +122,7 @@ public class PetMembersController {
 			@RequestParam(name="age") String age,
 			@RequestParam(name="address") String address,
 			@RequestParam(name="phone") String phone,
-			@RequestParam(name="petType") String petType,
+//			@RequestParam(name="petType") String petType,
 			@RequestParam(name="memberImage") MultipartFile memberImage,
 			HttpServletRequest request,
 			Model model		
@@ -190,7 +214,7 @@ public class PetMembersController {
 		HttpSession session = request.getSession();
 		session.setAttribute("LoginOK", um);
 		
-		return "../../index";
+		return "petMemberIndex";
 	}
 	
 	@RequestMapping(value = "/memberCenter", method = RequestMethod.GET)
@@ -283,7 +307,7 @@ public class PetMembersController {
 			}else {
 				model.addAttribute("gender", false);
 			}
-			return "Member/memberRegister";
+			return "petMemberPage";
 		}
 		
 		String originalFilename = memberImage.getOriginalFilename();			
@@ -325,9 +349,9 @@ public class PetMembersController {
 		PetMembers pm = service.insertPetMembers(petMember);		
 		
 		if (pm != null) {
-			return "../../index";
+			return "petMemberIndex";
 		} else {
-			return "Member/memberRegister";
+			return "petMemberPage";
 		}
 	}
 	

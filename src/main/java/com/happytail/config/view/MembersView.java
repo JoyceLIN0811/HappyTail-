@@ -9,14 +9,47 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Configuration
 public class MembersView {
-
+	
 	@Bean
-	public View PetMemberPage() {
+	public View petMemberIndex() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/index.jsp");
+		return view;	
+	}
+	
+	@Bean
+	public View petMemberPage() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/Member/memberRegister.jsp");
 		return view;	
 	}
 	
+	@Bean
+	public View temporaryPetMemberPage1() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/sendTemporaryPassword_1.jsp");
+		return view;	
+	}
 	
+	@Bean
+	public View temporaryPetMemberPage2() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/sendTemporaryPassword_2.jsp");
+		return view;	
+	}
+	
+	@Bean
+	public View memberLogin() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/memberLogin.jsp");
+		return view;	
+	}
+	
+	@Bean
+	public View changePassword() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/changePassword.jsp");
+		return view;	
+	}
 
 }

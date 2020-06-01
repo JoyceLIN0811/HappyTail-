@@ -68,11 +68,11 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 	}
 	
 	@Override
-	public PetMembers checkTemporaryPassword(String account, String temporaryPassword) {	
-		Query<PetMembers> query = getSession().createQuery("from PetMembers where account=?1 and temporaryPassword?2", PetMembers.class);
-		query.setParameter(1, account);
+	public PetMembers checkTemporaryPassword(String temporaryPasswordAccount ,String temporaryPassword) {	
+		Query<PetMembers> query = getSession().createQuery("from PetMembers where account?1 temporaryPassword?2", PetMembers.class);
+		query.setParameter(1, temporaryPasswordAccount);
 		query.setParameter(2, temporaryPassword);
-		System.out.println(account + "  " + temporaryPassword);
+		System.out.println(temporaryPassword);
 		PetMembers result = null;
 		try {
 			result = (PetMembers) query.getSingleResult();

@@ -25,8 +25,8 @@ public class LoginController {
 	
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String processLogin() {
-		return "Member/memberLogin";
-//		return "Member/login";
+		return "memberLogin";
+
 	}
 	
 	@PostMapping(value = "/loginCheck")
@@ -51,63 +51,53 @@ public class LoginController {
 		}
 		
 		if (!errorMsg.isEmpty() ) {
-			return "Member/memberLogin";		}
+			return "memberLogin";		}
 		
 		PetMembers pMember = service.checkLogin(account, password);
 		
 			if( pMember != null) {
 				session.setAttribute("LoginOK", pMember);
-				return "../../index";
+				return "petMemberIndex";
 			
 			}else {
 				errorMsg.put("LoginError", "帳號未啟用或帳號、密碼錯誤");
 			}
 		
 			if (!errorMsg.isEmpty()) {
-				return "Member/memberLogin";
+				return "memberLogin";
 			}
 		
-		return "../../index";
+		return "petMemberIndex";
 		
 	}
 	
 	@PostMapping(value = "/temporaryPasswordloginCheck")
-	public String temporaryPasswordcheckLogin(
-			@RequestParam(name="account") String account,
+	public String temporaryPasswordcheckLogin(			
 			@RequestParam(name="temporaryPassword") String temporaryPassword,
-
 			HttpServletRequest request
 	
 		) {		
-		HttpSession session = request.getSession();
-		
+		HttpSession session = request.getSession();		
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		request.setAttribute("ErrorMsg", errorMsg);	
 		
 		if(temporaryPassword == null || temporaryPassword.trim().length() == 0) {
-			errorMsg.put("passwordError", "臨時密碼欄不可空白");
+			errorMsg.put("temporaryPasswordError", "臨時密碼欄不可空白");
 		}
-		
-		if (!errorMsg.isEmpty() ) {
-			return "Member/memberLogin";		}
-		
-		PetMembers pMember = service.checkLogin(account, temporaryPassword);
-		
-			if( pMember != null) {
-				session.setAttribute("LoginOK", pMember);
-				return "../../index";
+		PetMembers result = service.checkTemporaryPassword((String)session.getAttribute("temporaryPasswordAccount") ,temporaryPassword);			
+		if(result == null) {
+			errorMsg.put("temporaryPasswordError", "臨時密碼欄錯誤，請重新輸入");			
+		}
 			
-			}else {
-				errorMsg.put("LoginError", "帳號未啟用或帳號、密碼錯誤");
-			}
+		if (!errorMsg.isEmpty() ) {
+			return "temporaryPetMemberPage2";			
+		}
+			
+		session.setAttribute("LoginOK", result);
+		return "changePassword";
+		}	
 		
-			if (!errorMsg.isEmpty()) {
-				return "Member/memberLogin";
-			}
-		
-		return "../../index";
-		
-	}
+	
 	
 	@GetMapping(value = "/logoutCheck")
 	public String Logout(HttpServletRequest request ) {
@@ -116,7 +106,7 @@ public class LoginController {
 		
 		session.invalidate();
 		
-		return "../../index";
+		return "petMemberIndex";
 	}
 	
 }
