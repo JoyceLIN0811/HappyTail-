@@ -53,7 +53,15 @@
 				<!-- <ul class="right sidenav-trigger show-on-medium-and-up"> -->
 
 				<li><a href=""><i class="material-icons md-dark">search</i></a></li>
-				<li><a href=""><i class="material-icons md-dark">person</i></a></li>
+				<li>
+					<c:if test="${empty LoginOK}">
+						<a href="<c:url value='login' />"><i class="material-icons md-dark">person</i></a> 
+					</c:if>
+					<c:if test="${ !empty LoginOK }">
+			   			<a href="<c:url value='logoutCheck' />"><i class="material-icons md-dark">person</i></a>
+					</c:if>							
+					
+				</li>
 				<li><a class="dropdown-trigger" href="#!"
 					data-target="dropdown1"><i class="material-icons md-dark">notifications</i></a></li>
 			</ul>
@@ -110,8 +118,16 @@
 			href="#home">Home</a></li>
 		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"
 			href="#notice">Notice</a></li>
-		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"
-			href="#profile">Personal Profile</a></li>
+		<li>
+			<c:if test="${!empty LoginOK}">
+				<a class="sidenav-close grey-text text-darken-3 waves-effect"				
+				href="<c:url value='memberCenter' />">Personal Profile</a>
+			</c:if>
+			<c:if test="${empty LoginOK}">
+				<a class="sidenav-close grey-text text-darken-3 waves-effect"				
+				href="<c:url value='login' />">Personal Profile</a>
+			</c:if>	
+		</li>
 		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"
 			href="#Online Shop">Online Shop</a></li>
 		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"

@@ -81,7 +81,7 @@ public class LoginController {
 		
 		session.invalidate();
 		
-		return "index";
+		return "../../index";
 	}
 	
 }

@@ -17,7 +17,7 @@
 	
 	<form action="<c:url value="memberUpdate" />" method="post" enctype="multipart/form-data">
 		<table>
-			<tr><td><input type="hidden" name="memberId" value = ${petMember.memberId }${param.memberId } /></td></tr>
+			<tr><td><input type="hidden" name="memberId" value = ${petMemberid }${param.id } /></td></tr>
 <%-- 			<tr><td><input type="hidden" name="registerTime" value = ${petMember.registerTime }${param.registerTime} /></td></tr> --%>
 				<tr>
 					<td>Username :	</td>

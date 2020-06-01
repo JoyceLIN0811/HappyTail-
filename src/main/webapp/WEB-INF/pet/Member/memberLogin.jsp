@@ -27,7 +27,8 @@
 			<tr><td><font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font></td></tr>
 			<tr>
 				<td>
-					<a href=""><small>忘記密碼?</small></a>
+					<a href=""><small>忘記密碼?</small></a><br>
+					<a href="<c:url value='register' />"><small>還不是會員?</small></a>
 				<td>
 				
 			</tr>
