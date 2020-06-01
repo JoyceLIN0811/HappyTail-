@@ -28,7 +28,11 @@ import org.springframework.web.servlet.view.JstlView;
 		"com.happytail.shopping"})
 @Import({com.happytail.config.view.ReservationView.class,
 	     com.happytail.config.view.MembersView.class,
+<<<<<<< HEAD
 	     com.happytail.config.view.ShopView.class,})
+=======
+	     com.happytail.config.view.AdminView.class})
+>>>>>>> b3dfa16f00b6e0419abe2f4335ce1b2c2216acf5
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
 	//Static Resources

@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>會員管理</title>
+<title>商品管理</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,6 +25,11 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
+	
+	
+<script>
+
+</script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -276,7 +280,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>會員資料</h1>
+							<h1>商品資料</h1>
 						</div>
 					</div>
 				</div>
@@ -292,53 +296,29 @@
 							<div class="card">
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="example1" class="table table-bordered table-striped">
+									<table id="project" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
-												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>商品名稱</th>
+												<th>商品價格</th>
+												<th>商品描述</th>
+												<th>商品數量</th>
+												<th>商品照片</th>
+												
 											</tr>
 										</thead>
 										<tbody>
-											<!-- 會員資料放這 -->
+											<!-- 商品資料放這 -->
 											<!-- 測試資料 -->
-											<c:if test="${not empty allMembers}">
-												<c:forEach var='member' varStatus="vs" items="${allMembers}">
+											<c:if test="">
+												<c:forEach var='member' varStatus="vs" items="">
 													<tr>
-														<td>${member.username}</td>
-														<td>${member.gender}</td>
-														<td>${member.bday}</td>
-														<td>${member.email}</td>
-														<td>${member.address}</td>
-														<td>
-															<c:choose>
-																<c:when test="${member.status eq 1 }">
-																	<span class="badge badge-success">Success</span>
-																</c:when>
-																<c:when test="${member.status eq 0 }">
-																	<span class="badge badge-danger">Freeze</span>
-																</c:when>
-																<c:otherwise>
-
-																</c:otherwise>
-															</c:choose>
-														</td>
-														<td>
-															<button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-																data-target="#member-update">
-																<i class="fas fa-pencil-alt"></i>
-																修改
-															</button>
-															<a class="btn btn-danger btn-sm"  href="<c:url value='update-status' />" >
-																<i class="fas fa-trash"> </i>
-																停權
-															</a>
-														</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														
 													</tr>
 												</c:forEach>
 											</c:if>
@@ -347,13 +327,12 @@
 
 										<tfoot>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
-												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>商品名稱</th>
+												<th>商品價格</th>
+												<th>商品描述</th>
+												<th>商品數量</th>
+												<th>商品照片</th>
+												
 											</tr>
 										</tfoot>
 									</table>
@@ -392,42 +371,56 @@
 	</div>
 	<!-- ./wrapper -->
 
+	
 
-
-	<!-- jQuery -->
-	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- DataTables -->
-	<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
-	<!-- page script -->
-	<script>
-		$(function() {
-			$("#example1").DataTable({
-				"responsive" : true,
-				"autoWidth" : false,
+		<!-- jQuery -->
+		<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
+		<!-- Bootstrap 4 -->
+		<script
+			src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- DataTables -->
+		<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
+		<!-- AdminLTE for demo purposes -->
+		<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
+		<!-- page script -->
+		<script>
+			$(function() {
+				
+				$('#project').DataTable({
+					"ajax": {
+						"url":"admin-AllProjects-json",
+						"type": "POST",
+						"dataType": "jeson",
+						"dataSrc": 'bean',
+						"success": function() {
+							console.log("成功")},
+						"error": function() {
+							console.log("失敗")}},
+					"columns": [
+						{ bean: 'name' },
+						{ bean: 'price' },
+						{ bean: 'descriptrion' },
+						{ bean: 'amout' },
+						{ bean: 'fileName' }
+						],
+					"paging" : true,
+					"lengthChange" : false,
+					"searching" : false,
+					"ordering" : true,
+					"info" : true,
+					"autoWidth" : false,
+					"responsive" : true,
+				});
 			});
-			$('#example2').DataTable({
-				"paging" : true,
-				"lengthChange" : false,
-				"searching" : false,
-				"ordering" : true,
-				"info" : true,
-				"autoWidth" : false,
-				"responsive" : true,
-			});
-		});
-	</script>
+		</script>
 </body>
 
 </html>
