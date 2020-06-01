@@ -23,7 +23,7 @@ public class CheckoutController {
 	PetMembersDAO mem;
 	
 	
-	@GetMapping("/OrderSureForm")
+	@GetMapping("/OrderCheck")
 	public String OrderSureForm(HttpServletRequest request) {
 		System.out.println("進去確認訂單");
 		HttpSession session = request.getSession(false);
@@ -37,7 +37,7 @@ public class CheckoutController {
 		
 		System.out.println("以下用來測試");
 //		PetMembers member =new PetMembers();
-		PetMembers member = mem.select(1);
+		PetMembers member = mem.selectPetMembers(1);
 		
 		session.setAttribute("LoginOK", member);
 		

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ public class OrderItemBean {
 	private Integer quantity;
 	private Double unitPrice;
 	private Double discount;
+
 	
 	public OrderItemBean() {
 		
@@ -42,6 +44,7 @@ public class OrderItemBean {
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 		this.discount = discount;
+//		this.orderId=orderId;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -50,7 +53,7 @@ public class OrderItemBean {
 	}
 	public void setSeqno(Integer seqno) {
 		this.seqno = seqno;
-	}
+	} 
 	 @ManyToOne
 	 @JoinColumn(name="orderId") // 外鍵欄位名稱
 	public OrderBean getOrderBean() {
@@ -94,7 +97,15 @@ public class OrderItemBean {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-	
+//	@Column(name = "orderId")
+//	public Integer getOrderId() {
+//		return orderId;
+//	}
+//
+//	public void setOrderId(Integer orderId) {
+//		this.orderId = orderId;
+//	}
+//	
 	
 	
 }

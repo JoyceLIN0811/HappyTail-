@@ -2,14 +2,17 @@ package com.happytail.shopping.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.happytail.shopping.dao.ProductLikeDao;
 import com.happytail.shopping.model.ProductLike;
-
-@Repository
+@Transactional
+@Service
 public class ProductLikeService {
 	@Autowired
 	SessionFactory sessionFactory;

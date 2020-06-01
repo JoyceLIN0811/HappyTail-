@@ -27,7 +27,8 @@ import org.springframework.web.servlet.view.JstlView;
 		"com.happytail.general.controller",
 		"com.happytail.shopping"})
 @Import({com.happytail.config.view.ReservationView.class,
-	     com.happytail.config.view.MembersView.class})
+	     com.happytail.config.view.MembersView.class,
+	     com.happytail.config.view.ShopView.class,})
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
 	//Static Resources
@@ -38,10 +39,10 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/static/js/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/static/img/");
 		registry.addResourceHandler("/template/**").addResourceLocations("/WEB-INF/pages/template/");
-		registry.addResourceHandler("/shopCss/**").addResourceLocations("/WEB-INF/static/shopCss/");
-		registry.addResourceHandler("/shopJs/**").addResourceLocations("/WEB-INF/static/shopJs/");
-		registry.addResourceHandler("/shopFonts/**").addResourceLocations("/WEB-INF/static/fonts/");
-		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/static/shopImages/");
+		registry.addResourceHandler("/shopCss/**").addResourceLocations("/WEB-INF/pages/shop/shopCss/");
+		registry.addResourceHandler("/shopJs/**").addResourceLocations("/WEB-INF/pages/shop/shopJs/");
+		registry.addResourceHandler("/shopFonts/**").addResourceLocations("/WEB-INF/pages/shop/fonts/");
+		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/pages/shop/shopImages/");
 		//後台系統
 		registry.addResourceHandler("/admin/**").addResourceLocations("/WEB-INF/static/admin/");
 	}
@@ -76,18 +77,18 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		return messageSource;
 	}
 	
-	@Bean 
-	public InternalResourceViewResolver viewResolver() {
-//		System.out.println("使用viewResolver() 方法  將網頁前面增加/WEB-INF/pet/");
-//		System.out.println("網頁後面增加.jsp");
-//		System.out.println("優先度為2，只低於DispatcherServletInitalizer");
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class); //預設就有  JSTL
-		viewResolver.setPrefix("/WEB-INF/pet/");
-		viewResolver.setSuffix(".jsp");
-		viewResolver.setOrder(2);
-		return viewResolver;
-	}
+//	@Bean 
+//	public InternalResourceViewResolver viewResolver() {
+////		System.out.println("使用viewResolver() 方法  將網頁前面增加/WEB-INF/pet/");
+////		System.out.println("網頁後面增加.jsp");
+////		System.out.println("優先度為2，只低於DispatcherServletInitalizer");
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setViewClass(JstlView.class); //預設就有  JSTL
+//		viewResolver.setPrefix("/WEB-INF/pet/");
+//		viewResolver.setSuffix(".jsp");
+//		viewResolver.setOrder(2);
+//		return viewResolver;
+//	}
 	
 	
 }

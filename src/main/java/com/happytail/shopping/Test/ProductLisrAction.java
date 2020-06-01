@@ -41,6 +41,7 @@ public class ProductLisrAction {
 				System.out.println("進入");
 				ProductLike pLike=new ProductLike();
 //				PetMembers member = (PetMembers)m.getAttribute("LoginOk");
+			
 				pLike.setBean(pBean);
 				pLike.setPetMemberId(1);
 				System.out.println("準備進入DAO");

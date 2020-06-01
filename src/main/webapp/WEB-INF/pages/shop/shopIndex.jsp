@@ -78,14 +78,6 @@
 			return false;
 			// 			alert("123");
 		})
-		// 		$(section2).click(function() {
-
-		// 			$("html, body").animate({
-		// 				scrollTop : $(product).offset().top
-		// 			}, "show");
-		// 			return false;
-		// 			// 			alert("123");
-		// 		})
 
 	})
 </script>
@@ -145,7 +137,7 @@
 									<p>
 										<a href="single.html" class="icon"><i
 											class="icon-shopping-cart"></i></a> <a
-											href="<c:url value='/showProduct.jsp'/>" class="icon"><i
+											href="<c:url value='showProduct.do'/>" class="icon"><i
 											class="icon-eye"></i></a>
 									</p>
 								</div>
@@ -169,7 +161,8 @@
 											onclick="document.getElementById('myform').submit();"><i
 											class="icon-eye"></i></a>
 									</p>
-									<form action="<c:url value='/showProductByCategory'/>" method="post"
+<!-- 									<form action="/showProduct" method="POST" -->
+									<form action="<c:url value='showProduct.do'/>" method="POST"
 										id='myform'>
 										<Input type='hidden' name='categoryId' value='1'>
 									</form>
@@ -191,7 +184,7 @@
 									<p>
 										<a href="single.html" class="icon"><i
 											class="icon-shopping-cart"></i></a> <a
-											href="<c:url value='/showProduct.jsp'/>" class="icon"><i
+											href="<c:url value='/showProduct'/>" class="icon"><i
 											class="icon-eye"></i></a>
 									</p>
 								</div>

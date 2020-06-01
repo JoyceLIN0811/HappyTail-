@@ -87,49 +87,49 @@
 	<![endif]-->
 
 <script>
-function confirmDelete(n) {
-	if (confirm("確定刪除此項商品 ? ") ) {
-		document.forms[0].action="<c:url value='UpdateItem.do?cmd=DEL&PetId=" + n +"' />" ;
-		document.forms[0].method="POST";
-		document.forms[0].submit();
-	} else {
+// function confirmDelete(n) {
+// 	if (confirm("確定刪除此項商品 ? ") ) {
+// 		document.forms[0].action="<c:url value='UpateProduct?cmd=DEL&ProductId=" + n +"' />" ;
+// 		document.forms[0].method="POST";
+// 		document.forms[0].submit();
+// 	} else {
 	
-	}
-}
+// 	}
+// }
 
-function modify(key, amount, index) {
-	var x = "newAmount" + index;
-	var newAmount = document.getElementById(x).value;
-	if  (newAmount < 0 ) {
-		window.alert ('數量不能小於 0');
-		return ; 
-	}
-	if  (newAmount == 0 ) {
-		window.alert ("請執行刪除功能來刪除此項商品");
-		document.getElementById(x).value = amount;
-		return ; 
-	}
-	if  (newAmount == amount ) {
-		window.alert ("數量相同，不必修改");
-		return ; 
-	} 
-	if (confirm("確定將此商品的數量由" + amount + " 改為 " + newAmount + " ? ") ) {
-		document.forms[0].action="<c:url value='UpdateItem.do?cmd=MOD&PetId=" + key + "&newAmount=" + newAmount +"' />" ;
-		document.forms[0].method="POST";
-		document.forms[0].submit();
-	} else {
-		document.getElementById(x).value = amount;
-	}
-}
+// function modify(key, amount, index) {
+// 	var x = "newAmount" + index;
+// 	var newAmount = document.getElementById(x).value;
+// 	if  (newAmount < 0 ) {
+// 		window.alert ('數量不能小於 0');
+// 		return ; 
+// 	}
+// 	if  (newAmount == 0 ) {
+// 		window.alert ("請執行刪除功能來刪除此項商品");
+// 		document.getElementById(x).value = amount;
+// 		return ; 
+// 	}
+// 	if  (newAmount == amount ) {
+// 		window.alert ("數量相同，不必修改");
+// 		return ; 
+// 	} 
+// 	if (confirm("確定將此商品的數量由" + amount + " 改為 " + newAmount + " ? ") ) {
+// 		document.forms[0].action="<c:url value='UpdateItem.do?cmd=MOD&PetId=" + key + "&newAmount=" + newAmount +"' />" ;
+// 		document.forms[0].method="POST";
+// 		document.forms[0].submit();
+// 	} else {
+// 		document.getElementById(x).value = amount;
+// 	}
+// }
 
-function isNumberKey(evt)
-{
-   var charCode = (evt.which) ? evt.which : event.keyCode
-   if (charCode > 31 && (charCode < 48 || charCode > 57)){
-      return false;
-   }
-   return true;
-}
+// function isNumberKey(evt)
+// {
+//    var charCode = (evt.which) ? evt.which : event.keyCode
+//    if (charCode > 31 && (charCode < 48 || charCode > 57)){
+//       return false;
+//    }
+//    return true;
+// }
 
 </script>
 </head>
@@ -153,7 +153,7 @@ function isNumberKey(evt)
 									<li class="icon-game-controller"><a href="#" id='cate3'>寵物玩具</a></li>
 									<li class="icon-shopping-cart"><a
 										href="<c:url value='/intoCart'/> ">購物車</a></li>
-									<li class="icon-game-controller"><a href="<c:url value='/OrderSureForm'/>"  id='cate4'>下一頁</a></li>
+									<li class="icon-game-controller"><a href="<c:url value='/OrderCheck'/>"  id='cate4'>下一頁</a></li>
 								</ul>
 							</div>
 
@@ -168,7 +168,7 @@ function isNumberKey(evt)
 
 									<thead>
 										<tr>
-											<th class="th-sm">商品名稱</th>
+											<th id='test' class="th-sm">商品名稱</th>
 											<th class="th-sm">商品價格</th>
 											<th class="th-sm">商品數量</th>
 											<th class="borderA">價格小記</th>
@@ -183,19 +183,21 @@ function isNumberKey(evt)
 												<td style="text-align: center;">${anEntry.value.name}</td>
 												<td style="text-align: center;">${anEntry.value.unitPrice}</td>
 												<td style="text-align: center;"><Input
-													id="newAmount${vs.index}"
+													id="${anEntry.value.productId}"
 													style="width: 28px; text-align: right" name="newAmount"
+													 
 													type="text"
-													value="<fmt:formatNumber value="${anEntry.value.quantity}" />"
-													name="amount" onkeypress="return isNumberKey(event)" /></td>
-												<td style="text-align: right;"><fmt:formatNumber
+													class="qt"
+													value="${anEntry.value.quantity}" /></td>
+												<td style="text-align: right;"
+												id="${anEntry.value.productId}v"
+												class="qtv"
+												 ><fmt:formatNumber
 														value="${anEntry.value.unitPrice * anEntry.value.quantity }"
-														pattern="#,###" />元</td>
-												<td style="text-align: center;"><Input type="button"
-													name="update" value="修改"
-													onclick="modify(${anEntry.key}, ${anEntry.value.quantity}, ${vs.index})">
-													<Input type="button" name="delete" value="刪除"
-													onclick="confirmDelete(${anEntry.key})"></td>
+														pattern="#,###" 														
+														/>元</td>
+												<td style="text-align: center;">
+													<a href='<c:url value='/remove.do/${anEntry.value.productId}'/> ' >刪除</a></td>
 											</TR>
 
 
@@ -205,7 +207,7 @@ function isNumberKey(evt)
 									<tfoot>
 										<TR height='16'>
 											<TD colspan='4' align='right' class="th-sm">合計金額：</TD>
-											<TD align='center' class="th-sm"><fmt:formatNumber
+											<TD align='center' class="th-sm" id='total'><fmt:formatNumber
 													value="${cart.subtotal}" pattern="#,###,###" />元</TD>
 										</TR>
 
@@ -220,5 +222,53 @@ function isNumberKey(evt)
 		</header>
 
 	</div>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$(".qt").change(function(){
+		var pid = this.id; 	 //編號
+		var m = this.value;  //數量
+		
+// 		alert(m);
+// 		alert("test")
+		$.ajax({
+			method : "Post",
+			url : "<c:url value='/UpateProduct'/> ", 
+			dataType : "json", //返回格式為json
+			data : {
+				"quantity":m , "pid":pid,
+			}, //引數值
+			success : function(req) {
+				 console.log(req);      
+				 
+
+				 
+				 subtotal=req[0];
+				 priceTotal=req[1];
+				 productId=req[2]
+				 console.log(subtotal);
+				 
+// 				alert(priceTotal);
+				total = document.getElementById("total");
+				price=document.getElementById(productId+"v");
+				console.log(price);
+				total.innerHTML=subtotal+"元";
+				price.innerHTML=priceTotal+"元";
+				
+
+			}
+			
+			
+		})
+		
+		
+	})
+	
+	$("#test").click(function(){
+		alert("Yes123");
+	})
+	
+	})
+	</script>
+	
 </body>
 </html>

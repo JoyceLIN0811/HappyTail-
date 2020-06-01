@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.happytail.shopping.dao.OrderDao;
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 
 
 
@@ -57,13 +58,7 @@ public class OrderService {
 	}
 	
 	public String insert(OrderBean ob) {
-		Session session = sessionFactory.getCurrentSession();
-//		Set<OrderDetailBean> orderDetail = ob.getOrderDetail();
-		System.out.println("進去Service");
-//		System.out.println("orderDetail="+orderDetail);
-//		for(OrderDetailBean:orderDetail) {
-//			
-//		}
+
 		return dao.insert(ob);
 	}
 	
@@ -71,6 +66,8 @@ public class OrderService {
 		return dao.selectOrderByMemberId(memberId);
 	}
 	
-	
+	public List<OrderItemBean> getOrderItemBean(OrderBean orderBean){
+		return dao.getOrderItemBean(orderBean);
+	}
 	
 }

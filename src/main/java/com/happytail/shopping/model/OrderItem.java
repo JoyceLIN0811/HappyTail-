@@ -2,7 +2,7 @@ package com.happytail.shopping.model;
 
 import org.springframework.stereotype.Component;
 //本類別封裝單筆訂單資料
-//@Component
+@Component
 public class OrderItem {
 	
 	String name ;

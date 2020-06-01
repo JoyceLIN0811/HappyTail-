@@ -27,14 +27,15 @@
 			<tr><td><font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font></td></tr>
 			<tr>
 				<td>
-					<a href=""><small>忘記密碼?</small></a><br>
-					<a href="<c:url value='register' />"><small>還不是會員?</small></a>
+					<a href=""><small>忘記密碼?</small></a>
 				<td>
 				
 			</tr>
 		</table>
 		<button  type="submit" name="login">登入</button>
 	</form>
+
+
 
 	<hr>
 	<a href="<c:url value='/index.jsp' />">回首頁</a>

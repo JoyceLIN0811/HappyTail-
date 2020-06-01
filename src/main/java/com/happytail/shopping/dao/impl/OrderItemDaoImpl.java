@@ -14,7 +14,7 @@ public class OrderItemDaoImpl {
 	public OrderItemDaoImpl() {
 	}
 	
-	public Session getSession() {
+	public Session s() {
 		
 		return sessionFactory.getCurrentSession();
 	}
@@ -26,6 +26,11 @@ public class OrderItemDaoImpl {
 		double subtotal = oib.getQuantity() * oib.getUnitPrice() * oib.getDiscount();
 		return subtotal;
 	}
+	
+	public void insert(OrderItemBean oib) {
+		s().save(oib);
+	}
+	
 	
 	
 }

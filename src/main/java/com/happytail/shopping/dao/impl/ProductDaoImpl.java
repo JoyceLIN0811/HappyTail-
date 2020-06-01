@@ -75,8 +75,9 @@ public class ProductDaoImpl implements ProductDao  {
 		String hql ="from ProductBean  where categoryId=:categoryId";
 		Query<ProductBean> selectCate = getSession().createQuery(hql,ProductBean.class);
 		selectCate.setParameter("categoryId", newid);
-		System.out.println("抓到資料準備回傳");
-		return selectCate.getResultList();
+		List<ProductBean> resultList = selectCate.getResultList();
+		System.out.println("resultList="+resultList);
+		return resultList;
 	}
 	
 	//用銷售金額去選擇

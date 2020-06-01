@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -27,7 +28,7 @@ public class OrderBean {
 	private String text;
 	private String state ;	//訂單狀態 //用來放入此訂單屬於哪個會員    
 
-	private Set<OrderItemBean> orderItemBean = new HashSet<OrderItemBean>(); //用來存放訂單集合
+//	private Set<OrderItemBean> orderItemBean = new HashSet<OrderItemBean>(); //用來存放訂單集合
 	
 	
 	public OrderBean() {
@@ -36,15 +37,16 @@ public class OrderBean {
 	
 	
 	
-	public OrderBean( Integer memberId, Double totalPrice, String shippingAddress, String orderDate,
-			Set<OrderItemBean> orderItemBean ,String text,String state) {
+//	public OrderBean( Integer memberId, Double totalPrice, String shippingAddress, String orderDate,
+//			Set<OrderItemBean> orderItemBean ,String text,String state) {
+	public OrderBean( Integer memberId, Double totalPrice, String shippingAddress, String orderDate,String text,String state) {
 		
 		
 		this.memberId = memberId;
 		this.totalPrice = totalPrice;
 		this.shippingAddress = shippingAddress;
 		this.orderDate = orderDate;
-		this.orderItemBean = orderItemBean;
+//		this.orderItemBean = orderItemBean;
 		this.state=state;
 		this.text=text;
 	}
@@ -99,14 +101,16 @@ public class OrderBean {
 	
 	
 	
-	@OneToMany(cascade = { CascadeType.ALL },mappedBy="orderBean")
-	public Set<OrderItemBean> getOrderItemBean() {
-		return orderItemBean;
-	}
-	
-	public void setOrderItemBean(Set<OrderItemBean> orderItemBean) {
-		this.orderItemBean = orderItemBean;
-	}
+////	@OneToMany(cascade = { CascadeType.ALL },mappedBy="orderBean")
+//	@OneToMany(cascade = { CascadeType.ALL })
+////	@JoinColumn
+//	public Set<OrderItemBean> getOrderItemBean() {
+//		return orderItemBean;
+//	}
+//	
+//	public void setOrderItemBean(Set<OrderItemBean> orderItemBean) {
+//		this.orderItemBean = orderItemBean;
+//	}
 	@Column(name = "text")
 	public String getText() {
 		return text;

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.happytail.shopping.dao.OrderDao;
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 
 //本類別
 //1.新增一筆訂單到orders表格
@@ -44,15 +45,32 @@ public class OrderDaoImpl implements OrderDao {
 
 	//會員查詢自己的訂單
 	@Override
-	public List<OrderBean> selectOrderByMemberId(Integer memberId){
-		String hql = "from OrderBean where memberId=:memberId";
-		List<OrderBean> resultList = getSession().createQuery(hql,OrderBean.class).getResultList();
+	public List<OrderBean> selectOrderByMemberId(Integer Id){
+
+		String hql = "from OrderBean o where o.memberId=:Id";
+	
+//		System.out.println(Id);
+		List<OrderBean> resultList
+		= getSession().createQuery(hql,OrderBean.class).setParameter("Id", Id).getResultList();
+		System.out.println("抓取資料成功");
 		return resultList;
 	}
+	
+	
+	@Override
+	public List<OrderItemBean> getOrderItemBean(OrderBean orderBean) {
+		Integer id =orderBean.getOrderId();
+		String hql ="from OrderItemBean where orderId=:id";
+		List<OrderItemBean> resultList = s().createQuery(hql, OrderItemBean.class).setParameter("id", id).getResultList();
+		return resultList;
+		
+	}
+	
 
 	// 查詢訂單 利用訂單編號OrderId
 	@Override
 	public OrderBean selectOrder(int orderId) {
+		
 		OrderBean select = getSession().get(OrderBean.class, orderId);
 
 		return select;
@@ -61,7 +79,8 @@ public class OrderDaoImpl implements OrderDao {
 	//查詢所有訂單
 	@Override
 	public List<OrderBean> selectAllOrder(){
-		Query<OrderBean> selectAllOrder = getSession().createQuery("from OrderBean",OrderBean.class);
+		String hql ="from OrderBean order by orderId DESC";
+		Query<OrderBean> selectAllOrder = getSession().createQuery(hql,OrderBean.class);
 				
 		return selectAllOrder.list();
 	}
@@ -70,8 +89,8 @@ public class OrderDaoImpl implements OrderDao {
 	//查詢訂單 依照單一時間
 	@Override
 	public List<OrderBean> selectOrderByTime(String time){
-		String hql="from OrderBean where orderDate:=time";
-		Query<OrderBean> createQuery = s().createQuery(hql,OrderBean.class);
+		String hql="from OrderBean where orderDate=:time";
+		Query<OrderBean> createQuery = s().createQuery(hql,OrderBean.class).setParameter("time", time);
 		return createQuery.list();
 	}
 	
@@ -80,7 +99,7 @@ public class OrderDaoImpl implements OrderDao {
 	// 取消訂單
 	@Override
 	public String cancel(int orderId) {
-		String hql = "from OrderBean where state = 成立  and orderId:=orderId";
+		String hql = "from OrderBean where state = 成立  and orderId=:orderId";
 		Query<OrderBean> createQuery = getSession().createQuery(hql, OrderBean.class);
 		OrderBean singleResult = createQuery.getSingleResult();
 		OrderBean odBean = (OrderBean) singleResult;
@@ -95,7 +114,7 @@ public class OrderDaoImpl implements OrderDao {
 	// 更新訂單狀態→完成
 	@Override
 	public String complete(int orderId) {
-		String hql = "from OrderBean where state = 成立  and orderId:=orderId";
+		String hql = "from OrderBean where state = 成立  and orderId=:orderId";
 		Query<OrderBean> createQuery = getSession().createQuery(hql, OrderBean.class);
 		OrderBean singleResult = createQuery.getSingleResult();
 		OrderBean odBean = (OrderBean) singleResult;
@@ -159,6 +178,9 @@ public class OrderDaoImpl implements OrderDao {
 		list = s().createQuery(hql).getResultList();
 		return list;
 	}
+	
+	
+	
 	
 	
 	

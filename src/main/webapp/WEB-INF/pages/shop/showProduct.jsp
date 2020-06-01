@@ -16,28 +16,7 @@
 	content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 <meta name="author" content="gettemplates.co" />
 
-<!-- 
-	//////////////////////////////////////////////////////
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FreeHTML5.co
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-	//////////////////////////////////////////////////////
-	 -->
 
-<!-- Facebook and Twitter integration -->
-<meta property="og:title" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
-<meta property="og:description" content="" />
-<meta name="twitter:title" content="" />
-<meta name="twitter:image" content="" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:card" content="" />
 <!-- Animate.css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/shopCss/animate.css">
@@ -169,17 +148,11 @@
 
 											</div>
 											<div class="card-footer ">
-												<input type="button" class="btn btn-primary" value='加入最愛'> <br>
+												<input type="button" class="btn btn-primary toLove" id='f${product.getProductId()}' value='加入最愛'> <br>
 <%-- 												<form action="<c:url value='/addProductToCart'/>"  method="post" enctype="multipart/form-data"> --%>
 													<input type="submit" class="btn btn-primary toCart" id='${product.getProductId()}'  value="加入購物" >
 													<Input class='pdId' type='hidden' name='productId' value='${product.getProductId()}'>
-<!-- 													<Input type='hidden' name='name' -->
-<%-- 														value='${product.getName()}'>  --%>
-<!-- 													<Input type='hidden' name='descriptrion' -->
-<%-- 														value='${product.getDescriptrion()}'> <Input --%>
-<%-- 														type='hidden' name='discount' value='${product.getDiscount()}'> --%>
-<%-- 													<Input type='hidden' name='unitPrice' value='${product.getPrice()}'> --%>
-<!-- 												</form> -->
+
 											</div>
 
 										</div>
@@ -300,7 +273,7 @@ $("cate1").click(function(){
 
 $(".toCart").click(function(){
 	var pid = this.id;
-// 	var productId=document.getElementsByClassName('classname').value; 
+
 	$.ajax({
 		method: "GET",
 		url:"<c:url value='/addProductToCart'/>", //請求的url地址
@@ -317,6 +290,27 @@ $(".toCart").click(function(){
 	
 })
 
+$(".toLove").click(function(){
+	var fid = this.id;
+	
+
+$.ajax({
+	method: "GET",
+	url: "<c:url value='/addToLike'/>",
+	dataType : "json", 
+	data:{
+		"productId":fid.slice(1,fid.length),
+	},
+	success:function(res){
+// 		alert(fid.slice(1,fid.length));
+		alert("加入收藏");
+	}
+})
+
+
+
+
+})
 	
 })
 </script>

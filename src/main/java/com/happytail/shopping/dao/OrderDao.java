@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 
 
 
@@ -42,5 +43,7 @@ public interface OrderDao {
 	String insert(OrderBean ob);
 	//會員查詢自己的訂單
 	List<OrderBean> selectOrderByMemberId(Integer memberId);
+
+	List<OrderItemBean> getOrderItemBean(OrderBean orderBean);
 
 }

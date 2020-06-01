@@ -21,7 +21,7 @@ import com.happytail.shopping.service.ProductService;
 import com.happytail.shopping.service.ShowProductService;
 
 @Controller
-public class  ShowProductTest{
+public class  ShowProduct{
 	@Autowired
 	SessionFactory session;
 	@Autowired
@@ -59,14 +59,8 @@ public class  ShowProductTest{
 		return re;
 	}
 	
-//	@GetMapping(value = "/OutputLineChart", produces= {"application/json"} )
-//	public ResponseEntity<List<LChartBean>> OutputLineChart(@RequestParam String yearmonths, Model model) {
-//		List<LChartBean> list = commentServiceIMPL.getLineChart(yearmonths);
-//		ResponseEntity<List<LChartBean>> re  = new ResponseEntity<>(list, HttpStatus.OK);
-//		return re;
-//	}
 
-		@PostMapping("/showProductByCategory")
+		@PostMapping(value = "/showProduct.do")
 		public String showProductByCategory(Model m,HttpServletRequest request,@RequestParam("categoryId") Integer categoryId ) {
 
 			System.out.println("傳入資料狀況:"+categoryId);	

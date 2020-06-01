@@ -6,12 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TestIndex {
 
-	@GetMapping("/showProduct")
-	public String go() {
-		return "showProduct";
-	}
+//	@GetMapping("/showProduct")
+//	public String go() {
+//		return "showProduct";
+//	}
+	
+	
 	@GetMapping("/shopIndex")
 	public String go1() {
+		System.out.println("進入");
 		return "shopIndex";
 	}
 	
