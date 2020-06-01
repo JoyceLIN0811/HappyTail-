@@ -26,7 +26,7 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 
 	private final String SelectByTopicId = "FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId";
 	private final String SelectByReplyId = "FROM com.happytail.forum.model.ThumbsUpView WHERE replyId=:replyId";
-	private final String SelectByMemberId = "FROM com.happytail.forum.model.ThumbsUpView WHERE memberId=:memberId";
+	private final String SelectByUserId = "FROM com.happytail.forum.model.ThumbsUpView WHERE userId=:userId";
 	private final String SelectBriefThumbsUp = "SELECT DISTINCT FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId AND type=: type";
 	private final String TopicAllLikeCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId";
 	private final String TopicCategoryLikeCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.ThumbsUpView WHERE topicId=:topicId and categoryId =:categoryId";
@@ -58,10 +58,10 @@ public class ThumbsUpViewDAOImpl implements ThumbsUpViewDAO {
 	}
 
 	@Override
-	public List<ThumbsUpView> selectByMemberId(Integer memberId) {
+	public List<ThumbsUpView> selectByMemberId(Integer userId) {
 		List<ThumbsUpView> list = null;
 		try {
-			list = getSession().createQuery(SelectByMemberId, ThumbsUpView.class).setParameter("memberId", memberId)
+			list = getSession().createQuery(SelectByUserId, ThumbsUpView.class).setParameter("userId", userId)
 					.getResultList();
 		} catch (Exception e) {
 			return null;

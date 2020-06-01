@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.happytail.forum.model.Favorate;
 import com.happytail.forum.model.Follow;
+import com.happytail.forum.model.History;
 import com.happytail.forum.model.Reply;
 import com.happytail.forum.model.ReplylistView;
 import com.happytail.forum.model.Report;
@@ -19,6 +20,7 @@ import com.happytail.forum.model.Topic;
 import com.happytail.forum.model.TopiclistView;
 import com.happytail.forum.model.dao.FavorateDAO;
 import com.happytail.forum.model.dao.FollowDAO;
+import com.happytail.forum.model.dao.HistoryDAO;
 import com.happytail.forum.model.dao.HitDAO;
 import com.happytail.forum.model.dao.ReplyDAO;
 import com.happytail.forum.model.dao.ReplylistViewDAO;
@@ -84,6 +86,9 @@ public class ForumService {
 
 	@Autowired
 	private NoticeDAO noticeDAO;
+	
+	@Autowired
+	private HistoryDAO historyDAO;
 
 	// Forum Top
 
@@ -280,7 +285,7 @@ public class ForumService {
 			Page<ReplylistView> result = replylistViewDAO.getAllReplylist(topicId, pageInfo);
 
 			for (ReplylistView replyView : result.getRecords()) {
-				ThumbsUp thumbsUp = thumbsUpDAO.selectByReply(topicId, replyView.getReplyId(), petMembers.getId());
+				ThumbsUp thumbsUp = thumbsUpDAO.selectByReply(replyView.getReplyId(), petMembers.getId());
 				replyView.setIsThumbsUp(thumbsUp != null);
 			}
 
@@ -302,6 +307,11 @@ public class ForumService {
 	// add topic
 	public Topic addTopic(Topic topic) {
 		return topicDAO.insert(topic);
+	}
+	
+	//add read history record
+	public History addHistory(History history) {
+		return historyDAO.insert(history);
 	}
 
 	// add reply
@@ -336,14 +346,24 @@ public class ForumService {
 	}
 
 	// delete thumbsUp
-	public Boolean removeThumbsUp(Integer id) {
-		return thumbsUpDAO.delete(id);
+	public void removeThumbsUp(String type, Integer targetId, Integer userId) {
+		
+		if (type.equals("topic")) {
+			thumbsUpDAO.deleteTopicThumbsUp(type, userId, targetId);
+			System.out.println("delete topic thumbsUp");
+		}else{
+			thumbsUpDAO.deleteReplyThumbsUp(type, userId, targetId);
+			System.out.println("delete reply thumbsUp");
+
+		}
+		System.out.println("delete fail");
+	
 	}
 
 	// update follow status
-	public void removeFollow(Integer topicId, PetMembers petmembers) {
+	public void removeFollow(Integer topicId, Integer userId) {
 
-		Follow follow = followDAO.select(topicId, petmembers.getId());
+		Follow follow = followDAO.select(topicId, userId);
 		if (follow != null) {
 			follow.setStatus(false);
 			followDAO.update(follow);
@@ -354,7 +374,9 @@ public class ForumService {
 	}
 
 	// update per notice isRead status
-	public void updateIsReadStatus(Notice notice) {
+	public void updateIsReadStatus(Integer noticeId) {
+		
+		Notice notice = noticeDAO.select(noticeId);
 		notice.setIsRead(true);
 		noticeDAO.update(notice);
 	}

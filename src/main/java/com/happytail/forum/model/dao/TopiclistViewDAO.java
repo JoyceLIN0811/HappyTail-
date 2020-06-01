@@ -15,10 +15,10 @@ public interface TopiclistViewDAO {
 	public Page<TopiclistView> getCategoryTopiclist(Integer categoryId, PageInfo pageInfo);
 
 	//self topic
-	public Page<TopiclistView> getMemberIdTopiclist(Integer memberId, PageInfo pageInfo);
+	public Page<TopiclistView> getMemberIdTopiclist(Integer userId, PageInfo pageInfo);
 
 	//self follow or thumbsUp topic
-	public Page<TopiclistView> getFollowOrThumbsUplist(List<Integer> topicIdList, PageInfo pageInfo);
+	public Page<TopiclistView> getFollowOrThumbsUpOrHistorylist(List<Integer> topicIdList, PageInfo pageInfo);
 	
 	//self favorate category topic
 	public Page<TopiclistView> getFavorateCategoryTopiclist(List<Integer> categoryIdList, PageInfo pageInfo);
@@ -33,13 +33,13 @@ public interface TopiclistViewDAO {
 
 	public Long categoryTopicCounts(Integer categoryId);
 
-	public Long myTopicCounts(Integer memberId);
+	public Long myTopicCounts(Integer userId);
 
 //	public List<TopiclistView> select();
 
 //	public List<TopiclistView> selectByCategoryId();
 
-//	public List<TopiclistView> selectByMemberId(Integer memberId);
+//	public List<TopiclistView> selectByMemberId(Integer userId);
 	
 //	public PageInfo getPageInfo(Map<String, Object> paramMap);
 

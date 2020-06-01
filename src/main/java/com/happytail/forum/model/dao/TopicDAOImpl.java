@@ -65,7 +65,7 @@ public class TopicDAOImpl implements TopicDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Update fail");
+			System.out.println("DAO Update fail");
 			return null;
 		}
 		return topic;

@@ -13,7 +13,7 @@ public interface ThumbsUpViewDAO {
 	
 	public List<ThumbsUpView> selectByReplyId(Integer replyId);
 
-	public List<ThumbsUpView> selectByMemberId(Integer memberId);
+	public List<ThumbsUpView> selectByMemberId(Integer userId);
 	
 	public Long topicAllCounts(Integer topicId);
 	

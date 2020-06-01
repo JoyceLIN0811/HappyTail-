@@ -26,8 +26,9 @@ public class FavorateDAOImpl implements FavorateDAO {
 		return session;
 	}
 
-	private final String selectByUserId = "SELECT categoryId FROM com.happytail.forum.model.Favorate WHERE userId=:userId";
+	private final String selectCategoryIdByUserId = "SELECT categoryId FROM com.happytail.forum.model.Favorate WHERE userId=:userId";
 	private final String selectByUserIdAndCategoryId = "FROM com.happytail.forum.model.Favorate WHERE userId=:userId AND categoryId=:categoryId";
+	private final String selectByUserId = "FROM com.happytail.forum.model.Favorate WHERE userId=:userId";
 
 	@Override
 	public Favorate insert(Favorate favorate) {
@@ -45,17 +46,24 @@ public class FavorateDAOImpl implements FavorateDAO {
 
 	@Override
 	public boolean delete(Integer userId) {
-		Favorate favorate = getSession().get(Favorate.class, userId);
+		Query<Favorate> query = getSession().createQuery(selectByUserId, Favorate.class);
+		query.setParameter("userId", userId);
+		List<Favorate> list = query.list();
+		System.out.println("list="+list);
 
-		try {
-			if (favorate != null) {
+//		try {
+//			if (favorate != null) {
+				for(Favorate favorate : list)
 				getSession().delete(favorate);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Delete fail");
-			return false;
-		}
+				
+				System.out.println("Delete success");
+//
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("Delete fail");
+//			return false;
+//		}
 		return true;
 	}
 
@@ -77,22 +85,15 @@ public class FavorateDAOImpl implements FavorateDAO {
 
 	@Override
 	public List<Integer> selectCategoryIdList(Integer userId) {
-		Query<Integer> check = getSession().createQuery(selectByUserId, Integer.class);
+		Query<Integer> check = getSession().createQuery(selectCategoryIdByUserId, Integer.class);
 		check.setParameter("userId", userId);
 
-		List<Integer> list = check.list();
-
-		if (list == null || list.size() == 0) {
-			System.out.println("No result");
-			return null;
-		}
-
-		return list;
+		return check.list();
 	}
 
 	@Override
 	public List<Favorate> selectFavorateCategoryList(Integer userId) {
-		Query<Favorate> check = getSession().createQuery(selectByUserId, Favorate.class);
+		Query<Favorate> check = getSession().createQuery(selectCategoryIdByUserId, Favorate.class);
 		check.setParameter("userId", userId);
 
 		List<Favorate> list = check.list();

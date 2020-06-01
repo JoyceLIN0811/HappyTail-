@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ThumbsUpView {
 	
 	private Integer id;
-	private Integer memberId;
+	private Integer userId;
 	private String username;
 	private Integer topicId;
 	private String title;
@@ -29,10 +29,10 @@ public class ThumbsUpView {
 	private Timestamp createDate;
 
 	
-	public ThumbsUpView(Integer memberId, String username, Integer topicId
+	public ThumbsUpView(Integer userId, String username, Integer topicId
 	,String title, Integer replyId, String replyContent, String type
 	,Integer categoryId, String category, Timestamp createDate) {
-		this.memberId  = memberId;
+		this.userId  = userId;
 		this.username = username;
 		this.topicId = topicId;
 		this.title = title;
@@ -59,13 +59,13 @@ public class ThumbsUpView {
 		this.id = id;
 	}
 
-	@Column(name = "memberId")
-	public Integer getMemberId() {
-		return memberId;
+	@Column(name = "userId")
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "username")
@@ -152,7 +152,7 @@ public class ThumbsUpView {
 
 	@Override
 	public String toString() {
-		return "ThumbsUpView [id=" + id + ", memberId=" + memberId + ", username=" + username + ", topicId=" + topicId
+		return "ThumbsUpView [id=" + id + ", userId=" + userId + ", username=" + username + ", topicId=" + topicId
 				+ ", title=" + title + ", replyId=" + replyId + ", replyContent=" + replyContent + ", type=" + type
 				+ ", categoryId=" + categoryId + ", category=" + category + ", createDate=" + createDate + "]";
 	}

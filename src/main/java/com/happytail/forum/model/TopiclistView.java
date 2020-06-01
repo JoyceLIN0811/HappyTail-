@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "TopiclistView")
 public class TopiclistView {
 	
-	private Integer memberId;
+	private Integer userId;
 	private String username;
 	private Integer categoryId;
 	private Integer topicId;
@@ -34,10 +34,10 @@ public class TopiclistView {
 	private Boolean isFollowed;
 	private Boolean isReported;	
 	
-	public TopiclistView(Integer memberId, String username, Integer categoryId
+	public TopiclistView(Integer userId, String username, Integer categoryId
 	, Integer topicId, String title, Timestamp createDate, String imageUrl
 	, Integer replyNum, Integer count, Integer likeNum, String category) {
-		this.memberId = memberId;
+		this.userId = userId;
 		this.username = username;
 		this.categoryId = categoryId;
 		this.topicId = topicId;
@@ -63,13 +63,13 @@ public class TopiclistView {
 		this.topicId = topicId;
 	}
 
-	@Column(name = "memberId")
-	public Integer getMemberId() {
-		return memberId;
+	@Column(name = "userId")
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "username")
@@ -183,7 +183,7 @@ public class TopiclistView {
 
 	@Override
 	public String toString() {
-		return "TopiclistView [memberId=" + memberId + ", username=" + username + ", categoryId=" + categoryId
+		return "TopiclistView [userId=" + userId + ", username=" + username + ", categoryId=" + categoryId
 				+ ", topicId=" + topicId + ", title=" + title + ", createDate=" + createDate + ", imageUrl=" + imageUrl
 				+ ", replyNum=" + replyNum + ", count=" + count + ", likeNum=" + likeNum + ", category=" + category
 				+ ", isThumbsUp=" + isThumbsUp + ", isFollowed=" + isFollowed + ", isReported=" + isReported + "]";

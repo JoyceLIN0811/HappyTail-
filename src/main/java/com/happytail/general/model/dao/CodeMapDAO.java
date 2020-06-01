@@ -15,5 +15,7 @@ public interface CodeMapDAO {
 	public CodeMap selectValue(String module, String type, String key);
 
 	public List<CodeMap> selectValueList(String module, String type);
+	
+	public List<CodeMap> getMyFavorateCategorylist(List<Integer> categoryIdlist,String module, String type);
 
 }

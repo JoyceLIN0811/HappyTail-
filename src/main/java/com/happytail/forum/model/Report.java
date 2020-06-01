@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,14 +23,14 @@ public class Report {
 	private Integer topicId;
 	private Integer userId;
 	private String username;
-	private String isDone;
+	private Boolean isDone = false;
 	private String message;
 	private Integer categoryId;
 	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
 	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	
 	public Report(Integer topicId, Integer userId, String username
-	,String isDone, String message,Integer categoryId, Timestamp createDate, Timestamp updateDate) {
+	,Boolean isDone, String message,Integer categoryId, Timestamp createDate, Timestamp updateDate) {
 		this.topicId = topicId;
 		this.userId = userId;
 		this.username = username;
@@ -82,12 +83,13 @@ public class Report {
 		this.username = username;
 	}
 
+	@Type(type="yes_no")
 	@Column(name = "isDone")
-	public String getIsDone() {
+	public Boolean getIsDone() {
 		return isDone;
 	}
 
-	public void setIsDone(String isDone) {
+	public void setIsDone(Boolean isDone) {
 		this.isDone = isDone;
 	}
 

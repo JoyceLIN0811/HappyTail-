@@ -8,14 +8,16 @@ public interface ThumbsUpDAO {
 	
 	public ThumbsUp insert(ThumbsUp thumbsUp);
 
-	public boolean delete(Integer id);
+	public Boolean deleteTopicThumbsUp(String type, Integer userId, Integer topicId);
+
+	public Boolean deleteReplyThumbsUp(String type, Integer userId, Integer replyId);
 	
 	public ThumbsUp update(ThumbsUp thumbsUp);
-	
+		
 	public ThumbsUp selectByTopic(Integer topicId, Integer userId);
 
-	public ThumbsUp selectByReply(Integer topicId, Integer replyId, Integer userId);
+	public ThumbsUp selectByReply(Integer replyId, Integer userId);
 	
-	public List<Integer> selectTopicIdList(Integer userId, String type);
+	public List<Integer> selectTopicIdList(Integer userId);
 
 }
