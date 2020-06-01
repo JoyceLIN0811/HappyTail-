@@ -149,7 +149,11 @@ public class PetMembersController {
 //			if(un != null && un.getAccount() != petmember.getAccount()) {
 //				errorMsg.put("userIsExist", "會員帳號重複");				
 //			}			
-//		}		
+//		}	
+		
+		if(username == null || username.trim().length() == 0) {
+			errorMsg.put("usernameError", "姓名欄不可空白");
+		}
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
@@ -165,8 +169,7 @@ public class PetMembersController {
 		
 		Integer age2 = null;
 		try {
-			age2 = Integer.parseInt(age);
-			
+			age2 = Integer.parseInt(age);			
 		}catch(Exception e) {
 			e.printStackTrace();
 			errorMsg.put("mAge", "年齡格式錯誤");
@@ -178,7 +181,7 @@ public class PetMembersController {
 			String originalFilename = memberImage.getOriginalFilename();			
 			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
 				petmember.setFileName(originalFilename);
-//					ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
+//				ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
 			}else {
 				petmember.setFileName(username);
 			}			
@@ -216,7 +219,6 @@ public class PetMembersController {
 		petmember.setAge(age2);
 		petmember.setAddress(address);
 		petmember.setPhone(phone);
-//		petmember.setPetType(petType);
 		petmember.setUpdateDate(new Timestamp(System.currentTimeMillis()));
 		
 		PetMembers um = service.updatePetMembers(petmember);
@@ -258,28 +260,24 @@ public class PetMembersController {
 		@RequestParam(name="bday") String bday,
 		@RequestParam(name="age") String age,
 		@RequestParam(name="address") String address,
-		@RequestParam(name="phone") String phone,
-//		@RequestParam(name="petType") String petType,		
+		@RequestParam(name="phone") String phone,	
 		@RequestParam(name="memberImage") MultipartFile memberImage,
 		Model model
 			) {
-//		System.out.println(username);
-//		System.out.println(password);
-//		System.out.println(gender);
-	
-		
 		Map<String, String> errorMsg = new HashMap<String, String>();	
 		model.addAttribute("errorMsg", errorMsg);
 		
+		String format = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";		
 		if(account == null || account.trim().length() == 0) {
 			errorMsg.put("accountError", "帳號欄不可空白");
-		}else if(!account.isEmpty()) {
-			PetMembers un = service.selectPetMembers(account);
-			
-			if(un != null) {
-				errorMsg.put("accountIsExist", "會員帳號重複");				
-			}			
-		}	
+		}else if( !(account == null) && !account.matches(format)) {
+			errorMsg.put("accountformatError", "會員帳號格式錯誤");				
+		}
+		
+		PetMembers un = service.selectPetMembers(account);			
+		if(un != null) {
+			errorMsg.put("accountIsExist", "會員帳號重複");				
+		}				
 		
 		if(username == null || username.trim().length() == 0) {
 			errorMsg.put("usernameError", "姓名欄不可空白");
@@ -299,17 +297,12 @@ public class PetMembersController {
 		
 		Integer age2 = null;
 		try {
-			age2 = Integer.parseInt(age);
-			
+			age2 = Integer.parseInt(age);			
 		}catch(Exception e) {
 			e.printStackTrace();
 			errorMsg.put("mAge", "年齡格式錯誤");
 		}		
-		
-//		if(memberImage.getSize() == 0) {
-//			errorMsg.put("noImage", "請附上圖片");
-//		} 
-		
+
 		if (!errorMsg.isEmpty()) {	
 			String gen = "M";
 			if(gender.equalsIgnoreCase(gen)) {
@@ -322,8 +315,8 @@ public class PetMembersController {
 		
 		String originalFilename = memberImage.getOriginalFilename();			
 		if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
-				petMember.setFileName(originalFilename);
-//				ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
+			petMember.setFileName(originalFilename);
+//			ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
 		}else {
 			petMember.setFileName(username);
 		}			
@@ -351,10 +344,6 @@ public class PetMembersController {
 		petMember.setAge(age2);
 		petMember.setAddress(address);
 		petMember.setPhone(phone);
-//		petMember.setPetType(petType);	
-		
-//		System.out.println(petMember.getUsername());
-//		System.out.println(petMember.getPassword());
 	
 		PetMembers pm = service.insertPetMembers(petMember);		
 		

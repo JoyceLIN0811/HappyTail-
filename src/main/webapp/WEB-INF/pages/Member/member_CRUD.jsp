@@ -18,11 +18,10 @@
 	<form action="<c:url value="memberUpdate" />" method="post" enctype="multipart/form-data">
 		<table>
 			<tr><td><input type="hidden" name="id" value = "${petMember.id }" /></td></tr>
-<%-- 			<tr><td><input type="hidden" name="registerTime" value = ${petMember.registerTime }${param.registerTime} /></td></tr> --%>
 				<tr>
 					<td>Username :	</td>
 					<td><input type="text" name="username" value = "${petMember.username }${param.username }" /></td>
-					<td><font color='red' size="-1">${errorMsg.userIsExist}${errorMsg.usernameError}</font></td>
+					<td><font color='red' size="-1">${errorMsg.usernameError}</font></td>
 
 				</tr>
 				<tr>
@@ -37,14 +36,14 @@
 <!-- 				</tr> -->
 				<tr>
 					<td>Gender</td>
-					<td><input type="radio" name="gender" value="M" 
-					<c:if test="${gender == true}">checked="checked"</c:if>					
-					/>Man 
-					
-					<input type="radio" name="gender" value="F" 
-					<c:if test="${gender == false}">checked="checked"</c:if>
-					/>Woman</td>
-
+					<td>
+						<input type="radio" name="gender" value="M" 
+							<c:if test="${gender == true}">checked="checked"</c:if>					
+						/>Man 					
+						<input type="radio" name="gender" value="F" 
+							<c:if test="${gender == false}">checked="checked"</c:if>
+						/>Woman
+					</td>
 				</tr>
 				<tr>
 					<td>Birthday :	</td>

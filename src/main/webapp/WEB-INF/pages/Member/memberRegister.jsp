@@ -21,13 +21,12 @@
 				<tr>
 					<td>Account :	</td>
 					<td><input type="text" name="account" placeholder="請輸入你的email" value="${param.account }"/></td>
-
-				</tr>	
-				
+					<td><font color='red' size="-1">${errorMsg.accountformatError}${errorMsg.accountIsExist}${errorMsg.accountError}</font></td>
+				</tr>					
 				<tr>
 					<td>Username :	</td>
 					<td><input type="text" name="username" value="${param.username }"/></td>
-					<td><font color='red' size="-1">${errorMsg.userIsExist}${errorMsg.usernameError}</font></td>
+					<td><font color='red' size="-1">${errorMsg.usernameError}</font></td>
 
 				</tr>
 				<tr>
@@ -36,23 +35,18 @@
 					<td><font color='red' size="-1">${errorMsg.passwordError}</font></td>
 
 				</tr>
-<!-- 				<tr> -->
-<!-- 					<td>Email :	</td> -->
-<!-- 					<td><input type="text" name="email" /></td> -->
-
-<!-- 				</tr> -->
 				<tr>									
 					<td>Gender</td>
-					<td><input type="radio" name="gender" value="M" 
-						<c:if test="${gender == true}">checked="checked"</c:if>					
-					/>Man 
+					<td>
+						<input type="radio" name="gender" value="M" 
+							<c:if test="${gender == true}">checked="checked"</c:if>					
+						/>Man 
 					
-					<input type="radio" name="gender" value="F" 
-						<c:if test="${gender == false}">checked="checked"</c:if>
-					/>Woman</td>			
-					
-					</td>
-				
+						<input type="radio" name="gender" value="F" 
+							<c:if test="${gender == false}">checked="checked"</c:if>
+						/>Woman
+					</td>		
+							
 				</tr>
 				<tr>
 					<td>Birthday :	</td>
