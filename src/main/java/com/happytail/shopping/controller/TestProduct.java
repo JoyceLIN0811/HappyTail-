@@ -21,7 +21,7 @@ import com.happytail.shopping.model.service.ProductService;
 import com.happytail.shopping.model.service.ShowProductService;
 
 @Controller
-public class  ShowProduct{
+public class  TestProduct{
 	@Autowired
 	SessionFactory session;
 	@Autowired
@@ -37,39 +37,30 @@ public class  ShowProduct{
 	
 	@GetMapping(value = "/allProductNoImage", produces= {"application/json"} )
 	public ResponseEntity<List<ProductBean>> allProductNoImage() {
-//	public String test() {
+
 		System.out.println("進入controller");
 		System.out.println("test");
 		List<ProductBean> selectAll = dao.selectAll();
 		ResponseEntity<List<ProductBean>> re  = new ResponseEntity<>(selectAll, HttpStatus.OK);
-//		System.out.println(re);
+
 		
 		return re;
 	}
 	
 	@GetMapping(value = "/allProductWithImage", produces= {"application/json"} )
 	public ResponseEntity<List<ProductBeanImageData>> allProductWithImage() {
-//	public String test() {
+
 		System.out.println("進入controller");
 		System.out.println("test");
 		List<ProductBeanImageData> list = dao.getAllProductsImageDatas();
 		ResponseEntity<List<ProductBeanImageData>> re  = new ResponseEntity<>(list, HttpStatus.OK);
-//		System.out.println(re);
+
 		
 		return re;
 	}
 	
 
-		@PostMapping(value = "/showProduct.do")
-		public String showProductByCategory(Model m,HttpServletRequest request,@RequestParam("categoryId") Integer categoryId ) {
-
-			System.out.println("傳入資料狀況:"+categoryId);	
-			List<ProductBean> list = dao.selectCategory(categoryId);
-			m.addAttribute("productList", list);
-			System.out.println("抓取資料成功");
-
-			return "showProduct";
-		}
+	
 	
 	
 	

@@ -32,5 +32,33 @@ public class ShopView {
 		return view;
 	}
 	
+	@Bean
+	public View shoppingCart() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/shop/shoppingCart.jsp");
+		return view;
+	}
+	
+	@Bean
+	public View OrderCheck() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/shop/OrderCheck.jsp");
+		return view;
+	}
+	
+	@Bean
+	public View AllOrderList() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/shop/AllOrderList.jsp");
+		return view;
+	}
+	
+	@Bean
+	public View ThanksForOrder() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/shop/ThanksForOrder.jsp");
+		return view;
+	}
+	
 
 }
