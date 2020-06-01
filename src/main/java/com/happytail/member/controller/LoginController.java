@@ -51,10 +51,7 @@ public class LoginController {
 		}
 		
 		if (!errorMsg.isEmpty() ) {
-			return "Member/memberLogin";
-		}
-		
-
+			return "Member/memberLogin";		}
 		
 		PetMembers pMember = service.checkLogin(account, password);
 		
@@ -63,7 +60,45 @@ public class LoginController {
 				return "../../index";
 			
 			}else {
-				errorMsg.put("LoginError", "帳號或密碼錯誤");
+				errorMsg.put("LoginError", "帳號未啟用或帳號、密碼錯誤");
+			}
+		
+			if (!errorMsg.isEmpty()) {
+				return "Member/memberLogin";
+			}
+		
+		return "../../index";
+		
+	}
+	
+	@PostMapping(value = "/temporaryPasswordloginCheck")
+	public String temporaryPasswordcheckLogin(
+			@RequestParam(name="account") String account,
+			@RequestParam(name="temporaryPassword") String temporaryPassword,
+
+			HttpServletRequest request
+	
+		) {		
+		HttpSession session = request.getSession();
+		
+		Map<String, String> errorMsg = new HashMap<String, String>();
+		request.setAttribute("ErrorMsg", errorMsg);	
+		
+		if(temporaryPassword == null || temporaryPassword.trim().length() == 0) {
+			errorMsg.put("passwordError", "臨時密碼欄不可空白");
+		}
+		
+		if (!errorMsg.isEmpty() ) {
+			return "Member/memberLogin";		}
+		
+		PetMembers pMember = service.checkLogin(account, temporaryPassword);
+		
+			if( pMember != null) {
+				session.setAttribute("LoginOK", pMember);
+				return "../../index";
+			
+			}else {
+				errorMsg.put("LoginError", "帳號未啟用或帳號、密碼錯誤");
 			}
 		
 			if (!errorMsg.isEmpty()) {

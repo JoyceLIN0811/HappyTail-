@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,10 +50,41 @@ public class PetMembersController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String processRregister() {
-		return "Member/memberRegister";
-//		return "Member/register";
-	}	
+		return "PetMemberPage";
+	}
 	
+	@GetMapping(value ="/accountStart")
+	public String accountStart(@RequestParam(name="code") String startCode) {
+		
+		if(service.checkStartCode(startCode)) {
+			return "Member/verificationSuccess";
+		}else {
+			return "Member/verificationFail";
+		}
+	}
+	
+	@PostMapping(value = "/sendTemporaryPassword")
+	public String sendTemporaryPassword(
+		@RequestParam(name="temporaryPasswordAccount") String temporaryPasswordAccount,
+		Model model
+		) {
+		Map<String, String> errorMsg = new HashMap<String, String>();	
+		model.addAttribute("errorMsg", errorMsg);
+		
+		if(temporaryPasswordAccount == null || temporaryPasswordAccount.trim().length() == 0) {
+			errorMsg.put("temporaryPasswordAccount", "帳號欄不可空白");
+		}else if(!temporaryPasswordAccount.isEmpty()) {
+			String un = service.selectPetMembers(temporaryPasswordAccount);			
+			if(un == null) {
+				errorMsg.put("temporaryPasswordAccount", "該帳號不存在，請重新輸入");			
+			}		
+		}
+		
+		
+		
+		
+		return "";		
+	}
 	
 	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
 	public String updatePetMembers(
@@ -279,7 +311,7 @@ public class PetMembersController {
 		petMember.setAccount(account);
 		petMember.setUsername(username);
 		petMember.setPassword(password);
-		petMember.setEmail(username);
+		petMember.setEmail(account);
 		petMember.setGender(gender);
 		petMember.setBday(bdate);
 		petMember.setAge(age2);

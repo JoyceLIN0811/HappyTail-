@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.member.model.dao.PetMembersDAO;
+import com.happytail.member.util.MailUtil;
 
 @Service
 @Transactional
@@ -22,8 +23,10 @@ public class PetMembersServiceImpl implements PetMembersService{
 	public PetMembers checkLogin(String account,String password) {
 		
 		PetMembers petMember = petMembersDAO.selectPetMembers(account, password);
-	
-			return petMember;	
+		if(petMember.getStatus() == 1) {
+			return petMember;			
+		}
+		return null;	
 	}
 	
 	
@@ -31,58 +34,64 @@ public class PetMembersServiceImpl implements PetMembersService{
 	public PetMembers insertPetMembers(PetMembers petMembers) {	
 			
 		PetMembers	petMember = petMembersDAO.insertPetMembers(petMembers);			
-		
+		new Thread(new MailUtil(petMember.getEmail(), petMember.getStartCode())).start();
 		return petMember;	
 	}
+	
+	@Override
+	public boolean checkStartCode(String code) {
+		
+		PetMembers pMember = petMembersDAO.checkStartCode(code);
+		if( pMember != null){			
+			return true;
+		}else {
+			return false;
+		}
+	}	
+	
+	@Override
+	public PetMembers checkTemporaryPassword(String account, String temporaryPassword) {
+		
+		PetMembers pMember = petMembersDAO.checkTemporaryPassword(account, temporaryPassword);
+		return pMember;
+	}	
+	
+	
 
 	@Override
-	public PetMembers selectPetMembers(Integer id) {
-		
-		PetMembers petMember = petMembersDAO.selectPetMembers(id);
-	
+	public PetMembers selectPetMembers(Integer id) {		
+		PetMembers petMember = petMembersDAO.selectPetMembers(id);	
 		return  petMember;
 	}
 	
 	@Override
-	public String selectPetMembers(String account) {
-		
-		String petMember = petMembersDAO.selectPetMembers(account);
-	
+	public String selectPetMembers(String account) {		
+		String petMember = petMembersDAO.selectPetMembers(account);	
 		return  petMember;
 	}
 	
 	@Override
-	public PetMembers selectPetMembers(String password, String account) {
-		
-		PetMembers petMember = petMembersDAO.selectPetMembers(password,account);
-		
+	public PetMembers selectPetMembers(String password, String account) {		
+		PetMembers petMember = petMembersDAO.selectPetMembers(password,account);		
 		return  petMember;
 	}
 
 	@Override
-	public List<PetMembers> selectAllPetMembers() {
-		
-		List<PetMembers> list = petMembersDAO.selectAllPetMembers();
-		
+	public List<PetMembers> selectAllPetMembers() {		
+		List<PetMembers> list = petMembersDAO.selectAllPetMembers();		
 		return list;
 	}
 
 	@Override
-	public PetMembers updatePetMembers(PetMembers petMember) {
-		
-		PetMembers pMember = petMembersDAO.updatePetMembers(petMember);
-		
+	public PetMembers updatePetMembers(PetMembers petMember) {		
+		PetMembers pMember = petMembersDAO.updatePetMembers(petMember);		
 		return pMember; 
 	}
 
 	@Override
-	public boolean deletePetMembers(Integer id) {
-		
-		boolean result = petMembersDAO.deletePetMembers(id);
-		
+	public boolean deletePetMembers(Integer id) {		
+		boolean result = petMembersDAO.deletePetMembers(id);		
 		return result;
-	}
-	
-	
+	}	
 
 }

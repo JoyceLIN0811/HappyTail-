@@ -26,5 +26,9 @@ public interface PetMembersService {
 	PetMembers checkLogin(String account, String password);
 
 	String selectPetMembers(String account);
+
+	boolean checkStartCode(String code);
+
+	PetMembers checkTemporaryPassword(String account, String temporaryPassword);
 	
 }

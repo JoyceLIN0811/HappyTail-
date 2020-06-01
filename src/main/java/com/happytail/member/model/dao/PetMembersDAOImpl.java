@@ -1,6 +1,5 @@
 package com.happytail.member.model.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -12,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.happytail.member.model.PetMembers;
+import com.happytail.member.util.MailCodeUtil;
+
+
 
 @Repository
 public class PetMembersDAOImpl implements PetMembersDAO  {
@@ -41,10 +43,45 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 		PetMembers bean = (PetMembers) query.uniqueResult();
 		if(bean == null) {
 //			petMembers.setRegisterTime(new Timestamp(System.currentTimeMillis()));
+			String code = MailCodeUtil.startCode();
+			System.out.println(code);
+			petMembers.setStartCode(code);
+			petMembers.setStatus(0);
 			getSession().save(petMembers);
 			return petMembers;
 		}		
 		return null;
+	}
+	
+	@Override
+	public PetMembers checkStartCode(String code) {	
+		Query<PetMembers> query = getSession().createQuery("From PetMembers where startCode=:startCode", PetMembers.class);
+		query.setParameter("startCode", code);
+		PetMembers bean = (PetMembers) query.uniqueResult();
+		if(bean == null) {
+			return null;
+		}
+		bean.setStatus(1);
+		getSession().save(bean);	
+		return bean;
+	
+	}
+	
+	@Override
+	public PetMembers checkTemporaryPassword(String account, String temporaryPassword) {	
+		Query<PetMembers> query = getSession().createQuery("from PetMembers where account=?1 and temporaryPassword?2", PetMembers.class);
+		query.setParameter(1, account);
+		query.setParameter(2, temporaryPassword);
+		System.out.println(account + "  " + temporaryPassword);
+		PetMembers result = null;
+		try {
+			result = (PetMembers) query.getSingleResult();
+		}catch(NoResultException nre) {
+			nre.printStackTrace();
+			return result;
+		}		
+		return result;
+	
 	}
 	
 	@Override
