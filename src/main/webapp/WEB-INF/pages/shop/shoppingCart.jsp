@@ -86,52 +86,6 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
-<script>
-// function confirmDelete(n) {
-// 	if (confirm("確定刪除此項商品 ? ") ) {
-// 		document.forms[0].action="<c:url value='UpateProduct?cmd=DEL&ProductId=" + n +"' />" ;
-// 		document.forms[0].method="POST";
-// 		document.forms[0].submit();
-// 	} else {
-	
-// 	}
-// }
-
-// function modify(key, amount, index) {
-// 	var x = "newAmount" + index;
-// 	var newAmount = document.getElementById(x).value;
-// 	if  (newAmount < 0 ) {
-// 		window.alert ('數量不能小於 0');
-// 		return ; 
-// 	}
-// 	if  (newAmount == 0 ) {
-// 		window.alert ("請執行刪除功能來刪除此項商品");
-// 		document.getElementById(x).value = amount;
-// 		return ; 
-// 	}
-// 	if  (newAmount == amount ) {
-// 		window.alert ("數量相同，不必修改");
-// 		return ; 
-// 	} 
-// 	if (confirm("確定將此商品的數量由" + amount + " 改為 " + newAmount + " ? ") ) {
-// 		document.forms[0].action="<c:url value='UpdateItem.do?cmd=MOD&PetId=" + key + "&newAmount=" + newAmount +"' />" ;
-// 		document.forms[0].method="POST";
-// 		document.forms[0].submit();
-// 	} else {
-// 		document.getElementById(x).value = amount;
-// 	}
-// }
-
-// function isNumberKey(evt)
-// {
-//    var charCode = (evt.which) ? evt.which : event.keyCode
-//    if (charCode > 31 && (charCode < 48 || charCode > 57)){
-//       return false;
-//    }
-//    return true;
-// }
-
-</script>
 </head>
 <body>
 	<div id="page">

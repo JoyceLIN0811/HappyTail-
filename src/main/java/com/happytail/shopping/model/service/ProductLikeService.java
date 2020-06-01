@@ -27,6 +27,15 @@ public class ProductLikeService {
 	}
 	
 	public List<ProductLike> showLikes(Integer memberId){
-		return showLikes(memberId);
+		return dao.showLikes(memberId);
 	}
+	
+	public Boolean check(Integer pId, Integer mId) {
+		return dao.check(pId, mId);
+	}
+	
+	public  ProductLike getOneLike(Integer pId, Integer mId) {
+		return dao.getOneLike(pId, mId);
+	}
+	
 }

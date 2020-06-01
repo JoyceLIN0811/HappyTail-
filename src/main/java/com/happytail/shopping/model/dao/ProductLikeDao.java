@@ -16,4 +16,8 @@ public interface ProductLikeDao {
 
 	List<ProductLike> showLikes(Integer memberId);
 
+	Boolean check(Integer pId, Integer mId);
+
+	ProductLike getOneLike(Integer pId, Integer mId);
+
 }

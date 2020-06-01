@@ -34,17 +34,23 @@ public class AddToFavorite {
 			Model m
 			 ){
 			ProductBean pBean = pdao.selectOne(productId);
+			
 			System.out.println("進入");
 			ProductLike pLike=new ProductLike();
-//			PetMembers member = (PetMembers)m.getAttribute("LoginOk");
+
+			
+			
 			pLike.setBean(pBean);
 			pLike.setPetMemberId(1);
-//			pLike.setProductId(productId);
-//			 SimpleDateFormat    date = new SimpleDateFormat("yyyy/MM/dd  HH:mm:ss");
+
+			Boolean check = ldao.check(pLike.getBean().getProductId(), pLike.getPetMemberId());
+			
+			if (check==false) {
+				System.out.println("已經加入");
+				return null ;
+			}
 			 Timestamp date2= new Timestamp(System.currentTimeMillis());
-			 
-//			 String format = date.format(date2);
-//			 System.out.println(date);
+
 			 pLike.setUpdatetime(date2);
 			System.out.println("準備進入DAO");
 			ldao.insert(pLike);

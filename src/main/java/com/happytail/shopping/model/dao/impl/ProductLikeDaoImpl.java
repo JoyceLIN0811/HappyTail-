@@ -12,8 +12,10 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
 import com.happytail.shopping.model.dao.ProductLikeDao;
+import com.happytail.shopping.model.service.ProductService;
 
 @Repository
 public class ProductLikeDaoImpl implements ProductLikeDao {
@@ -21,18 +23,22 @@ public class ProductLikeDaoImpl implements ProductLikeDao {
 	SessionFactory sessionFactory;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	ProductService pdao;
 	
 	@Override
 	public Session s() {
 		return sessionFactory.getCurrentSession();
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
 	public String  insert ( ProductLike pLike) {
 		
-		s().save(pLike);
-		System.out.println("成功");
-		return "加入成功";
+				s().save(pLike);
+				
+				return "加入成功";
+		
 	}
 
 	@Override
@@ -50,11 +56,43 @@ public class ProductLikeDaoImpl implements ProductLikeDao {
 	
 	@Override
 	public List<ProductLike> showLikes(Integer memberId){
-		String newid = String.valueOf(memberId);
-		String hql ="from  ProductLike where productLikeId=:memberId";
+//		String newid = String.valueOf(memberId);
+		String hql ="from  ProductLike where petMemberId=:memberId";
 		Query<ProductLike> createQuery = s().createQuery(hql, ProductLike.class);
-		createQuery.setParameter("memberId", newid);
+		createQuery.setParameter("memberId", memberId);
 		return createQuery.getResultList();
+	}
+	@Override
+	public Boolean check(Integer pId , Integer mId) {
+		String hql ="from  ProductLike where petMemberId=:mId and productId=:pId";
+		Query<ProductLike> createQuery=null;
+		System.out.println("進入判斷");
+		createQuery = s().createQuery(hql, ProductLike.class);
+		createQuery.setParameter("mId", mId);
+		createQuery.setParameter("pId", pId);
+		int size = createQuery.getResultList().size();
+		System.out.println(size);
+		if(size==0) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public ProductLike getOneLike(Integer pId,Integer mId) {
+		String hql ="from  ProductLike where petMemberId=:mId and productId=:pId";
+		 Query<ProductLike> createQuery = s().createQuery(hql, ProductLike.class);
+		 createQuery.setParameter("mId", mId);
+			createQuery.setParameter("pId", pId);
+			try {
+				ProductLike pLike=	createQuery.getSingleResult();
+				System.out.println(pLike.getProductLikeId());
+				return pLike;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+			
 	}
 	
 }

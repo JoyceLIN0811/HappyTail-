@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.happytail.shopping.model.ProductBean;
+import com.happytail.shopping.model.ProductLike;
+import com.happytail.shopping.model.service.ProductLikeService;
 import com.happytail.shopping.model.service.ProductService;
 import com.happytail.shopping.model.service.ShowProductService;
 
@@ -27,6 +29,8 @@ public class GoController {
 	 ProductService dao ;
 	@Autowired
 	ShowProductService ShowProductService;
+	@Autowired
+	ProductLikeService ldao;
 	
 	@GetMapping("/showProduct")
 	public String go() {
@@ -57,8 +61,6 @@ public class GoController {
 	
 	@GetMapping(value = "/showProduct2")
 	public String showProduct2(Model m,HttpServletRequest request ) {
-
-//		System.out.println("傳入資料狀況:"+categoryId);	
 		List<ProductBean> list = dao.selectCategory(1);
 		m.addAttribute("productList", list);
 		System.out.println("抓取資料成功");
@@ -66,6 +68,16 @@ public class GoController {
 		return "showProduct";
 	}
 	
+	
+	@GetMapping(value = "/getFavorite.do")
+	public String getFavorite(Model m,HttpServletRequest request ) {
+		List<ProductLike> pLike = ldao.showLikes(1);
+		
+		m.addAttribute("pLike", pLike);
+		System.out.println("pLike.size="+pLike.size());
+
+		return "getFavorite";
+	}
 	
 	
 }

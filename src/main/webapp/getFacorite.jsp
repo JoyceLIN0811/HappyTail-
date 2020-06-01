@@ -38,40 +38,25 @@
 <body>
 <%-- 	<%@ include file="top.jsp"%> --%>
 	<jsp:include page="/top.jsp"></jsp:include>
-	<div class="slider">
-		<ul class="slides">
-			<li><img src="<c:url value='/img/first.jpg'/>" /> <!--         <img src="image/first.jpg"> -->
-				<div class="caption left-align grey-text text-lighten-5">
-					<h1 style="text-align: center;">
-						Caring for <br>Your Furry <br>Friends
-					</h1>
-				</div></li>
-			<li><img src="<c:url value='/img/second.jpg'/>" /> <!--         <img src="image/second.jpg"> -->
-				<div class="caption center-align grey-text text-lighten-4">
-					<h1 style="text-align: center;">
-						Caring for <br>Your Furry <br>Friends
-					</h1>
-				</div></li>
-			<li><img src="<c:url value='/img/third.jpg'/>" /> <!-- 			<li><img src="image/third.jpg"> -->
-				<div class="caption right-align grey-text text-lighten-4">
-					<h1 style="text-align: center;">
-						Caring for <br>Your Furry <br>Friends
-					</h1>
-				</div></li>
-		</ul>
-	</div>
+	
 	
 	<div class="container">
 			<div class="row">
 				<div class='col-8'>
-				<table>
+				<table class='table' style="text-align: center;">
+						<tr>
+						<th style="text-align: center;">我的最愛</th>
+						<th style="text-align: center;">商品名稱</th>
+						<th style="text-align: center;">商品價格</th>						
+						<th style="text-align: center;" ><input type="button" class='icon-shopping-cart' value='加入購物'></th>						
+						</tr>
 					<c:forEach var="pL" items="${pLike}">
 						<tr>
-							<td><img class="card-img-top" style="width: 20%; "
+							<td style="text-align: center;"><img class="card-img-top" style="width: 20%; "
 												src="data:image/jpg;base64,${pL.bean.getBiPhoto()}"></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td style="text-align: center;">${pL.bean.getName()}</td>
+							<td style="text-align: center;">${pL.bean.getPrice}</td>
+							<td style="text-align: center;"><input type="button" class='icon-shopping-cart'></td>
 						</tr>
 					</c:forEach>
 			</table>

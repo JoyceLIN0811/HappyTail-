@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 
 <html>
@@ -117,11 +118,11 @@
 							<h3 id="PetProduct">Pet Product</h3>
 							<ul>
 								<li class="icon-shopping-bag"><a href="#" id='cate1'>過往訂單</a>
-								<li class="icon-cake"><a href="<c:url value='/showProduct2'/>" id='cate1'>寵物食品</a>
-									<form id="myform1" method="post" action="url"></form></li>
+								<li class="icon-cake"><a href="<c:url value='/showProduct2'/>" id='cate1'>寵物食品</a></li>
 								<li class="icon-image"><a href="#" id='cate2'>寵物衣服</a></li>
 								<li class="icon-game-controller"><a href="#" id='cate3'>寵物玩具</a></li>
 								<li class="icon-shopping-cart"><a href="<c:url value='/intoCart'/> ">購物車</a></li>
+								<li class="icon-heart2"><a href="<c:url value='/getFavorite.do'/> ">我的最愛</a></li>
 								<li class="icon-home"><a href="<c:url value='/intoCart'/> ">回首頁</a></li>
 							</ul>
 						</div>
@@ -146,7 +147,9 @@
 											<div class="card-body">
 												<h5 class="card-title">${product.getName()}</h5>
 												<p class="card-text">${product.getDescriptrion()}</p>
-												<p class="card-text">${product.getPrice()}</p>
+												<p class="card-text">
+												<fmt:formatNumber value="${product.getPrice()}" pattern="#,###" />
+												元</p>
 
 											</div>
 											<div class="card-footer ">
@@ -305,7 +308,13 @@ $.ajax({
 	},
 	success:function(res){
 // 		alert(fid.slice(1,fid.length));
+		console.log(res);
+			
 		alert("加入收藏");
+			
+	},
+	error: function(res){
+		alert("已經加入過了");
 	}
 })
 
