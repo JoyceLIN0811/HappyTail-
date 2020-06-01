@@ -27,11 +27,13 @@ public interface PetMembersDAO {
 
 	PetMembers checkLogin(String account, String password);
 
-	public String selectPetMembers(String account);
+	public PetMembers selectPetMembers(String account);
 
 	PetMembers checkStartCode(String code);
 
 	public PetMembers checkTemporaryPassword(String temporaryPasswordAccount, String temporaryPassword);
+
+	void insertTemporaryPassword(String temporaryPasswordAccount, String temporaryPassword);
 	
 	
 }

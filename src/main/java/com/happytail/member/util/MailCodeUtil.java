@@ -9,7 +9,7 @@ public class MailCodeUtil {
 	}
 	
 	public static String forgetPwdCode() {
-		String m = String.valueOf(Math.floor((Math.random()*100000)));
+		String m = String.valueOf((int)Math.floor((Math.random()*10000)));
 		System.out.println(m);
 		return m;
 	}

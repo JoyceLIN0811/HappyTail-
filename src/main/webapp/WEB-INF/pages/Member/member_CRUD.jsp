@@ -17,7 +17,7 @@
 	
 	<form action="<c:url value="memberUpdate" />" method="post" enctype="multipart/form-data">
 		<table>
-			<tr><td><input type="hidden" name="memberId" value = ${petMember.id }${param.id } /></td></tr>
+			<tr><td><input type="hidden" name="id" value = "${petMember.id }" /></td></tr>
 <%-- 			<tr><td><input type="hidden" name="registerTime" value = ${petMember.registerTime }${param.registerTime} /></td></tr> --%>
 				<tr>
 					<td>Username :	</td>
@@ -66,11 +66,6 @@
 					<td><input type="text" name="phone" value="${petMember.phone }${param.phone }" /></td>
 
 				</tr>
-<!-- 				<tr> -->
-<!-- 					<td>PetType :	</td> -->
-<%-- 					<td><input type="text" name="petType" value= "${petMember.petType }${param.petType }" /></td> --%>
-
-<!-- 				</tr> -->
 				<tr>
 					<td>MemberImage</td>
 					<td><input type="file" name="memberImage" /></td>

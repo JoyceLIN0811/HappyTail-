@@ -50,18 +50,24 @@ public class PetMembersController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String processRregister() {
-		return "PetMemberPage";
+		return "petMemberPage";
 	}
 	
 	@GetMapping(value ="/accountStart")
 	public String accountStart(@RequestParam(name="code") String startCode) {
 		
 		if(service.checkStartCode(startCode)) {
-			return "Member/verificationSuccess";
+			return "verificationSuccess";
 		}else {
-			return "Member/verificationFail";
+			return "verificationFail";
 		}
 	}
+	
+	@GetMapping(value ="/forgetPassword")
+	public String forgetPassword() {
+		return "sendTemporaryPassword";
+	}
+	
 	
 	@PostMapping(value = "/sendTemporaryPassword")
 	public String sendTemporaryPassword(
@@ -73,11 +79,11 @@ public class PetMembersController {
 		model.addAttribute("errorMsg", errorMsg);
 		
 		if(temporaryPasswordAccount == null || temporaryPasswordAccount.trim().length() == 0) {
-			errorMsg.put("temporaryPasswordAccount", "帳號欄不可空白");
+			errorMsg.put("temporaryPasswordAccountError", "帳號欄不可空白");
 		}else if(!temporaryPasswordAccount.isEmpty()) {
-			String un = service.selectPetMembers(temporaryPasswordAccount);			
+			PetMembers un = service.selectPetMembers(temporaryPasswordAccount);			
 			if(un == null) {
-				errorMsg.put("temporaryPasswordAccount", "該帳號不存在，請重新輸入");			
+				errorMsg.put("temporaryPasswordAccountError", "該帳號不存在，請重新輸入");			
 			}		
 		}
 		if (!errorMsg.isEmpty()) {			
@@ -88,12 +94,12 @@ public class PetMembersController {
 		service.sendTemporaryPassword(temporaryPasswordAccount);
 		
 		return "temporaryPetMemberPage2";
-	
-	}
+	}	
 	
 	@PostMapping(value = "/changePassword")
 	public String changePassword(
 			@RequestParam(name="password") String password,
+			@RequestParam(name="id") Integer id,
 			Model model, HttpServletRequest request
 			
 			) {
@@ -103,44 +109,47 @@ public class PetMembersController {
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
 		}		
-		HttpSession session = request.getSession();
-	
+		PetMembers petmember = service.selectPetMembers(id);
+		petmember.setPassword(password);
+		petmember.setUpdateDate(new Timestamp(System.currentTimeMillis()));
 		
-		return "";
+		PetMembers um = service.updatePetMembers(petmember);
+		HttpSession session = request.getSession();
+		session.setAttribute("LoginOK", um);
+		
+		return "petMemberIndex";
 	}
 	
 	
 	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
 	public String updatePetMembers(
 //			@RequestParam(name="account") String account,
-			@RequestParam(name="memberId") String memberId,
+			@RequestParam(name="id") Integer memberId,
 			@RequestParam(name="username") String username,
 			@RequestParam(name="password") String password,
-//			@RequestParam(name="email") String email,
 			@RequestParam(name="gender") String gender,
 			@RequestParam(name="bday") String bday,
 			@RequestParam(name="age") String age,
 			@RequestParam(name="address") String address,
 			@RequestParam(name="phone") String phone,
-//			@RequestParam(name="petType") String petType,
 			@RequestParam(name="memberImage") MultipartFile memberImage,
 			HttpServletRequest request,
 			Model model		
 			
 			) {	
 //		System.out.println(gender);
-		PetMembers petmember = service.selectPetMembers(Integer.valueOf(memberId));
+		PetMembers petmember = service.selectPetMembers(memberId);
 		Map<String, String> errorMsg = new HashMap<String, String>();	
 		model.addAttribute("errorMsg", errorMsg);		
 		
-		if(username == null || username.trim().length() == 0) {
-			errorMsg.put("usernameError", "帳號欄不可空白");
-		}else if(!username.isEmpty()) {
-			String un = service.selectPetMembers(username);			
-			if(un != null && un != petmember.getUsername()) {
-				errorMsg.put("userIsExist", "會員帳號重複");				
-			}			
-		}		
+//		if(account == null || account.trim().length() == 0) {
+//			errorMsg.put("usernameError", "帳號欄不可空白");
+//		}else if(!account.isEmpty()) {
+//			PetMembers un = service.selectPetMembers(account);			
+//			if(un != null && un.getAccount() != petmember.getAccount()) {
+//				errorMsg.put("userIsExist", "會員帳號重複");				
+//			}			
+//		}		
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
@@ -234,7 +243,8 @@ public class PetMembersController {
 			model.addAttribute("gender", false);
 		}
 		model.addAttribute("petMember",  petmember);
-		return "Member/member_CRUD";			
+		System.out.println(petmember.getId());
+		return "memberCRUD";			
 	}	
 	
 	
@@ -264,7 +274,7 @@ public class PetMembersController {
 		if(account == null || account.trim().length() == 0) {
 			errorMsg.put("accountError", "帳號欄不可空白");
 		}else if(!account.isEmpty()) {
-			String un = service.selectPetMembers(account);
+			PetMembers un = service.selectPetMembers(account);
 			
 			if(un != null) {
 				errorMsg.put("accountIsExist", "會員帳號重複");				

@@ -25,7 +25,7 @@ public class PetMembersServiceImpl implements PetMembersService{
 	public PetMembers checkLogin(String account,String password) {
 		
 		PetMembers petMember = petMembersDAO.selectPetMembers(account, password);
-		if(petMember.getStatus() == 1) {
+		if(petMember != null && petMember.getStatus() == 1) {
 			return petMember;			
 		}
 		return null;	
@@ -54,6 +54,7 @@ public class PetMembersServiceImpl implements PetMembersService{
 	@Override
 	public void sendTemporaryPassword(String temporaryPasswordAccount) {	
 		String temporaryPassword = MailCodeUtil.forgetPwdCode();
+		petMembersDAO.insertTemporaryPassword(temporaryPasswordAccount, temporaryPassword);
 		new Thread(new MailUtil_forgetPwd(temporaryPasswordAccount,temporaryPassword)).start();		
 		
 	}	
@@ -73,8 +74,8 @@ public class PetMembersServiceImpl implements PetMembersService{
 	}
 	
 	@Override
-	public String selectPetMembers(String account) {		
-		String petMember = petMembersDAO.selectPetMembers(account);	
+	public PetMembers selectPetMembers(String account) {		
+		PetMembers petMember = petMembersDAO.selectPetMembers(account);	
 		return  petMember;
 	}
 	

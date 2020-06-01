@@ -24,10 +24,10 @@
 				<td><font color='red' size="-1">${requestScope.ErrorMsg.passwordError }</font></td>
 				
 			</tr>
-			<tr><td><font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font></td></tr>
+			<tr><td colspan="3"><font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font></td></tr>
 			<tr>
 				<td>
-					<a href=""><small>忘記密碼?</small></a><br>
+					<a href="<c:url value='forgetPassword' />"><small>忘記密碼?</small></a><br>
 					<a href="<c:url value='register' />"><small>還不是會員?</small></a>
 				<td>
 				

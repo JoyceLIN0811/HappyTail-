@@ -11,11 +11,11 @@
 
 <h2>請重新設定您的密碼</h2>
 	<form action="<c:url value="changePassword" />" method="post">
-		<input type="hidden" name="memberId" value = ${petMember.id }${param.id } />		
+		<input type="hidden" name="id" value = "${sessionScope.LoginOK.id }" />		
 		<table>
 			<tr>
 				<td>Password :	</td>
-				<td><input type="text" name="Password"  value = "${param.password }"/></td>
+				<td><input type="text" name="password"  value = "${param.password }"/></td>
 				<td><font color='red' size="-1">${errorMsg.password}</font></td>
 				
 			</tr>

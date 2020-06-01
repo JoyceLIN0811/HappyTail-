@@ -9,13 +9,13 @@
 </head>
 <body style="background-color: lightblue">
 <h2>會員臨時登入</h2>
-	<form action="<c:url value="" />" method="post">
+	<form action="<c:url value="sendTemporaryPassword" />" method="post">
 		<h3>請輸入您的 HappyTail 會員帳號 (您的email)</h3>
 		<table>
 			<tr>
 				<td>Account :	</td>
-				<td><input type="text" name="account"  value = "${param.account }"/></td>
-				<td><font color='red' size="-1">${requestScope.ErrorMsg.accountError }</font></td>
+				<td><input type="text" name="temporaryPasswordAccount"  value = "${param.temporaryPasswordAccount }"/></td>
+				<td><font color='red' size="-1">${requestScope.ErrorMsg.temporaryPasswordAccountError }</font></td>
 				
 			</tr>
 			

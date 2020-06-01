@@ -9,12 +9,12 @@
 </head>
 <body style="background-color: lightblue">
 <h2>會員臨時登入</h2>
-	<form action="<c:url value="" />" method="post">
-		<h3>請輸入您收到臨時密碼</h3>
+	<form action="<c:url value="temporaryPasswordloginCheck" />" method="post">
+		<h3>請輸入您收到的臨時密碼</h3>
 		<table>
 			<tr>
 				<td>TemporaryPassword :	</td>
-				<td><input type="text" name="TemporaryPassword"  value = "${param.temporaryPassword }"/></td>
+				<td><input type="text" name="temporaryPassword"  value = "${param.temporaryPassword }"/></td>
 				<td><font color='red' size="-1">${requestScope.ErrorMsg.temporaryPasswordError }</font></td>
 				
 			</tr>

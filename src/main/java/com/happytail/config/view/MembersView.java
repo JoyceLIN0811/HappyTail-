@@ -25,6 +25,13 @@ public class MembersView {
 	}
 	
 	@Bean
+	public View sendTemporaryPassword() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/sendTemporaryPassword_1.jsp");
+		return view;	
+	}
+	
+	@Bean
 	public View temporaryPetMemberPage1() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/Member/sendTemporaryPassword_1.jsp");
@@ -39,6 +46,27 @@ public class MembersView {
 	}
 	
 	@Bean
+	public View changePassword() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/changePassword.jsp");
+		return view;	
+	}
+	
+	@Bean
+	public View verificationSuccess() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/verificationSuccess.jsp");
+		return view;	
+	}
+	
+	@Bean
+	public View verificationFail() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/verificationFail.jsp");
+		return view;	
+	}
+	
+	@Bean
 	public View memberLogin() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/Member/memberLogin.jsp");
@@ -46,9 +74,9 @@ public class MembersView {
 	}
 	
 	@Bean
-	public View changePassword() {
+	public View memberCRUD() {
 		InternalResourceView view = new InternalResourceView();
-		view.setUrl("/WEB-INF/pages/Member/changePassword.jsp");
+		view.setUrl("/WEB-INF/pages/Member/member_CRUD.jsp");
 		return view;	
 	}
 
