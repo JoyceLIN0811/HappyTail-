@@ -121,7 +121,7 @@
 			</c:if>	
 		</li>
 		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"
-			href="#Online Shop">Online Shop</a></li>
+			href="<c:url value='shopIndex' />">Online Shop</a></li>
 		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"
 			href="#Reservation Service">Reservation Service</a></li>
 		<li><a class="sidenav-close grey-text text-darken-3 waves-effect"
@@ -145,7 +145,7 @@
 
 	<!-- Dropdown Structure -->
 	<ul id='dropdown2' class='dropdown-content'>
-		<li><a href="<c:url value='/shopIndex' />">Online Shop</a></li>
+		<li><a href="<c:url value='shopIndex' />">Online Shop</a></li>
 		<li class="divider"></li>
 		<li><a href="<c:url value='/Evaluationlist' />">Reservation Service</a></li>
 		<li class="divider"></li>
