@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +49,13 @@ public class PetMembersController {
 	@Autowired
 	ServletContext context;
 	
+	final static Pattern emailPattern = Pattern
+			.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*$");
+	final static Pattern pwd1 = Pattern.compile(".*[a-z]+.*");
+	final static Pattern pwd2 = Pattern.compile(".*[A-Z]+.*");
+	final static Pattern pwd3 = Pattern.compile(".*[0-9]+.*");
+	final static Pattern pwd4 = Pattern.compile(".*[~!@#$%^&*]+.*");	
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String processRregister() {
 		return "petMemberPage";
@@ -80,7 +88,7 @@ public class PetMembersController {
 		
 		if(temporaryPasswordAccount == null || temporaryPasswordAccount.trim().length() == 0) {
 			errorMsg.put("temporaryPasswordAccountError", "帳號欄不可空白");
-		}else if(!temporaryPasswordAccount.isEmpty()) {
+		}else{
 			PetMembers un = service.selectPetMembers(temporaryPasswordAccount);			
 			if(un == null) {
 				errorMsg.put("temporaryPasswordAccountError", "該帳號不存在，請重新輸入");			
@@ -249,7 +257,6 @@ public class PetMembersController {
 		return "memberCRUD";			
 	}	
 	
-	
 	@RequestMapping(value = "/registerInsert", method = RequestMethod.POST)
 	public String insertMembers(
 		@RequestParam(name="account") String account,	
@@ -266,11 +273,10 @@ public class PetMembersController {
 			) {
 		Map<String, String> errorMsg = new HashMap<String, String>();	
 		model.addAttribute("errorMsg", errorMsg);
-		
-		String format = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";		
+				
 		if(account == null || account.trim().length() == 0) {
 			errorMsg.put("accountError", "帳號欄不可空白");
-		}else if( !(account == null) && !account.matches(format)) {
+		}else if(emailPattern.matcher(account).matches()) {
 			errorMsg.put("accountformatError", "會員帳號格式錯誤");				
 		}
 		
@@ -285,6 +291,12 @@ public class PetMembersController {
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
+		}else if( !(pwd1.matcher(password).matches() 
+				 && pwd2.matcher(password).matches() 
+				 && pwd3.matcher(password).matches() 
+				 && pwd4.matcher(password).matches() 
+				 && password.length() > 7 ) ){
+			errorMsg.put("passwordformatError", "密碼格式不符要求");
 		}
 		
 		Date bdate = null;

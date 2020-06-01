@@ -32,9 +32,9 @@
 				<tr>
 					<td>Password :	</td>
 					<td><input type="password" name="password" value="${param.password }"/></td>
-					<td><font color='red' size="-1">${errorMsg.passwordError}</font></td>
-
+					<td><font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font></td>
 				</tr>
+					<p>密碼須包含同時小寫英文字母、大寫英文字母、數字和特殊符號</p>
 				<tr>									
 					<td>Gender</td>
 					<td>
