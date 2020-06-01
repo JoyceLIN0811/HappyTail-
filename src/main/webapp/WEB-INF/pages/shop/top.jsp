@@ -61,7 +61,7 @@
                             style="color: rgba(0, 0, 0, 0.54); font-size: 16px; font-family:Arial, Helvetica, sans-serif">Our
                             Services <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" style="font-size: 15px;">Online Shop</a></li>
+                            <li><a href="<c:url value='/shopIndex' />" style="font-size: 15px;">Online Shop</a></li>
                             <li><a href="#" style="font-size: 15px;">Reservation Service</a></li>
                             <li><a href="#" style="font-size: 15px;">Pet Forum</a></li>
                         </ul>

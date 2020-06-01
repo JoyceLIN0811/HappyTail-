@@ -31,15 +31,12 @@
 			// 側邊導覽列打開時，頁面仍可滑動
 			preventScrolling : false
 		})
-
 		$(".dropdown-trigger").dropdown({
 			belowOrigin : false,
 		});
-
 		$('.tabs').tabs({
 		// swipeable: true,
 		});
-
 	})
 </script>
 <header>
@@ -95,17 +92,12 @@
                 // 側邊導覽列打開時，頁面仍可滑動
                 preventScrolling: false
             })
-
-
-
             $(".dropdown-trigger").dropdown({
                 belowOrigin: false,
             });
-
             $('.tabs').tabs({
                 // swipeable: true,
             });
-
         })
     </script>
 
@@ -153,7 +145,7 @@
 
 	<!-- Dropdown Structure -->
 	<ul id='dropdown2' class='dropdown-content'>
-		<li><a href="#!">Online Shop</a></li>
+		<li><a href="<c:url value='/shopIndex' />">Online Shop</a></li>
 		<li class="divider"></li>
 		<li><a href="<c:url value='/Evaluationlist' />">Reservation Service</a></li>
 		<li class="divider"></li>

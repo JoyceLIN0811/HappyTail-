@@ -162,7 +162,7 @@
 											class="icon-eye"></i></a>
 									</p>
 <!-- 									<form action="/showProduct" method="POST" -->
-									<form action="<c:url value='showProduct.do'/>" method="POST"
+									<form action="<c:url value='/showProduct.do'/>" method="POST"
 										id='myform'>
 										<Input type='hidden' name='categoryId' value='1'>
 									</form>
