@@ -56,7 +56,7 @@
 					</div>
 					<div class="col-md-6 col-xs-6 text-center menu-1">
 						<ul>
-						<li><a href="<c:url value='/shopIndex'/>">關於商城</a></li>
+						<li><a href="<c:url value='/ToShopIndex'/>">關於商城</a></li>
 							<li class="has-dropdown"><a href="#" id='section1'>商品分類</a>
 								<ul class="dropdown">
 									<li><a href="single.html">飼料</a></li>

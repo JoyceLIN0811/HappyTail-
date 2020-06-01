@@ -1,8 +1,6 @@
 package com.happytail.shopping.controller;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
-import com.happytail.shopping.service.ProductLikeService;
-import com.happytail.shopping.service.ProductService;
+import com.happytail.shopping.model.service.ProductLikeService;
+import com.happytail.shopping.model.service.ProductService;
 
 @Controller
 public class AddToFavorite {

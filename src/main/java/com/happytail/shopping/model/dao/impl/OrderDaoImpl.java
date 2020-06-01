@@ -1,4 +1,4 @@
-package com.happytail.shopping.dao.impl;
+package com.happytail.shopping.model.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.shopping.dao.OrderDao;
 import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.OrderItemBean;
+import com.happytail.shopping.model.dao.OrderDao;
 
 //本類別
 //1.新增一筆訂單到orders表格

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.happytail.shopping.dao.ProductDao;
 import com.happytail.shopping.model.ProductBean;
-import com.happytail.shopping.service.ProductService;
+import com.happytail.shopping.model.dao.ProductDao;
+import com.happytail.shopping.model.service.ProductService;
 
 @Controller
 public class InsertProductController {

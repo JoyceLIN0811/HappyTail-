@@ -1,4 +1,4 @@
-package com.happytail.shopping.dao.impl;
+package com.happytail.shopping.model.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

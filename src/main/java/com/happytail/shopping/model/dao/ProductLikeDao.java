@@ -1,4 +1,4 @@
-package com.happytail.shopping.dao;
+package com.happytail.shopping.model.dao;
 
 import java.util.List;
 

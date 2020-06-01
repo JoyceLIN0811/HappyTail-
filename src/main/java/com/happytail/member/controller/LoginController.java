@@ -25,6 +25,7 @@ public class LoginController {
 	
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String processLogin() {
+		System.out.println("進入login");
 		return "memberLogin";
 
 	}

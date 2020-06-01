@@ -1,10 +1,8 @@
 package com.happytail.shopping.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.OrderItemBean;
-import com.happytail.shopping.service.OrderService;
+import com.happytail.shopping.model.service.OrderService;
 
 @Controller
 public class OrderTest {

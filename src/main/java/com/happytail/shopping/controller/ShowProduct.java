@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductBeanImageData;
-import com.happytail.shopping.service.ProductService;
-import com.happytail.shopping.service.ShowProductService;
+import com.happytail.shopping.model.service.ProductService;
+import com.happytail.shopping.model.service.ShowProductService;
 
 @Controller
 public class  ShowProduct{

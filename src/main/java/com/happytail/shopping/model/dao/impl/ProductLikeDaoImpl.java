@@ -1,11 +1,9 @@
-package com.happytail.shopping.dao.impl;
+package com.happytail.shopping.model.dao.impl;
 
 
 
-import java.security.PublicKey;
 import java.util.List;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 import org.hibernate.Session;
@@ -14,9 +12,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.shopping.dao.ProductLikeDao;
-import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
+import com.happytail.shopping.model.dao.ProductLikeDao;
 
 @Repository
 public class ProductLikeDaoImpl implements ProductLikeDao {

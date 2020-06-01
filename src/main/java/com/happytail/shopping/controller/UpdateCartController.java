@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.happytail.shopping.model.CartBean;
 import com.happytail.shopping.model.OrderItem;
-import com.happytail.shopping.service.ProductService;
+import com.happytail.shopping.model.service.ProductService;
 
 
 

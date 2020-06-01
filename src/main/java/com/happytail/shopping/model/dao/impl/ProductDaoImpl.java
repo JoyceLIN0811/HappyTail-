@@ -1,4 +1,4 @@
-package com.happytail.shopping.dao.impl;
+package com.happytail.shopping.model.dao.impl;
 
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.happytail.shopping.dao.ProductDao;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductBeanImageData;
+import com.happytail.shopping.model.dao.ProductDao;
 
 
 

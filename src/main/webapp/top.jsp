@@ -145,7 +145,7 @@
 
 	<!-- Dropdown Structure -->
 	<ul id='dropdown2' class='dropdown-content'>
-		<li><a href="<c:url value='shopIndex' />">Online Shop</a></li>
+		<li><a href="<c:url value='ToShopIndex' />">Online Shop</a></li>
 		<li class="divider"></li>
 		<li><a href="<c:url value='/Evaluationlist' />">Reservation Service</a></li>
 		<li class="divider"></li>

@@ -1,27 +1,17 @@
-package com.happytail.shopping.Test;
-
-import javax.servlet.ServletContext;
+package com.happytail.shopping.controller;
 
 import org.hibernate.SessionFactory;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.happytail.member.model.PetMembers;
 import com.happytail.member.model.dao.PetMembersDAO;
-import com.happytail.shopping.controller.AddToFavorite;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
-import com.happytail.shopping.service.ProductLikeService;
-import com.happytail.shopping.service.ProductService;
+import com.happytail.shopping.model.service.ProductLikeService;
+import com.happytail.shopping.model.service.ProductService;
 @Controller
 public class ProductLisrAction {
 

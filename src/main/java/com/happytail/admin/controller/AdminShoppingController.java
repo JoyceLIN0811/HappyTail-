@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.sql.rowset.serial.SerialBlob;
 
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +19,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.happytail.shopping.dao.ProductDao;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductBeanImageData;
-import com.happytail.shopping.service.ProductService;
-import com.happytail.shopping.service.ShowProductService;
+import com.happytail.shopping.model.dao.ProductDao;
+import com.happytail.shopping.model.service.ProductService;
+import com.happytail.shopping.model.service.ShowProductService;
 
 @Controller
 public class AdminShoppingController {

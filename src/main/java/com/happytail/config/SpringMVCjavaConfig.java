@@ -19,17 +19,17 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.happytail.forum.controller",
-		"com.happytail.shop.controller",
+		"com.happytail.shopping.controller",
 		"com.happytail.reservation.controller",
 		"com.happytail.admin.controller",
 		"com.happytail.member.controller",
 		"com.happytail.general.controller",
-		"com.happytail.general.controller",
-		"com.happytail.shopping"})
+		"com.happytail.general.controller"
+		})
 @Import({com.happytail.config.view.ReservationView.class,
 	     com.happytail.config.view.MembersView.class,
 	     com.happytail.config.view.AdminView.class,
-	     com.happytail.config.view.ShopView.class,})
+	     com.happytail.config.view.ShopView.class})
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
 	//Static Resources
@@ -78,18 +78,18 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		return messageSource;
 	}
 	
-	@Bean 
-	public InternalResourceViewResolver viewResolver() {
-//		System.out.println("使用viewResolver() 方法  將網頁前面增加/WEB-INF/pet/");
-//		System.out.println("網頁後面增加.jsp");
-//		System.out.println("優先度為2，只低於DispatcherServletInitalizer");
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class); //預設就有  JSTL
-		viewResolver.setPrefix("/WEB-INF/pet/");
-		viewResolver.setSuffix(".jsp");
-		viewResolver.setOrder(2);
-		return viewResolver;
-	}
+//	@Bean 
+//	public InternalResourceViewResolver viewResolver() {
+////		System.out.println("使用viewResolver() 方法  將網頁前面增加/WEB-INF/pet/");
+////		System.out.println("網頁後面增加.jsp");
+////		System.out.println("優先度為2，只低於DispatcherServletInitalizer");
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setViewClass(JstlView.class); //預設就有  JSTL
+//		viewResolver.setPrefix("/WEB-INF/pet/");
+//		viewResolver.setSuffix(".jsp");
+//		viewResolver.setOrder(2);
+//		return viewResolver;
+//	}
 	
 	
 }
