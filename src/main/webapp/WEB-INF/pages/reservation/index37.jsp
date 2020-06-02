@@ -11,54 +11,25 @@
 
    <jsp:include page="/HappytailHeader.jsp" />
    
-	<div id="carouselExampleFade" class="carousel slide carousel-fade"
-		data-ride="carousel" style='z-index: 0'>
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="img/first.jpg" class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h1>
-						Caring for <br>Your Furry <br>Friends
-					</h1>
-					<!-- <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> -->
-				</div>
-			</div>
-			<div class="carousel-item">
-				<img src="img/second.jpg" class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h1>
-						Caring for <br>Your Furry <br>Friends
-					</h1>
-					<!-- <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> -->
-				</div>
-			</div>
-			<div class="carousel-item">
-				<img src="img/third.jpg" class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h1>
-						Caring for <br>Your Furry <br>Friends
-					</h1>
-					<!-- <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> -->
-				</div>
-			</div>
-		</div>
 
 
 
-					<span style='border:#0000FF 1px double;'>
+					<div style='border:#0000FF 1px double;width: 700px;height:600px;text-align: center;float:left;margin: 20px;margin-left: 40px;padding-top:30px'>
+					<h1>Address</h1>
 					<iframe src="https://www.google.com/maps/embed?pb=!1m18!m12!1m3!1d3615.2719630701636!2d121.53986731495814!3d25.02484298397663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aa29379b8db9%3A0x6c7f37e71cce4568!2z6LOH562W5pyD!5e0!3m2!1szh-TW!2stw!4v1589437355016!5m2!1szh-TW!2stw" 
-					width="750" height="450" aria-hidden="false" tabindex="0" >
+					width="450" height="450" aria-hidden="false" tabindex="0" >
 					</iframe>
-					</span>
+					</div>
 					
-					
-					<form method='post' action='insertSuccess' onSubmit="return CheckForm();" style='border:#0000FF 1px double'>
-						選擇服務 : <input type="radio" name='sortId' value="1"> 
-						剪髮 <input type="radio" name='sortId' value="2"> 
-						洗髮 <input type="radio" name='sortId' value="3"> 
-						洗剪 <input type="radio" name='sortId' value="4"> 
-						SPA<br> <br>
-						寵物品種 : <input type="text" name='breed' required="required"><br><br>
+					<div style='border:#0000FF 1px double;width: 700px;height:600px;float:left;margin: 20px'>
+					<h1 style='margin-left: 250px;margin-top: 30px'>Reservation</h1>
+					<form method='post' action='insertSuccess' onSubmit="return CheckForm();" style='margin-left: 200px'>
+						選擇服務 : 
+						<input type="radio" name='sortId' value="1"> 剪髮 
+						<input type="radio" name='sortId' value="2"> 洗髮 
+						<input type="radio" name='sortId' value="3"> 洗剪 
+						<input type="radio" name='sortId' value="4"> SPA <br><br>
+						寵物品種 : <input type="text" name='breed' id='breed' required="required"><br><br>
 						 寵物名稱 : <input type="text" name='petName' required="required"><br><br> 
 						 寵物性別 : 
 						 <input type="radio" name='petGenger' value="man">公 
@@ -79,10 +50,22 @@
 							</select><br> <br> 需求 : <input type="text" name='require'><br>
 										<br> <input type="hidden" name='done' value='N'>
 										<input type='hidden' name='evaluationStatus' value='未完成'>
-										<input type="submit" name='statuss' value="預約"
-											style="margin-left: 140px">
+										<input type="submit" name='statuss' value="預約" style="margin-left: 140px">
+										<input type="button" value='一鍵新增' onclick='Send()'>
 									</form>
-								
+									
+									<a href="<c:url value='queryMyReservaitionView?Id=${petMembers.Id}&pageNum=1' />">MyReservation</a>
+									
+							</div>
+							
+<script>
+	function Send() {
+		document.getElementById("sortId").value='2';
+		document.getElementById("breed").value='2';
+	}
+
+</script>
+							
 		<!-- ./experience -->
 		<script>
 			function CheckForm() {
@@ -94,16 +77,14 @@
 			}
 		</script>
 		<br>
-		<div class="section" id="evaluation">
-		<div class="container">
-			<div class="col-md-12">
+		
+			<div style='margin-left: 200px'>
 				<h1 class="size-50">Evaluation</h1><br>
 			</div>
-			</div>
-	</div>
+
 	
 	
-			<div style="margin-left:150px;margin-right:20px;float:left">
+			<div style="margin-left:200px;margin-right:20px;float:left">
 				<h2 id='score'>${scoreAvg}</h2>
 			</div>
 

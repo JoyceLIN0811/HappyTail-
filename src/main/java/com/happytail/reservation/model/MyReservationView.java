@@ -22,7 +22,7 @@ public class MyReservationView {
 	private String statuss;
 	private String serviceItem;
 	private Integer amount;
-	private Integer memberId;
+	private Integer Id;
 	private String username;
 	private String email;
 	private String done;
@@ -96,11 +96,12 @@ public class MyReservationView {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public Integer getMemberId() {
-		return memberId;
+	
+	public Integer getId() {
+		return Id;
 	}
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setId(Integer id) {
+		Id = id;
 	}
 	public String getUsername() {
 		return username;

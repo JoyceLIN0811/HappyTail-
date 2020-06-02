@@ -42,7 +42,7 @@
 
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-white">
-		<a class="navbar-brand" href="#" style="display: block; margin: auto;">
+		<a class="navbar-brand" href="<c:url value='/HappyTailIndex.jsp'/> " style="display: block; margin: auto;">
 			<img src="img/logo210_1905.png" width="210" height="210"
 			style="display: block;margin-left: 110px">
 		</a>
@@ -69,7 +69,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="#">Home
+				<li class="nav-item active"><a class="nav-link" href="<c:url value='/HappyTailIndex.jsp'/> " >Home
 						<span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">About us</a>
