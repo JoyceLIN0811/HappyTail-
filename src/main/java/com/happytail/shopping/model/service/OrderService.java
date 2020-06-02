@@ -22,6 +22,7 @@ public class OrderService {
 	@Autowired
 	OrderDao dao;
 	
+	
 	public OrderBean selectOrder(int orderId) {
 		return dao.selectOrder( orderId);
 	}
@@ -66,6 +67,10 @@ public class OrderService {
 	
 	public List<OrderItemBean> getOrderItemBean(OrderBean orderBean){
 		return dao.getOrderItemBean(orderBean);
+	}
+	
+	public List<OrderItemBean> getOib(Integer mId, Integer oId){
+		return dao.getOib(mId, oId);
 	}
 	
 }

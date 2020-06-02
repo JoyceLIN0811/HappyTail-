@@ -180,6 +180,21 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	
+	@Override
+	public List<OrderItemBean> getOib(Integer mId,Integer oId){
+		String hql ="from OrderItemBean where orderId=:oId and memberId=:";
+		Query<OrderItemBean> createQuery = s().createQuery(hql,OrderItemBean.class);
+		createQuery.setParameter("oId", oId);
+		createQuery.setParameter("mId", mId);
+		System.out.println("oId="+oId+" mId="+mId);
+		List<OrderItemBean> resultList = createQuery.getResultList();
+		System.out.println(resultList.size());
+		
+		if(resultList.size()==0) {
+			return null ;
+		}
+		return resultList;
+	}
 	
 	
 	

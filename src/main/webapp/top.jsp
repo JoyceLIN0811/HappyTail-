@@ -52,10 +52,10 @@
 				<li><a href=""><i class="material-icons md-dark">search</i></a></li>
 				<li>
 					<c:if test="${empty LoginOK}">
-						<a href="<c:url value='login' />"><i class="material-icons md-dark">person</i></a> 
+						<a href="<c:url value='login' />" title="登入"><i class="material-icons md-dark">person</i></a> 
 					</c:if>
 					<c:if test="${ !empty LoginOK }">
-			   			<a href="<c:url value='logoutCheck' />"><i class="material-icons md-dark">person</i></a>
+			   			<a href="<c:url value='logoutCheck' />" title="登出"><i class="material-icons md-dark">person</i></a>
 					</c:if>							
 					
 				</li>
@@ -113,7 +113,7 @@
 		<li>
 			<c:if test="${!empty LoginOK}">
 				<a class="sidenav-close grey-text text-darken-3 waves-effect"				
-				href="<c:url value='memberCenter' />">Personal Profile</a>
+				href="<c:url value='memberCenter' /> ">Personal Profile</a>
 			</c:if>
 			<c:if test="${empty LoginOK}">
 				<a class="sidenav-close grey-text text-darken-3 waves-effect"				

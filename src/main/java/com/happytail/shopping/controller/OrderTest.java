@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -74,7 +75,23 @@ public class OrderTest {
 	}
 	
 	
-	
+	@GetMapping("/getOrderItem.do")
+	public ResponseEntity<List<OrderItemBean>> getOrderItems(Model m,	
+			@RequestParam("oId") Integer oId,
+			HttpServletRequest res) {
+//		PetMembers member =(PetMembers) res.getSession().getAttribute("LoginOK");
+		System.out.println("進入con");
+		Integer mId = 1;
+		List<OrderItemBean> oib = Odao.getOib(mId, oId);
+		
+		if(oib==null) {
+			return null;
+		}
+
+		ResponseEntity< List<OrderItemBean>> re 
+		=new ResponseEntity<List<OrderItemBean>>(oib, HttpStatus.OK);
+		return re;
+	}
 	
 	
 	

@@ -46,4 +46,6 @@ public interface OrderDao {
 
 	List<OrderItemBean> getOrderItemBean(OrderBean orderBean);
 
+	List<OrderItemBean> getOib(Integer mId, Integer oId);
+
 }
