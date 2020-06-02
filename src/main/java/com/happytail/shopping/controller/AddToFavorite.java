@@ -19,44 +19,38 @@ import com.happytail.shopping.model.service.ProductService;
 @Controller
 public class AddToFavorite {
 	@Autowired
-	SessionFactory  sessionFactory;
+	SessionFactory sessionFactory;
 	@Autowired
 	ProductLikeService dao;
 	@Autowired
 	ProductService pdao;
 	@Autowired
 	ProductLikeService ldao;
-	
-	
+
 	@GetMapping(value = "/addToLike")
-	public ResponseEntity<ProductLike> addFacorite(
-			@RequestParam("productId")Integer productId,
-			Model m
-			 ){
-			ProductBean pBean = pdao.selectOne(productId);
-			
-			System.out.println("進入");
-			ProductLike pLike=new ProductLike();
+	public ResponseEntity<ProductLike> addFacorite(@RequestParam("productId") Integer productId, Model m) {
+		ProductBean pBean = pdao.selectOne(productId);
 
-			
-			
-			pLike.setBean(pBean);
-			pLike.setPetMemberId(1);
+		System.out.println("進入");
+		ProductLike pLike = new ProductLike();
 
-			Boolean check = ldao.check(pLike.getBean().getProductId(), pLike.getPetMemberId());
-			
-			if (check==false) {
-				System.out.println("已經加入");
-				return null ;
-			}
-			 Timestamp date2= new Timestamp(System.currentTimeMillis());
+		pLike.setBean(pBean);
+		pLike.setPetMemberId(1);
 
-			 pLike.setUpdatetime(date2);
-			System.out.println("準備進入DAO");
-			ldao.insert(pLike);
-			System.out.println("成功匯入");
-			ResponseEntity<ProductLike>   re=new ResponseEntity<ProductLike>(pLike, HttpStatus.OK);
-			System.out.println(re);
-return re ;
-}
+		Boolean check = ldao.check(pLike.getBean().getProductId(), pLike.getPetMemberId());
+
+		if (check == false) {
+			System.out.println("已經加入");
+			return null;
+		}
+		Timestamp date2 = new Timestamp(System.currentTimeMillis());
+
+		pLike.setUpdatetime(date2);
+		System.out.println("準備進入DAO");
+		ldao.insert(pLike);
+		System.out.println("成功匯入");
+		ResponseEntity<ProductLike> re = new ResponseEntity<ProductLike>(pLike, HttpStatus.OK);
+		System.out.println(re);
+		return re;
+	}
 }

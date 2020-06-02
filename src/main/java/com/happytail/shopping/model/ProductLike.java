@@ -23,8 +23,7 @@ public class ProductLike {
 	@Column(name="productLikeId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productLikeId;
-//	@Column(name="productId")
-//	private Integer productId;
+
 	@Column(name="petMemberId")
 	private Integer petMemberId;
 	@Column(name="updatetime")
