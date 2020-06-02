@@ -33,7 +33,8 @@
 	<!-- ./Preloader -->
 	
 	<jsp:include page="/top37.jsp"></jsp:include>
-
+	
+	
 	<!-- header -->
 
 
@@ -173,7 +174,7 @@ function CheckForm(){
 							data-aos="fade-up">
 							<!-- single work -->
 							<div class="col-md-4 col-sm-6  fashion logo">
-								<a id="demo01" href="#animatedModal" class="portfolio_item">
+								<a id="demo01" href="#" class="portfolio_item">
 									<img src="img/portfolio/111.jpg" alt="image"
 									class="img-responsive" style="height: 250px" />
 									<div class="portfolio_item_hover">
@@ -189,7 +190,7 @@ function CheckForm(){
 
 							<!-- single work -->
 							<div class="col-md-4 col-sm-6 ads graphics">
-								<a id="demo02" href="#animatedModal" class="portfolio_item">
+								<a id="demo02" href="#" class="portfolio_item">
 									<img src="img/portfolio/3333.jpg" alt="image"
 									class="img-responsive" style="height: 250px" />
 									<div class="portfolio_item_hover">
@@ -205,7 +206,7 @@ function CheckForm(){
 
 							<!-- single work -->
 							<div class="col-md-4 col-sm-6 photography">
-								<a id="demo03" href="#animatedModal" class="portfolio_item">
+								<a id="demo03" href="#" class="portfolio_item">
 									<img src="img/portfolio/02.jpg" alt="image"
 									class="img-responsive" style="height: 250px" />
 									<div class="portfolio_item_hover">

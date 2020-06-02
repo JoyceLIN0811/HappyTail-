@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.happytail.general.util.Page;
+import com.happytail.general.util.PageInfo;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
 import com.happytail.reservation.model.dao.ReservationDaoImpl;
@@ -27,9 +29,9 @@ public class ReservationService {
 		return daoImpl.save(bean);
 	}
 	
-	public List<MyReservationView> query(int Id) {
-		return daoImpl.query(Id);
-	}
+//	public List<MyReservationView> query(int Id) {
+//		return daoImpl.query(Id);
+//	}
 	
 	public List<MyReservationView> queryAllView(){
 		return daoImpl.queryAllView();
@@ -45,6 +47,9 @@ public class ReservationService {
 	
 	public ReservationBean queryReservationBean(Integer reservationId) {
 		return daoImpl.queryReservationBean(reservationId);
-		
+	}
+	
+	public Page<MyReservationView> query(Integer Id, PageInfo pageinfo){
+		return daoImpl.query(Id, pageinfo);
 	}
 }

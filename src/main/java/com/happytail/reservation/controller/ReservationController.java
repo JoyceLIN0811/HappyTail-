@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.happytail.general.util.Const;
+import com.happytail.general.util.Page;
+import com.happytail.general.util.PageInfo;
 import com.happytail.member.model.PetMembers;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
@@ -79,26 +82,27 @@ public class ReservationController {
 		return "redirect:/Evaluationlist";
 	}
 	
-	@RequestMapping(value = "/query", method = RequestMethod.GET)
-	public String MyReservationlist(@SessionAttribute("petMembers") PetMembers petMembers,
-				Model m) {
+//	@RequestMapping(value = "/query", method = RequestMethod.GET)
+//	public String MyReservationlist(@SessionAttribute("petMembers") PetMembers petMembers,
+//				Model m) {
+//	
+//		Integer Id = petMembers.getId();
+//		List<MyReservationView> list = service.query(Id);
+//		m.addAttribute("myReservation",list);
+//	
+//		return "reservation/myReservation";
+//	}
 	
-		Integer Id = petMembers.getId();
-		List<MyReservationView> list = service.query(Id);
-		m.addAttribute("myReservation",list);
+//	@RequestMapping(value = "/queryback", method = RequestMethod.GET)
+//	public String queryAllView(Model m) {
+//	
+//
+//		List<backView> list = service2.queryAllEvaluationView();
+//		m.addAttribute("backView",list);
+//		
+//		return "backReservationPage";
+//	}
 	
-		return "reservation/myReservation";
-	}
-	
-	@RequestMapping(value = "/queryback", method = RequestMethod.GET)
-	public String queryAllView(Model m) {
-	
-
-		List<backView> list = service2.queryAllEvaluationView();
-		m.addAttribute("backView",list);
-	
-		return "backReservationPage";
-	}
 	
 	
 	@PostMapping("/update")
@@ -142,6 +146,20 @@ public class ReservationController {
 
 		return "reservation/evaluation37";
 		
+	}
+	
+	@GetMapping("/queryMyReservaitionView")
+	public String queryMyReservaitionView(@RequestParam("Id")Integer Id,
+			Integer pageSize,@RequestParam Integer pageNum,Model m) {
+		
+		PageInfo pageinfo = new PageInfo(Const.DEFAULT_PAGE_SIZE, pageNum);
+		System.out.println(pageinfo.getPageSize());
+		System.out.println(pageinfo.getPageNum());
+		Page<MyReservationView> list = service.query(Id,pageinfo);
+		
+		m.addAttribute("page",list);
+		
+		return "reservation/myReservation";
 	}
 	
 }

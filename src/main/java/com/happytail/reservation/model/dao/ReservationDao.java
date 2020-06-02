@@ -3,6 +3,8 @@ package com.happytail.reservation.model.dao;
 
 import java.util.List;
 
+import com.happytail.general.util.Page;
+import com.happytail.general.util.PageInfo;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
 
@@ -18,7 +20,9 @@ public interface ReservationDao {
 	
 	ReservationBean UpdateEvaluationStatus(ReservationBean bean);
 	
-	List<MyReservationView> query(Integer Id);
+//	List<MyReservationView> query(Integer Id);
+	
+	Page<MyReservationView> query(Integer Id,PageInfo pageinfo);
 	
 	List<MyReservationView> queryAllView();
 	
