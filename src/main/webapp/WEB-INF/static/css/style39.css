@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+body {
+	font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.54);
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #e2e0e0;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav a:hover {
+	color: #ffffff;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+.btn-outline-success {
+	color: dodgerblue;
+	border-color: lightblue;
+}
+
+.btn-outline-success:hover {
+	color: rgb(172, 195, 218);
+	background-color: rgb(223, 223, 241);
+	border-color: royalblue;
+}
+
+.btn-outline-success:active {
+	color: rgb(172, 195, 218);
+	background-color: rgb(223, 223, 241);
+	border-color: royalblue;
+}
+
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}

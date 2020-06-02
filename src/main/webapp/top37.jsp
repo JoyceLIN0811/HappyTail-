@@ -21,7 +21,7 @@
 				<li><a href="#contact">contact</a></li>
 				<li>|</li>
 				<li><a href="<c:url value='query?memberId=${petMembers.memberId}' />">MyReservation</a></li>
-				<li><a href="<c:url value='/index.jsp' />">首頁</a></li>
+				<li><a href="<c:url value='/HappyTailIndex.jsp' />">首頁</a></li>
 			</ul>
 		</nav>
 	</header>
