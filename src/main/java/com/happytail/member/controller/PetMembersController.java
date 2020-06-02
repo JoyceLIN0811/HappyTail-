@@ -62,14 +62,13 @@ public class PetMembersController {
 	}
 	
 	@GetMapping(value ="/accountStart")
-	public String accountStart(@RequestParam(name="code") String startCode) {
+	public String accountStart(@RequestParam(name="code") String startCode, Model model) {
 		
-		if(service.checkStartCode(startCode)) {
-			return "verificationSuccess";
-		}else {
-			return "verificationFail";
-		}
-	}
+		boolean result = service.checkStartCode(startCode);			
+		model.addAttribute("verificationResult", result);
+		return "verificationResult";
+	}	
+	
 	
 	@GetMapping(value ="/forgetPassword")
 	public String forgetPassword() {
@@ -116,7 +115,19 @@ public class PetMembersController {
 
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
-		}		
+		}else if( !(pwd1.matcher(password).matches() 
+				 && pwd2.matcher(password).matches() 
+				 && pwd3.matcher(password).matches() 
+				 && pwd4.matcher(password).matches() 
+				 && password.length() > 7 ) ){
+			errorMsg.put("passwordformatError", "密碼格式不符要求");
+		}	
+		
+
+		if (!errorMsg.isEmpty()) {				
+			return "changePassword";
+		}
+		
 		PetMembers petmember = service.selectPetMembers(id);
 		petmember.setPassword(password);
 		petmember.setUpdateDate(new Timestamp(System.currentTimeMillis()));
@@ -165,6 +176,12 @@ public class PetMembersController {
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
+		}else if( !(pwd1.matcher(password).matches() 
+				 && pwd2.matcher(password).matches() 
+				 && pwd3.matcher(password).matches() 
+				 && pwd4.matcher(password).matches() 
+				 && password.length() > 7 ) ){
+			errorMsg.put("passwordformatError", "密碼格式不符要求");
 		}
 		
 		Date bdate = null;
@@ -180,7 +197,7 @@ public class PetMembersController {
 			age2 = Integer.parseInt(age);			
 		}catch(Exception e) {
 			e.printStackTrace();
-			errorMsg.put("mAge", "年齡格式錯誤");
+//			errorMsg.put("mAge", "年齡格式錯誤");
 		}
 		
 		if(memberImage.getSize() == 0) {
@@ -216,7 +233,7 @@ public class PetMembersController {
 			}else {
 				model.addAttribute("gender", false);
 			}			
-			return "Member/member_CRUD";
+			return "memberCRUD";
 		}
 //		petmember.setAccount(account);
 		petmember.setUsername(username);
@@ -276,7 +293,7 @@ public class PetMembersController {
 				
 		if(account == null || account.trim().length() == 0) {
 			errorMsg.put("accountError", "帳號欄不可空白");
-		}else if(emailPattern.matcher(account).matches()) {
+		}else if(!emailPattern.matcher(account).matches()) {
 			errorMsg.put("accountformatError", "會員帳號格式錯誤");				
 		}
 		
@@ -312,7 +329,7 @@ public class PetMembersController {
 			age2 = Integer.parseInt(age);			
 		}catch(Exception e) {
 			e.printStackTrace();
-			errorMsg.put("mAge", "年齡格式錯誤");
+//			errorMsg.put("mAge", "年齡格式錯誤");
 		}		
 
 		if (!errorMsg.isEmpty()) {	

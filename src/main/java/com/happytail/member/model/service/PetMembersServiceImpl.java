@@ -34,17 +34,23 @@ public class PetMembersServiceImpl implements PetMembersService{
 	
 	@Override
 	public PetMembers insertPetMembers(PetMembers petMembers) {	
-			
-		PetMembers	petMember = petMembersDAO.insertPetMembers(petMembers);			
-		new Thread(new MailUtil(petMember.getEmail(), petMember.getStartCode())).start();
+		String code = MailCodeUtil.startCode();
+		new Thread(new MailUtil(petMembers.getEmail(), code)).start();
+		petMembers.setStartCode(code);
+		petMembers.setStatus(0);
+		PetMembers	petMember = petMembersDAO.insertPetMembers(petMembers);		
 		return petMember;	
 	}
 	
+//	public void sendStartCode(String account) {
+//		String code = MailCodeUtil.startCode();		
+//		new Thread(new MailUtil(account, code)).start();			
+//	}
+	
 	@Override
-	public boolean checkStartCode(String code) {
-		
+	public boolean checkStartCode(String code) {		
 		PetMembers pMember = petMembersDAO.checkStartCode(code);
-		if( pMember != null){			
+		if( pMember != null ){			
 			return true;
 		}else {
 			return false;

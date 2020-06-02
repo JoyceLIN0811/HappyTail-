@@ -53,7 +53,7 @@
 				<tr>
 					<td>Age :	</td>
 					<td><input type="text" name="age"  value= "${petMember.age }${param.age }" /></td>
-					<td><font color='red' size="-1">${errorMsg.mAge}</font></td>
+<%-- 					<td><font color='red' size="-1">${errorMsg.mAge}</font></td> --%>
 				</tr>
 				<tr>
 					<td>Address :	</td>

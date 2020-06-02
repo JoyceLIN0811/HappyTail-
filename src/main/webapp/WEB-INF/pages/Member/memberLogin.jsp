@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>會員登入</title>
 </head>
-<body style="background-color: lightblue">
+<body>
+<jsp:include page="/top.jsp"></jsp:include>
 
 	<h2>會員登入</h2>
 	<form action="<c:url value="loginCheck" />" method="post">
@@ -38,6 +39,9 @@
 
 	<hr>
 	<a href="<c:url value='/index.jsp' />">回首頁</a>
-
+<jsp:include page="/footer.jsp"></jsp:include>
+<script>
+	
+</script>
 </body>
 </html>

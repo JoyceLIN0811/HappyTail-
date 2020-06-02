@@ -15,7 +15,7 @@
 			<tr>
 				<td>Account :	</td>
 				<td><input type="text" name="temporaryPasswordAccount"  value = "${param.temporaryPasswordAccount }"/></td>
-				<td><font color='red' size="-1">${requestScope.ErrorMsg.temporaryPasswordAccountError }</font></td>
+				<td><font color='red' size="-1">${errorMsg.temporaryPasswordAccountError }</font></td>
 				
 			</tr>
 			

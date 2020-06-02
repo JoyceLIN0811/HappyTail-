@@ -16,7 +16,7 @@
 			<tr>
 				<td>Password :	</td>
 				<td><input type="text" name="password"  value = "${param.password }"/></td>
-				<td><font color='red' size="-1">${errorMsg.password}</font></td>
+				<td><font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font></td>
 				
 			</tr>
 			

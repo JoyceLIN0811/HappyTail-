@@ -10,7 +10,8 @@
 <title>會員註冊</title>
 
 </head>
-<body style="background-color: lightblue">
+<body >
+<%-- <jsp:include page="/top.jsp"></jsp:include> --%>
 
 <h2>會員註冊</h2>
 
@@ -34,11 +35,11 @@
 					<td><input type="password" name="password" value="${param.password }"/></td>
 					<td><font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font></td>
 				</tr>
-					<p>密碼須包含同時小寫英文字母、大寫英文字母、數字和特殊符號</p>
+				<tr><td></td><td colspan="3"><small>密碼須同時包含小寫英文字母、大寫英文字母、數字和特殊符號</small></td></tr>
 				<tr>									
 					<td>Gender</td>
 					<td>
-						<input type="radio" name="gender" value="M" 
+						<input type="radio" name="gender" value="M" checked="checked"
 							<c:if test="${gender == true}">checked="checked"</c:if>					
 						/>Man 
 					
@@ -56,7 +57,7 @@
 				<tr>
 					<td>Age :	</td>
 					<td><input type="text" name="age"  value="${param.age }"/></td>
-					<td><font color='red' size="-1">${errorMsg.mAge}</font></td>
+<%-- 					<td><font color='red' size="-1">${errorMsg.mAge}</font></td> --%>
 				</tr>
 				<tr>
 					<td>Address :	</td>
@@ -89,6 +90,7 @@
 	<a href="<c:url value='/index.jsp' />" >回首頁</a>
 
 </div>
+<%-- <jsp:include page="/footer.jsp"></jsp:include> --%>
 	
 <script type="text/javascript">
 	

@@ -7,10 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>驗證失敗</title>
+<title>驗證結果通知</title>
 </head>
 <body>
-<h1>驗證失敗，請重新註冊會員</h1>
+<c:if test="${verificationResult == true}">
+	<h1>驗證成功，會員帳號已啟用</h1>
+</c:if>	
+<c:if test="${verificationResult == false}">
+	<h1>驗證失敗，請重新註冊會員</h1>
+</c:if>	
 
 	<hr>
 

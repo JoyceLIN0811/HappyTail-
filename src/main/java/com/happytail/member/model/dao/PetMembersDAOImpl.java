@@ -42,27 +42,28 @@ public class PetMembersDAOImpl implements PetMembersDAO  {
 		query.setParameter("account", petMembers.getAccount());
 		PetMembers bean = (PetMembers) query.uniqueResult();
 		if(bean == null) {
-//			petMembers.setRegisterTime(new Timestamp(System.currentTimeMillis()));
-			String code = MailCodeUtil.startCode();
-			System.out.println(code);
-			petMembers.setStartCode(code);
-			petMembers.setStatus(0);
-			getSession().save(petMembers);
-			return petMembers;
+			System.out.println(petMembers.getStartCode());			
+			if(petMembers.getStartCode() != null) {
+				getSession().save(petMembers);
+				return petMembers;		
+			}
 		}		
 		return null;
 	}
+	
+//	public saveStartCode(String StartCode ) {
+//		
+//	}
 	
 	@Override
 	public PetMembers checkStartCode(String code) {	
 		Query<PetMembers> query = getSession().createQuery("From PetMembers where startCode=:startCode", PetMembers.class);
 		query.setParameter("startCode", code);
 		PetMembers bean = (PetMembers) query.uniqueResult();
-		if(bean == null) {
-			return null;
-		}
-		bean.setStatus(1);
-		getSession().save(bean);	
+		if(bean != null) {
+			bean.setStatus(1);
+			getSession().save(bean);		
+		}						
 		return bean;	
 	}
 	@Override
