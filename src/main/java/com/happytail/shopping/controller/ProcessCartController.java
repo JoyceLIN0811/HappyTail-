@@ -118,6 +118,7 @@ public class ProcessCartController {
 //			
 			
 			System.out.println("新增訂單成功");
+			session.removeAttribute("cart");
 //			return "ThanksForOrder";
 			}catch (Exception e) {
 				e.printStackTrace();

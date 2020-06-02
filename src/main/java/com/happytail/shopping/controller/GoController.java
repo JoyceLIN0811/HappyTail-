@@ -3,6 +3,7 @@ package com.happytail.shopping.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.happytail.member.model.PetMembers;
+import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
+import com.happytail.shopping.model.service.OrderService;
 import com.happytail.shopping.model.service.ProductLikeService;
 import com.happytail.shopping.model.service.ProductService;
 import com.happytail.shopping.model.service.ShowProductService;
@@ -31,6 +35,10 @@ public class GoController {
 	ShowProductService ShowProductService;
 	@Autowired
 	ProductLikeService ldao;
+	@Autowired
+	OrderService odao;
+	
+	
 	
 	@GetMapping("/showProduct")
 	public String go() {
@@ -42,6 +50,7 @@ public class GoController {
 		return "shopIndex";
 	}
 	
+	//前往購物車
 	@GetMapping("/intoCart")
 	public String intoCart() {
 		
@@ -78,6 +87,20 @@ public class GoController {
 
 		return "getFavorite";
 	}
+	
+	//查看訂單
+	@GetMapping("/getOrderBean.do")
+	public String getOrderBean(Model m,HttpServletRequest res){
+		HttpSession session = res.getSession();
+		PetMembers mem = (PetMembers) session.getAttribute("LoginOK");
+//		Integer id = mem.getId();
+		Integer a = 1;
+		List<OrderBean> list = odao.selectOrderByMemberId(a);
+		System.out.println("獲取所有訂單");
+		m.addAttribute("orderList",list);
+		return "showOrder";
+	}
+	
 	
 	
 }

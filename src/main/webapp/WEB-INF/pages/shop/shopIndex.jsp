@@ -135,7 +135,7 @@
 								style="background-image: url(images/food.jpg);">
 								<div class="inner">
 									<p>
-										<a href="single.html" class="icon"><i
+										<a href="<c:url value='/intoCart'/> " class="icon"><i
 											class="icon-shopping-cart"></i></a> <a
 											href="<c:url value='showProduct.do'/>" class="icon"><i
 											class="icon-eye"></i></a>
@@ -144,9 +144,9 @@
 							</div>
 							<div class="desc">
 								<h3>
-									<a href="single.html">Hauteville Concrete Rocking Chair</a>
+									<a href="#">Pet food</a>
 								</h3>
-								<span class="price">$350</span>
+<!-- 								<span class="price">$350</span> -->
 							</div>
 						</div>
 					</div>
@@ -156,7 +156,7 @@
 								style="background-image: url(images/cloth2.jpg);">
 								<div class="inner">
 									<p>
-										<a href="single.html" class="icon" onclick=><i
+										<a href="<c:url value='/intoCart'/> " class="icon" onclick=><i
 											class="icon-shopping-cart"></i></a> <a href="#" class="icon"
 											onclick="document.getElementById('myform').submit();"><i
 											class="icon-eye"></i></a>
@@ -170,9 +170,9 @@
 							</div>
 							<div class="desc">
 								<h3>
-									<a href="single.html">Pavilion Speaker</a>
+									<a href="#">pet cloth</a>
 								</h3>
-								<span class="price">$600</span>
+<!-- 								<span class="price">$600</span> -->
 							</div>
 						</div>
 					</div>
@@ -182,7 +182,7 @@
 								style="background-image: url(images/toys.jpg);">
 								<div class="inner">
 									<p>
-										<a href="single.html" class="icon"><i
+										<a href="<c:url value='/intoCart'/> " class="icon"><i
 											class="icon-shopping-cart"></i></a> <a
 											href="<c:url value='/showProduct'/>" class="icon"><i
 											class="icon-eye"></i></a>
@@ -191,9 +191,9 @@
 							</div>
 							<div class="desc">
 								<h3>
-									<a href="single.html">Ligomancer</a>
+									<a href="single.html">pet toy</a>
 								</h3>
-								<span class="price">$780</span>
+<!-- 								<span class="price">$780</span> -->
 							</div>
 						</div>
 					</div>

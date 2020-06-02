@@ -67,5 +67,12 @@ public class ShopView {
 		return view;
 	}
 	
+	@Bean
+	public View showOrder() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/shop/showOrder.jsp");
+		return view;
+	}
+	
 
 }

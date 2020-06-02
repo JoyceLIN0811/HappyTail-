@@ -64,13 +64,14 @@
 									<li><a href="single.html">玩具</a></li>
 								</ul></li>
 							
-							<li class="has-dropdown"><a href="services.html">我的訂單</a>
-								<ul class="dropdown">
-									<li><a href="#">Web Design</a></li>
-									<li><a href="#">eCommerce</a></li>
-									<li><a href="#">Branding</a></li>
-									<li><a href="#">API</a></li>
-								</ul></li>
+							<li class="has-dropdown"><a href="<c:url value='/getOrderBean.do'/>">我的訂單</a>
+<!-- 								<ul class="dropdown"> -->
+<!-- 									<li><a href="#">Web Design</a></li> -->
+<!-- 									<li><a href="#">eCommerce</a></li> -->
+<!-- 									<li><a href="#">Branding</a></li> -->
+<!-- 									<li><a href="#">API</a></li> -->
+<!-- 								</ul> -->
+							</li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
 					</div>
@@ -86,7 +87,7 @@
 									</span>
 								</div>
 							</li>
-							<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+							<li class="shopping-cart"><a href="<c:url value='/intoCart'/> " class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
 						</ul>
 					</div>
 				</div>
