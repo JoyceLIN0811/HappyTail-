@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<jsp:include page="/top.jsp"></jsp:include>	
+<jsp:include page="/HappytailHeader.jsp" />
 	
 <div class="divbig">
 	<h4>會員登入</h4>
@@ -42,7 +42,7 @@
 	</form>
 </div>
 
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="/HappytailFooter.jsp" />
 
 </body>
 </html>

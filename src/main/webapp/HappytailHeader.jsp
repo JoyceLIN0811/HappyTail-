@@ -51,8 +51,15 @@
             <span class="navbar-toggler-icon"></span>
         </button> -->
 		<ul class="nav navbar-nav navbar-right navbar-top">
-			<li><a data-toggle="tab" href="#"><i class='fas fa-user'
+			<li>
+				<c:if test="${empty LoginOK}">
+				<a  href="<c:url value='login' />" title="登入"><i class='fas fa-user'
 					style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i></a>
+				</c:if>
+				<c:if test="${ !empty LoginOK}">
+				<a  href="<c:url value='logoutCheck' />" title="登出"><i class='fas fa-user'
+					style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i></a>
+				</c:if>
 			</li>
 			<li><a data-toggle="tab" href="#"><i class='fas fa-bell'
 					style='font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;'></i>
@@ -102,11 +109,19 @@
         <a href="#">Contact</a> -->
 
 		<span style="color: white; font-family: fantasy; font-size: 18px;"><img
-			src="img/logo_white3.png">Happy Tail</span> <a href="#home">Home</a>
-		<a href="#notice">Notice</a> <a href="#profile">Personal Profile</a> <a
-			href="#Online Shop">Online Shop</a> <a href="#Reservation Service">Reservation
-			Service</a> <a href="#Pet Forum">Pet Forum</a> <a class="subheader">Learn
-			About Us</a>
+			src="img/logo_white3.png">Happy Tail</span> 
+			<a href="#home">Home</a>
+			<a href="#notice">Notice</a>
+		<c:if test="${!empty LoginOK}"> 
+			<a href="<c:url value='memberCenter'/>">Personal Profile</a>
+		</c:if>
+		<c:if test="${empty LoginOK}"> 
+			<a href="<c:url value='login'/>">Personal Profile</a>
+		</c:if>
+			<a href="#Online Shop">Online Shop</a> 
+			<a href="#Reservation Service">Reservation	Service</a> 
+			<a href="#Pet Forum">Pet Forum</a> 
+			<a class="subheader">Learn About Us</a>
 
 	</div>
 

@@ -11,7 +11,7 @@
 <title>驗證結果通知</title>
 </head>
 <body>
-<jsp:include page="/top.jsp"></jsp:include>
+<jsp:include page="/HappytailHeader.jsp" />
 	<c:if test="${verificationResult == true}">
 		<h1>驗證成功，會員帳號已啟用</h1>
 	</c:if>	
