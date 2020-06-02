@@ -88,28 +88,24 @@
 	<div class="fh5co-loader"></div>
 
 
+		<jsp:include page="/shopTop.jsp" />
 	<div id="page">
-		<jsp:include page="shopTop.jsp" />
 		
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm text-center"
-			role="banner" style="background-image: url(images/Cover2.jpg);">
+			role="banner" style="background-image: url(images/first.jpg);">
 			<div class="overlay "></div>
 			<div class="container">
 				<div class="row">
 
 					<div class="col-md-8 col-md-offset-2 text-center">
-<!-- 			<input type="button" value="1111111111111111111111111111111111111111111111111111111"> -->
+
 
 						<div class="display-t">
 
 							<div class="display-tc animate-box " data-animate-effect="fadeIn">
 
 								<h1>shopping</h1>
-								<div>
-									<br> <br>
-								</div>
 
-								<br> <br> <br> <br>
 							</div>
 						</div>
 					</div>

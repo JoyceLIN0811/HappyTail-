@@ -83,11 +83,11 @@
 
 	<div id="page">
 		<jsp:include page="shopTop.jsp" />
-
+		<br>
 		<!-- ------------------------------------------------------------------------------------------------------- -->
 
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm"
-			role="banner" style="background-image: url(images/shopping.jpg);">
+			role="banner" style="background-image: url(images/second.jpg);">
 			<div class="overlay"></div>
 
 
@@ -98,7 +98,7 @@
 						<div class="display-t">
 							<div class="display-tc animate-box" data-animate-effect="fadeIn">
 								<!-- 								<i class="icon-shopping-cart"></i> -->
-
+								<h1>shop mall</h1>
 							</div>
 						</div>
 					</div>

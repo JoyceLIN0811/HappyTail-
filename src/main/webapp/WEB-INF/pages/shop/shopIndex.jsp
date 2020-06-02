@@ -89,10 +89,10 @@
 
 
 	<div id="page">
-		<jsp:include page="shopTop2.jsp" />
-		
+		<jsp:include page="shopTop.jsp" />
+		<br>
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm text-center"
-			role="banner" style="background-image: url(images/Cover2.jpg);">
+			role="banner" style="background-image: url(images/first.jpg);">
 			<div class="overlay "></div>
 			<div class="container">
 				<div class="row">
@@ -105,11 +105,7 @@
 							<div class="display-tc animate-box " data-animate-effect="fadeIn">
 
 								<h1>shopping</h1>
-								<div>
-									<br> <br>
-								</div>
-
-								<br> <br> <br> <br>
+								
 							</div>
 						</div>
 					</div>

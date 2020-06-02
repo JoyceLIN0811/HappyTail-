@@ -51,7 +51,10 @@
 				<div class="row">
 					<div class="col-md-3 col-xs-2">
 						<div id="fh5co-logo">
-							<a href="index.jsp">寵毛網</a>
+							<a class="navbar-brand" href="#" style="display: block; margin: auto;">
+			<img src="img/logo210_1905.png" width="100" 
+			style="display: block;margin-left: 110px">
+		</a>
 						</div>
 					</div>
 					<div class="col-md-6 col-xs-6 text-center menu-1">
@@ -64,7 +67,7 @@
 									<li><a href="single.html">玩具</a></li>
 								</ul></li>
 							
-							<li class="has-dropdown"><a href="services.html">我的訂單</a>
+							<li class="has-dropdown"><a href="<c:url value='/getOrderBean.do'/> ">我的訂單</a>
 								<ul class="dropdown">
 									<li><a href="#">Web Design</a></li>
 									<li><a href="#">eCommerce</a></li>
@@ -94,3 +97,6 @@
 
 			</div>
 		</nav>
+		<br>
+		
+		
