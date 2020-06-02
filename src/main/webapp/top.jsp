@@ -128,7 +128,7 @@
 		<li><a href="#!">one</a></li>
 		<li><a href="#!">two</a></li>
 		<li class="divider"></li>
-		<li><a href="<c:url value='queryback' />">reservation</a></li>
+		<li><a href="<c:url value='pageBackView?pageNum=1' />">reservation</a></li>
 		<li><a href="#!">three</a></li>
 		<li><a href="#!">three</a></li>
 		<li><a href="#!">three</a></li>

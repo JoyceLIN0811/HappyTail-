@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.happytail.general.util.Page;
+import com.happytail.general.util.PageInfo;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
+import com.happytail.reservation.model.backView;
 
 
 
@@ -41,15 +44,16 @@ public class ReservationDaoImpl implements ReservationDao{
 		return bean;
 	}
 
-
-	@Override
-	public List<MyReservationView> query(Integer Id) {
-		Query<MyReservationView> query = getSession().createQuery("from MyReservationView where Id=:Id ", MyReservationView.class);
-		query.setParameter("memberId", Id);
-		List<MyReservationView> list = query.getResultList();
-		return list;
-	}
-
+	
+//	@Override
+//	public List<MyReservationView> query(Integer Id) {
+//		Query<MyReservationView> query = getSession().createQuery("from MyReservationView where Id=:Id ", MyReservationView.class);
+//		query.setParameter("memberId", Id);
+//		List<MyReservationView> list = query.getResultList();
+//		return list;
+//	}
+	
+	// 取消預約
 	@Override
 	public ReservationBean UpdateStatuss(ReservationBean bean) {
 		ReservationBean rb = getSession().get(ReservationBean.class, bean.getReservationId());
@@ -59,6 +63,7 @@ public class ReservationDaoImpl implements ReservationDao{
 		return rb;
 	}
 	
+	//評分完成
 	@Override
 	public ReservationBean UpdateEvaluationStatus(ReservationBean bean) {
 		ReservationBean rb = getSession().get(ReservationBean.class, bean.getReservationId());
@@ -67,13 +72,15 @@ public class ReservationDaoImpl implements ReservationDao{
 		getSession().update(rb);
 		return rb;
 	}
-
+	
+	//查詢
 	@Override
 	public ReservationBean queryReservationBean(Integer reservationId) {
 		ReservationBean rb = getSession().get(ReservationBean.class, reservationId);
 		return rb;
 	}
-
+	
+	
 	@Override
 	public List<MyReservationView> queryAllView() {
 		Query<MyReservationView> bean = getSession().createQuery("from MyReservationView order by createDate ", MyReservationView.class );
@@ -97,6 +104,22 @@ public class ReservationDaoImpl implements ReservationDao{
 
 		return reservation;
 	}
+	
+	private final String SelectByIdMyReservationView = "FROM com.happytail.reservation.model.MyReservationView WHERE Id=:Id ORDER BY reservationId DESC";
+	private final String AllMyReservationViewCounts = "SELECT COUNT(*) FROM com.happytail.reservation.model.MyReservationView";
+	
+	@Override
+	public Page<MyReservationView> query(Integer Id, PageInfo pageinfo) {
+		
+		Integer startPosition = pageinfo.getPageSize() * (pageinfo.getPageNum() -1);
+		List<MyReservationView> resultList = getSession().createQuery(SelectByIdMyReservationView, MyReservationView.class)
+				.setParameter("Id", Id).setFirstResult(startPosition).setMaxResults(pageinfo.getPageSize()).getResultList();
+		Query query = getSession().createQuery(AllMyReservationViewCounts);
+		Long totalCount = (Long)query.uniqueResult();
+		return new Page<MyReservationView>(resultList,pageinfo.getPageNum(),pageinfo.getPageSize(),totalCount);
+	}
+
+	
 
 	
 
