@@ -9,13 +9,15 @@
 
 <style type="text/css">	
 	.divbig {
-		width:800px;
-		font-size: 1.5em;
+		width:1000px; 
+		font-size: 1.2em;
 		padding: 10px 30px;
 		margin: 25px auto;
 		font-family:微軟正黑體;}
-	.lab{font-size: 0.8em;}	
+	.lab{font-size: 1em;}	
 	.ot{font-size: 0.85em;}
+	.inpu{border:0; border-bottom: 2px solid lightgray; outline: none; font-size: 0.8em; width: 250px}
+
 </style>
 
 </head>
@@ -27,11 +29,11 @@
 	
 		<form action="<c:url value="loginCheck" />" method="post">		
 			<label class="lab">Account :</label>
-				<input type="text" name="account"  value = "${param.account }"/>
+				<input class="inpu" type="text" name="account"  value = "${param.account }"/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.accountError }</font>
 			<br>
 			<label class="lab">Password :</label> 	
-				<input type="password" name="password"  value = "${param.password }"/>
+				<input class="inpu" type="password" name="password"  value = "${param.password }"/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.passwordError }</font>			
 				<font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font>
 			<br>

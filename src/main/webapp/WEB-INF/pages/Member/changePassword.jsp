@@ -8,7 +8,7 @@
 <title>變更密碼</title>
 </head>
 <body style="background-color: lightblue">
-<jsp:include page="/top.jsp"></jsp:include>
+<jsp:include page="/HappytailHeader.jsp" />
 <h2>請重新設定您的密碼</h2>
 	<form action="<c:url value="changePassword" />" method="post">
 		<input type="hidden" name="id" value = "${sessionScope.LoginOK.id }" />		
@@ -23,6 +23,6 @@
 		</table>
 		<button  type="submit" name="changePassword">變更密碼</button>
 	</form>	
-	<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="/HappytailFooter.jsp" />
 </body>
 </html>
