@@ -69,7 +69,7 @@
 		<input class="ot" type="file" name="memberImage"  value="${param.memberImage }"/>
 		<font color='red' size="-1">${errorMsg.noImage}</font>
 	<br>		
-		<input class="ot"type="submit" name="Submit" />
+		<input class="ot" type="submit" name="Submit" />
 		
 	</form>
 </div>		
