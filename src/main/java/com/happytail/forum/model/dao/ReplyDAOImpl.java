@@ -17,7 +17,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
-	
+
 	@Override
 	public Reply insert(Reply reply) {
 		try {
@@ -49,7 +49,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public Reply update(Reply reply) {
 		try {
-			if(reply != null) {
+			if (reply != null) {
 				getSession().update(reply);
 			}
 		} catch (Exception e) {
@@ -65,6 +65,19 @@ public class ReplyDAOImpl implements ReplyDAO {
 		Reply reply = null;
 		try {
 			reply = getSession().get(Reply.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("No result");
+			return null;
+		}
+		return reply;
+	}
+
+	@Override
+	public Reply selectByTopicId(Integer topicId) {
+		Reply reply = null;
+		try {
+			reply = getSession().get(Reply.class, topicId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("No result");

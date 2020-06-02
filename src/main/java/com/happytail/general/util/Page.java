@@ -2,35 +2,40 @@ package com.happytail.general.util;
 
 import java.util.List;
 
-public class Page<T> {
+import com.happytail.forum.model.TopiclistView;
+
+public class Page<T>{
 	
-	//一頁幾個
 	private Integer pageSize;
+	//number of per page 
 	
-	//現在的頁數
 	private Integer currentPage;
+	//current page
 	
 	private Integer totalPages;
+	//total pages
 	
 	private Integer totalNum;
+	//total number
 	
 	private List<T> records;
+	//list of data
 	
-	public Page(List<T> records, Integer pageNum, Integer pageSize, long totalCount) {
+	public Page(List<T> records,Integer pageNum, Integer pageSize,long totalCount) {
 		this.records = records;
 		this.pageSize = pageSize;
 		this.currentPage = pageNum;
 		this.totalPages = (int) Math.ceil(totalCount/pageSize);
 		this.totalNum = (int)totalCount;
 	}
-	
+		
 	public Page() {
 		
 	}
-	
-	public void setPageInfo(PageInfo pageinfo) {
-		this.pageSize = pageinfo.getPageSize();
-		this.currentPage = pageinfo.getPageNum();
+
+	public void setPageInfo(PageInfo pageInfo) {
+		this.pageSize = pageInfo.getPageSize();
+		this.currentPage = pageInfo.getPageNum();
 	}
 
 	public Integer getPageSize() {

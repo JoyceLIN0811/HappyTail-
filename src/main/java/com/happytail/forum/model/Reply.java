@@ -29,6 +29,8 @@ public class Reply {
 	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
 	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	private List<Integer> atUserIdList = new ArrayList<Integer>();
+	private Boolean isThumbsUp;
+
 	
 	public Reply(Integer userId, String username, Integer topicId
 			, String replyContent, Timestamp createDate, Timestamp updateDate) {
@@ -134,6 +136,16 @@ public class Reply {
 
 	public void setAtUserIdList(List<Integer> atUserIdList) {
 		this.atUserIdList = atUserIdList;
+	}
+	
+	@Transient
+	public Boolean getIsThumbsUp() {
+		return isThumbsUp;
+	}
+
+
+	public void setIsThumbsUp(Boolean isThumbsUp) {
+		this.isThumbsUp = isThumbsUp;
 	}
 
 

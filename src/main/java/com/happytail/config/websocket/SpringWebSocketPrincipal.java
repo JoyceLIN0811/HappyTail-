@@ -4,7 +4,7 @@ import java.security.Principal;
 
 public class SpringWebSocketPrincipal implements Principal {
 	
-	//memberId
+	//userId
 	
 	private String name;
 	

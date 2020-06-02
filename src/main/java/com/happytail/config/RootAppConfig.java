@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = { "com.happytail.forum.model", 
-		"com.happytail.shop.model",
+		"com.happytail.shopping.model",
 		"com.happytail.reservation.model", 
 		"com.happytail.admin.model", 
 		"com.happytail.member.model",
-		"com.happytail.general.model",
-		"com.happytail.shopping"})
+		"com.happytail.general.model"
+		})
 @Import(com.happytail.config.SpringWebSocketJavaConfig.class)
 public class RootAppConfig {
 
@@ -59,12 +59,12 @@ public class RootAppConfig {
 		// setProperties might cover the original setting
 		// could happen unknown exception so do not use it!!
 		builder.scanPackages(new String[] { "com.happytail.forum.model", 
-				"com.happytail.shop.model",
+				"com.happytail.shopping.model",
 				"com.happytail.reservation.model", 
 				"com.happytail.admin.model", 
 				"com.happytail.member.model",
-				"com.happytail.general.model",
-				"com.happytail.shopping"});
+				"com.happytail.general.model"
+				});
 		return builder.buildSessionFactory();
 //		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 //		LocalSessionFactoryBean for xml

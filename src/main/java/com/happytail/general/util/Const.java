@@ -20,7 +20,7 @@ public class Const {
 		public static final String Forum = "Forum";
 		public static final String Reservation = "Reservation";
 	}
-	
+
 	public static class CategoryType {
 		public static final String topicCategory = "topicCategory";
 		public static final String likeCategory = "likeCategory";
@@ -31,28 +31,37 @@ public class Const {
 		public static final String topic = "topic";
 		public static final String reply = "reply";
 	}
-	
-	// 每頁筆數 預設值
+
+	/** 每頁筆數 預設值 **/
+
 	public static final Integer DEFAULT_PAGE_SIZE = 10;
-	
-	// 第一頁頁碼
+
+	/** 第一頁 頁碼 **/
+
 	public static final Integer FIRST_PAGE_NUM = 1;
-	
-	//每頁筆數 參數名稱
+
+	/** 每頁筆數 參數名稱 **/
+
 	public static final String PAGE_SIZE = "pageSize";
-	
-	//目前頁碼 參數名稱
+
+	/** 目前頁碼 參數名稱 **/
+
 	public static final String PAGE_NUM = "pageNum";
-	
-	//排序欄位 參數名稱
+
+	/** 排序欄位 參數名稱 **/
+
 	public static final String ORDER_COLUMNS = "columnNames";
-	
-	//排序方式參數名稱
+
+	/** 排序方向 參數名稱 **/
+
 	public static final String ORDER_DIRECTION = "direction";
-	
-	//排序方式 升冪
+
+	/** 排序方向 升冪 **/
+
 	public static final String ORDER_ASC = "ASC";
-	
-	//排序方式 降冪
+
+	/** 排序方向 降冪 **/
+
 	public static final String ORDER_DESC = "DESC";
+
 }

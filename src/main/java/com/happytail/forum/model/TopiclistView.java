@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "TopiclistView")
 public class TopiclistView {
 	
-	private Integer memberId;
+	private Integer userId;
 	private String username;
 	private Integer categoryId;
 	private Integer topicId;
@@ -28,12 +29,15 @@ public class TopiclistView {
 	private Integer replyNum;
 	private Integer count;
 	private Integer likeNum;
-	private String key;
+	private String category;
+	private Boolean isThumbsUp;
+	private Boolean isFollowed;
+	private Boolean isReported;	
 	
-	public TopiclistView(Integer memberId, String username, Integer categoryId
+	public TopiclistView(Integer userId, String username, Integer categoryId
 	, Integer topicId, String title, Timestamp createDate, String imageUrl
-	, Integer replyNum, Integer count, Integer likeNum, String key) {
-		this.memberId = memberId;
+	, Integer replyNum, Integer count, Integer likeNum, String category) {
+		this.userId = userId;
 		this.username = username;
 		this.categoryId = categoryId;
 		this.topicId = topicId;
@@ -43,7 +47,7 @@ public class TopiclistView {
 		this.replyNum = replyNum;
 		this.count = count;
 		this.likeNum = likeNum;
-		this.key = key;		
+		this.category = category;		
 		}
 	
 	public TopiclistView() {
@@ -59,13 +63,13 @@ public class TopiclistView {
 		this.topicId = topicId;
 	}
 
-	@Column(name = "memberId")
-	public Integer getMemberId() {
-		return memberId;
+	@Column(name = "userId")
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "username")
@@ -141,22 +145,49 @@ public class TopiclistView {
 		this.likeNum = likeNum;
 	}
 
-	@Column(name = "key")
-	public String getKey() {
-		return key;
+	@Column(name = "category")
+	public String getCategory() {
+		return category;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	@Transient
+	public Boolean getIsThumbsUp() {
+		return isThumbsUp;
+	}
+
+	public void setIsThumbsUp(Boolean isThumbsUp) {
+		this.isThumbsUp = isThumbsUp;
+	}
+
+	@Transient
+	public Boolean getIsFollowed() {
+		return isFollowed;
+	}
+
+	public void setIsFollowed(Boolean isFollowed) {
+		this.isFollowed = isFollowed;
+	}
+
+	@Transient
+	public Boolean getIsReported() {
+		return isReported;
+	}
+
+	public void setIsReported(Boolean isReported) {
+		this.isReported = isReported;
 	}
 
 	@Override
 	public String toString() {
-		return "TopiclistView [memberId=" + memberId + ", username=" + username + ", categoryId=" + categoryId
+		return "TopiclistView [userId=" + userId + ", username=" + username + ", categoryId=" + categoryId
 				+ ", topicId=" + topicId + ", title=" + title + ", createDate=" + createDate + ", imageUrl=" + imageUrl
-				+ ", replyNum=" + replyNum + ", count=" + count + ", likeNum=" + likeNum + ", key=" + key + "]";
+				+ ", replyNum=" + replyNum + ", count=" + count + ", likeNum=" + likeNum + ", category=" + category
+				+ ", isThumbsUp=" + isThumbsUp + ", isFollowed=" + isFollowed + ", isReported=" + isReported + "]";
 	}
 
-	
 
 }

@@ -8,6 +8,8 @@ public interface ReportDAO {
 	
 	public Report update(Report report);
 	
-	public Report select(Integer id);
+	public Report select(Integer topicId, Integer userId);
+	
+	public Boolean delete (Integer id);
 	
 }

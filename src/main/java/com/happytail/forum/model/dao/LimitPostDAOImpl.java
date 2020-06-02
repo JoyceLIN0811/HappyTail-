@@ -1,5 +1,7 @@
 package com.happytail.forum.model.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
@@ -22,6 +24,9 @@ public class LimitPostDAOImpl implements LimitPostDAO {
 		Session session = sessionFactory.getCurrentSession();
 		return session;
 	}
+	
+	private final String SelectAllLimitPost = "FROM com.happytail.forum.model.LimitPost ORDER BY createTime DESC";
+
 
 	@Override
 	public LimitPost insert(LimitPost limitPost) {
@@ -70,5 +75,18 @@ public class LimitPostDAOImpl implements LimitPostDAO {
 
 		return limitPost;
 	}
+
+	@Override
+	public List<LimitPost> selectAll() {
+		List<LimitPost> list = null;
+		try {
+			list = getSession().createQuery(SelectAllLimitPost, LimitPost.class).list();
+		} catch (Exception e) {
+			return null;
+		}
+		return list;
+	}
+	
+	
 
 }

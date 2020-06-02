@@ -11,5 +11,8 @@ public interface ReplyDAO {
 	public Reply update(Reply reply);
 	
 	public Reply select(Integer id);
+	
+	public Reply selectByTopicId(Integer topicId);
+
 
 }

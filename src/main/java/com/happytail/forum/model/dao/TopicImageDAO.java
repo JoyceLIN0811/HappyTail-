@@ -8,8 +8,8 @@ public interface TopicImageDAO {
 
 	public boolean delete(Integer id);
 
-	public TopicImage update(TopicImage topic);
+	public TopicImage update(TopicImage topicImage);
 
-	public TopicImage select(TopicImage id);
+	public TopicImage select(Integer topicId);
 
 }

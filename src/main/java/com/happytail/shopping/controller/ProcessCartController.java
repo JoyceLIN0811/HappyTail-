@@ -1,4 +1,7 @@
+
 package com.happytail.shopping.controller;
+
+
 
 
 import java.text.SimpleDateFormat;
@@ -21,7 +24,10 @@ import com.happytail.shopping.model.CartBean;
 import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.OrderItem;
 import com.happytail.shopping.model.OrderItemBean;
-import com.happytail.shopping.service.OrderService;
+import com.happytail.shopping.model.dao.impl.OrderItemDaoImpl;
+import com.happytail.shopping.model.service.OrderService;
+
+
 //確認訂單
 @Controller
 public class ProcessCartController {
@@ -29,12 +35,14 @@ public class ProcessCartController {
 	SessionFactory sessionFactory;
 	@Autowired
 	OrderService orderDao;
-//	@Autowired
 //	OrderDao orderDao;
+	@Autowired
+	OrderItemDaoImpl oidao;
 	
 	@PostMapping("/OrderSure")
 	public String OrderConfirm(Model m ,
 			@RequestParam("address") String address,
+			@RequestParam("message") String message,
 			HttpServletRequest request) {
 		HttpSession session = request.getSession();
 //		PetMembers members= (PetMembers) session.getAttribute("LoginOk");
@@ -57,17 +65,17 @@ public class ProcessCartController {
 //		}
 //		Integer memberId =members.getMemberId();
 		double totalPrice = Math.round(cart.getSubtotal()*1.0);
-//		String shippingAddress = (String)m.getAttribute("shippingAddress");
+
 		System.out.println("address="+address);
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		Date date = new Date();
 		String orderDate = sdFormat.format(date);
 		System.out.println("測試用 查看當前時間="+orderDate);
-		String text = (String)m.getAttribute("text");
+
 		//新建訂單物件
 		OrderBean orderBean=
-				new OrderBean(1, totalPrice, address, orderDate, null,text,"成立");
-		Set<OrderItemBean> items = new HashSet<OrderItemBean>();
+				new OrderBean(1, totalPrice, address, orderDate,message,"成立");
+		Set<OrderItemBean> itemSet = new HashSet<OrderItemBean>();
 		// 取出存放在購物車內的商品，放入Map型態的變數OrderItem，準備將其內的商品一個一個轉換為OrderItemBean，
 				// 然後存入items。
 		Map<Integer, OrderItem> OrderItemMap = cart.getContent();
@@ -82,32 +90,35 @@ public class ProcessCartController {
 			
 			System.out.println(oi);
 			String  description = "商品編號="+oi.getProductId()+" 商品名稱="+oi.getName();
-			System.out.println("description="+description);
-			
-//			orderItemBean oibBean 
-//			= new OrderDetailBean(oidBean.getProductId(),
-//															description, 
-//															oidBean.getQuantity(), 
-//															oidBean.getUnitPrice(), 
-//															oidBean.getDiscount());
+//			System.out.println(S"description="+description);
 			OrderItemBean oib =new OrderItemBean(oi.getProductId(), oi.getName(), oi.getQuantity(), oi.getUnitPrice(), oi.getDiscount());
 			System.out.println("oib="+oib);
-			items.add(oib);
+			itemSet.add(oib);
 			
-			}
-//			System.out.println("items="+items);
-			// 執行到此，購物車內所有購買的商品已經全部轉換為為OrderItemBean物件，並放在Items內
-//			for(OrderDetailBean orderDetailBean :items) {
-//				orderBean.setOrderDetailBean(orderDetailBean);
-		System.out.println(items);
-//			}
-			orderBean.setOrderItemBean(items);
-//			System.out.println(orderBean.getOrderDetailBean());
+		}
 			
-			System.out.println("orderBean="+orderBean);
+			
+
+			System.out.println("itemSet="+itemSet);
+//			OrderBean oBean = orderDao.selectOrder(orderBean.getOrderId());
 			try {
-			orderDao.insert(orderBean);
+				orderDao.insert(orderBean);
+				
+				
+			for(OrderItemBean o:itemSet) {
+				o.setOrderBean(orderBean);
+				oidao.insert(o);
+
+				
+			}
+//			orderBean.setOrderItemBean(itemSet);
+			System.out.println("itemSet.size()="+itemSet.size());
+			
+			
+//			
+			
 			System.out.println("新增訂單成功");
+			session.removeAttribute("cart");
 //			return "ThanksForOrder";
 			}catch (Exception e) {
 				e.printStackTrace();

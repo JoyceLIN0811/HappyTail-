@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -17,19 +18,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ReplylistView {
 	
 	private Integer replyId;
-	private Integer memberId;
+	private Integer userId;
 	private String username;
 	private Integer topicId;
 	private String title;
 	private String replyContent;
 	private Timestamp createDate;
 	private Integer likeNum;
+	private Boolean isThumbsUp;
+
 	
-	public ReplylistView(Integer replyId, Integer memberId, String username
+	public ReplylistView(Integer replyId, Integer userId, String username
 	, Integer topicId, String title, String replyContent, Timestamp createDate
 	, Integer likeNum) {
 		this.replyId = replyId;
-		this.memberId = memberId;
+		this.userId = userId;
 		this.username = username;
 		this.topicId = topicId;
 		this.title = title;
@@ -52,13 +55,13 @@ public class ReplylistView {
 		this.replyId = replyId;
 	}
 
-	@Column(name = "memberId")
-	public Integer getMemberId() {
-		return memberId;
+	@Column(name = "userId")
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "username")
@@ -115,13 +118,23 @@ public class ReplylistView {
 	public void setLikeNum(Integer likeNum) {
 		this.likeNum = likeNum;
 	}
+	
+	@Transient
+	public Boolean getIsThumbsUp() {
+		return isThumbsUp;
+	}
+
+
+	public void setIsThumbsUp(Boolean isThumbsUp) {
+		this.isThumbsUp = isThumbsUp;
+	}
 
 	@Override
 	public String toString() {
-		return "ReplylistView [replyId=" + replyId + ", memberId=" + memberId + ", username=" + username + ", topicId="
+		return "ReplylistView [replyId=" + replyId + ", userId=" + userId + ", username=" + username + ", topicId="
 				+ topicId + ", title=" + title + ", replyContent=" + replyContent + ", createDate=" + createDate
-				+ ", likeNum=" + likeNum + "]";
+				+ ", likeNum=" + likeNum + ", isThumbsUp=" + isThumbsUp + "]";
 	}
-	
-	
+
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,9 @@ public class Topic {
 	private String username;
 	private Timestamp createDate = new Timestamp(System.currentTimeMillis());
 	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
+	private Boolean isThumbsUp;
+	private Boolean isFollowed;
+	private Boolean isReported;	
 	
 	public Topic(Integer categoryId, String title, String content, Integer userId,
 	String username, Timestamp createDate,Timestamp updateDate) {
@@ -113,18 +117,42 @@ public class Topic {
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}
-
+	
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
+	}
+	
+	@Transient
+	public Boolean getIsThumbsUp() {
+		return isThumbsUp;
+	}
+	
+	public void setIsThumbsUp(Boolean isThumbsUp) {
+		this.isThumbsUp = isThumbsUp;
+	}
+	@Transient
+	public Boolean getIsFollowed() {
+		return isFollowed;
+	}
+
+	public void setIsFollowed(Boolean isFollowed) {
+		this.isFollowed = isFollowed;
+	}
+	@Transient
+	public Boolean getIsReported() {
+		return isReported;
+	}
+
+	public void setIsReported(Boolean isReported) {
+		this.isReported = isReported;
 	}
 
 	@Override
 	public String toString() {
 		return "Topic [id=" + id + ", categoryId=" + categoryId + ", title=" + title + ", content=" + content
 				+ ", userId=" + userId + ", username=" + username + ", createDate=" + createDate + ", updateDate="
-				+ updateDate + "]";
+				+ updateDate + ", isThumbsUp=" + isThumbsUp + ", isFollowed=" + isFollowed + ", isReported="
+				+ isReported + "]";
 	}
-	
-	
-	
+
 }

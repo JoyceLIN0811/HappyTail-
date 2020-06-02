@@ -25,14 +25,9 @@
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/shopCss/icomoon.css">
-	
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/shopCss/bootstrap.css"> --%>
 <!-- Bootstrap  -->
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/shopCss/bootstrap2015.css">
-
 
 <!-- Flexslider  -->
 <link rel="stylesheet"
@@ -49,6 +44,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/shopCss/style.css">
 
+<!-- Modernizr JS -->
 <script
 	src="${pageContext.request.contextPath}/shopJs/modernizr-2.6.2.min.js"></script>
 <script src="${pageContext.request.contextPath}/shopJs/jquery-1.12.2.min.js"></script>
@@ -68,22 +64,32 @@
 	src="${pageContext.request.contextPath}/shopJs/jquery.flexslider-min.js"></script>
 <!-- Main -->
 <script src="${pageContext.request.contextPath}/shopJs/main.js"></script>
-
-
 <!-- FOR IE9 below -->
 <!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(section1).click(function() {
 
+			$("html, body").animate({
+				scrollTop : $(product).offset().top
+			}, "show");
+			return false;
+			// 			alert("123");
+		})
+
+	})
+</script>
 
 </head>
 <body>
 
 	<div class="fh5co-loader"></div>
 
-		<jsp:include page="shopTop.jsp" />
 
 	<div id="page">
+		<jsp:include page="shopTop.jsp" />
 		
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm text-center"
 			role="banner" style="background-image: url(images/Cover2.jpg);">
@@ -98,7 +104,7 @@
 
 							<div class="display-tc animate-box " data-animate-effect="fadeIn">
 
-								<h1 id='testh'>shopping</h1>
+								<h1>shopping</h1>
 								<div>
 									<br> <br>
 								</div>
@@ -129,9 +135,9 @@
 								style="background-image: url(images/food.jpg);">
 								<div class="inner">
 									<p>
-										<a href="single.html" class="icon"><i
+										<a href="<c:url value='/intoCart'/> " class="icon"><i
 											class="icon-shopping-cart"></i></a> <a
-											href="<c:url value='/showProduct.jsp'/>" class="icon"><i
+											href="<c:url value='showProduct.do'/>" class="icon"><i
 											class="icon-eye"></i></a>
 									</p>
 								</div>
@@ -140,7 +146,7 @@
 								<h3>
 									<a href="single.html">Hauteville Concrete Rocking Chair</a>
 								</h3>
-								<span class="price">$350</span>
+<!-- 								<span class="price">$350</span> -->
 							</div>
 						</div>
 					</div>
@@ -150,12 +156,13 @@
 								style="background-image: url(images/cloth2.jpg);">
 								<div class="inner">
 									<p>
-										<a href="single.html" class="icon" onclick=""><i
+										<a href="<c:url value='/intoCart'/> " class="icon" onclick=><i
 											class="icon-shopping-cart"></i></a> <a href="#" class="icon"
 											onclick="document.getElementById('myform').submit();"><i
 											class="icon-eye"></i></a>
 									</p>
-									<form action="<c:url value='/showProductByCategory'/>" method="post"
+<!-- 									<form action="/showProduct" method="POST" -->
+									<form action="<c:url value='/showProduct.do'/>" method="POST"
 										id='myform'>
 										<Input type='hidden' name='categoryId' value='1'>
 									</form>
@@ -163,9 +170,9 @@
 							</div>
 							<div class="desc">
 								<h3>
-									<a href="single.html">Pavilion Speaker</a>
+									<a href="<c:url value='/intoCart'/> ">Pavilion Speaker</a>
 								</h3>
-								<span class="price">$600</span>
+<!-- 								<span class="price">$600</span> -->
 							</div>
 						</div>
 					</div>
@@ -177,7 +184,7 @@
 									<p>
 										<a href="single.html" class="icon"><i
 											class="icon-shopping-cart"></i></a> <a
-											href="<c:url value='/showProduct.jsp'/>" class="icon"><i
+											href="<c:url value='/showProduct'/>" class="icon"><i
 											class="icon-eye"></i></a>
 									</p>
 								</div>
@@ -229,7 +236,6 @@
 								mollitia reprehenderit. Eos cumque dicta adipisci architecto
 								culpa amet.</p>
 						</div>
-						
 						<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
 							<ul class="fh5co-footer-links">
 								<li><a href="#">About</a></li>
@@ -288,25 +294,6 @@
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$(section1).click(function() {
-
-			$("html, body").animate({
-				scrollTop : $(product).offset().top
-			}, "show");
-			return false;
-			// 			alert("123");
-		})
-		$("#testh").click(function(){
-			alert("go to shopping!");
-			})
-
-	})
-</script>
-	<!-- Modernizr JS -->
-
 </body>
 </html>
 

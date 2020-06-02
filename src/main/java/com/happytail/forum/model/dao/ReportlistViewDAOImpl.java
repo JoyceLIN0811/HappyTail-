@@ -1,6 +1,7 @@
 package com.happytail.forum.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.happytail.forum.model.ReportlistView;
+import com.happytail.general.util.Page;
+import com.happytail.general.util.PageInfo;
 
 @Repository
 public class ReportlistViewDAOImpl implements ReportlistViewDAO {
@@ -29,18 +32,23 @@ public class ReportlistViewDAOImpl implements ReportlistViewDAO {
 	private final String ReportCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.ReportlistVie";
 	
 	@Override
-	public List<ReportlistView> select() {
-		List<ReportlistView> list = null;
-		try {
-			list = getSession().createQuery(selectAllReport, ReportlistView.class).list();
-		} catch (Exception e) {
-			return null;
-		}
-		return list;
+	public Page<ReportlistView> getAllReplylist(PageInfo pageInfo) {
+		Integer startPosition = pageInfo.getPageSize()*(pageInfo.getPageNum() - 1);
+		
+		List<ReportlistView> resultList = getSession()
+				.createQuery(selectAllReport, ReportlistView.class)
+				.setFirstResult(startPosition)
+				.setMaxResults(pageInfo.getPageSize())
+				.getResultList();
+		
+		Query query = getSession().createQuery(ReportCounts);
+		Long totalcount = (Long) query.uniqueResult();
+				
+		return new Page<ReportlistView>(resultList,pageInfo.getPageNum(),pageInfo.getPageSize(),totalcount);
 	}
 
 	@Override
-	public Long Counts() {
+	public Long counts() {
 		Long count = null;
 		try {
 			Query query = getSession().createQuery(ReportCounts);
@@ -50,5 +58,18 @@ public class ReportlistViewDAOImpl implements ReportlistViewDAO {
 		}
 		return count;
 	}
+
+
+	
+//	@Override
+//	public List<ReportlistView> select() {
+//		List<ReportlistView> list = null;
+//		try {
+//			list = getSession().createQuery(selectAllReport, ReportlistView.class).list();
+//		} catch (Exception e) {
+//			return null;
+//		}
+//		return list;
+//	}
 
 }

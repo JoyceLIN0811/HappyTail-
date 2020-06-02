@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.happytail.shopping.model.OrderBean;
-import com.happytail.shopping.service.OrderService;
+import com.happytail.shopping.model.service.OrderService;
 //依照會員編號與訂單編號來讀取某筆訂單的所有資料，這些資料將封裝為一個OrderBean物件
 @Controller
 public class CartOrderDetail {

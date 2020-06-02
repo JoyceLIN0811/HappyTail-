@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,47 +49,139 @@ public class PetMembersController {
 	@Autowired
 	ServletContext context;
 	
+	final static Pattern emailPattern = Pattern
+			.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*$");
+	final static Pattern pwd1 = Pattern.compile(".*[a-z]+.*");
+	final static Pattern pwd2 = Pattern.compile(".*[A-Z]+.*");
+	final static Pattern pwd3 = Pattern.compile(".*[0-9]+.*");
+	final static Pattern pwd4 = Pattern.compile(".*[~!@#$%^&*]+.*");	
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String processRregister() {
-		return "Member/memberRegister";
-//		return "Member/register";
+		return "petMemberPage";
+	}
+	
+	@GetMapping(value ="/accountStart")
+	public String accountStart(@RequestParam(name="code") String startCode, Model model) {
+		
+		boolean result = service.checkStartCode(startCode);			
+		model.addAttribute("verificationResult", result);
+		return "verificationResult";
 	}	
+	
+	
+	@GetMapping(value ="/forgetPassword")
+	public String forgetPassword() {
+		return "sendTemporaryPassword";
+	}
+	
+	
+	@PostMapping(value = "/sendTemporaryPassword")
+	public String sendTemporaryPassword(
+		@RequestParam(name="temporaryPasswordAccount") String temporaryPasswordAccount,
+		HttpServletRequest request,
+		Model model
+		) {
+		Map<String, String> errorMsg = new HashMap<String, String>();	
+		model.addAttribute("errorMsg", errorMsg);
+		
+		if(temporaryPasswordAccount == null || temporaryPasswordAccount.trim().length() == 0) {
+			errorMsg.put("temporaryPasswordAccountError", "帳號欄不可空白");
+		}else{
+			PetMembers un = service.selectPetMembers(temporaryPasswordAccount);			
+			if(un == null) {
+				errorMsg.put("temporaryPasswordAccountError", "該帳號不存在，請重新輸入");			
+			}		
+		}
+		if (!errorMsg.isEmpty()) {			
+			return "temporaryPetMemberPage1";
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("temporaryPasswordAccount", temporaryPasswordAccount);
+		service.sendTemporaryPassword(temporaryPasswordAccount);
+		
+		return "temporaryPetMemberPage2";
+	}	
+	
+	@PostMapping(value = "/changePassword")
+	public String changePassword(
+			@RequestParam(name="password") String password,
+			@RequestParam(name="id") Integer id,
+			Model model, HttpServletRequest request
+			
+			) {
+		Map<String, String> errorMsg = new HashMap<String, String>();	
+		model.addAttribute("errorMsg", errorMsg);	
+
+		if(password == null || password.trim().length() == 0) {
+			errorMsg.put("passwordError", "密碼欄不可空白");
+		}else if( !(pwd1.matcher(password).matches() 
+				 && pwd2.matcher(password).matches() 
+				 && pwd3.matcher(password).matches() 
+				 && pwd4.matcher(password).matches() 
+				 && password.length() > 7 ) ){
+			errorMsg.put("passwordformatError", "密碼格式不符要求");
+		}	
+		
+
+		if (!errorMsg.isEmpty()) {				
+			return "changePassword";
+		}
+		
+		PetMembers petmember = service.selectPetMembers(id);
+		petmember.setPassword(password);
+		petmember.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+		
+		PetMembers um = service.updatePetMembers(petmember);
+		HttpSession session = request.getSession();
+		session.setAttribute("LoginOK", um);
+		
+		return "petMemberIndex";
+	}
 	
 	
 	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
 	public String updatePetMembers(
 //			@RequestParam(name="account") String account,
-			@RequestParam(name="memberId") String memberId,
+			@RequestParam(name="id") Integer memberId,
 			@RequestParam(name="username") String username,
 			@RequestParam(name="password") String password,
-//			@RequestParam(name="email") String email,
 			@RequestParam(name="gender") String gender,
 			@RequestParam(name="bday") String bday,
 			@RequestParam(name="age") String age,
 			@RequestParam(name="address") String address,
 			@RequestParam(name="phone") String phone,
-			@RequestParam(name="petType") String petType,
 			@RequestParam(name="memberImage") MultipartFile memberImage,
 			HttpServletRequest request,
 			Model model		
 			
 			) {	
 //		System.out.println(gender);
-		PetMembers petmember = service.selectPetMembers(Integer.valueOf(memberId));
+		PetMembers petmember = service.selectPetMembers(memberId);
 		Map<String, String> errorMsg = new HashMap<String, String>();	
 		model.addAttribute("errorMsg", errorMsg);		
 		
+//		if(account == null || account.trim().length() == 0) {
+//			errorMsg.put("usernameError", "帳號欄不可空白");
+//		}else if(!account.isEmpty()) {
+//			PetMembers un = service.selectPetMembers(account);			
+//			if(un != null && un.getAccount() != petmember.getAccount()) {
+//				errorMsg.put("userIsExist", "會員帳號重複");				
+//			}			
+//		}	
+		
 		if(username == null || username.trim().length() == 0) {
-			errorMsg.put("usernameError", "帳號欄不可空白");
-		}else if(!username.isEmpty()) {
-			String un = service.selectPetMembers(username);			
-			if(un != null && un != petmember.getUsername()) {
-				errorMsg.put("userIsExist", "會員帳號重複");				
-			}			
-		}		
+			errorMsg.put("usernameError", "姓名欄不可空白");
+		}
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
+		}else if( !(pwd1.matcher(password).matches() 
+				 && pwd2.matcher(password).matches() 
+				 && pwd3.matcher(password).matches() 
+				 && pwd4.matcher(password).matches() 
+				 && password.length() > 7 ) ){
+			errorMsg.put("passwordformatError", "密碼格式不符要求");
 		}
 		
 		Date bdate = null;
@@ -100,11 +194,10 @@ public class PetMembersController {
 		
 		Integer age2 = null;
 		try {
-			age2 = Integer.parseInt(age);
-			
+			age2 = Integer.parseInt(age);			
 		}catch(Exception e) {
 			e.printStackTrace();
-			errorMsg.put("mAge", "年齡格式錯誤");
+//			errorMsg.put("mAge", "年齡格式錯誤");
 		}
 		
 		if(memberImage.getSize() == 0) {
@@ -113,7 +206,7 @@ public class PetMembersController {
 			String originalFilename = memberImage.getOriginalFilename();			
 			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
 				petmember.setFileName(originalFilename);
-//					ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
+//				ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
 			}else {
 				petmember.setFileName(username);
 			}			
@@ -140,7 +233,7 @@ public class PetMembersController {
 			}else {
 				model.addAttribute("gender", false);
 			}			
-			return "Member/member_CRUD";
+			return "memberCRUD";
 		}
 //		petmember.setAccount(account);
 		petmember.setUsername(username);
@@ -151,14 +244,13 @@ public class PetMembersController {
 		petmember.setAge(age2);
 		petmember.setAddress(address);
 		petmember.setPhone(phone);
-//		petmember.setPetType(petType);
 		petmember.setUpdateDate(new Timestamp(System.currentTimeMillis()));
 		
 		PetMembers um = service.updatePetMembers(petmember);
 		HttpSession session = request.getSession();
 		session.setAttribute("LoginOK", um);
 		
-		return "../../index";
+		return "petMemberIndex";
 	}
 	
 	@RequestMapping(value = "/memberCenter", method = RequestMethod.GET)
@@ -178,9 +270,9 @@ public class PetMembersController {
 			model.addAttribute("gender", false);
 		}
 		model.addAttribute("petMember",  petmember);
-		return "Member/member_CRUD";			
+		System.out.println(petmember.getId());
+		return "memberCRUD";			
 	}	
-	
 	
 	@RequestMapping(value = "/registerInsert", method = RequestMethod.POST)
 	public String insertMembers(
@@ -192,28 +284,23 @@ public class PetMembersController {
 		@RequestParam(name="bday") String bday,
 		@RequestParam(name="age") String age,
 		@RequestParam(name="address") String address,
-		@RequestParam(name="phone") String phone,
-//		@RequestParam(name="petType") String petType,		
+		@RequestParam(name="phone") String phone,	
 		@RequestParam(name="memberImage") MultipartFile memberImage,
 		Model model
 			) {
-//		System.out.println(username);
-//		System.out.println(password);
-//		System.out.println(gender);
-	
-		
 		Map<String, String> errorMsg = new HashMap<String, String>();	
 		model.addAttribute("errorMsg", errorMsg);
-		
+				
 		if(account == null || account.trim().length() == 0) {
 			errorMsg.put("accountError", "帳號欄不可空白");
-		}else if(!account.isEmpty()) {
-			String un = service.selectPetMembers(account);
-			
-			if(un != null) {
-				errorMsg.put("accountIsExist", "會員帳號重複");				
-			}			
-		}	
+		}else if(!emailPattern.matcher(account).matches()) {
+			errorMsg.put("accountformatError", "會員帳號格式錯誤");				
+		}
+		
+		PetMembers un = service.selectPetMembers(account);			
+		if(un != null) {
+			errorMsg.put("accountIsExist", "會員帳號重複");				
+		}				
 		
 		if(username == null || username.trim().length() == 0) {
 			errorMsg.put("usernameError", "姓名欄不可空白");
@@ -221,6 +308,12 @@ public class PetMembersController {
 		
 		if(password == null || password.trim().length() == 0) {
 			errorMsg.put("passwordError", "密碼欄不可空白");
+		}else if( !(pwd1.matcher(password).matches() 
+				 && pwd2.matcher(password).matches() 
+				 && pwd3.matcher(password).matches() 
+				 && pwd4.matcher(password).matches() 
+				 && password.length() > 7 ) ){
+			errorMsg.put("passwordformatError", "密碼格式不符要求");
 		}
 		
 		Date bdate = null;
@@ -233,17 +326,12 @@ public class PetMembersController {
 		
 		Integer age2 = null;
 		try {
-			age2 = Integer.parseInt(age);
-			
+			age2 = Integer.parseInt(age);			
 		}catch(Exception e) {
 			e.printStackTrace();
-			errorMsg.put("mAge", "年齡格式錯誤");
+//			errorMsg.put("mAge", "年齡格式錯誤");
 		}		
-		
-//		if(memberImage.getSize() == 0) {
-//			errorMsg.put("noImage", "請附上圖片");
-//		} 
-		
+
 		if (!errorMsg.isEmpty()) {	
 			String gen = "M";
 			if(gender.equalsIgnoreCase(gen)) {
@@ -251,13 +339,13 @@ public class PetMembersController {
 			}else {
 				model.addAttribute("gender", false);
 			}
-			return "Member/memberRegister";
+			return "petMemberPage";
 		}
 		
 		String originalFilename = memberImage.getOriginalFilename();			
 		if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
-				petMember.setFileName(originalFilename);
-//				ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
+			petMember.setFileName(originalFilename);
+//			ext = picture.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
 		}else {
 			petMember.setFileName(username);
 		}			
@@ -279,23 +367,19 @@ public class PetMembersController {
 		petMember.setAccount(account);
 		petMember.setUsername(username);
 		petMember.setPassword(password);
-		petMember.setEmail(username);
+		petMember.setEmail(account);
 		petMember.setGender(gender);
 		petMember.setBday(bdate);
 		petMember.setAge(age2);
 		petMember.setAddress(address);
 		petMember.setPhone(phone);
-//		petMember.setPetType(petType);	
-		
-//		System.out.println(petMember.getUsername());
-//		System.out.println(petMember.getPassword());
 	
 		PetMembers pm = service.insertPetMembers(petMember);		
 		
 		if (pm != null) {
-			return "../../index";
+			return "petMemberIndex";
 		} else {
-			return "Member/memberRegister";
+			return "petMemberPage";
 		}
 	}
 	
