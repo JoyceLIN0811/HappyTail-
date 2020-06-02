@@ -125,6 +125,7 @@ public class PetMembers {
 	}
 	
 	@Column(name = "bday")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	public Date getBday() {
 		return bday;
 	}

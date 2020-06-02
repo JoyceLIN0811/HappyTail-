@@ -57,9 +57,9 @@ public class AdminShoppingController {
 
 	// 商品列表Json
 	@GetMapping(value = "admin-AllProjects-json")
-	public ResponseEntity<List<ProductBeanImageData>> selectAllProject() {
-		List<ProductBeanImageData> list = pservice.getAllProductsImageDatas();
-		ResponseEntity<List<ProductBeanImageData>> re  = new ResponseEntity<>(list, HttpStatus.OK);
+	public ResponseEntity<List<ProductBean>> selectAllProject() {
+		List<ProductBean> list = pservice.getAllProductsJson();
+		ResponseEntity<List<ProductBean>> re  = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
 		
 		

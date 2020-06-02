@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -249,6 +249,7 @@
 								<p>討論區管理</p>
 							</a>
 						</li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -270,28 +271,29 @@
 							<div class="card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">商品名稱</label>
-									<form:input path='name' class="form-control"/>
+									<form:input path='name' class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品價格</label>
-									<form:input path='price' class="form-control"/>
+									<form:input path='price' class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品數量</label>
-									<form:input path='amount' class="form-control"/>
+									<form:input path='amount' class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品描述</label>
-									<form:input path='descriptrion' class="form-control"/>
+									<form:input path='descriptrion' class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputFile">照片</label>
 									<div class="input-group">
 										<div class="custom-file">
-											<form:input path='productImage' type='file' class="custom-file-input" id="exampleInputFile"/>
+											<form:input path='productImage' type='file' class="custom-file-input"
+												id="exampleInputFile" />
 											<label class="custom-file-label" for="exampleInputFile">Choose file</label>
 										</div>
-									
+
 									</div>
 								</div>
 							</div>

@@ -25,10 +25,10 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
-	
-	
-<script>
 
+
+<script>
+	
 </script>
 </head>
 
@@ -66,82 +66,7 @@
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<!-- Messages Dropdown Menu -->
-				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#">
-						<i class="far fa-comments"></i>
-						<span class="badge badge-danger navbar-badge">3</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
-							<div class="media">
-								<img src="${pageContext.request.contextPath}/dist/img/user1-128x128.jpg" alt="User Avatar"
-									class="img-size-50 mr-3 img-circle">
-								<div class="media-body">
-									<h3 class="dropdown-item-title">
-										Brad Diesel
-										<span class="float-right text-sm text-danger">
-											<i class="fas fa-star"></i>
-										</span>
-									</h3>
-									<p class="text-sm">Call me whenever you can...</p>
-									<p class="text-sm text-muted">
-										<i class="far fa-clock mr-1"></i>
-										4 Hours Ago
-									</p>
-								</div>
-							</div>
-							<!-- Message End -->
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
-							<div class="media">
-								<img src="${pageContext.request.contextPath}/dist/img/user8-128x128.jpg" alt="User Avatar"
-									class="img-size-50 img-circle mr-3">
-								<div class="media-body">
-									<h3 class="dropdown-item-title">
-										John Pierce
-										<span class="float-right text-sm text-muted">
-											<i class="fas fa-star"></i>
-										</span>
-									</h3>
-									<p class="text-sm">I got your message bro</p>
-									<p class="text-sm text-muted">
-										<i class="far fa-clock mr-1"></i>
-										4 Hours Ago
-									</p>
-								</div>
-							</div>
-							<!-- Message End -->
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
-							<div class="media">
-								<img src="${pageContext.request.contextPath}/dist/img/user3-128x128.jpg" alt="User Avatar"
-									class="img-size-50 img-circle mr-3">
-								<div class="media-body">
-									<h3 class="dropdown-item-title">
-										Nora Silvester
-										<span class="float-right text-sm text-warning">
-											<i class="fas fa-star"></i>
-										</span>
-									</h3>
-									<p class="text-sm">The subject goes here</p>
-									<p class="text-sm text-muted">
-										<i class="far fa-clock mr-1"></i>
-										4 Hours Ago
-									</p>
-								</div>
-							</div>
-							<!-- Message End -->
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-					</div>
-				</li>
+
 				<!-- Notifications Dropdown Menu -->
 				<li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#">
@@ -171,11 +96,6 @@
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-						<i class="fas fa-th-large"></i>
-					</a>
 				</li>
 			</ul>
 		</nav>
@@ -255,7 +175,7 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>預約管理</p>
 							</a>
@@ -267,8 +187,10 @@
 								<p>討論區管理</p>
 							</a>
 						</li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
+
 			</div>
 			<!-- /.sidebar -->
 		</aside>
@@ -296,7 +218,7 @@
 							<div class="card">
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="project" class="table table-bordered table-striped">
+									<table id="projects" class="table table-bordered table-striped">
 										<thead>
 											<tr>
 												<th>商品名稱</th>
@@ -304,26 +226,13 @@
 												<th>商品描述</th>
 												<th>商品數量</th>
 												<th>商品照片</th>
-												
+												<th>商品狀態</th>
+												<th>修改</th>
+
 											</tr>
 										</thead>
-										<tbody>
-											<!-- 商品資料放這 -->
-											<!-- 測試資料 -->
-											<c:if test="">
-												<c:forEach var='member' varStatus="vs" items="">
-													<tr>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														
-													</tr>
-												</c:forEach>
-											</c:if>
 
-										</tbody>
+										<tbady> </tbady>
 
 										<tfoot>
 											<tr>
@@ -332,7 +241,9 @@
 												<th>商品描述</th>
 												<th>商品數量</th>
 												<th>商品照片</th>
-												
+												<th>商品狀態</th>
+												<th>修改</th>
+
 											</tr>
 										</tfoot>
 									</table>
@@ -370,57 +281,153 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-
 	
+	<!-- 會員更新表單 -->
+	<div class="modal fade" id="member-update">
+		<div class="modal-dialog  modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">修改商品資料</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- Form表單 -->
+					<form method='POST'>
 
-		<!-- jQuery -->
-		<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
-		<!-- Bootstrap 4 -->
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- DataTables -->
-		<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-		<!-- AdminLTE App -->
-		<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
-		<!-- AdminLTE for demo purposes -->
-		<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
-		<!-- page script -->
-		<script>
-			$(function() {
-				
-				$('#project').DataTable({
-					"ajax": {
-						"url":"admin-AllProjects-json",
-						"type": "POST",
-						"dataType": "jeson",
-						"dataSrc": 'bean',
-						"success": function() {
-							console.log("成功")},
-						"error": function() {
-							console.log("失敗")}},
-					"columns": [
-						{ bean: 'name' },
-						{ bean: 'price' },
-						{ bean: 'descriptrion' },
-						{ bean: 'amout' },
-						{ bean: 'fileName' }
-						],
-					"paging" : true,
-					"lengthChange" : false,
-					"searching" : false,
-					"ordering" : true,
-					"info" : true,
-					"autoWidth" : false,
-					"responsive" : true,
-				});
-			});
-		</script>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- text input -->
+									<div class="form-group">
+										<label>名稱</label>
+										<input type="text" class="form-control" id="upadte-name" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>價格</label>
+										<input type="text" class="form-control" id="upadte-age" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>描述</label>
+										<input type="date" class="form-control" id="upadte-bday" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>數量</label>
+										<input type="date" class="form-control" id="upadte-bday" />
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer justify-content-between">
+								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+								<button type="submit" class="btn btn-primary">修改</button>
+							</div>
+						</div>
+
+					</form>
+
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	</div>
+	<!-- /.modal -->
+
+
+
+
+	<!-- jQuery -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- DataTables -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
+	<!-- page script -->
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$('#projects')
+									.DataTable(
+
+											{
+												searching : false,
+												"ajax" : {
+													"url" : "<c:url value='admin-AllProjects-json' />",
+													"dataSrc" : ""
+												},
+
+												"columns" : [
+														{
+															"data" : "name"
+														},
+														{
+															"data" : "price"
+														},
+														{
+															"data" : "descriptrion"
+														},
+														{
+															"data" : "amount"
+														},
+														{
+															"data" : "biPhoto",
+															render : function(
+																	data, type,
+																	row) {
+																return '<img src="data:image/jpeg;base64,'+ data + '" width="150px" height="150px">';
+															}
+														},
+														{
+															"data" : "status",
+															"render" : function(
+																	data, type,
+																	full, meta) {
+																if (data == "0") {
+																	return data = '<span class="badge badge-danger">下架</span>';
+																} else {
+																	return data = '<span class="badge badge-success">供貨中</span>';
+																}
+															}
+
+														}
+
+												],
+												columnDefs : [ {
+													//最後一行加上修改按鈕
+													"data" : "productId",
+													targets : 6,
+													orderable : false,
+													render : function(data,
+															type, row, meta) {
+														return "<button type='button' class='btn btn-info btn-sm' id='" + data + "'><i class='fas fa-pencil-alt'></i>修改</button>&nbsp"
+															 + "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>測試</button>";
+																
+													}
+												} ]
+											});
+						});
+	</script>
+
+
 </body>
 
 </html>

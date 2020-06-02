@@ -26,17 +26,12 @@
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
 			<!-- Left navbar links -->
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" data-widget="pushmenu" href="#" role="button">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button">
 						<i class="fas fa-bars"></i>
-					</a>
+				</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href="admin-Index" class="nav-link">Home</a>
 				</li>
-				<li class="nav-item d-none d-sm-inline-block">
-					<a href="admin-Index" class="nav-link">Home</a>
-				</li>
-				<li class="nav-item d-none d-sm-inline-block">
-					<a href="#" class="nav-link">Contact</a>
-				</li>
+				<li class="nav-item d-none d-sm-inline-block"><a href="#" class="nav-link">Contact</a></li>
 			</ul>
 
 			<!-- SEARCH FORM -->
@@ -55,108 +50,82 @@
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Messages Dropdown Menu -->
-				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#">
-						<i class="far fa-comments"></i>
-						<span class="badge badge-danger navbar-badge">3</span>
-					</a>
+				<li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#"> <i
+						class="far fa-comments"></i> <span class="badge badge-danger navbar-badge">3</span>
+				</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
+						<a href="#" class="dropdown-item"> <!-- Message Start -->
 							<div class="media">
 								<img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
-										Brad Diesel
-										<span class="float-right text-sm text-danger">
-											<i class="fas fa-star"></i>
+										Brad Diesel <span class="float-right text-sm text-danger"> <i class="fas fa-star"></i>
 										</span>
 									</h3>
 									<p class="text-sm">Call me whenever you can...</p>
 									<p class="text-sm text-muted">
-										<i class="far fa-clock mr-1"></i>
-										4 Hours Ago
+										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div>
-							<!-- Message End -->
+							</div> <!-- Message End -->
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
+						<a href="#" class="dropdown-item"> <!-- Message Start -->
 							<div class="media">
 								<img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
-										John Pierce
-										<span class="float-right text-sm text-muted">
-											<i class="fas fa-star"></i>
+										John Pierce <span class="float-right text-sm text-muted"> <i class="fas fa-star"></i>
 										</span>
 									</h3>
 									<p class="text-sm">I got your message bro</p>
 									<p class="text-sm text-muted">
-										<i class="far fa-clock mr-1"></i>
-										4 Hours Ago
+										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div>
-							<!-- Message End -->
+							</div> <!-- Message End -->
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<!-- Message Start -->
+						<a href="#" class="dropdown-item"> <!-- Message Start -->
 							<div class="media">
 								<img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
-										Nora Silvester
-										<span class="float-right text-sm text-warning">
-											<i class="fas fa-star"></i>
+										Nora Silvester <span class="float-right text-sm text-warning"> <i
+											class="fas fa-star"></i>
 										</span>
 									</h3>
 									<p class="text-sm">The subject goes here</p>
 									<p class="text-sm text-muted">
-										<i class="far fa-clock mr-1"></i>
-										4 Hours Ago
+										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div>
-							<!-- Message End -->
+							</div> <!-- Message End -->
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-					</div>
-				</li>
+					</div></li>
 				<!-- Notifications Dropdown Menu -->
-				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#">
-						<i class="far fa-bell"></i>
-						<span class="badge badge-warning navbar-badge">15</span>
-					</a>
+				<li class="nav-item dropdown"><a class="nav-link" data-toggle="dropdown" href="#"> <i
+						class="far fa-bell"></i> <span class="badge badge-warning navbar-badge">15</span>
+				</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 						<span class="dropdown-item dropdown-header">15 Notifications</span>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-envelope mr-2"></i>
-							4 new messages
-							<span class="float-right text-muted text-sm">3 mins</span>
+						<a href="#" class="dropdown-item"> <i class="fas fa-envelope mr-2"></i> 4 new messages <span
+							class="float-right text-muted text-sm">3 mins</span>
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-users mr-2"></i>
-							8 friend requests
-							<span class="float-right text-muted text-sm">12 hours</span>
+						<a href="#" class="dropdown-item"> <i class="fas fa-users mr-2"></i> 8 friend requests <span
+							class="float-right text-muted text-sm">12 hours</span>
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-file mr-2"></i>
-							3 new reports
-							<span class="float-right text-muted text-sm">2 days</span>
+						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> 3 new reports <span
+							class="float-right text-muted text-sm">2 days</span>
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-					</div>
-				</li>
+					</div></li>
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -164,10 +133,9 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="admin-Index" class="brand-link">
-				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-					class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">後臺管理</span>
+			<a href="adminIndex" class="brand-link"> <img src="admin/dist/img/AdminLTELogo.png"
+				alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> <span
+				class="brand-text font-weight-light">後臺管理</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -179,96 +147,139 @@
 						data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-						<li class="nav-item">
-							<a href="admin-Index" class="nav-link">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+						<li class="nav-item"><a href="admin-Index" class="nav-link"> <i
+								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>首頁</p>
-							</a>
-						</li>
+						</a></li>
 
-						<li class="nav-item">
-							<a href="admin-AllMembers" class="nav-link">
-								<i class="nav-icon fas fa-table"></i>
+						<li class="nav-item"><a href="admin-AllMembers" class="nav-link"> <i
+								class="nav-icon fas fa-table"></i>
 								<p>會員資料管理</p>
-							</a>
-						</li>
+						</a></li>
 
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link active">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+						<li class="nav-item has-treeview"><a href="#" class="nav-link active"> <i
+								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									線上商城
-									<i class="right fas fa-angle-left"></i>
+									線上商城 <i class="right fas fa-angle-left"></i>
 								</p>
-							</a>
+						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="./index4.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="./index4.html" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
 										<p>總覽</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+								</a></li>
+								<li class="nav-item"><a href="admin-AllProjects" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
 										<p>商品列表</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+								</a></li>
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
 										<p>新增商品</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+								</a></li>
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+								</a></li>
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
 										<p>訂單狀態</p>
-									</a>
-								</li>
-							</ul>
-						</li>
+								</a></li>
+							</ul></li>
 
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-table"></i>
+						<li class="nav-item"><a href="admin-AllProjects-json" class="nav-link"> <i
+								class="nav-icon fas fa-table"></i>
 								<p>預約管理</p>
-							</a>
-						</li>
+						</a></li>
 
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-table"></i>
+						<li class="nav-item"><a href="admin-allMembersJSON" class="nav-link"> <i
+								class="nav-icon fas fa-table"></i>
 								<p>討論區管理</p>
-							</a>
-						</li>
+						</a></li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
 			<!-- /.sidebar -->
 		</aside>
 
+
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-3 col-6">
+							<!-- small box -->
+							<div class="small-box bg-info">
+								<div class="inner">
+									<h3>150</h3>
+
+
+									<p>New Orders</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-bag"></i>
+								</div>
+								<a href="#" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<!-- ./col -->
+						<div class="col-lg-3 col-6">
+							<!-- small box -->
+							<div class="small-box bg-warning">
+								<div class="inner">
+									<h3>${count}</h3>
+									<!-- 									會員人數 -->
+
+									<p>註冊人數</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-person-add"></i>
+								</div>
+								<a href="admin-AllMembers" class="small-box-footer"> More info <i
+									class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<!-- ./col -->
+
+					</div>
+				</div>
+				<!-- PIE CHART -->
+				<div class="col-md-6">
+
+					<div class="card card-danger">
+						<div class="card-header">
+							<h3 class="card-title">男女比例</h3>
+
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool" data-card-widget="collapse">
+									<i class="fas fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-tool" data-card-widget="remove">
+									<i class="fas fa-times"></i>
+								</button>
+							</div>
+						</div>
+						<div class="card-body">
+							<canvas id="pieChart"
+								style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						</div>
+						<!-- /.card-body -->
+					</div>
+				</div>
+				<!-- /.card -->
+			</section>
+
 		</div>
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
-			<strong>
-				Copyright &copy; 2014-2019
-				<a href="http://adminlte.io">AdminLTE.io</a>
-				.
-			</strong>
-			All rights reserved.
+			<strong> Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a> .
+			</strong> All rights reserved.
 			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b>
-				3.0.5
+				<b>Version</b> 3.0.5
 			</div>
 		</footer>
 
@@ -299,5 +310,36 @@
 	<script src="${pageContext.request.contextPath}/admin/dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
+
+	//圓餅圖
+	<script>
+		$(function() {
+			var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+			var pieData = {
+				labels: [
+			          '女性', 
+			          '男性',
+			      ],
+			      datasets: [
+			        {
+			          data: [${female},${male}],
+			          backgroundColor : ['#f56954','#00c0ef'],
+			        }
+			      ]
+				}
+			var pieOptions = {
+				maintainAspectRatio : false,
+				responsive : true,
+			}
+			//Create pie or douhnut chart
+			// You can switch between pie and douhnut using the method below.
+			var pieChart = new Chart(pieChartCanvas, {
+				type : 'pie',
+				data : pieData,
+				options : pieOptions
+			})
+
+		})
+	</script>
 </body>
 </html>
