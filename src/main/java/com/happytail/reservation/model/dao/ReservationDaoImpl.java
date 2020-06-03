@@ -106,7 +106,7 @@ public class ReservationDaoImpl implements ReservationDao{
 	}
 	
 	private final String SelectByIdMyReservationView = "FROM com.happytail.reservation.model.MyReservationView WHERE Id=:Id ORDER BY reservationId DESC";
-	private final String AllMyReservationViewCounts = "SELECT COUNT(*) FROM com.happytail.reservation.model.MyReservationView";
+	private final String AllMyReservationViewCounts = "SELECT COUNT(*) FROM com.happytail.reservation.model.MyReservationView WHERE Id=:Id ";
 	
 	@Override
 	public Page<MyReservationView> query(Integer Id, PageInfo pageinfo) {
@@ -114,7 +114,7 @@ public class ReservationDaoImpl implements ReservationDao{
 		Integer startPosition = pageinfo.getPageSize() * (pageinfo.getPageNum() -1);
 		List<MyReservationView> resultList = getSession().createQuery(SelectByIdMyReservationView, MyReservationView.class)
 				.setParameter("Id", Id).setFirstResult(startPosition).setMaxResults(pageinfo.getPageSize()).getResultList();
-		Query query = getSession().createQuery(AllMyReservationViewCounts);
+		Query query = getSession().createQuery(AllMyReservationViewCounts).setParameter("Id", Id);
 		Long totalCount = (Long)query.uniqueResult();
 		return new Page<MyReservationView>(resultList,pageinfo.getPageNum(),pageinfo.getPageSize(),totalCount);
 	}

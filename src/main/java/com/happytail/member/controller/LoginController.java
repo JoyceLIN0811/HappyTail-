@@ -8,20 +8,24 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.member.model.service.PetMembersService;
 
 @Controller
+@SessionAttributes(value = "petMembers")
 public class LoginController {	
 	
 	@Autowired
 	PetMembersService service;
+	
 	
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String processLogin() {
@@ -34,7 +38,7 @@ public class LoginController {
 	public String checkLogin(
 			@RequestParam(name="account") String account,
 			@RequestParam(name="password") String password,
-
+			Model m,
 			HttpServletRequest request
 	
 		) {		
@@ -58,6 +62,7 @@ public class LoginController {
 		
 			if( pMember != null) {
 				session.setAttribute("LoginOK", pMember);
+				m.addAttribute("petMembers",pMember);
 				return "petMemberIndex";
 			
 			}else {

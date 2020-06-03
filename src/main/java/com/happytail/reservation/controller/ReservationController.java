@@ -1,9 +1,15 @@
 package com.happytail.reservation.controller;
 
+import java.io.IOException;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +27,7 @@ import com.happytail.general.util.Const;
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
 import com.happytail.member.model.PetMembers;
+import com.happytail.reservation.model.Evaluation;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
 import com.happytail.reservation.model.backView;
@@ -53,7 +60,9 @@ public class ReservationController {
 			@RequestParam("petName")String petName, @RequestParam("petGenger")String petGenger,
 			@RequestParam("petAge") Integer petAge, @RequestParam("createDate")Date createDate,
 			@RequestParam("availableDateTime")Integer availableDateTime, @RequestParam("require")String require,
-			@RequestParam("statuss")String statuss,@RequestParam("done")String done,@RequestParam("evaluationStatus")String evaluationStatus, Model m) throws ParseException {
+			@RequestParam("statuss")String statuss,@RequestParam("done")String done,
+			@RequestParam("evaluationStatus")String evaluationStatus, Model m
+			) throws ParseException, ServletException, IOException {
 		
 		
 		
@@ -79,7 +88,20 @@ public class ReservationController {
 		
 		
 		service.save(rb);
-		return "redirect:/Evaluationlist";
+		
+		List<Evaluation> list = service2.queryAllEvaluation();
+		m.addAttribute("Evaluation" , list);
+		
+		double num = service2.ScoreAvg();
+		DecimalFormat df = new DecimalFormat("#.0");
+		String avg = df.format(num);
+		m.addAttribute("scoreAvg" , avg);
+		
+		System.out.println(avg);
+		
+		return "reservationPage";
+		
+//		return "redirect:/Evaluationlist";
 	}
 	
 //	@RequestMapping(value = "/query", method = RequestMethod.GET)
@@ -159,7 +181,8 @@ public class ReservationController {
 		
 		m.addAttribute("page",list);
 		
-		return "reservation/myReservation";
+		
+		return "myReservationPage";
 	}
 	
 }

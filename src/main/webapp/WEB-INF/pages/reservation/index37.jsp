@@ -30,12 +30,12 @@
 						<input type="radio" name='sortId' value="3"> 洗剪 
 						<input type="radio" name='sortId' value="4"> SPA <br><br>
 						寵物品種 : <input type="text" name='breed' id='breed' required="required"><br><br>
-						 寵物名稱 : <input type="text" name='petName' required="required"><br><br> 
+						 寵物名稱 : <input type="text" name='petName' id='petName' required="required"><br><br> 
 						 寵物性別 : 
 						 <input type="radio" name='petGenger' value="man">公 
 						 <input type="radio" name='petGenger' value="girl">母 <br><br> 
-						 寵物年紀 : <input type="number" min="1" name='petAge' required="required"><br><br>
-						  預約日期 : <input type='date' min="2020-06-12" 
+						 寵物年紀 : <input type="number" min="1" name='petAge' id='petAge' required="required"><br><br>
+						  預約日期 : <input type='date' min="2020-06-12" id='date'
 						  max="2020-12-31" name='createDate' required="required"><br><br>
 						時間 : <select name='availableDateTime'>
 									<option value='13'>13:00</option>
@@ -47,21 +47,24 @@
 									<option value='19'>19:00</option>
 									<option value='20'>20:00</option>
 									<option value='21'>21:00</option>
-							</select><br> <br> 需求 : <input type="text" name='require'><br>
+							</select><br> <br> 需求 : <input type="text" id='require' name='require'><br>
 										<br> <input type="hidden" name='done' value='N'>
 										<input type='hidden' name='evaluationStatus' value='未完成'>
 										<input type="submit" name='statuss' value="預約" style="margin-left: 140px">
 										<input type="button" value='一鍵新增' onclick='Send()'>
 									</form>
 									
-									<a href="<c:url value='queryMyReservaitionView?Id=${petMembers.Id}&pageNum=1' />">MyReservation</a>
+									<a href="<c:url value='queryMyReservaitionView?Id=${petMembers.id}&pageNum=1' />">MyReservation</a>
 									
 							</div>
 							
 <script>
 	function Send() {
-		document.getElementById("sortId").value='2';
-		document.getElementById("breed").value='2';
+		document.getElementById("petName").value='小馬';
+		document.getElementById("breed").value='拉不拉多';
+		document.getElementById("petAge").value=2;
+		document.getElementById("date").value='2020-06-12';
+		document.getElementById("require").value='要很乾淨我有潔癖';
 	}
 
 </script>

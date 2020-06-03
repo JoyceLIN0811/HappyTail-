@@ -23,5 +23,19 @@ public class ReservationView {
 		view.setUrl("/WEB-INF/pages/reservation/backReservation.jsp");
 		return view;
 	}
+	
+	@Bean
+	public View myReservationPage() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/reservation/myReservation.jsp");
+		return view;
+	}
+	
+	@Bean
+	public View evaluationPage() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/reservation/evaluation37.jsp");
+		return view;
+	}
 
 }
