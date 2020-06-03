@@ -57,7 +57,7 @@
 	<br><br>
 		<label class="lab">MemberImage</label>
 		<input class="inpu" type="file" id="memberImage" name="memberImage" />
-		<p id="p"></p>
+	<br><p id="p"></p>
 	<br>		
 		<input class="btn btn-info" type="submit" name="Submit" />
 		
@@ -74,6 +74,7 @@ function readURL(input){
 	if(input.files && input.files[0]){
 		let theP = document.getElementById("p");
 		let theImg = document.createElement("img");
+		theImg.style.width="300px";
 		theImg.setAttribute("id", "imgPreview");
 		theImg.setAttribute("src", "");
 		theP.appendChild(theImg);
