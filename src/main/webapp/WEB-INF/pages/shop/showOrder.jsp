@@ -96,7 +96,7 @@
 									<div class="col-md-10 col-md-offset-1">
 
 										<div class="row">
-											<h1>我的訂單</h1>
+											<h1>全部訂單</h1>
 											<table id="example" class="display" style="width: 100%">
 												<thead>
 													<tr>
@@ -129,20 +129,72 @@
 								</div>
 
 								<div class="fh5co-tab-content tab-content active" data-tab-content="2">
+								<div class="col-md-10 col-md-offset-1">
 								<div class="row">
-									<H1>查詢訂單明細</H1>
-									<div class="col-md-10 col-md-offset-1 menu-2" id='oItem'>
+										<h1>未付款訂單</h1>
+											<table id="example" class="display" style="width: 100%">
+												<thead>
+													<tr>
+														<th>訂單編號</th>
 
-									</div>
+														<th>訂單備註</th>
+														<th>訂單總價</th>
+														<th>訂單日期</th>
+														<th>訂單狀態</th>
+														<th>查看明細</th>
+													</tr>
+												</thead>
+												<c:forEach varStatus="vs" var="ol" items="${orderList2}">
+													<tr>
+														<td>${ol.getOrderId()}</td>
+														<td>${ol.getText()}</td>
+														<td><fmt:formatNumber value='${ol.getTotalPrice()}'
+																pattern="#,###" />元</td>
+														<td>${ol.getOrderDate()}</td>
+														<td>${ol.getState()}</td>
+														<td><input type="button" id="${ol.getOrderId()}"
+															class='btn btn-primary oid' value='查看'></td>
+													</tr>
+												</c:forEach>
+
+											</table>
+										
 								</div>
 								</div>
-								<div class="fh5co-tab-content tab-content" data-tab-content="3">
-									<div class="container">
-										<div class="row">
-											
-											
-										</div>
-									</div>
+								</div>
+								<div class="fh5co-tab-content tab-content active" data-tab-content="3">
+									<div class="col-md-10 col-md-offset-1">
+								<div class="row">
+										<h1>已失效訂單</h1>
+											<table id="example" class="display" style="width: 100%">
+												<thead>
+													<tr>
+														<th>訂單編號</th>
+
+														<th>訂單備註</th>
+														<th>訂單總價</th>
+														<th>訂單日期</th>
+														<th>訂單狀態</th>
+														<th>查看明細</th>
+													</tr>
+												</thead>
+												<c:forEach varStatus="vs" var="ol" items="${orderList3}">
+													<tr>
+														<td>${ol.getOrderId()}</td>
+														<td>${ol.getText()}</td>
+														<td><fmt:formatNumber value='${ol.getTotalPrice()}'
+																pattern="#,###" />元</td>
+														<td>${ol.getOrderDate()}</td>
+														<td>${ol.getState()}</td>
+														<td><input type="button" id="${ol.getOrderId()}"
+															class='btn btn-primary oid' value='查看'></td>
+													</tr>
+												</c:forEach>
+
+											</table>
+										
+								</div>
+								</div>
 
 								</div>
 							</div>
@@ -241,7 +293,7 @@
 					console.log(res);
 					console.log(res[0].orderBean.orderDate);
 					$("#oItem").empty();
-					var $table = $('<table id="example" class="display" style="width: 100%">')
+					var $table = $('<table  class="display" style="width: 100%">')
 					.appendTo($('#oItem'))
 					.append("<tr><th>商品編號</th><th>商品名稱</th><th>商品價格</th><th>商品描述</th><th>商品數量</th><th>商品圖片</th></tr>");
 					$("#oItem").append($table)

@@ -48,4 +48,12 @@ public interface OrderDao {
 
 	List<OrderItemBean> getOib(Integer mId, Integer oId);
 
+	List<OrderItemBean> getOibNew(Integer mId, Integer oId);
+
+	List<OrderItemBean> getOibOld(Integer mId, Integer oId);
+
+	List<OrderBean> selectOrderByMemberIdNew(Integer Id);
+
+	List<OrderBean> selectOrderByMemberIdOld(Integer Id);
+
 }

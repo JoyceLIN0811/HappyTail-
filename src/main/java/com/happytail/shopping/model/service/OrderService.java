@@ -65,12 +65,29 @@ public class OrderService {
 		return dao.selectOrderByMemberId(memberId);
 	}
 	
+	public List<OrderBean> selectOrderByMemberIdNew(Integer memberId){
+		return dao.selectOrderByMemberIdNew(memberId);
+	}
+	
+	public List<OrderBean> selectOrderByMemberIdOld(Integer memberId){
+		return dao.selectOrderByMemberIdOld(memberId);
+	}
+	
 	public List<OrderItemBean> getOrderItemBean(OrderBean orderBean){
 		return dao.getOrderItemBean(orderBean);
 	}
 	
 	public List<OrderItemBean> getOib(Integer mId, Integer oId){
 		return dao.getOib(mId, oId);
+	}
+	
+	
+	public List<OrderItemBean> getOibNew(Integer mId, Integer oId){
+		return dao.getOibNew(mId, oId);
+	}
+	
+	public 	List<OrderItemBean> getOibOld(Integer mId, Integer oId){
+		return dao.getOibOld(mId, oId);
 	}
 	
 }
