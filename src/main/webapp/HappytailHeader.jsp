@@ -88,7 +88,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="#">Online Shop</a> 
 						<a class='dropdown-item' href="<c:url value='/Evaluationlist' />">Reservation Service</a> 
-						<a class="dropdown-item" href="#">Pet Forum</a>
+						<a class="dropdown-item" href="<c:url value='/forum/topiclist' />">Pet Forum</a>
 					</div></li>
 				<li class="nav-item"><a class="nav-link" href="#">Contact
 						Us</a></li>
