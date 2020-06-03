@@ -21,6 +21,7 @@ public class AdminMembersDaoImpl implements AdminMembersDao {
 		return session;
 	}
 	
+	//計算所有會員數
 	@Override
 	public Long countMembers() {
 		String hql = "select count(*) from PetMembers";
@@ -28,20 +29,24 @@ public class AdminMembersDaoImpl implements AdminMembersDao {
 		return (Long)query.uniqueResult();
 	}
 
-	
+	//計算所有男性會員
 	@Override
 	public Long countMale() {
 		Query query = getSession().createQuery("select count(*) from PetMembers p where p.gender=:gender");
-		query.setString("gender", "M");
+		query.setParameter("gender", "M");
 		return (Long)query.uniqueResult();
 	}
 
+	//所有女性會員
 	@Override
 	public Long countFemale() {
 		Query query = getSession().createQuery("select count(*) from PetMembers p where p.gender=:gender");
-		query.setString("gender", "F");
+		query.setParameter("gender", "F");
 		return (Long)query.uniqueResult();
 	}
+	
+	//會員年齡分布
+	
 	
 	@Override
 	public Integer changeMemberStatus(Integer id) {

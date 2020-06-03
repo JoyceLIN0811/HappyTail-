@@ -10,6 +10,9 @@ public interface AdminMembersDao {
 
 	// 所有女性會員總數
 	public Long countFemale();
+	
+	//年齡分布
+	
 
 	// 更改會員狀態
 	public Integer changeMemberStatus(Integer id);
