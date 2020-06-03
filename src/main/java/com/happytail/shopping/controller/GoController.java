@@ -106,6 +106,10 @@ public class GoController {
 		return "showOrder";
 	}
 	
-	
+	@GetMapping("/getOrderDtail.do")
+	public String getOrderDtail() {
+//		System.out.println("進入商城首頁");
+		return "showOrderDetail";
+	}
 	
 }

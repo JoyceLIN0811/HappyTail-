@@ -25,12 +25,12 @@ public class ShopView {
 		return view;
 	}
 	
-	@Bean
-	public View showOrderDetail() {
-		InternalResourceView view = new InternalResourceView();
-		view.setUrl("/WEB-INF/pages/shop/showOrderDetail.jsp");
-		return view;
-	}
+//	@Bean
+//	public View showOrderDetail() {
+//		InternalResourceView view = new InternalResourceView();
+//		view.setUrl("/WEB-INF/pages/shop/showOrderDetail.jsp");
+//		return view;
+//	}
 	
 	@Bean
 	public View shoppingCart() {
@@ -71,6 +71,13 @@ public class ShopView {
 	public View showOrder() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/shop/showOrder.jsp");
+		return view;
+	}
+	
+	@Bean
+	public View showOrderDetail() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/shop/showOrderDetail.jsp");
 		return view;
 	}
 	

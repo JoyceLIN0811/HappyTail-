@@ -202,7 +202,7 @@ public class OrderDaoImpl implements OrderDao {
 	//取得全部的訂單
 	@Override
 	public List<OrderItemBean> getOib(Integer mId,Integer oId){
-		String hql ="from OrderItemBean where orderBean.orderId=:oId and orderBean.memberId=:mId order by orderBean.orderId desc";
+		String hql ="from OrderItemBean where orderBean.orderId=:oId and orderBean.memberId=:mId ";
 		System.out.println("進入dao");
 		System.out.println("mId="+mId+" oId="+oId);
 		Query<OrderItemBean> createQuery = s().createQuery(hql,OrderItemBean.class);
