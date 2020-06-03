@@ -53,6 +53,14 @@ public class MembersView {
 	}
 	
 	@Bean
+	public View verificationSended() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/verificationSended.jsp");
+		return view;	
+	}
+	
+
+	@Bean
 	public View verificationResult() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/Member/verificationResult.jsp");

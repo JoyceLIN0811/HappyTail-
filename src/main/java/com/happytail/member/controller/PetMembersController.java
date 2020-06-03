@@ -377,7 +377,7 @@ public class PetMembersController {
 		PetMembers pm = service.insertPetMembers(petMember);		
 		
 		if (pm != null) {
-			return "petMemberIndex";
+			return "verificationSended";
 		} else {
 			return "petMemberPage";
 		}
