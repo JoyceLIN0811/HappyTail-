@@ -54,12 +54,41 @@
 		<input class="inpu" type="text" name="phone" value="${petMember.phone }${param.phone }" />
 <br><br>
 		<label class="lab">MemberImage</label>
-		<input class="inpu" type="file" name="memberImage" />
-<br><br>
+		<input class="inpu" type="file" id="memberImage" name="memberImage" />
+		<p id="p"></p>		
+		<p id="p0"><img id="mi" width='250' src="memberImage/${sessionScope.LoginOK.id}" /></p>
+	
+<br>
 		<input class="btn btn-info" type="submit" name="modify" value="修改會員資料">
 	</form>
 </div>
 	
 <jsp:include page="/HappytailFooter.jsp" />
+
+<script type="text/javascript">
+$("#memberImage").change(function(){
+	  readURL(this);
+	});
+
+function readURL(input){
+	if(input.files && input.files[0]){
+		document.getElementById("p0").innerHTML=""; 
+		
+		let theP = document.getElementById("p");
+		let theImg = document.createElement("img");
+		theImg.setAttribute("id", "imgPreview");
+		theImg.setAttribute("src", "");
+		theP.appendChild(theImg);
+		
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#imgPreview").attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }else{
+		document.getElementById("p").innerHTML="";  
+	  }
+}
+</script>	
 </body>
 </html>

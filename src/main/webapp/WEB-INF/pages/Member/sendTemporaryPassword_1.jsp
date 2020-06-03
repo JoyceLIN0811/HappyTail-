@@ -15,7 +15,7 @@
 <div class="divbig">
 <h3>會員臨時登入頁面</h3>
 	<form action="<c:url value="sendTemporaryPassword" />" method="post">
-	<br>
+	<br><br>
 		<h5>請輸入您的 HappyTail 會員帳號 (您的email) : </h5>
 		
 			<label class="lab">Account :</label>
