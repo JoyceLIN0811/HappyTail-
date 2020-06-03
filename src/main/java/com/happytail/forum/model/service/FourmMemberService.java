@@ -108,7 +108,7 @@ public class FourmMemberService {
 			bean.setTitle(topic.getTitle());
 			bean.setContent(topic.getContent());
 			
-			topicDAO.update(topic);
+			topicDAO.update(bean);
 			System.out.println("Update topic");
 		}else {
 		

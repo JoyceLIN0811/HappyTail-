@@ -263,6 +263,7 @@
 								<p>討論區管理</p>
 							</a>
 						</li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -277,6 +278,7 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1>會員資料</h1>
+
 						</div>
 					</div>
 				</div>
@@ -292,7 +294,7 @@
 							<div class="card">
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="example1" class="table table-bordered table-striped">
+									<table id="allMembers" class="table table-bordered table-striped">
 										<thead>
 											<tr>
 												<th>Name</th>
@@ -304,46 +306,6 @@
 												<th>Update</th>
 											</tr>
 										</thead>
-										<tbody>
-											<!-- 會員資料放這 -->
-											<!-- 測試資料 -->
-											<c:if test="${not empty allMembers}">
-												<c:forEach var='member' varStatus="vs" items="${allMembers}">
-													<tr>
-														<td>${member.username}</td>
-														<td>${member.gender}</td>
-														<td>${member.bday}</td>
-														<td>${member.email}</td>
-														<td>${member.address}</td>
-														<td>
-															<c:choose>
-																<c:when test="${member.status eq 1 }">
-																	<span class="badge badge-success">Success</span>
-																</c:when>
-																<c:when test="${member.status eq 0 }">
-																	<span class="badge badge-danger">Freeze</span>
-																</c:when>
-																<c:otherwise>
-
-																</c:otherwise>
-															</c:choose>
-														</td>
-														<td>
-															<button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-																data-target="#member-update">
-																<i class="fas fa-pencil-alt"></i>
-																修改
-															</button>
-															<a class="btn btn-danger btn-sm"  href="<c:url value='update-status' />" >
-																<i class="fas fa-trash"> </i>
-																停權
-															</a>
-														</td>
-													</tr>
-												</c:forEach>
-											</c:if>
-
-										</tbody>
 
 										<tfoot>
 											<tr>
@@ -392,6 +354,68 @@
 	</div>
 	<!-- ./wrapper -->
 
+	<!-- 會員更新表單 -->
+	<div class="modal fade" id="member-update">
+		<div class="modal-dialog  modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">修改資料</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- Form表單 -->
+					<form method='POST'>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- text input -->
+									<div class="form-group">
+										<label>姓名</label>
+										<input type="text" class="form-control" id="upadte-name" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>年齡</label>
+										<input type="text" class="form-control" id="upadte-age" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>生日</label>
+										<input type="date" class="form-control" id="upadte-bday" />
+									</div>
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label for="exampleInputemail">E-mail</label>
+								<input type="text" class="form-control" id="update-email" />
+							</div>
+							<div class="form-group">
+								<label for="exampleInputaddress">地址</label>
+								<input type="text" class="form-control" id="update-address" />
+							</div>
+
+							<div class="modal-footer justify-content-between">
+								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+								<button type="submit" class="btn btn-primary">修改</button>
+							</div>
+						</div>
+
+					</form>
+
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	</div>
+	<!-- /.modal -->
+	
 
 
 	<!-- jQuery -->
@@ -412,21 +436,61 @@
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
 	<script>
-		$(function() {
-			$("#example1").DataTable({
-				"responsive" : true,
-				"autoWidth" : false,
-			});
-			$('#example2').DataTable({
-				"paging" : true,
-				"lengthChange" : false,
-				"searching" : false,
-				"ordering" : true,
-				"info" : true,
-				"autoWidth" : false,
-				"responsive" : true,
-			});
-		});
+		$(document)
+				.ready(
+						function() {
+							$('#allMembers').DataTable(
+									
+											{
+												searching: false,
+												"ajax" : {
+													"url" : "<c:url value='admin-allMembersJSON' />",
+													"dataSrc" : ""
+												},
+
+												"columns" : [
+														{
+															"data" : "username"
+														},
+														{
+															"data" : "gender"
+														},
+														{
+															"data" : "bday"
+														},
+														{
+															"data" : "email"
+														},
+														{
+															"data" : "address"
+														},
+														{
+															"data" : "status",
+															"render" : function(
+																	data, type,
+																	full, meta) {
+																if (data == "0") {
+																	return data = '<span class="badge badge-danger">Freeze</span>';
+																} else {
+																	return data = '<span class="badge badge-success">Success</span>';
+																}
+															}
+														},
+
+												],
+												columnDefs : [ {
+													//最後一行加上修改按鈕
+													"data" : "id",
+													targets : 6,
+													orderable : false,
+													render : function(data,
+															type, row, meta) {
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>修改</button>"
+																+ "<a href='<c:url value='updateStatus/" + data + "'/>' class='btn btn-danger btn-sm' <i class='fas fa-trash'></i>停權</a>";
+													}
+												} ]
+											});
+						});
 	</script>
 </body>
 

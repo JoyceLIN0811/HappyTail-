@@ -98,11 +98,11 @@
 												<thead>
 													<tr>
 														<th>訂單編號</th>
-
 														<th>訂單備註</th>
 														<th>訂單總價</th>
 														<th>訂單日期</th>  
 														<th>訂單狀態</th>
+														<th>查看明細</th>
 													</tr>
 												</thead>
 												<c:forEach varStatus="vs" var="ol" items="${orderList}" >
@@ -113,6 +113,7 @@
 														<td>${ol.getTotalPrice()}</td>
 														<td>${ol.getOrderDate()}</td>
 														<td>${ol.getState()}</td>
+														<td><input type="button" class='btn btn-primary'>查看</td>
 													</tr>
 												</c:forEach>
 												<tfoot>

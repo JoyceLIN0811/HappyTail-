@@ -9,7 +9,7 @@
 </head>
 <body style="background-color: lightblue">
 
-<jsp:include page="/top.jsp"></jsp:include>
+<jsp:include page="/HappytailHeader.jsp" />
 
 <h2>會員專區</h2>
 
@@ -80,6 +80,6 @@
 	<br>
 <hr>
 <a href="<c:url value='/index.jsp' />" >回首頁</a>
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="/HappytailFooter.jsp" />
 </body>
 </html>

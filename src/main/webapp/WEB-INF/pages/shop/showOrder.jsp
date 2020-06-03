@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,7 @@
 <body>
 	<div id="page">
 		<jsp:include page="shopTop.jsp" />
+		<br>
 		<header id="fh5co-header"
 			class="fh5co-cover fh5co-cover-sm text-center" role="banner"
 			style="background-image: url(images/order.jpg);">
@@ -104,15 +106,17 @@
 														<th>訂單總價</th>
 														<th>訂單日期</th>
 														<th>訂單狀態</th>
+														<th>查看明細</th>
 													</tr>
 												</thead>
 												<c:forEach varStatus="vs" var="ol" items="${orderList}">
 													<tr>
 														<td>${ol.getOrderId()}</td>
 														<td>${ol.getText()}</td>
-														<td>${ol.getTotalPrice()}</td>
+														<td><fmt:formatNumber value='${ol.getTotalPrice()}' pattern="#,###" />元</td>
 														<td>${ol.getOrderDate()}</td>
 														<td>${ol.getState()}</td>
+														<td><input type="button" id="${ol.getOrderId()}" class='btn btn-primary oid' value='查看'></td>
 													</tr>
 												</c:forEach>
 
@@ -126,9 +130,9 @@
 									<div class="col-md-10 col-md-offset-1 menu-2">
 										<h1>查詢訂單明細</h1>
 										<div class="input-group">
-													<input type="text" id='input' placeholder="輸入訂單編號" oninput="value=value.replace(/[^\d]/g,'')"> 
+<!-- 													<input type="text" id='input' placeholder="輸入訂單編號" oninput="value=value.replace(/[^\d]/g,'')">  -->
 													<hr>
-													<button class='btn btn-primary oid'>查詢</button>
+<!-- 													<button class='btn btn-primary '>查詢</button> -->
 												</div>
 												<hr>
 										<ul>
@@ -258,7 +262,7 @@
 
 <script>
 $(".oid").click(function(){
-	var oId= $("#input").val();
+	var oId= $("#input").id;
 // 	alert(oid);
 	console.log(oId);
 

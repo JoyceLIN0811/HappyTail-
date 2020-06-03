@@ -209,7 +209,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-AllProjects" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>商品列表</p>
 									</a>
@@ -236,27 +236,75 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="<c:url value='queryback' />" class='nav-link'>
+							<a href="admin-AllProjects-json" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>預約管理</p>
 							</a>
 						</li>
 
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="admin-allMembersJSON" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>討論區管理</p>
 							</a>
 						</li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
 			<!-- /.sidebar -->
 		</aside>
 
+
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-3 col-6">
+							<!-- small box -->
+							<div class="small-box bg-info">
+								<div class="inner">
+									<h3>150</h3>
+									
+
+									<p>New Orders</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-bag"></i>
+								</div>
+								<a href="#" class="small-box-footer">
+									More info
+									<i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<!-- ./col -->
+						<div class="col-lg-3 col-6">
+							<!-- small box -->
+							<div class="small-box bg-warning">
+								<div class="inner">
+									<h3>${count}</h3>
+<!-- 									會員人數 -->
+
+									<p>User Registrations</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-person-add"></i>
+								</div>
+								<a href="admin-AllMembers" class="small-box-footer">
+									More info
+									<i class="fas fa-arrow-circle-right"></i>
+								</a>
+							</div>
+						</div>
+						<!-- ./col -->
+
+					</div>
+				</div>
+			</section>
+
 		</div>
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">

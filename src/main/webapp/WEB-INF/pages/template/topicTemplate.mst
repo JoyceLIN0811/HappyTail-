@@ -1,0 +1,169 @@
+<!--
+*mustache輸出單筆資料範例
+
+以下為輸入JSON物件:
+{
+    'attrA' : 'Apple',
+    'attrB' : 'Batman',
+    'attrC' : 'Car'
+}
+
+以下為mustache單筆輸出語法:
+<div> {{ attrA }} </div>
+<p> {{ attrB }} </p>
+<span> {{ attrC }} </span>
+
+以下為輸出結果:
+<div> Apple </div>
+<p> Batman </p>
+<span> Car </span>
+-->
+
+<div id="single-comment">
+    <div class="card info-card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2"> PostId: </div>
+                <div class="col-2"> {{ postId }} </div>
+                <div class="col-2"> Id: </div>
+                <div class="col-6"> {{ id }} </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2"> Name: </div>
+                <div class="col-2"> {{ name }} </div>
+                <div class="col-2"> Email: </div>
+                <div class="col-6"> {{ email }} </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    {{ body }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+---------------------------------------------------------------------
+<!--
+*mustache輸出陣列語法範例
+
+以下為輸入json物件:
+{
+    'jsonArrayKey' : [
+        {'attrA':'A', 'attrB':'B'},
+        {'attrA':'C', 'attrB':'D'},
+        {'attrA':'E', 'attrB':'F'}
+    ]
+}
+
+以下為mustache陣列語法:
+{{#jsonArrayKey}}
+    <span> {{attrA}} </span> <span> {{attrB}} </span> <br/>
+{{/jsonArrayKey}}
+
+以下為輸出:
+<span> A </span> <span> B </span> <br/>
+<span> C </span> <span> D </span> <br/>
+<span> E </span> <span> F </span> <br/>
+
+-->
+
+<div id="comment-list">
+
+{{#commentList}}
+    <div class="card info-card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2"> PostId: </div>
+                <div class="col-2"> {{ postId }} </div>
+                <div class="col-2"> Id: </div>
+                <div class="col-6"> {{ id }} </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2"> Name: </div>
+                <div class="col-2"> {{ name }} </div>
+                <div class="col-2"> Email: </div>
+                <div class="col-6"> {{ email }} </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    {{ body }}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/commentList}}
+
+</div>
+
+---------------------------------------------------------------------
+
+<div id="post">
+    <div class="card info-card fold">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-3"> UserId: </div>
+                <div class="col-3"> {{ userId }} </div>
+                <div class="col-3"> Id: </div>
+                <div class="col-3"> {{ id }} </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-3"> Title: </div>
+                <div class="col-9"> {{ title }} </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    {{ body }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+--------------------------------------------------------------
+
+<div id="reply">
+    <div id="B{{ stage }}" class="card info-card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-12"> {{ username }} </div>
+            </div>
+            <div class="row text-muted">
+                <div class="col-12"> <span class="stage-value" onclick="setStage('B{{ stage }}')">B{{ stage }}</span> | {{ time }} </div> 
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    {{{ content }}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+--------------------------------------------------------------
+
+<div id="stage">
+    <a href="#{{ stage }}">{{ stage }}</a>&nbsp;
+</div>
+
+--------------------------------------------------------------
+
+<div id="stage-list">
+{{ #stageList }}
+    <span class="list-group-item list-group-item-action" onclick="setStage('{{ stage }}')" >{{ stage }}</span>
+{{ /stageList }}
+</div>
