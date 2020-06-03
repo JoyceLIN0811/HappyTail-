@@ -10,10 +10,13 @@
 <meta http-equiv="Refresh" content="3; url= http://localhost:8080/happytail/HappyTailIndex.jsp">
 <title>驗證結果通知</title>
 <link href="css/style28.css" rel="stylesheet">
+<style>
+	.spe{text-align: center;}
+</style>
 </head>
 <body>
 <jsp:include page="/HappytailHeader.jsp" />
-<div class="divbig">
+<div class="divbig spe">
 <br><br>
 	<c:if test="${verificationResult == true}">
 		<h2>驗證成功，會員帳號已啟用</h2>

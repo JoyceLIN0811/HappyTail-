@@ -17,7 +17,7 @@
 		<input class="inpu" type="hidden" name="id" value = "${sessionScope.LoginOK.id }" />		
 		
 		<label class="lab">Password :</label>
-		<input class="inpu" type="text" name="password"  value = "${param.password }" />
+		<input class="inpu" type="password" name="password"  value = "${param.password }" />
 		<br>
 		<font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font>
 		<br><br>
