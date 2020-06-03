@@ -6,41 +6,29 @@
 <head>
 <meta charset="UTF-8">
 <title>會員登入</title>
-
-<style type="text/css">	
-	.divbig {
-		width:1000px; 
-		font-size: 1.2em;
-		padding: 10px 30px;
-		margin: 25px auto;
-		font-family:微軟正黑體;}
-	.lab{font-size: 1em;}	
-	.ot{font-size: 0.85em;}
-	.inpu{border:0; border-bottom: 2px solid lightgray; outline: none; font-size: 0.8em; width: 250px}
-
-</style>
-
+<link href="css/style28.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="/HappytailHeader.jsp" />
 	
 <div class="divbig">
-	<h4>會員登入</h4>
-	
-		<form action="<c:url value="loginCheck" />" method="post">		
+	<h3>會員登入</h3>
+	<br>
+		<form class="form" action="<c:url value="loginCheck" />" method="post">		
+			
 			<label class="lab">Account :</label>
 				<input class="inpu" type="text" name="account"  value = "${param.account }"/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.accountError }</font>
-			<br>
+			<br><br>
 			<label class="lab">Password :</label> 	
 				<input class="inpu" type="password" name="password"  value = "${param.password }"/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.passwordError }</font>			
-				<font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font>
+			<br><font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font>
 			<br>
 			<a href="<c:url value='forgetPassword' />"><small>忘記密碼?</small></a><br>
 			<a href="<c:url value='register' />"><small>還不是會員?</small></a><br><br>				
-				
-		<button class="ot" type="submit" name="login">登入</button>
+			
+		<button class="btn btn-info" type="submit" name="login">登入</button>
 	</form>
 </div>
 

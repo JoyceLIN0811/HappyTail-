@@ -13,7 +13,7 @@ public class MembersView {
 	@Bean
 	public View petMemberIndex() {
 		InternalResourceView view = new InternalResourceView();
-		view.setUrl("/index.jsp");
+		view.setUrl("/HappyTailIndex.jsp");
 		return view;	
 	}
 	
