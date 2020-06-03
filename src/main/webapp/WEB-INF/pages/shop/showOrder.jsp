@@ -113,10 +113,12 @@
 													<tr>
 														<td>${ol.getOrderId()}</td>
 														<td>${ol.getText()}</td>
-														<td><fmt:formatNumber value='${ol.getTotalPrice()}' pattern="#,###" />元</td>
+														<td><fmt:formatNumber value='${ol.getTotalPrice()}'
+																pattern="#,###" />元</td>
 														<td>${ol.getOrderDate()}</td>
 														<td>${ol.getState()}</td>
-														<td><input type="button" id="${ol.getOrderId()}" class='btn btn-primary oid' value='查看'></td>
+														<td><input type="button" id="${ol.getOrderId()}"
+															class='btn btn-primary oid' value='查看'></td>
 													</tr>
 												</c:forEach>
 
@@ -126,36 +128,23 @@
 									</div>
 								</div>
 
-								<div class="fh5co-tab-content tab-content" data-tab-content="2">
-									<div class="col-md-10 col-md-offset-1 menu-2">
-										<h1>查詢訂單明細</h1>
-										<div class="input-group">
-<!-- 													<input type="text" id='input' placeholder="輸入訂單編號" oninput="value=value.replace(/[^\d]/g,'')">  -->
-													<hr>
-<!-- 													<button class='btn btn-primary '>查詢</button> -->
-												</div>
-												<hr>
-										<ul>
-											
-											<li id='pId'>
-												商品編號
-											</li>
-											<li>
-												商品描述
-											</li>
-											<li>
-												商品數量
-											</li>
-										</ul>
+								<div class="fh5co-tab-content tab-content active" data-tab-content="2">
+								<div class="row">
+									<H1>查詢訂單明細</H1>
+									<div class="col-md-10 col-md-offset-1 menu-2" id='oItem'>
 
 									</div>
 								</div>
-								<div class="fh5co-tab-content tab-content" data-tab-content="3">
-									<div class="col-md-10 col-md-offset-1">213</div>
 								</div>
+								<div class="fh5co-tab-content tab-content" data-tab-content="3">
+									<div class="container">
+										<div class="row">
+											
+											
+										</div>
+									</div>
 
-
-
+								</div>
 							</div>
 
 						</div>
@@ -164,33 +153,7 @@
 			</div>
 		</div>
 
-		<div id="fh5co-started">
-			<div class="container">
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>Newsletter</h2>
-						<p>Just stay tune for our latest Product. Now you can
-							subscribe</p>
-					</div>
-				</div>
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2">
-						<form class="form-inline">
-							<div class="col-md-6 col-sm-6">
-								<div class="form-group">
-									<label for="email" class="sr-only">Email</label> <input
-										type="email" class="form-control" id="email"
-										placeholder="Email">
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-6">
-								<button type="submit" class="btn btn-default btn-block">Subscribe</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+	
 
 		<footer id="fh5co-footer" role="contentinfo">
 			<div class="container">
@@ -260,31 +223,47 @@
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
 
-<script>
-$(".oid").click(function(){
-	var oId= $("#input").id;
-// 	alert(oid);
-	console.log(oId);
+	<script>
+		$(".oid").click(function() {
+			var oId = this.id;
+			// 	alert(oId);
+			console.log(oId);
 
-	$.ajax({
-		method : "Get",
-		url : "<c:url value='/getOrderItem.do'/> ", 
-		dataType : "json", //返回格式為json
-		data : {
-			"oId":oId,
-		}, //引數值
-		success :function(res){
-			alert(res);
-			},
-		error :function(){
-			alert("查無訂單資料，請重新輸入")
-			}
+			$.ajax({
+				method : "Post",
+				url : "<c:url value='/testo'/> ",
+				dataType : "json", //返回格式為json
+				data : {
+					"oId" : oId,
+				}, //引數值
+				success : function(res) {
+					// 			alert(res);
+					console.log(res);
+					console.log(res[0].orderBean.orderDate);
+					$("#oItem").empty();
+					var $table = $('<table id="example" class="display" style="width: 100%">')
+					.appendTo($('#oItem'))
+					.append("<tr><th>商品編號</th><th>商品名稱</th><th>商品價格</th><th>商品描述</th><th>商品數量</th><th>商品圖片</th></tr>");
+					$("#oItem").append($table)
+					$.each(res,
+						function(index,element){
+						$('<tr>').appendTo($table)
+						.append($('<td >').text(element.pBean.productId))
+						.append($('<td >').text(element.pBean.name))
+						.append($('<td>').text(element.pBean.price))
+						.append($('<td>').text(element.pBean.descriptrion))
+						.append($('<td>').text(element.quantity))
+						.append("<td align='left'><img src='data:image/jpg;base64," + element.pBean.biPhoto + " ' width='80' '></td>");
+						
+					})
+
+				},
+				error : function() {
+					alert("查無訂單資料，請重新輸入")
+				}
+			})
+
 		})
-	
-
-	
-})
-
-</script>
+	</script>
 </body>
 </html>

@@ -129,7 +129,7 @@ public class OrderDaoImpl implements OrderDao {
 	// 更新訂單狀態→逾時
 	@Override
 	public String overtime(int orderId) {
-		String hql = "from OrderBean where state = 成立  and orderId:=orderId";
+		String hql = "from OrderBean where state = 成立  and orderId=:orderId";
 		Query<OrderBean> createQuery = getSession().createQuery(hql, OrderBean.class);
 		OrderBean singleResult = createQuery.getSingleResult();
 		OrderBean odBean = (OrderBean) singleResult;
@@ -182,11 +182,13 @@ public class OrderDaoImpl implements OrderDao {
 	
 	@Override
 	public List<OrderItemBean> getOib(Integer mId,Integer oId){
-		String hql ="from OrderItemBean where orderId=:oId and memberId=:";
+		String hql ="from OrderItemBean where orderBean.orderId=:oId and orderBean.memberId=:mId";
+		System.out.println("進入dao");
+		System.out.println("mId="+mId+" oId="+oId);
 		Query<OrderItemBean> createQuery = s().createQuery(hql,OrderItemBean.class);
 		createQuery.setParameter("oId", oId);
 		createQuery.setParameter("mId", mId);
-		System.out.println("oId="+oId+" mId="+mId);
+//		System.out.println("oId="+oId+" mId="+mId);
 		List<OrderItemBean> resultList = createQuery.getResultList();
 		System.out.println(resultList.size());
 		
