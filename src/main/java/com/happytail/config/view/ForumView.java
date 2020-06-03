@@ -15,12 +15,7 @@ public class ForumView {
 		return view;
 	}
 	
-	@Bean
-	public View backReservationPage() {
-		InternalResourceView view = new InternalResourceView();
-		view.setUrl("/WEB-INF/pages/reservation/backReservation.jsp");
-		return view;
-	}
+
 
 }
 

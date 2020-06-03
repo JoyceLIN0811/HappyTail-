@@ -51,15 +51,18 @@ public class TestController {
 	private LimitPostService limitPostService;
 	
 	@GetMapping("/forum/topiclist")
-	public String getTopicListPage(@SessionAttribute PetMembers petMembers,
+	public String getTopicListPage(@SessionAttribute(required = false) PetMembers petMembers,
 			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
-			@RequestParam Integer pageNum, @RequestParam(name = "tagType") String tagType, Model model) {
+			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType, Model model) {
 		if ("hit".equals(tagType)) {
 			Page<TopiclistView> list = forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
+			System.out.println("topiclist"+list.getRecords());
 			model.addAttribute("topiclist",list);
 			return "TopicListPage";
 		} else {
 			Page<TopiclistView> list = forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
+			System.out.println("topiclist"+list.getRecords().indexOf(list));
+			System.out.println("topiclist"+list.getRecords());
 			model.addAttribute("topiclist",list);
 			return "TopicListPage";
 		}
@@ -78,16 +81,16 @@ public class TestController {
 		return map;
 	}
 
-//	@GetMapping("/topic/topiclist")
-//	public Page<TopiclistView> getTopicList(@SessionAttribute(required = false) PetMembers petMembers,
-//			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
-//			@RequestParam Integer pageNum, @RequestParam(name = "tagType") String tagType) {
-//		if ("hit".equals(tagType)) {
-//			return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
-//		} else {
-//			return forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
-//		}
-//	}
+	@GetMapping("/topic/topiclist")
+	public Page<TopiclistView> getTopicList(@SessionAttribute(required = false) PetMembers petMembers,
+			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
+			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType) {
+		if ("hit".equals(tagType)) {
+			return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
+		} else {
+			return forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
+		}
+	}
 
 //	@GetMapping("/topic/hitTopiclist")
 //	public Page<TopiclistView> getHitTopicList(@SessionAttribute PetMembers petMembers
