@@ -9,13 +9,13 @@
 
 <link href="css/style28.css" rel="stylesheet">
 </head>
-<body style="background-color: lightblue">
+<body>
 
 <jsp:include page="/HappytailHeader.jsp" />
 <div class="divbig">
 <h3>會員臨時登入頁面</h3>	
 	<form action="<c:url value="temporaryPasswordloginCheck" />" method="post">
-	<br>
+	<br><br>
 		<h5>請輸入您收到的臨時密碼 : </h5>
 			<label class="lab">TemporaryPassword :</label>
 			<input class="inpu" type="text" name="temporaryPassword"  value = "${param.temporaryPassword }"/>

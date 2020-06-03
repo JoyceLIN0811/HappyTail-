@@ -8,11 +8,11 @@
 <title>變更密碼</title>
 <link href="css/style28.css" rel="stylesheet">
 </head>
-<body style="background-color: lightblue">
+<body>
 <jsp:include page="/HappytailHeader.jsp" />
 <div class="divbig">
 	<h5>請重新設定您的密碼 :</h5>
-	<br>
+	<br><br>
 	<form action="<c:url value="changePassword" />" method="post">
 		<input class="inpu" type="hidden" name="id" value = "${sessionScope.LoginOK.id }" />		
 		

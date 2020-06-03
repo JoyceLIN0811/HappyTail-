@@ -51,6 +51,9 @@
             <span class="navbar-toggler-icon"></span>
         </button> -->
 		<ul class="nav navbar-nav navbar-right navbar-top">
+		<c:if test="${ !empty LoginOK}">
+			<li style="font-size: 1.4em"> Hello ,  ${sessionScope.LoginOK.username}</li>
+		</c:if>
 			<li>
 				<c:if test="${empty LoginOK}">
 				<a  href="<c:url value='login' />" title="登入"><i class='fas fa-user'

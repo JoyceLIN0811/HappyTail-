@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>會員專區</title>
+<link href="css/style28.css" rel="stylesheet">
 </head>
 <body>
 
@@ -13,53 +14,81 @@
 <div class="divbig">
 	<h3>會員資料</h3><br>
 	
-	<form action="<c:url value="memberUpdate" />" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="id" value = "${petMember.id }" /></td></tr>
-				
-			<label class="lab">Username :</label>
-			<input　class="inpu" type="text" name="username" value = "${petMember.username }${param.username }" />
-			<font color='red' size="-1">${errorMsg.usernameError}</font>
-
-				
-			<label class="lab">Passwor :</label>
-			<input　class="inpu" type="text" name="password" value= "${petMember.password }${param.password }" />
-			<font color='red' size="-1">${errorMsg.passwordError}</font>
-				
+	<form class="form" action="<c:url value="memberUpdate" />" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="id" value = "${petMember.id }" />				
+		
+		<label class="lab">Username :</label>
+		<input class="inpu" type="text" name="username" value = "${petMember.username }${param.username }" />
+		<font color='red' size="-1">${errorMsg.usernameError}</font>
+<br><br>
+		<label class="lab">Passwor :</label>
+		<input class="inpu" type="text" name="password" value= "${petMember.password }${param.password }" />
+		<font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font>
+		<br><small style="font">*密碼須同時包含小寫英文字母、大寫英文字母、數字和特殊符號</small>		
 <!-- 				<tr> -->
 <!-- 					<td>Email :	</td> -->
 <%-- 					<td><input type="text" name="email"  value= ${petMember.email } /></td> --%>
 
 <!-- 				</tr> -->
-			
-			<label class="lab">Gender</label>				
-				<input type="radio" name="gender" value="M" 
-							<c:if test="${gender == true}">checked="checked"</c:if>					
-						/>Man 					
-						<input type="radio" name="gender" value="F" 
-							<c:if test="${gender == false}">checked="checked"</c:if>
-						/>Woman
-				
-			<label class="lab">Birthday :</label>	
-					<input type="date" name="bday"  value= "${petMember.bday }${param.bday  }" />
-					<font color='red' size="-1">${errorMsg.mBbday}</font></td>
-			
-			<label class="lab">Age :</label>
-					<input type="text" name="age"  value= "${petMember.age }${param.age }" />
-<%-- 					<td><font color='red' size="-1">${errorMsg.mAge}</font></td> --%>
-				
-			<label class="lab">Address :</label>
-					<input type="text" name="address" value= "${petMember.address }${param.address }" />
-
-			<label class="lab">Phone :</label>
-					<input type="text" name="phone" value="${petMember.phone }${param.phone }" />
-
-			<label class="lab">MemberImage</label>
-					<input type="file" name="memberImage" /></td>
-
-		<input class="btn btn-info"　type="submit" name="modify" value="修改會員資料">
+<br><br>			
+		<label class="lab">Gender</label>				
+		<input type="radio" name="gender" value="M" 
+			<c:if test="${gender == true}">checked="checked"</c:if>					
+			/>Man 					
+		<input type="radio" name="gender" value="F" 
+			<c:if test="${gender == false}">checked="checked"</c:if>
+			/>Woman
+<br><br>				
+		<label class="lab">Birthday :</label>	
+		<input class="inpu" type="date" name="bday"  value= "${petMember.bday }${param.bday  }" />
+		<font color='red' size="-1">${errorMsg.mBbday}</font>
+<br><br>			
+		<label class="lab">Age :</label>
+		<input class="inpu" type="text" name="age"  value= "${petMember.age }${param.age }" />
+<%-- 		<td><font color='red' size="-1">${errorMsg.mAge}</font></td> --%>
+<br><br>				
+		<label class="lab">Address :</label>
+		<input class="inpu" type="text" name="address" value= "${petMember.address }${param.address }" />
+<br><br>
+		<label class="lab">Phone :</label>
+		<input class="inpu" type="text" name="phone" value="${petMember.phone }${param.phone }" />
+<br><br>
+		<label class="lab">MemberImage</label>
+		<input class="inpu" type="file" id="memberImage" name="memberImage" />
+		<p id="p"></p>		
+		<p id="p0"><img id="mi" width='250' src="memberImage/${sessionScope.LoginOK.id}" /></p>
+	
+<br>
+		<input class="btn btn-info" type="submit" name="modify" value="修改會員資料">
 	</form>
 </div>
 	
 <jsp:include page="/HappytailFooter.jsp" />
+
+<script type="text/javascript">
+$("#memberImage").change(function(){
+	  readURL(this);
+	});
+
+function readURL(input){
+	if(input.files && input.files[0]){
+		document.getElementById("p0").innerHTML=""; 
+		
+		let theP = document.getElementById("p");
+		let theImg = document.createElement("img");
+		theImg.setAttribute("id", "imgPreview");
+		theImg.setAttribute("src", "");
+		theP.appendChild(theImg);
+		
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#imgPreview").attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }else{
+		document.getElementById("p").innerHTML="";  
+	  }
+}
+</script>	
 </body>
 </html>

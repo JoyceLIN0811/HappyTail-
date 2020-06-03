@@ -56,14 +56,37 @@
 		<input class="inpu" type="text" name="phone"  value="${param.phone }"/>
 	<br><br>
 		<label class="lab">MemberImage</label>
-		<input class="inpu" class="ot" type="file" name="memberImage"  value="${param.memberImage }"/>
-		<font color='red' size="-1">${errorMsg.noImage}</font>
-	<br><br>		
+		<input class="inpu" type="file" id="memberImage" name="memberImage" />
+		<p id="p"></p>
+	<br>		
 		<input class="btn btn-info" type="submit" name="Submit" />
 		
 	</form>
 </div>		
 <jsp:include page="/HappytailFooter.jsp" />
-	
+
+<script type="text/javascript">
+$("#memberImage").change(function(){
+	  readURL(this);
+	});
+
+function readURL(input){
+	if(input.files && input.files[0]){
+		let theP = document.getElementById("p");
+		let theImg = document.createElement("img");
+		theImg.setAttribute("id", "imgPreview");
+		theImg.setAttribute("src", "");
+		theP.appendChild(theImg);
+		
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#imgPreview").attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }else{
+		document.getElementById("p").innerHTML="";  
+	  }
+}
+</script>	
 </body>
 </html>
