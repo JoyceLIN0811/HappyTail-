@@ -420,9 +420,10 @@ public class PetMembersController {
 		Blob blob = pMember.getMemberImage();
 		if (blob != null) {
 			body = blobToByteArray(blob);
-		}else {
-//			/WEB-INF/static/img/NoImage.png
-			String path = "";
+		}else {	
+//			mediaType = MediaType.valueOf("image/png");
+//			headers.setContentType(mediaType);
+			String path = "/WEB-INF/static/img/NoImage.png";
 			body = fileToByteArray(path);			
 		}		
 		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);

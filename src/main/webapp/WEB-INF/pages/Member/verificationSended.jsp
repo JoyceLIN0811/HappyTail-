@@ -5,10 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>驗證信寄出通知</title>
+<%@include file="/WEB-INF/pages/include/coreLibrary.jsp" %>
+
 <link href="css/style28.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="/HappytailHeader.jsp" />
+<%@include file="/HappytailHeader.jsp" %>
+
 <div class="divbig">
 <br><br>
 	<h3>驗證信已寄出</h3>
@@ -17,7 +20,7 @@
 <br><br>
 
 </div>	
-<jsp:include page="/HappytailFooter.jsp" />
+	<%@include file="/HappytailFooter.jsp" %>
 
 
 </body>
