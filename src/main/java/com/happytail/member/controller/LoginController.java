@@ -61,13 +61,18 @@ public class LoginController {
 		PetMembers pMember = service.checkLogin(account, password);
 		
 			if( pMember != null) {
-				session.setAttribute("LoginOK", pMember);
-				m.addAttribute("petMembers",pMember);
-				return "petMemberIndex";
+				if(pMember.getStatus() == 1) {
+					session.setAttribute("LoginOK", pMember);
+					m.addAttribute("petMembers",pMember);
+					return "petMemberIndex";				
+				}else if(pMember.getStatus() == 2) {
+					return "accountStop";
+				}else if(pMember.getStatus() == 3) {
+					return"adminIndex";
+				}
 			
-			}else {
-				errorMsg.put("LoginError", "帳號未啟用或帳號、密碼錯誤");
 			}
+				errorMsg.put("LoginError", "帳號未啟用或帳號、密碼錯誤");		
 		
 			if (!errorMsg.isEmpty()) {
 				return "memberLogin";
@@ -75,7 +80,7 @@ public class LoginController {
 		
 		return "petMemberIndex";
 		
-	}
+	}	
 	
 	@PostMapping(value = "/temporaryPasswordloginCheck")
 	public String temporaryPasswordcheckLogin(			

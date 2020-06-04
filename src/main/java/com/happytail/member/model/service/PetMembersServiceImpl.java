@@ -25,9 +25,9 @@ public class PetMembersServiceImpl implements PetMembersService{
 	public PetMembers checkLogin(String account,String password) {
 		
 		PetMembers petMember = petMembersDAO.selectPetMembers(account, password);
-		if(petMember != null && petMember.getStatus() == 1) {
-			return petMember;			
-		}
+		if(petMember != null) {			
+			return petMember;	
+		}			
 		return null;	
 	}
 	
