@@ -1,5 +1,7 @@
 package com.happytail.admin.model;
 
+import com.happytail.shopping.model.OrderBean;
+
 public interface AdminShopDao {
 	
 	//商品總數
@@ -10,5 +12,9 @@ public interface AdminShopDao {
 	public Long sumOrders();
 	//商品類別數
 	public Long countProjectType();
+	
+	//更改訂單
+	OrderBean changeOrderStatus(Integer id);
+	
 
 }

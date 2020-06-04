@@ -6,6 +6,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.happytail.shopping.model.OrderBean;
+
 @Repository
 public class AdminShopDaoImpl implements AdminShopDao {
 
@@ -41,6 +43,13 @@ public class AdminShopDaoImpl implements AdminShopDao {
 	public Long countProjectType() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public OrderBean changeOrderStatus(Integer id) {
+		return null;
+		
+		
 	}
 
 }
