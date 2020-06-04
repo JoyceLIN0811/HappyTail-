@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
 import com.happytail.shopping.model.service.OrderService;
@@ -106,10 +108,36 @@ public class GoController {
 		return "showOrder";
 	}
 	
-	@GetMapping("/getOrderDtail.do")
-	public String getOrderDtail() {
-//		System.out.println("進入商城首頁");
+	@PostMapping("/getOrderDtail.do1")
+	public String getOrderDtail1(Model m,@RequestParam("oId1") Integer oId) {
+		System.out.println(oId);
+		OrderBean oBean = odao.selectOrder(oId);
+		List<OrderItemBean> list = odao.getOrderItemBean(oBean);
+		m.addAttribute("list",list);
+		System.out.println(list);
 		return "showOrderDetail";
 	}
+	
+	@PostMapping("/getOrderDtail.do2")
+	public String getOrderDtail2(Model m,@RequestParam("oId2") Integer oId) {
+		System.out.println("oId="+oId);
+		OrderBean oBean = odao.selectOrder(oId);
+		List<OrderItemBean> list = odao.getOrderItemBean(oBean);
+		m.addAttribute("list",list);
+		System.out.println(list);
+		return "showOrderDetail";
+	}
+	
+	@PostMapping("/getOrderDtail.do3")
+	public String getOrderDtail3(Model m,@RequestParam("oId3") Integer oId) {
+		System.out.println(oId);
+		OrderBean oBean = odao.selectOrder(oId);
+		List<OrderItemBean> list = odao.getOrderItemBean(oBean);
+		m.addAttribute("list",list);
+		System.out.println(list);
+		return "showOrderDetail";
+	}
+	
+	
 	
 }

@@ -50,7 +50,7 @@
 				id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false"> Our Services </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="#">Online Shop</a> 
+					<a class="dropdown-item" href="<c:url value='/shopIndex'/>">Online Shop</a> 
 					<a class='dropdown-item' href="<c:url value='/Evaluationlist' />">Reservation Service</a> 
 					<a class="dropdown-item" href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1' />">Pet Forum</a>
 				</div></li>
@@ -82,7 +82,7 @@
 	<c:if test="${empty LoginOK}"> 
 		<a href="<c:url value='login'/>">Personal Profile</a>
 	</c:if>
-		<a href="#Online Shop">Online Shop</a> 
+		<a href="<c:url value='/shopIndex'/> ">Online Shop</a> 
 		<a href="#Reservation Service">Reservation	Service</a> 
 		<a href="#Pet Forum">Pet Forum</a> 
 		<a class="subheader">Learn About Us</a>

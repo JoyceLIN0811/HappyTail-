@@ -98,7 +98,6 @@
 				<div class="row">
 
 					<div class="col-md-8 col-md-offset-2 text-center">
-<!-- 			<input type="button" value="1111111111111111111111111111111111111111111111111111111"> -->
 
 						<div class="display-t">
 

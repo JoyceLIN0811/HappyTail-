@@ -118,14 +118,17 @@
 				<div class="col-md-5 col-md-push-1 animate-box">
 					
 					<div class="fh5co-contact-info">
-						<h3>Contact Information</h3>
-						<ul>
-							<li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-							<li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
-							<li class="email"><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-							<li class="url"><a href="http://gettemplates.co">gettemplates.co</a></li>
-						</ul>
-					</div>
+							<h3 id="PetProduct">Pet Product</h3>
+							<ul>
+								<li class="icon-shopping-bag"><a href="#" id='cate1'>過往訂單</a>
+								<li class="icon-cake"><a href="<c:url value='/showProduct2'/>" id='cate1'>寵物食品</a></li>
+								<li class="icon-image"><a href="#" id='cate2'>寵物衣服</a></li>
+								<li class="icon-game-controller"><a href="#" id='cate3'>寵物玩具</a></li>
+								<li class="icon-shopping-cart"><a href="<c:url value='/intoCart'/> ">購物車</a></li>
+								<li class="icon-heart2"><a href="<c:url value='/getFavorite.do'/> ">我的最愛</a></li>
+								<li class="icon-home"><a href="<c:url value='/intoCart'/> ">回首頁</a></li>
+							</ul>
+						</div>
 
 				</div>
 				<div class="col-md-7 animate-box " style='border: 2px solid #4d4d4d'>

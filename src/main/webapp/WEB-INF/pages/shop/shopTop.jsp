@@ -60,7 +60,7 @@
 					<div class="col-md-6 col-xs-6 text-center menu-1">
 						<ul>
 						<li><a href="<c:url value='/shopIndex'/>">關於商城</a></li>
-							<li class="has-dropdown"><a href="#" id='section1'>前往商城</a>
+							<li class="has-dropdown"><a href="<c:url value='/showProduct2'/> " >前往商城</a>
 								<ul class="dropdown">
 									<li><a href="single.html">飼料</a></li>
 									<li><a href="single.html">衣服</a></li>
@@ -74,10 +74,10 @@
 									<li><a href="#">Branding</a></li>
 									<li><a href="#">API</a></li>
 								</ul></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1' />">論壇</a></li>
 						</ul>
 					</div>
-					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+			<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
 						<ul>
 							<li class="search">
 								<div class="input-group">

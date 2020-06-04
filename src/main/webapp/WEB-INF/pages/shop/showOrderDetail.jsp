@@ -76,9 +76,46 @@
 			<div class="container">
 
 				<div class="row">
-					
-					
-					
+
+					<table class="table table-striped table-bordered display animate-box"
+						style="text-align: center; vertical-align: middle;" >
+						<thead>
+							<tr>
+								<th>商品編號</th>
+								<th>商品名稱</th>
+								<th>商品描述</th>
+								<th>商品數量</th>
+								<th>商品單價</th>
+								<th>商品圖片</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach varStatus="vs" var="li" items="${list}">
+								<tr>
+									<td>${li.pBean.getProductId()}</td>
+									<td>${li.pBean.getName()}</td>
+									<td>${li.getDescription()}</td>
+									<td>${li.getQuantity()}</td>
+									<td><fmt:formatNumber value='${li.pBean.getPrice()}'
+											pattern="#,###" />元</td>
+									<td><img
+										width="40"
+										src="data:image/jpg;base64,${li.pBean.getBiPhoto()}"
+										alt="Card image cap"></td>
+
+								</tr>
+							</c:forEach>					
+						</tbody>
+						<tfoot>
+							<tr>
+							<td colspan="6">
+							<a href="<c:url value='/getOrderBean.do'/>" class="btn btn-primary ">回訂單查詢</a>
+							</td>
+							</tr>
+						</tfoot>
+						
+					</table>
 				</div>
 			</div>
 		</div>

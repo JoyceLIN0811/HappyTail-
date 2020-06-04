@@ -69,6 +69,24 @@
 			class="fh5co-cover fh5co-cover-sm text-center" role="banner"
 			style="background-image: url(images/order.jpg);">
 			<div class="overlay "></div>
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-8 col-md-offset-2 text-center">
+
+						<div class="display-t">
+
+							<div class="display-tc animate-box " data-animate-effect="fadeIn">
+
+								<h1>show order</h1>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
 
 
 		</header>
@@ -114,7 +132,13 @@
 																pattern="#,###" />元</td>
 														<td>${ol.getOrderDate()}</td>
 														<td>${ol.getState()}</td>
-														<td><button class='btn btn-primary '>查看</button></td>
+														<td><input type="button" class='btn btn-primary '
+															value='查看'
+															onclick="document.getElementById('myform1').submit();">
+															<form action="<c:url value='/getOrderDtail.do1'/>"
+																method="post" id='myform1'>
+																<Input type='hidden' name='oId1' value='${ol.getOrderId()}'>
+															</form></td>
 													</tr>
 												</c:forEach>
 
@@ -149,11 +173,11 @@
 														<td>${ol2.getOrderDate()}</td>
 														<td>${ol2.getState()}</td>
 														<td><input type="button" class='btn btn-primary '
-															value='按鈕'
+															value='查看'
 															onclick="document.getElementById('myform').submit();">
-															<form action="<c:url value='/showProduct.do'/>"
+															<form action="<c:url value='/getOrderDtail.do2'/>"
 																method="POST" id='myform'>
-																<Input type='hidden' name='categoryId' value='1'>
+																<Input type='hidden' name='oId2' value='${ol2.getOrderId()}'>
 															</form></td>
 														<td><button class='btn btn-primary '>付款</button></td>
 													</tr>
@@ -187,7 +211,13 @@
 																pattern="#,###" />元</td>
 														<td>${ol3.getOrderDate()}</td>
 														<td>${ol3.getState()}</td>
-														<td><button class='btn btn-primary '>查看</button></td>
+														<td><input type="button" class='btn btn-primary '
+															value='查看'
+															onclick="document.getElementById('myform2').submit();">
+															<form action="<c:url value='/getOrderDtail.do3'/>"
+																method="POST" id='myform2'>
+																<Input type='hidden' name='oId3' value='${ol3.getOrderId()}'>
+															</form></td>
 													</tr>
 												</c:forEach>
 

@@ -135,7 +135,7 @@ public class ProcessCartController {
 			}
 			
 		
-		return "ThanksForOrder";
+		return "thank";
 		
 		
 	}

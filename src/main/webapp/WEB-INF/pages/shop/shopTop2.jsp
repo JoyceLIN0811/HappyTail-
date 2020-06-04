@@ -74,7 +74,7 @@
 									<li><a href="#">Branding</a></li>
 									<li><a href="#">API</a></li>
 								</ul></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1' />">論壇</a></li>
 						</ul>
 					</div>
 					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">

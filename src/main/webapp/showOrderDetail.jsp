@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,7 @@
 <body>
 	<div id="page">
 		<jsp:include page="shopTop.jsp" />
+		<br>
 		<header id="fh5co-header"
 			class="fh5co-cover fh5co-cover-sm text-center" role="banner"
 			style="background-image: url(images/order.jpg);">
@@ -74,108 +76,48 @@
 			<div class="container">
 
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<div class="fh5co-tabs animate-box">
-							<ul class="fh5co-tab-nav ">
-								<li class="active"><a href="#" data-tab="1"> <!-- 									<span class="icon visible-xs"> -->
-										<!-- 										<i class="icon-file"> --> <!-- 										</i> -->
-										<!-- 									</span> --> <span class="hidden-xs">Product
-											Details</span>
-								</a></li>
-								<li><a href="#" data-tab="2"><span class="hidden-xs">Specification</span></a></li>
-								<li><a href="#" data-tab="3"><span class="hidden-xs">Specification</span></a></li>
-							</ul>
 
+					<table class="display" style="width: 100%">
+						<thead>
+							<tr>
+								<th>商品編號</th>
+								<th>商品名稱</th>
+								<th>商品描述</th>
+								<th>商品數量</th>
+								<th>商品單價</th>
+								<th>商品圖片</th>
 
-							<div class="fh5co-tab-content-wrap">
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach varStatus="vs" var="li" items="${list}">
+								<tr>
+									<td>${li.pBean.getProductId()}</td>
+									<td>${li.pBean.getName()}</td>
+									<td>${li.getDescription()}</td>
+									<td>${li.pBean.getQuantity()}</td>
+									<td><fmt:formatNumber value='${li.pBean.getPrice()}'
+											pattern="#,###" />元</td>
+									<td>
+									
+									<img class="card-img-top" style="width: 80%; height: 150px ; "
+												src="data:image/jpg;base64,${li.pBean.getBiPhoto()}"
+												alt="Card image cap" >
+									
+									
+									
+									</td>
 
-								<div class="fh5co-tab-content tab-content active"
-									data-tab-content="1">
-									<div class="col-md-10 col-md-offset-1">
+								</tr>
+							</c:forEach>
 
-										<div class="row">
-											<table id="example" class="display" style="width: 100%">
-												<thead>
-													<tr>
-														<th>訂單編號</th>
-														<th>訂單備註</th>
-														<th>訂單總價</th>
-														<th>訂單日期</th>  
-														<th>訂單狀態</th>
-														<th>查看明細</th>
-													</tr>
-												</thead>
-												<c:forEach varStatus="vs" var="ol" items="${orderList}" >
-													<tr>
-														<td>${ol.getOrderId()}</td>
-
-														<td>${ol.getText()}</td>
-														<td>${ol.getTotalPrice()}</td>
-														<td>${ol.getOrderDate()}</td>
-														<td>${ol.getState()}</td>
-														<td><input type="button" class='btn btn-primary'>查看</td>
-													</tr>
-												</c:forEach>
-												<tfoot>
-													<tr>
-														<th>Name</th>
-														<th>Position</th>
-														<th>Office</th>
-														<th>Extn.</th>
-														<th>Start date</th>
-														
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-
-									</div>
-								</div>
-
-								<div class="fh5co-tab-content tab-content" data-tab-content="2">
-									<div class="col-md-10 col-md-offset-1">123</div>
-								</div>
-								<div class="fh5co-tab-content tab-content" data-tab-content="3">
-									<div class="col-md-10 col-md-offset-1">213</div>
-								</div>
-
-
-
-							</div>
-
-						</div>
-					</div>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 
-		<div id="fh5co-started">
-			<div class="container">
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>Newsletter</h2>
-						<p>Just stay tune for our latest Product. Now you can
-							subscribe</p>
-					</div>
-				</div>
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2">
-						<form class="form-inline">
-							<div class="col-md-6 col-sm-6">
-								<div class="form-group">
-									<label for="email" class="sr-only">Email</label> <input
-										type="email" class="form-control" id="email"
-										placeholder="Email">
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-6">
-								<button type="submit" class="btn btn-default btn-block">Subscribe</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+
 
 		<footer id="fh5co-footer" role="contentinfo">
 			<div class="container">
@@ -245,7 +187,8 @@
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
 
-
-
+	<script>
+		
+	</script>
 </body>
 </html>

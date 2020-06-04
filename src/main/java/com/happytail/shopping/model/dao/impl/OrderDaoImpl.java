@@ -119,12 +119,14 @@ public class OrderDaoImpl implements OrderDao {
 	// 取消訂單
 	@Override
 	public String cancel(int orderId) {
-		String hql = "from OrderBean where state = 成立  and orderId=:orderId";
+		
+		String hql = "from OrderBean where  orderId=:orderId";
 		Query<OrderBean> createQuery = getSession().createQuery(hql, OrderBean.class);
+		createQuery.setParameter("orderId", orderId);
 		OrderBean singleResult = createQuery.getSingleResult();
 		OrderBean odBean = (OrderBean) singleResult;
 		if (odBean != null) {
-			odBean.setState("取消");
+			odBean.setState("過期");
 			getSession().save(odBean);
 			return ("取消成功");
 		}
@@ -149,12 +151,13 @@ public class OrderDaoImpl implements OrderDao {
 	// 更新訂單狀態→逾時
 	@Override
 	public String overtime(int orderId) {
-		String hql = "from OrderBean where state = 成立  and orderId=:orderId";
-		Query<OrderBean> createQuery = getSession().createQuery(hql, OrderBean.class);
-		OrderBean singleResult = createQuery.getSingleResult();
-		OrderBean odBean = (OrderBean) singleResult;
+		
+		Object object = getSession().get("from OrderBean",OrderBean.class);
+//		OrderBean singleResult = object.getSingleResult();
+
+		OrderBean odBean = (OrderBean)object;
 		if (odBean != null) {
-			odBean.setState("逾時");
+			odBean.setState("過期");
 			getSession().save(odBean);
 			return ("訂單逾時");
 		}
