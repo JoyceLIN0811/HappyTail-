@@ -6,11 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>MyReservation</title>
+<%@include file="/WEB-INF/pages/include/coreLibrary.jsp" %>
 </head>
 <body>
 
 
-	
+	  <%@include file="/HappytailHeader.jsp" %>
 	
 	<H2>${petMembers.username}的預約<br>
 	帳號 : ${petMembers.email}</H2>
@@ -97,9 +98,8 @@ for(var i = 0 ; i < datalist.length ; i++){
 
 
 
-
-	<a href="<c:url value='Evaluationlist' />">上一頁</a>
-
+	
+	<%@include file="/HappytailFooter.jsp" %>
 
 
 </body>

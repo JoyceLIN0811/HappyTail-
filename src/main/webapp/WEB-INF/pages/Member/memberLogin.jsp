@@ -31,12 +31,12 @@
 			<a href="<c:url value='forgetPassword' />"><small>忘記密碼?</small></a><br>
 			<a href="<c:url value='register' />"><small>還不是會員?</small></a><br><br>				
 			
-<<<<<<< HEAD
+
 		<button class="ot" type="submit" name="login">登入</button>
 		<input type="button" value='一鍵新增' onclick='Send()'>
-=======
-		<button class="btn btn-info" type="submit" name="login">登入</button>
->>>>>>> d6fb5c25c14b5e99393528d2834a983392267279
+
+<!-- 		<button class="btn btn-info" type="submit" name="login">登入</button> -->
+
 	</form>
 </div>
 
