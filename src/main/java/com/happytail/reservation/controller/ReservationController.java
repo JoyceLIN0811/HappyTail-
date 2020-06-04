@@ -64,8 +64,6 @@ public class ReservationController {
 			@RequestParam("evaluationStatus")String evaluationStatus, Model m
 			) throws ParseException, ServletException, IOException {
 		
-		
-		
 		ReservationBean rb = new ReservationBean();
 		rb.setSortId(sortId);
 		rb.setBreed(breed);
@@ -79,13 +77,12 @@ public class ReservationController {
 		rb.setEvaluationStatus(evaluationStatus);
 		rb.setDone(done);
 		rb.setId(petMembers.getId());
+		rb.setEmail(petMembers.getEmail());
 		rb.setUsername(petMembers.getUsername());
 		
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 		String dateString = sdf.format(createDate);
 		rb.setCreateMonth(dateString);
-		
 		
 		service.save(rb);
 		
@@ -129,7 +126,8 @@ public class ReservationController {
 	
 	@PostMapping("/update")
 	public String update(@RequestParam("reservationId")Integer reservationId,
-			@RequestParam("statuss")String statuss, Model m) {
+			@RequestParam("statuss")String statuss,@RequestParam("Id")Integer Id,
+			Integer pageSize,@RequestParam Integer pageNum, Model m) {
 		
 		ReservationBean rb = new ReservationBean();
 		rb.setReservationId(reservationId);
@@ -139,7 +137,16 @@ public class ReservationController {
 		
 		service.updateStatuss(rb);
 		
-		return "redirect:/query";
+		PageInfo pageinfo = new PageInfo(Const.DEFAULT_PAGE_SIZE, pageNum);
+		System.out.println(pageinfo.getPageSize());
+		System.out.println(pageinfo.getPageNum());
+		Page<MyReservationView> list = service.query(Id,pageinfo);
+		
+		m.addAttribute("page",list);
+		
+		
+		
+		return "myReservationPage";
 	}
 	
 	
@@ -155,20 +162,26 @@ public class ReservationController {
 		
 		service.updateEvaluationStatus(rb);
 		
-		return "redirect:/queryReservation/" + reservationId;
-	}
-	
-	
-	@GetMapping("/queryReservation/{reservationId}")
-	public String showReservationBean(@PathVariable("reservationId") Integer reservationId ,Model m) {
-		System.out.println("reservationId=" + reservationId);
 		ReservationBean bean = service.queryReservationBean(reservationId);
 		
 		m.addAttribute("reservation", bean);
 
-		return "reservation/evaluation37";
+		return "evaluationPage";
+		
 		
 	}
+	
+	
+//	@GetMapping("/queryReservation/{reservationId}")
+//	public String showReservationBean(@PathVariable("reservationId") Integer reservationId ,Model m) {
+//		System.out.println("reservationId=" + reservationId);
+//		ReservationBean bean = service.queryReservationBean(reservationId);
+//		
+//		m.addAttribute("reservation", bean);
+//
+//		return "evaluationPage";
+//		
+//	}
 	
 	@GetMapping("/queryMyReservaitionView")
 	public String queryMyReservaitionView(@RequestParam("Id")Integer Id,

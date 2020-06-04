@@ -29,22 +29,31 @@
 	
 		<form action="<c:url value="loginCheck" />" method="post">		
 			<label class="lab">Account :</label>
-				<input class="inpu" type="text" name="account"  value = "${param.account }"/>
+				<input class="inpu" type="text" name="account"  value = "${param.account }" id='account'/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.accountError }</font>
 			<br>
 			<label class="lab">Password :</label> 	
-				<input class="inpu" type="password" name="password"  value = "${param.password }"/>
+				<input class="inpu" type="password" name="password"  value = "${param.password }" id='password'/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.passwordError }</font>			
 				<font color='red' size="-1">${requestScope.ErrorMsg.LoginError }</font>
 			<br>
 			<a href="<c:url value='forgetPassword' />"><small>忘記密碼?</small></a><br>
 			<a href="<c:url value='register' />"><small>還不是會員?</small></a><br><br>				
-				
+			
 		<button class="ot" type="submit" name="login">登入</button>
+		<input type="button" value='一鍵新增' onclick='Send()'>
 	</form>
 </div>
 
 <jsp:include page="/HappytailFooter.jsp" />
+
+<script>
+function Send() {
+	document.getElementById("account").value='a03163084@gmail.com';
+	document.getElementById("password").value='aaSS#$12345';
+	
+}
+</script>
 
 </body>
 </html>

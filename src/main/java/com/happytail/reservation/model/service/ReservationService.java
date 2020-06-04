@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
+import com.happytail.member.model.PetMembers;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
 import com.happytail.reservation.model.dao.ReservationDaoImpl;
@@ -25,7 +26,7 @@ public class ReservationService {
 	private ReservationDaoImpl daoImpl;
 	
 
-	public Object save(ReservationBean bean) {
+	public ReservationBean save(ReservationBean bean) {
 		return daoImpl.save(bean);
 	}
 	

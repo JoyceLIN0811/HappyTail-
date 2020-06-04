@@ -23,6 +23,7 @@ public class ReservationBean {
 	
 	private Integer Id;
 	private String username;
+	private String email;
 	private Integer sortId;
 	private String breed;
 	private String petName;
@@ -44,6 +45,12 @@ public class ReservationBean {
 	}
 	
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getEvaluationStatus() {
 		return evaluationStatus;
 	}
