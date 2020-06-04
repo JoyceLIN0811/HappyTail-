@@ -202,12 +202,7 @@
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="./index4.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>總覽</p>
-									</a>
-								</li>
+						
 								<li class="nav-item">
 									<a href="admin-AllProjects" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
