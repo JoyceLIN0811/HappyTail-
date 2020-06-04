@@ -41,7 +41,7 @@
 <br><br>				
 		<label class="lab">Birthday :</label>	
 		<input class="inpu" type="date" name="bday"  value= "${petMember.bday }${param.bday  }" />
-		<font color='red' size="-1">${errorMsg.mBbday}</font>
+<%-- 		<font color='red' size="-1">${errorMsg.mBbday}</font> --%>
 <br><br>			
 		<label class="lab">Age :</label>
 		<input class="inpu" type="text" name="age"  value= "${petMember.age }${param.age }" />
