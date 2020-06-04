@@ -223,10 +223,28 @@ public class ForumService {
 	public Topic getTopicContent(PetMembers petMembers, Integer topicId) {
 
 		if (petMembers == null) {
-			return topicDAO.select(topicId);
-		} else {
 			Topic topic = topicDAO.select(topicId);
 
+			String module = Const.ModuleType.Forum;
+			String type = Const.CategoryType.topicCategory;
+			String key = Integer.toString(topic.getCategoryId());
+			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
+			System.out.println("codeMap = " +codeMap);
+			
+			topic.setCategory(codeMap.getValue());
+			return topic;
+		} else {
+			Topic topic = topicDAO.select(topicId);
+			
+			String module = Const.ModuleType.Forum;
+			String type = Const.CategoryType.topicCategory;
+			String key = Integer.toString(topic.getCategoryId());
+			
+			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
+			System.out.println("codeMap = " +codeMap);
+			
+			topic.setCategory(codeMap.getValue());
+			
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			topic.setIsThumbsUp(thumbsUp != null);
 
@@ -235,7 +253,8 @@ public class ForumService {
 
 			Report report = reportDAO.select(topic.getId(), petMembers.getId());
 			topic.setIsReported(report != null);
-
+			
+			System.out.println("topic = "+topic);
 			return topic;
 		}
 	}

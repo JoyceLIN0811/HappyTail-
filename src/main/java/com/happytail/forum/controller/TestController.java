@@ -100,6 +100,8 @@ public class TestController {
 	@ResponseBody
 	public Topic TopicContent(@SessionAttribute(required = false) PetMembers petMembers,
 			@PathVariable Integer topicId) {
+		
+		
 		return forumService.getTopicContent(petMembers, topicId);
 	}
 
