@@ -233,21 +233,6 @@
 									</a>
 								</li>
 							</ul>
-						</li>
-
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-table"></i>
-								<p>預約管理</p>
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-table"></i>
-								<p>討論區管理</p>
-							</a>
-						</li>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>

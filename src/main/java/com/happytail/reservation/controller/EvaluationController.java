@@ -34,7 +34,8 @@ public class EvaluationController {
 	
 	@Autowired
 	private EvaluationService service;
-	
+	@Autowired
+	private EvaluationService service2;
 	
 	@PostMapping("/saveEvaluation")
 	public String save(@SessionAttribute("petMembers") PetMembers petMembers,
@@ -50,7 +51,17 @@ public class EvaluationController {
 		
 		service.save(en);
 		
-		return "redirect:/Evaluationlist";	
+		List<Evaluation> list = service2.queryAllEvaluation();
+		m.addAttribute("Evaluation" , list);
+		
+		double num = service2.ScoreAvg();
+		DecimalFormat df = new DecimalFormat("#.0");
+		String avg = df.format(num);
+		m.addAttribute("scoreAvg" , avg);
+		
+		System.out.println(avg);
+		
+		return "reservationPage";
 	}
 	
 	@RequestMapping(value = "/Evaluationlist", method = RequestMethod.GET)

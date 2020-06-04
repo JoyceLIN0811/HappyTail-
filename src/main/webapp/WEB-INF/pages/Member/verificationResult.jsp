@@ -9,13 +9,16 @@
 <meta charset="UTF-8">
 <meta http-equiv="Refresh" content="3; url= http://localhost:8080/happytail/HappyTailIndex.jsp">
 <title>驗證結果通知</title>
+<%@include file="/WEB-INF/pages/include/coreLibrary.jsp" %>
+
 <link href="css/style28.css" rel="stylesheet">
 <style>
 	.spe{text-align: center;}
 </style>
 </head>
 <body>
-<jsp:include page="/HappytailHeader.jsp" />
+<%@include file="/HappytailHeader.jsp" %>
+
 <div class="divbig spe">
 <br><br>
 	<c:if test="${verificationResult == true}">
@@ -26,7 +29,7 @@
 	</c:if>	
 <br><br>
 </div>	
-<jsp:include page="/HappytailFooter.jsp" />
+	<%@include file="/HappytailFooter.jsp" %>
 <script>
 	
 </script>

@@ -46,6 +46,13 @@ public class MembersView {
 	}
 	
 	@Bean
+	public View redirectTemporaryPetMemberPage2() {
+		RedirectView view = new RedirectView("/redirectTemporaryPetMemberPage2",true);		
+		return view;	
+	}
+	
+	
+	@Bean
 	public View changePassword() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/Member/changePassword.jsp");
@@ -59,6 +66,12 @@ public class MembersView {
 		return view;	
 	}
 	
+	@Bean
+	public View redirectVerificationSended() {
+		RedirectView view = new RedirectView("/redirectVerificationSended",true);		
+		return view;	
+	}
+	
 
 	@Bean
 	public View verificationResult() {
@@ -66,6 +79,7 @@ public class MembersView {
 		view.setUrl("/WEB-INF/pages/Member/verificationResult.jsp");
 		return view;	
 	}
+
 	
 	@Bean
 	public View memberLogin() {

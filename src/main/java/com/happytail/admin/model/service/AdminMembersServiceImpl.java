@@ -1,10 +1,13 @@
 package com.happytail.admin.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.happytail.admin.model.AdminMembersDao;
+import com.happytail.member.model.PetMembers;
 
 @Service
 @Transactional
@@ -12,6 +15,7 @@ public class AdminMembersServiceImpl implements AdminMembersService {
 
 	@Autowired
 	AdminMembersDao adDao;
+	
 	
 	@Override
 	public Long countMembers() {
@@ -32,9 +36,17 @@ public class AdminMembersServiceImpl implements AdminMembersService {
 	}
 
 	@Override
-	public Integer changeMemberStatus(Integer id) {
-		
-		return null;
+	public PetMembers changeMemberStatus(Integer id) {
+		PetMembers member = adDao.changeMemberStatus(id);
+		return member;
 	}
+
+	@Override
+	public List<Long> age() {
+		List<Long> list = adDao.age();
+		return list;
+	}
+
+	
 
 }

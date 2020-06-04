@@ -415,7 +415,7 @@
 		</div>
 	</div>
 	<!-- /.modal -->
-	
+
 
 
 	<!-- jQuery -->
@@ -439,10 +439,11 @@
 		$(document)
 				.ready(
 						function() {
-							$('#allMembers').DataTable(
-									
+							$('#allMembers')
+									.DataTable(
+
 											{
-												searching: false,
+												searching : false,
 												"ajax" : {
 													"url" : "<c:url value='admin-allMembersJSON' />",
 													"dataSrc" : ""
@@ -469,10 +470,12 @@
 															"render" : function(
 																	data, type,
 																	full, meta) {
-																if (data == "0") {
-																	return data = '<span class="badge badge-danger">Freeze</span>';
-																} else {
-																	return data = '<span class="badge badge-success">Success</span>';
+																if (data == 0) {
+																	return data = '<span class="badge badge-secondary">未驗證</span>';
+																} else if (data == 1) {
+																	return data = '<span class="badge badge-success">正常</span>';
+																} else if (data == 2) {
+																	return data = '<span class="badge badge-danger">停權</span>';
 																}
 															}
 														},
@@ -485,12 +488,22 @@
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>修改</button>"
-																+ "<a href='<c:url value='updateStatus/" + data + "'/>' class='btn btn-danger btn-sm' <i class='fas fa-trash'></i>停權</a>";
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>修改</button>&emsp;"
+																+ "<a id='status' class='btn btn-danger btn-sm' href='<c:url value='admin-changeStatus/" + data +"' />' <i class='fas fa-trash'></i>停權</a>";
 													}
 												} ]
 											});
+							
+							//停權按鈕事件
+// 							$("#allMembers tbody").on("click", "#status", function () {
+					
+// 								alert(name + 'hi');
+				              
+// 				            });
+							
+							
 						});
+		
 	</script>
 </body>
 

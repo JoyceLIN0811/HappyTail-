@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
+import com.happytail.member.model.PetMembers;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
 
@@ -14,7 +15,7 @@ import com.happytail.reservation.model.ReservationBean;
 
 public interface ReservationDao {
 
-	Object save(ReservationBean bean);
+	ReservationBean save(ReservationBean bean);
 	
 	ReservationBean UpdateStatuss(ReservationBean bean);
 	

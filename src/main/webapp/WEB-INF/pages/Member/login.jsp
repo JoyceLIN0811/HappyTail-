@@ -36,14 +36,14 @@
 				<form action="<c:url value='loginCheck'/>" method="POST">
 					<div class="row">
 						<div class="col s12">
-							<label> 帳號: <input type="text" name="email"
+							<label> 帳號: <input type="text" name="email" 
 								maxlength="30" data-length="30" required="required" />${errors.email}
 							</label>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col s12">
-							<label> 密碼: <input type="password" name="password"
+							<label> 密碼: <input type="password" name="password" 
 								maxlength="15" data-length="15" required="required" />${errors.password}
 							</label>
 						</div>
@@ -51,6 +51,7 @@
 					<div class="row">
 						<div class="col s12 center">
 							<button class="btn" type="submit" name="login">登入</button>
+							
 							<button class="btn" type="button" name="Register">
 								<a href="<c:url value='register' />" style="color: white">註冊</a>
 							</button>
@@ -62,6 +63,12 @@
 			</section>
 		</article>
 	</main>
+	
+
+
+
+	
+	
 	<!-- <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
     <script src="/webjars/materializecss/0.100.2/js/materialize.min.js"></script> -->
 	<script type="text/javascript"

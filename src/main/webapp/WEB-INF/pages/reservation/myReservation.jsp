@@ -23,6 +23,7 @@
 	 	<td>預約時間</td>
 	 	<td>金額</td>
 	 	<td>預約狀態</td>
+	 	<td>評分</td>
 	<c:forEach varStatus="star" var="View" items="${page.records}">
 	 <tr style="text-align:center" class='datalist'>
 			<td>${View.petName}</td>
@@ -32,15 +33,20 @@
 			<td>${View.availableDateTime}:00</td>
 			<td>${View.amount}</td>
 			<td class='statuss'>${View.statuss}</td>
-			<td>${View.id}</td>
+			<td class='evaluationStatus'>${View.evaluationStatus}</td>
+			
+			
 			<td>
 				<form style='float:left' method='post' action='update'>
+				<input type='hidden' name='Id' value='${petMembers.id}'>
+				<input type='hidden' name='pageNum' value='${page.currentPage}'>
 				<input type="hidden" name='reservationId' value='${View.reservationId}'>
 				<input class="reservation" type="submit" name='statuss' value="取消預約">
 				</form>
 				
-				<form style='float:left' method='post' action='queryReservation' >
+				<form style='float:left' method='post' action='updateEvaluationStatus' >
 				<input type="hidden" name="reservationId" value="${View.reservationId}">
+				<input type='hidden' name='evaluationStatus' value='完成'>
 				<input class="point" type='submit' value='評分'  >
 				</form>
 			</td>
@@ -50,23 +56,23 @@
 	</table>
 
 
-<form method="get" action="queryMyReservaitionView" style='float: left;margin-right: 10px '>
+	<form method="get" action="queryMyReservaitionView" style='float: left;margin-right: 10px '>
 	<td>
-<%-- 		<input type='hidden' name='Id' value='${page.Id}'> --%>
+		<input type='hidden' name='Id' value='${petMembers.id}'>
 		<input type='hidden' name='pageNum' value='${page.currentPage-1}'>
 		<input type='submit' value='上一頁'>
 	</td>
-</form>
+	</form>
 
 <span style='float: left;margin-right: 10px;'>第  ${page.currentPage} 頁</span>
 
-<form method="get" action="queryMyReservaitionView" >
+	<form method="get" action="queryMyReservaitionView" >
 	<td>
-<%-- 		<input type='hidden' name='Id' value='${page.Id}'> --%>
+		<input type='hidden' name='Id' value='${petMembers.id}'>
 		<input type='hidden' name='pageNum' value='${page.currentPage+1}'>
 		<input type='submit' value='下一頁'>
 	</td>
-</form>
+	</form>
 
 <div> 共 ${page.totalNum}筆</div>
 
@@ -77,11 +83,15 @@ var datalist = document.getElementsByClassName("datalist");
 console.log(datalist);
 
 for(var i = 0 ; i < datalist.length ; i++){
+	var evaluationStatus = datalist[i].getElementsByClassName("evaluationStatus")[0].innerHTML;
 	var statuss = datalist[i].getElementsByClassName("statuss")[0].innerHTML;
 	if(statuss == "取消預約"){
-	datalist[i].getElementsByClassName("point")[0].setAttribute("type","hidden");
-	datalist[i].getElementsByClassName("reservation")[0].setAttribute("type","hidden");
+		datalist[i].getElementsByClassName("point")[0].setAttribute("type","hidden");
+		datalist[i].getElementsByClassName("reservation")[0].setAttribute("type","hidden");
+	} else if ( evaluationStatus == "完成" ) {
+		datalist[i].getElementsByClassName("point")[0].setAttribute("type","hidden");
 	}
+	
 }
 </script>
 

@@ -1,5 +1,9 @@
 package com.happytail.admin.model.service;
 
+import java.util.List;
+
+import com.happytail.member.model.PetMembers;
+
 public interface AdminMembersService {
 
 	// 所有會員總數
@@ -10,8 +14,10 @@ public interface AdminMembersService {
 
 	// 所有女性會員總數
 	public Long countFemale();
+	
+	public List<Long> age();
 
 	// 更改會員狀態
-	public Integer changeMemberStatus(Integer id);
+	PetMembers changeMemberStatus(Integer id);
 
 }

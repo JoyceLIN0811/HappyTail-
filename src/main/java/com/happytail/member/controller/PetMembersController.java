@@ -76,7 +76,7 @@ public class PetMembersController {
 	}
 	
 	
-	@PostMapping(value = "/sendTemporaryPassword")
+	@RequestMapping(value = "/sendTemporaryPassword", method = {RequestMethod.GET,RequestMethod.POST })
 	public String sendTemporaryPassword(
 		@RequestParam(name="temporaryPasswordAccount") String temporaryPasswordAccount,
 		HttpServletRequest request,
@@ -100,8 +100,14 @@ public class PetMembersController {
 		session.setAttribute("temporaryPasswordAccount", temporaryPasswordAccount);
 		service.sendTemporaryPassword(temporaryPasswordAccount);
 		
+		return "redirectTemporaryPetMemberPage2";
+	}
+	
+	
+	@GetMapping("/redirectTemporaryPetMemberPage2")
+	public String RedirectTemporaryPetMemberPage2() {
 		return "temporaryPetMemberPage2";
-	}	
+	}
 	
 	@PostMapping(value = "/changePassword")
 	public String changePassword(
@@ -189,7 +195,7 @@ public class PetMembersController {
 			bdate = Date.valueOf(bday);
 		}catch(Exception e) {
 			e.printStackTrace();
-			errorMsg.put("mBbday", "出生日期格式錯誤");
+//			errorMsg.put("mBbday", "出生日期格式錯誤");
 		}
 		
 		Integer age2 = null;
@@ -377,10 +383,15 @@ public class PetMembersController {
 		PetMembers pm = service.insertPetMembers(petMember);		
 		
 		if (pm != null) {
-			return "verificationSended";
+			return "redirectVerificationSended";
 		} else {
 			return "petMemberPage";
 		}
+	}
+	
+	@GetMapping("/redirectVerificationSended")
+	public String RedirectVerificationSended() {
+		return "verificationSended";
 	}
 	
 	@GetMapping("/memberImage/{id}")
@@ -409,8 +420,10 @@ public class PetMembersController {
 		Blob blob = pMember.getMemberImage();
 		if (blob != null) {
 			body = blobToByteArray(blob);
-		}else {
-			String path = "/img/NoImage.png";			
+		}else {	
+//			mediaType = MediaType.valueOf("image/png");
+//			headers.setContentType(mediaType);
+			String path = "/WEB-INF/static/img/NoImage.png";
 			body = fileToByteArray(path);			
 		}		
 		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);

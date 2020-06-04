@@ -80,7 +80,10 @@ public class RootAppConfig {
 //		properties.put("hibernate.dialect", org.hibernate.dialect.SQLServer2012Dialect.class);
 		properties.put("hibernate.show_sql", true);
 		properties.put("hibernate.format_sql", true);
+<<<<<<< HEAD
 //		properties.put("hibernate.query.factory_class", org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory.class);
+=======
+>>>>>>> 098e6ce3a9cb0084b54ad9dcd3a019dafb259b08
 //		properties.put("hibernate.current_session_context_class", "thread");
 //		properties.put("default_batch_fetch_size", 10);
 		properties.put("hibernate.hbm2ddl.auto", "update");

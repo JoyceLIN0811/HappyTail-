@@ -9,7 +9,7 @@
 </head>
 <body>
 
-${page.Name}
+
 <table border="1">
 	<tr style="text-align:center">
 		<td>預約人</td>

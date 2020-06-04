@@ -87,6 +87,25 @@ public class TestController {
 		}
 	}
 	
+	
+	
+	@GetMapping("/forum/topic/{topicId}")
+	public String TopicContentPage(@SessionAttribute(required = false) PetMembers petMembers,
+			@PathVariable Integer topicId) {
+//		forumService.getTopicContent(petMembers, topicId);
+	
+		return "TopicContentPage";
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/topic/category")
 	public List<CodeMap> CategoryList() {
 		return forumService.getCategoryList();
@@ -100,17 +119,6 @@ public class TestController {
 		return map;
 	}
 
-	
-
-//	@GetMapping("/topic/hitTopiclist")
-//	public Page<TopiclistView> getHitTopicList(@SessionAttribute PetMembers petMembers
-//											, @RequestParam(required = false) Integer categoryId
-//											, @RequestParam Integer pageSize
-//											, @RequestParam Integer pageNum){
-//		
-//		return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
-//
-//	}
 
 	@GetMapping("/topic/{topicId}")
 	public Topic TopicContent(@SessionAttribute(required = false) PetMembers petMembers,

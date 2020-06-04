@@ -14,9 +14,11 @@ import org.springframework.stereotype.Repository;
 
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
+import com.happytail.member.model.PetMembers;
 import com.happytail.reservation.model.MyReservationView;
 import com.happytail.reservation.model.ReservationBean;
 import com.happytail.reservation.model.backView;
+import com.happytail.reservation.model.util.MailUtil;
 
 
 
@@ -39,8 +41,11 @@ public class ReservationDaoImpl implements ReservationDao{
 	
 
 	@Override
-	public Object save(ReservationBean bean) {
+	public ReservationBean save(ReservationBean bean) {
 		getSession().save(bean);
+		new MailUtil(bean.getEmail(),bean.getUsername(),
+				bean.getCreateDate(),bean.getAvailableDateTime(),
+				bean.getPetName()).run();
 		return bean;
 	}
 
