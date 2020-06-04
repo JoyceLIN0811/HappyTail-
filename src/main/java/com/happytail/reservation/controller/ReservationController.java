@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Const;
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
@@ -47,6 +48,9 @@ public class ReservationController {
 	
 	@Autowired
 	private EvaluationService service2;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	@GetMapping("/index37")
 	public String transferReservationPage() {
@@ -79,12 +83,14 @@ public class ReservationController {
 		rb.setId(petMembers.getId());
 		rb.setEmail(petMembers.getEmail());
 		rb.setUsername(petMembers.getUsername());
-		
+		 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 		String dateString = sdf.format(createDate);
 		rb.setCreateMonth(dateString);
 		
 		service.save(rb);
+		
+		noticeService.sendReservationNotice(rb);
 		
 		List<Evaluation> list = service2.queryAllEvaluation();
 		m.addAttribute("Evaluation" , list);

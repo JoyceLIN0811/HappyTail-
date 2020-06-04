@@ -47,27 +47,27 @@ public class NoticeService {
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
-	public void sendReservationNotice(ReservationBean reservation) {
+	public void sendReservationNotice(ReservationBean bean) {
 		
-		ReservationBean reservationBean = reservationDao.select(reservation.getReservationId());
+		ReservationBean reservationBean = reservationDao.select(bean.getReservationId());
 		if (reservationBean != null) {
 			String statuss = reservationBean.getStatuss();
-			String reservationUsername = reservation.getUsername();
+			String reservationUsername = bean.getUsername();
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.ReceiveReservation);
 			String module = Const.ModuleType.Reservation;
 			String noticeMsg = String.format(template, reservationUsername, statuss);
 			
 			Notice notice = new Notice();
-			String sadminUserId= NoticeUtil.getNoticeTemplate(Admin.AdminUserId);
+			String sadminUserId= NoticeUtil.getNoticeTemplate(Const.Admin.AdminUserId);
 			Integer adminUserId =  Integer.parseInt(sadminUserId);
 			notice.setId(adminUserId);
-			notice.setUsername(NoticeUtil.getNoticeTemplate(Admin.AdminUserName));
+			notice.setUsername(NoticeUtil.getNoticeTemplate(Const.Admin.AdminUserName));
 			notice.setModule(module);
 			notice.setMessage(noticeMsg);
 			saveNotice(notice);
 			sendNotice(notice);
 		} else {
-			System.out.println("cannot find the topicId: " + reservation.getReservationId());
+			System.out.println("cannot find the topicId: " + bean.getReservationId());
 		}
 			
 	}

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
 import com.happytail.member.model.PetMembers;
@@ -46,6 +47,8 @@ public class ReservationDaoImpl implements ReservationDao{
 		new MailUtil(bean.getEmail(),bean.getUsername(),
 				bean.getCreateDate(),bean.getAvailableDateTime(),
 				bean.getPetName()).run();
+		
+//		new NoticeService().sendReservationNotice(bean);
 		return bean;
 	}
 
