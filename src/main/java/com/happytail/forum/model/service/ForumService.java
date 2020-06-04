@@ -249,6 +249,14 @@ public class ForumService {
 
 			Topic topic = topicDAO.select(id);
 			map.put("topicData", topic);
+			
+			String module = Const.ModuleType.Forum;
+			String type = Const.CategoryType.topicCategory;
+			String key = Integer.toString(topic.getCategoryId());
+			
+			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
+			map.put("category", codeMap.getValue());
+			
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			map.put("isThumbsUp", thumbsUp != null);
 

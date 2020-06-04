@@ -217,9 +217,9 @@ $("#target").html(data);
 	<div class="card-body">
 		<div class="row no-gutters">
 			<div class="col-md-4">
-				<p class="card-text">
+				<p class="card-text" style="font-size:24px">
 					<img src='/happytail/img/foot.png' class="card-img"
-						alt="..." style="height: 30px; width: 40px;"> <span>{{ username }}</span>
+						alt="..." style="height: 30px; width: 40px"> <span >{{ username }}</span>
 				</p>
 			</div>
 
@@ -313,7 +313,7 @@ $("#target").html(data);
 
                     <div class="row justify-content-md-center">
                         <div class="col-2 align-self-start">
-                            <span>Category</span>
+                            <span>{{ category }}</span>
                         </div>
                         <div class="col-2">
                             <span>{{createDate}}</span>
