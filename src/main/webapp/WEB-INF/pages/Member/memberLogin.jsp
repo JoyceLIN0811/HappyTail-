@@ -6,10 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>會員登入</title>
+<%@include file="/WEB-INF/pages/include/coreLibrary.jsp" %>
+
 <link href="css/style28.css" rel="stylesheet">
+
 </head>
 <body>
-<jsp:include page="/HappytailHeader.jsp" />
+	<%@include file="/HappytailHeader.jsp" %>
 	
 <div class="divbig">
 	<h3>會員登入</h3>
@@ -32,7 +35,7 @@
 	</form>
 </div>
 
-<jsp:include page="/HappytailFooter.jsp" />
+	<%@include file="/HappytailFooter.jsp" %>
 
 </body>
 </html>

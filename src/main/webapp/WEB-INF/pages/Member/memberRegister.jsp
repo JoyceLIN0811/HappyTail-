@@ -8,11 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>會員註冊</title>
+<%@include file="/WEB-INF/pages/include/coreLibrary.jsp" %>
 
 <link href="css/style28.css" rel="stylesheet">
 </head>
 <body >
-<jsp:include page="/HappytailHeader.jsp" />
+	<%@include file="/HappytailHeader.jsp" %>
 
 <div class="divbig">
 	<h3>會員註冊</h3><br>
@@ -63,7 +64,7 @@
 		
 	</form>
 </div>		
-<jsp:include page="/HappytailFooter.jsp" />
+	<%@include file="/HappytailFooter.jsp" %>
 
 <script type="text/javascript">
 $("#memberImage").change(function(){

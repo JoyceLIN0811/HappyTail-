@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -37,7 +39,7 @@ import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
 import com.happytail.member.model.PetMembers;
 
-@RestController
+@Controller
 @SessionAttributes("petMembers")
 public class TestController {
 
@@ -51,20 +53,37 @@ public class TestController {
 	private LimitPostService limitPostService;
 	
 	@GetMapping("/forum/topiclist")
-	public String getTopicListPage(@SessionAttribute(required = false) PetMembers petMembers,
+	public String getTopicListPage(@RequestParam(required = false) Integer categoryId,
+								   @RequestParam(required = false) String tagType,
+								Model model) {
+//		if ("hit".equals(tagType)) {
+//			Page<TopiclistView> list = forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
+//			System.out.println("topiclist"+list.getRecords());
+//			model.addAttribute("topiclist",list);
+//			return "TopicListPage";
+//		} else {
+//			Page<TopiclistView> list = forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
+//			System.out.println("topiclist"+list.getRecords().indexOf(list));
+//			System.out.println("topiclist"+list.getRecords());
+//			model.addAttribute("topiclist",list);
+//			return "TopicListPage";
+//		}
+		
+		model.addAttribute("categoryId",categoryId != null ? categoryId : "null");
+		model.addAttribute("tagType",tagType != null ? tagType : "null");
+		
+		return "TopicListPage";
+	}
+	
+	@GetMapping("/topic/topiclist")
+	@ResponseBody
+	public Page<TopiclistView> getTopicList(@SessionAttribute(required = false) PetMembers petMembers,
 			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
-			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType, Model model) {
+			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType) {
 		if ("hit".equals(tagType)) {
-			Page<TopiclistView> list = forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
-			System.out.println("topiclist"+list.getRecords());
-			model.addAttribute("topiclist",list);
-			return "TopicListPage";
+			return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
 		} else {
-			Page<TopiclistView> list = forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
-			System.out.println("topiclist"+list.getRecords().indexOf(list));
-			System.out.println("topiclist"+list.getRecords());
-			model.addAttribute("topiclist",list);
-			return "TopicListPage";
+			return forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
 		}
 	}
 	
@@ -81,16 +100,7 @@ public class TestController {
 		return map;
 	}
 
-	@GetMapping("/topic/topiclist")
-	public Page<TopiclistView> getTopicList(@SessionAttribute(required = false) PetMembers petMembers,
-			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
-			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType) {
-		if ("hit".equals(tagType)) {
-			return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
-		} else {
-			return forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
-		}
-	}
+	
 
 //	@GetMapping("/topic/hitTopiclist")
 //	public Page<TopiclistView> getHitTopicList(@SessionAttribute PetMembers petMembers

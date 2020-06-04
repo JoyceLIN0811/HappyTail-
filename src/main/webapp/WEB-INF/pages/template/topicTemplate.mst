@@ -167,3 +167,120 @@
     <span class="list-group-item list-group-item-action" onclick="setStage('{{ stage }}')" >{{ stage }}</span>
 {{ /stageList }}
 </div>
+
+---------------------------------------------------------------
+<!--
+{ 
+   'records':[
+   		{
+            "userId": 2,
+            "username": "915",
+            "categoryId": 1,
+            "topicId": 18,
+            "title": "01062020",
+            "createDate": "2020-06-01 02:47",
+            "imageUrl": null,
+            "replyNum": 0,
+            "count": 0,
+            "likeNum": 0,
+            "category": "生活",
+            "isThumbsUp": null,
+            "isFollowed": null,
+            "isReported": null
+        },
+   		{data2},
+   		{data3},
+   		{data4}
+   ]
+}
+
+var data = Mustache.render(template,jsonObj);
+
+$("#target").prepend(data);
+$("#target").append(data);
+$("#target").html(data);
+
+<div id="target">
+	- > prepend
+	
+	<p>Content</p>
+	
+	- >append
+</div>
+-->
+
+<div id="topicList">
+
+
+{{ #records }}
+<div class="card mb-3" style="max-width: 100%;">
+	<div class="card-body">
+		<div class="row no-gutters">
+			<div class="col-md-4">
+				<p class="card-text">
+					<img src='/happytail/img/foot.png' class="card-img"
+						alt="..." style="height: 30px; width: 40px;"> <span>{{ username }}</span>
+				</p>
+			</div>
+
+			<div class="col-md-4">
+				<p class="card-text">{{ createDate }}</p>
+			</div>
+
+			<div class="col-md-4">
+				<p class="card-text">{{ category }}</p>
+			</div>
+
+		</div>
+
+		<div class="row no-gutters">
+			<div class="col-md-10">
+
+				<div class="row no-gutters">
+					<div class="col-md-12" style="height: 100px;">
+						<h2 class="card-title">{{ title }}</h2>
+					</div>
+				</div>
+
+				<div class="row no-gutters">
+
+					<div class="col-md-3">
+						<i class="far fa-thumbs-up fa-2x"></i> <span
+							class="card-text">{{ likeNum }}</span>
+					</div>
+
+					<div class="col-md-3">
+						<i class="far fa-comment-dots fa-2x"></i> <span
+							class="card-text">{{ replyNum }}</span>
+					</div>
+
+					<div class="col-md-3 ">
+						<i class="far fa-hand-point-up fa-2x"></i><span
+							class="card-text">{{ count }}</span>
+					</div>
+
+					<div class="col-md-3">
+						<!-- <i class="fas fa-bookmark"></i> -->
+						<i class="far fa-bookmark fa-2x"></i> <span
+							class="card-text">FollowBtn</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-md-2">
+			{{ #imageUrl }}
+			
+				<img src="{{ imageUrl }}" class="card-img" alt="...">
+				
+			{{ /imageUrl }}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{{ /records }}
+
+
+</div>

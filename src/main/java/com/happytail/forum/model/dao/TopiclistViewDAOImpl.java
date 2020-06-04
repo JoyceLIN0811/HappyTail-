@@ -67,6 +67,7 @@ public class TopiclistViewDAOImpl implements TopiclistViewDAO {
 				.setFirstResult(startPosition).setMaxResults(pageInfo.getPageSize()).getResultList();
 		Query query = getSession().createQuery(AllTopicCounts);
 		Long totalCount = (Long) query.uniqueResult();
+		System.out.println("totalCount="+totalCount);
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}

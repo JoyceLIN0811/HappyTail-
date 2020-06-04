@@ -1,142 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-	crossorigin="anonymous">
 
-<style>
-html {
-	box-sizing: border-box;
-	background: #f3f3f3;
-}
-
-body {
-	width: 100%;
-}
-
-#contents {
-	width: 76.266%;
-}
-
-footer {
-	width: 100%;
-}
-
-*, *:after, *:before {
-	box-sizing: inherit;
-}
-
-.clip {
-	border: 0;
-	clip: rect(0, 0, 0, 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-}
-
-.svg--source {
-	display: none;
-}
-
-.svg--icon {
-	width: 100%;
-	max-width: 5rem;
-	height: 100%;
-	max-height: 5rem;
-	display: block;
-	margin: 0 auto;
-	fill: currentColor;
-}
-
-.svg--iconi {
-	width: 75%;
-	max-width: 5rem;
-	height: 75%;
-	max-height: 5rem;
-	display: block;
-	margin: 0 auto;
-	fill: currentColor;
-}
-
-.wrapper {
-	/* width: 100%;
-                height: 100vh; */
-	display: -webkit-box;
-	display: flex;
-	flex-wrap: wrap;
-	-webkit-box-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	justify-content: center;
-	padding: 1rem;
-}
-
-.share {
-	width: 5rem;
-	height: 5rem;
-	float: left;
-	margin: .5rem 1rem .5rem 0;
-	color: #353c4a;
-	border: .125rem solid #f3f3f3;
-	box-shadow: 0 0 8px 0 rgba(50, 50, 50, 0.15);
-	border-radius: 50%;
-	-webkit-transition: 250ms;
-	transition: 250ms;
-}
-
-.share:last-child {
-	margin-right: 0;
-}
-
-.share:focus {
-	outline-color: inherit;
-}
-
-.twitter:hover, .twitter:focus {
-	color: #00ACED;
-	box-shadow: 0 0 24px 0 #00ACED;
-}
-
-.github:hover, .github:focus {
-	color: #4183c4;
-	box-shadow: 0 0 24px 0 #4183c4;
-}
-
-.instagram:hover, .instagram:focus {
-	color: #ec3a0d;
-	box-shadow: 0 0 24px 0 #ec3a0d;
-	;
-}
-
-.youtube:hover, .youtube:focus {
-	color: #cd201f;
-	box-shadow: 0 0 24px 0 #cd201f;
-}
-
-.facebook:hover, .facebook:focus {
-	color: #3b5998;
-	box-shadow: 0 0 24px 0 #3b5998;
-}
-
-.google:hover, .google:focus {
-	color: #dd4b39;
-	box-shadow: 0 0 24px 0 #dd4b39;
-}
-</style>
-</head>
-<body>
-
-	<svg class="svg--source" width="0" height="0" aria-hidden="true">
+<svg class="svg--source" width="0" height="0" aria-hidden="true">
 
     <symbol id="svg--twitter" viewbox="0 -7 15 30">
         <path
@@ -144,8 +9,7 @@ footer {
     </symbol>
 
     <symbol id="svg--google" viewbox="-13 -13 72 72">
-        <path
-			d="M48,22h-5v-5h-4v5h-5v4h5v5h4v-5h5 M16,21v6.24h8.72c-0.67,3.76-3.93,6.5-8.72,6.5c-5.28,0-9.57-4.47-9.57-9.75
+        <path d="M48,22h-5v-5h-4v5h-5v4h5v5h4v-5h5 M16,21v6.24h8.72c-0.67,3.76-3.93,6.5-8.72,6.5c-5.28,0-9.57-4.47-9.57-9.75
 s4.29-9.74,9.57-9.74c2.38,0,4.51,0.82,6.19,2.42v0.01l4.51-4.51C23.93,9.59,20.32,8,16,8C7.16,8,0,15.16,0,24s7.16,16,16,16
 c9.24,0,15.36-6.5,15.36-15.64c0-1.17-0.11-2.29-0.31-3.36C31.05,21,16,21,16,21z" />
     </symbol>
@@ -182,96 +46,74 @@ c3.592,0,6.502-4.028,6.502-8.999C36.605,56.574,33.695,52.548,30.104,52.548z" />
     </symbol>
 
 </svg>
-	<footer
-		style="background-color: #80deea; height: 200px; position: relative;">
-
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-			integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-			integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-			crossorigin="anonymous"></script>
-		<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
-		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5
-						style="color: white; font-family: Arial, Helvetica, sans-serif; padding-top: 10px;">快樂尾巴</h5>
-					<h5
-						style="color: white; font-family: Arial, Helvetica, sans-serif;">Links</h5>
-					<ul style="list-style-type: none;">
-						<li><a
-							style="color: white; font-family: Arial, Helvetica, sans-serif;"
-							href="#!">About Us</a></li>
-						<li><a
-							style="color: white; font-family: Arial, Helvetica, sans-serif;"
-							href="#!">Contact Us</a></li>
-					</ul>
-				</div>
-
-				<div class="wrapper">
-					<div class="connect"
-						style="width: 800px; height: 80px; padding-left: 200px;">
-
-						<a href="" class="share twitter"
-							style="height: 50px; width: 50px;"> <svg role="presentation"
-								class="svg--icon">
-                            <use xlink:href="#svg--twitter" />
-                        </svg> <span class="clip">TWITTER</span>
-						</a> <a href="" rel="author" class="share google"
-							style="height: 50px; width: 50px;"> <svg role="presentation"
-								class="svg--icon">
-                            <use xlink:href="#svg--google" />
-                            <span class="clip">GOOGLE +</span>
-                        </svg>
-						</a> <a href="" rel="author" class="share facebook"
-							style="height: 50px; width: 50px;"> <svg role="presentation"
-								class="svg--icon">
-                            <use xlink:href="#svg--facebook" />
-                            <span class="clip">FACEBOOK</span>
-                        </svg>
-						</a> <a href="" class="share github"
-							style="height: 50px; width: 50px;"> <svg role="presentation"
-								class="svg--icon">
-                            <use xlink:href="#svg--github" />
-                            <span class="clip">GITHUB</span>
-                        </svg>
-						</a> <a href="" class="share instagram"
-							style="height: 50px; width: 50px;"> <svg role="presentation"
-								class="svg--iconi">
-                            <use xlink:href="#svg--instagram" />
-                            <span class="clip">INSTAGRAM</span>
-                        </svg>
-						</a> <a href="" class="share  youtube"
-							style="height: 50px; width: 50px;"> <svg role="presentation"
-								class="svg--icon">
-                            <use xlink:href="#svg--youtube" />
-                            <span class="clip">YOU-TUBE</span>
-                        </svg>
-						</a>
-
-					</div>
-				</div>
-
+<footer style="background-color: #80deea; height: 200px; position: relative;">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 style="color: white; font-family: Arial, Helvetica, sans-serif; padding-top: 10px;">快樂尾巴</h5>
+				<h5 style="color: white; font-family: Arial, Helvetica, sans-serif;">Links</h5>
+				<ul style="list-style-type: none;">
+					<li><a
+						style="color: white; font-family: Arial, Helvetica, sans-serif;"
+						href="#!">About Us</a></li>
+					<li><a
+						style="color: white; font-family: Arial, Helvetica, sans-serif;"
+						href="#!">Contact Us</a></li>
+				</ul>
 			</div>
-			<div class="footer-copyright"
-				style="background-color: #00bcd4; height: 50px; width: 1600px; position: absolute; bottom: 0px; right: 0px;">
-				<div class="container"
-					style="color: white; font-family: Arial, Helvetica, sans-serif; padding-top: 10px;">
-					© 2020 by HappyTail. <a class="grey-text text-lighten-4 right"
-						href="#!"></a>
+
+			<div class="wrapper">
+				<div class="connect"
+					style="width: 800px; height: 80px; padding-left: 200px;">
+
+					<a href="" class="share twitter"
+						style="height: 50px; width: 50px;"> <svg role="presentation"
+							class="svg--icon">
+                           <use xlink:href="#svg--twitter" />
+                       </svg> <span class="clip">TWITTER</span>
+					</a> <a href="" rel="author" class="share google"
+						style="height: 50px; width: 50px;"> <svg role="presentation"
+							class="svg--icon">
+                           <use xlink:href="#svg--google" />
+                           <span class="clip">GOOGLE +</span>
+                       </svg>
+					</a> <a href="" rel="author" class="share facebook"
+						style="height: 50px; width: 50px;"> <svg role="presentation"
+							class="svg--icon">
+                           <use xlink:href="#svg--facebook" />
+                           <span class="clip">FACEBOOK</span>
+                       </svg>
+					</a> <a href="" class="share github"
+						style="height: 50px; width: 50px;"> <svg role="presentation"
+							class="svg--icon">
+                           <use xlink:href="#svg--github" />
+                           <span class="clip">GITHUB</span>
+                       </svg>
+					</a> <a href="" class="share instagram"
+						style="height: 50px; width: 50px;"> <svg role="presentation"
+							class="svg--iconi">
+                           <use xlink:href="#svg--instagram" />
+                           <span class="clip">INSTAGRAM</span>
+                       </svg>
+					</a> <a href="" class="share  youtube"
+						style="height: 50px; width: 50px;"> <svg role="presentation"
+							class="svg--icon">
+                           <use xlink:href="#svg--youtube" />
+                           <span class="clip">YOU-TUBE</span>
+                       </svg>
+					</a>
+
 				</div>
+			</div>
+
+		</div>
+		<div class="footer-copyright"
+			style="background-color: #00bcd4; height: 50px; width: 1600px; position: absolute; bottom: 0px; right: 0px;">
+			<div class="container"
+				style="color: white; font-family: Arial, Helvetica, sans-serif; padding-top: 10px;">
+				© 2020 by HappyTail. <a class="grey-text text-lighten-4 right"
+					href="#!"></a>
 			</div>
 		</div>
-
-	</footer>
-
-
-</body>
-</html>
+	</div>
+</footer>
