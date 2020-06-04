@@ -47,9 +47,9 @@
 								class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 								role="button" aria-haspopup="true" aria-expanded="false">文章排序</a>
 								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">熱門</a>
+									<button type="button" class="dropdown-item" onclick="setTagType(null)">最新</button>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#">最新</a>
+									<button type="button" class="dropdown-item" onclick="setTagType('hit')">熱門</button>
 								</div></li>
 						</ul>
 					</div>
@@ -108,8 +108,8 @@
 		var topicListTemplate = "";
 		var topicContentTemplate = "";
 		var pageNum = 1; // start from page 1
-		var categoryId = ${categoryId};
-		var tagType = ${tagType};
+		var categoryId = null;
+		var tagType = null;
 
 		$(document).ready(function() {
 
@@ -219,6 +219,12 @@
 			$(targetObj).addClass("active");
 			
 			categoryId = catId;
+			pageNum = 1;
+			getTopicListData();
+		}
+		
+		function setTagType(tagTypeSrc){
+			tagType = tagTypeSrc;
 			pageNum = 1;
 			getTopicListData();
 		}
