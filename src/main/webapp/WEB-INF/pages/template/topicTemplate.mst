@@ -213,7 +213,7 @@ $("#target").html(data);
 
 
 {{ #records }}
-<div class="card mb-3" style="max-width: 100%;">
+<div class="card mb-3" onclick="openContentDialog({{ topicId }})" style="max-width: 100%;">
 	<div class="card-body">
 		<div class="row no-gutters">
 			<div class="col-md-4">
@@ -281,6 +281,110 @@ $("#target").html(data);
 
 
 {{ /records }}
+
+
+</div>
+
+---------------------------------------------------------------
+<div id="topicContent">
+
+<div class="card bg-transparent text-black" style="max-width: 80%; margin: auto;">
+        <div class=" card-body">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-1" style="margin:auto;">
+                    <i class="fas fa-chevron-left fa-3x"></i>
+                </div>
+                <div class="col-md-10">
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-11">
+                            <p class="card-text"><img src="'/happytail/img/foot.png" class="card-img" alt="..."
+                                    style="height: 60px; width: 80px;">
+                                <span>{{username}}</span></p>
+                        </div>
+                        <div class="col align-self-end">
+                            <i class="fas fa-times fa-2x"></i>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center" style="height: 100px; text-align:center;">
+                        <div class="col-md-12">
+                            <h2 class="card-title">{{title}}</h2>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-2 align-self-start">
+                            <span>Category</span>
+                        </div>
+                        <div class="col-2">
+                            <span>{{createDate}}</span>
+                        </div>
+                        <div class="col-md-8">
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center" style="height: 800px; text-align:center;">
+                        <div class="col-md-12">
+                            {{content}}
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center" style="height: 80px">
+                        <div class=" col-md-4">
+                            <i class="fas fa-thumbs-up fa-2x"></i>
+                            <i class="far fa-laugh-squint fa-2x"></i>
+                            <i class="far fa-sad-cry fa-2x"></i>
+                            <i class="far fa-surprise fa-2x"></i>
+                            <i class="fas fa-heart fa-2x"></i>
+                            <i class="far fa-angry fa-2x"></i>
+                            <span>ThumbsNum</span>
+                        </div>
+
+
+
+                        <div class="col-md-4">
+                            <i class="far fa-comment-dots fa-2x"></i>
+                            <span>ReplyNum</span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <i class="far fa-heart fa-2x"></i>
+                            <i class="fas fa-heart fa-2x"></i>
+                        </div>
+
+                        <div class="col-md-1">
+                            <i class="far fa-bookmark fa-2x"></i>
+                            <i class="fas fa-bookmark fa-2x"></i>
+                        </div>
+
+                        <div class="col-md-1">
+                            <i class="fas fa-share fa-2x"></i>
+                        </div>
+
+                        <div class="col-md-1">
+                            <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-1">
+                            <i class="fas fa-paw fa-2x"></i>
+                        </div>
+
+                        <div class="col-md-11">
+                            <input type="reply" class="form-control" id="inputReply" placeholder="Reply Here.....">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col col-lg-1" style="margin:auto;">
+                    <i class="fas fa-chevron-right fa-3x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>

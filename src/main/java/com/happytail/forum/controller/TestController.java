@@ -92,13 +92,17 @@ public class TestController {
 	@GetMapping("/forum/topic/{topicId}")
 	public String TopicContentPage(@SessionAttribute(required = false) PetMembers petMembers,
 			@PathVariable Integer topicId) {
-//		forumService.getTopicContent(petMembers, topicId);
-	
 		return "TopicContentPage";
 
 	}
 
-	
+	@GetMapping("/topic/{topicId}")
+	@ResponseBody
+	public Topic TopicContent(@SessionAttribute(required = false) PetMembers petMembers,
+			@PathVariable Integer topicId) {
+		return forumService.getTopicContent(petMembers, topicId);
+	}
+
 	
 	
 	
@@ -120,12 +124,7 @@ public class TestController {
 	}
 
 
-	@GetMapping("/topic/{topicId}")
-	public Topic TopicContent(@SessionAttribute(required = false) PetMembers petMembers,
-			@PathVariable Integer topicId) {
-		return forumService.getTopicContent(petMembers, topicId);
-	}
-
+	
 	@GetMapping("/reply")
 	public Page<ReplylistView> ReplyList(@SessionAttribute(required = false) PetMembers petMembers,
 			@RequestParam Integer topicId, @RequestParam Integer pageSize, @RequestParam Integer pageNum) {
