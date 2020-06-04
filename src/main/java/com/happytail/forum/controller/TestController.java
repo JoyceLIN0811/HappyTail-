@@ -138,7 +138,8 @@ public class TestController {
 	}
 
 	@PostMapping("/topic")
-	public Topic addTopic(@ModelAttribute Topic topic) {
+	@ResponseBody
+	public Topic addTopic(@RequestBody Topic topic) {
 		return forumService.addTopic(topic);
 	}
 

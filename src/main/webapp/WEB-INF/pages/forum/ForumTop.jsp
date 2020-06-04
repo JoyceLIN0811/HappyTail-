@@ -109,7 +109,7 @@
 	<%@include file="/HappytailFooter.jsp"%>
 	
 			<div id="topicContentDialog" class="modal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-xl" role="document">
 				    <div class="modal-content">
           <div class="modal-body" id="topicContent">
 				</div>
