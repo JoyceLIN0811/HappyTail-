@@ -20,27 +20,13 @@
 		<div class="row">
 			<div class="col-sm-2" style="margin-top: 60px;">
 				<div class="list-group" id="list-tab" role="tablist">
-					<a class="list-group-item list-group-item-action active"
-						data-toggle="list" href="<c:url value='/topic/topiclist'/>"
-						role="tab" aria-controls="home">所有文章</a> <a
-						class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/forum/topiclist?categoryId=1'/>" role="tab"
-						aria-controls="profile">生活</a> <a
-						class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/forum/topiclist?categoryId=2'/>" role="tab"
-						aria-controls="messages">資訊</a> <a
-						class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/forum/topiclist?categoryId=3'/>" role="tab"
-						aria-controls="settings">新聞</a> <a
-						class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/forum/topiclist?categoryId=4'/>" role="tab"
-						aria-controls="settings">發問</a> <a
-						class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/forum/topiclist?categoryId=5'/>" role="tab"
-						aria-controls="settings">認養</a> <a
-						class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/forum/topiclist?categoryId=6'/>" role="tab"
-						aria-controls="settings">其他</a>
+					<button type="button" class="list-group-item list-group-item-action active" onclick="setCategoryId(null,this)">所有文章</button>
+					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(1,this)">生活</button>
+					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(2,this)">資訊</button>
+					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(3,this)">新聞</button>
+					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(4,this)">發問</button>
+					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(5,this)">認養</button>
+					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(6,this)">其他</button>
 				</div>
 			</div>
 			<div class="col-sm-10" style="margin-top: 60px;">
@@ -202,6 +188,7 @@
 		function render(jsonObj) {
 			var data = Mustache.render(topicListTemplate, jsonObj);
 
+			$("#topicListArea").html("");
 			$("#topicListArea").append(data);
 		}
 
@@ -225,6 +212,15 @@
 		console.log("Hello!");
 
 			$('#topicContentDialog').modal('show');
+		}
+		
+		function setCategoryId(catId,targetObj){
+			$(".list-group-item").removeClass("active");
+			$(targetObj).addClass("active");
+			
+			categoryId = catId;
+			pageNum = 1;
+			getTopicListData();
 		}
 	</script>
 
