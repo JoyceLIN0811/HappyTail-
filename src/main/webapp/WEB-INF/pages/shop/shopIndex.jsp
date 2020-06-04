@@ -89,7 +89,7 @@
 
 
 	<div id="page">
-		<jsp:include page="shopTop.jsp" />
+		<jsp:include page="shopTop2.jsp" />
 		<br>
 		<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm text-center"
 			role="banner" style="background-image: url(images/first.jpg);">

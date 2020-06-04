@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -23,23 +24,24 @@ public class OrderItemBean {
 	
 	private Integer seqno;
 	private OrderBean orderBean;
-	private	Integer productId;
+//	private	Integer productId;
 	private String description;
 	private Integer quantity;
 	private Double unitPrice;
 	private Double discount;
+	private ProductBean pBean;
 
 	
 	public OrderItemBean() {
 		
 	}
 	
-	public OrderItemBean( Integer productId, String description, Integer quantity,
+	public OrderItemBean( ProductBean pBean, String description, Integer quantity,
 			Double unitPrice, Double discount) {
 		
 	
 	
-		this.productId = productId;
+		this.pBean = pBean;
 		this.description = description;
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
@@ -62,17 +64,32 @@ public class OrderItemBean {
 	public void setOrderBean(OrderBean orderBean) {
 		this.orderBean = orderBean;
 	}
-	@Column(name = "productId")
-	public Integer getProductId() {
-		return productId;
-	}
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
+//	@Column(name = "productId")
+//	public Integer getProductId() {
+//		return productId;
+//	}
+//	public void setProductId(Integer productId) {
+//		this.productId = productId;
+//	}
+	
+	
+	
+	
 	@Column(name = "description")
 	public String getDescription() {
 		return description;
 	}
+	
+	@OneToOne
+	@JoinColumn(name="productId")
+	public ProductBean getpBean() {
+		return pBean;
+	}
+
+	public void setpBean(ProductBean pBean) {
+		this.pBean = pBean;
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}

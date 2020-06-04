@@ -56,7 +56,7 @@
 		<label class="lab">MemberImage</label>
 		<input class="inpu" type="file" id="memberImage" name="memberImage" />
 		<p id="p"></p>		
-		<p id="p0"><img id="mi" width='250' src="memberImage/${sessionScope.LoginOK.id}" /></p>
+		<p id="p0"><img id="mi" width='300' src="memberImage/${sessionScope.LoginOK.id}" /></p>
 	
 <br>
 		<input class="btn btn-info" type="submit" name="modify" value="修改會員資料">
@@ -76,6 +76,7 @@ function readURL(input){
 		
 		let theP = document.getElementById("p");
 		let theImg = document.createElement("img");
+		theImg.style.width="300px";
 		theImg.setAttribute("id", "imgPreview");
 		theImg.setAttribute("src", "");
 		theP.appendChild(theImg);

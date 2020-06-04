@@ -298,8 +298,8 @@ $(".toCart").click(function(){
 $(".toLove").click(function(){
 	var fid = this.id;
 	
-alert(fid);
-		alert(fid.slice(1,fid.length));
+// alert(fid);
+// 		alert(fid.slice(1,fid.length));
 $.ajax({
 	method: "GET",
 	url: "<c:url value='/addToLike'/>",

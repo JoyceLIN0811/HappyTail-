@@ -47,15 +47,35 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public List<OrderBean> selectOrderByMemberId(Integer Id){
 
-		String hql = "from OrderBean o where o.memberId=:Id";
-	
-//		System.out.println(Id);
+		String hql = "from OrderBean o where o.memberId=:Id order by o.orderId desc";
 		List<OrderBean> resultList
 		= getSession().createQuery(hql,OrderBean.class).setParameter("Id", Id).getResultList();
-		System.out.println("抓取資料成功");
 		return resultList;
 	}
 	
+	
+	@Override
+	public List<OrderBean> selectOrderByMemberIdNew(Integer Id){
+		String state ="成立";
+		String hql = "from OrderBean o where o.memberId=:Id and o.state = :state order by o.orderId desc";
+		
+		 Query<OrderBean> createQuery = getSession().createQuery(hql,OrderBean.class);
+		 createQuery.setParameter("Id", Id);
+		 createQuery.setParameter("state",  state );
+		List<OrderBean> resultList =createQuery.getResultList();
+		return resultList;
+	}
+	
+	@Override
+	public List<OrderBean> selectOrderByMemberIdOld(Integer Id){
+		String state ="過期";
+		String hql = "from OrderBean o where o.memberId=:Id and o.state = :state order by o.orderId desc";
+		Query<OrderBean> createQuery = getSession().createQuery(hql,OrderBean.class);
+		 createQuery.setParameter("Id", Id);
+		 createQuery.setParameter("state",  state );
+		List<OrderBean> resultList =createQuery.getResultList();
+		return resultList;
+	}
 	
 	@Override
 	public List<OrderItemBean> getOrderItemBean(OrderBean orderBean) {
@@ -129,7 +149,7 @@ public class OrderDaoImpl implements OrderDao {
 	// 更新訂單狀態→逾時
 	@Override
 	public String overtime(int orderId) {
-		String hql = "from OrderBean where state = 成立  and orderId:=orderId";
+		String hql = "from OrderBean where state = 成立  and orderId=:orderId";
 		Query<OrderBean> createQuery = getSession().createQuery(hql, OrderBean.class);
 		OrderBean singleResult = createQuery.getSingleResult();
 		OrderBean odBean = (OrderBean) singleResult;
@@ -179,14 +199,16 @@ public class OrderDaoImpl implements OrderDao {
 		return list;
 	}
 	
-	
+	//取得全部的訂單
 	@Override
 	public List<OrderItemBean> getOib(Integer mId,Integer oId){
-		String hql ="from OrderItemBean where orderId=:oId and memberId=:";
+		String hql ="from OrderItemBean where orderBean.orderId=:oId and orderBean.memberId=:mId ";
+		System.out.println("進入dao");
+		System.out.println("mId="+mId+" oId="+oId);
 		Query<OrderItemBean> createQuery = s().createQuery(hql,OrderItemBean.class);
 		createQuery.setParameter("oId", oId);
 		createQuery.setParameter("mId", mId);
-		System.out.println("oId="+oId+" mId="+mId);
+//		System.out.println("oId="+oId+" mId="+mId);
 		List<OrderItemBean> resultList = createQuery.getResultList();
 		System.out.println(resultList.size());
 		
@@ -196,6 +218,50 @@ public class OrderDaoImpl implements OrderDao {
 		return resultList;
 	}
 	
+	
+	//取得全部付款的訂單
+	@Override
+	public List<OrderItemBean> getOibNew(Integer mId,Integer oId){
+		String hql =
+				"from OrderItemBean "
+				+ "where orderBean.orderId=:oId and "
+				+ "orderBean.memberId=:mId  order by orderBean.orderId desc";
+		System.out.println("進入dao");
+		System.out.println("mId="+mId+" oId="+oId);
+		Query<OrderItemBean> createQuery = s().createQuery(hql,OrderItemBean.class);
+		createQuery.setParameter("oId", oId);
+		createQuery.setParameter("mId", mId);
+//		System.out.println("oId="+oId+" mId="+mId);
+		List<OrderItemBean> resultList = createQuery.getResultList();
+		System.out.println(resultList.size());
+		
+		if(resultList.size()==0) {
+			return null ;
+		}
+		return resultList;
+	}
+	
+	//取得全部付款的訂單
+		@Override
+		public List<OrderItemBean> getOibOld(Integer mId,Integer oId){
+			String hql =
+					"from OrderItemBean "
+					+ "where orderBean.orderId=:oId and "
+					+ "orderBean.memberId=:mId  order by orderBean.orderId desc";
+			System.out.println("進入dao");
+			System.out.println("mId="+mId+" oId="+oId);
+			Query<OrderItemBean> createQuery = s().createQuery(hql,OrderItemBean.class);
+			createQuery.setParameter("oId", oId);
+			createQuery.setParameter("mId", mId);
+//			System.out.println("oId="+oId+" mId="+mId);
+			List<OrderItemBean> resultList = createQuery.getResultList();
+			System.out.println(resultList.size());
+			
+			if(resultList.size()==0) {
+				return null ;
+			}
+			return resultList;
+		}
 	
 	
 	

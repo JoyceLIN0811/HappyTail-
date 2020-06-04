@@ -18,7 +18,7 @@
 	<h3>會員登入</h3>
 	<br>
 		<form class="form" action="<c:url value="loginCheck" />" method="post">		
-			
+		<br>	
 			<label class="lab">Account :</label>
 				<input class="inpu" type="text" name="account"  value = "${param.account }"/>
 				<font color='red' size="-1">${requestScope.ErrorMsg.accountError }</font>

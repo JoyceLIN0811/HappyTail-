@@ -2,6 +2,7 @@ package com.happytail.shopping.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.happytail.member.model.PetMembers;
@@ -26,6 +28,8 @@ public class OrderTest {
 	SessionFactory sessionFactory;
 	@Autowired
 	OrderService Odao;
+	@Autowired
+	ServletContext context;
 	
 	@GetMapping("/selectAllOders")
 	public String selectAllOders(Model m,		
@@ -75,7 +79,7 @@ public class OrderTest {
 	}
 	
 	
-	@GetMapping("/getOrderItem.do")
+	@PostMapping("/testo")
 	public ResponseEntity<List<OrderItemBean>> getOrderItems(Model m,	
 			@RequestParam("oId") Integer oId,
 			HttpServletRequest res) {
@@ -87,6 +91,7 @@ public class OrderTest {
 		if(oib==null) {
 			return null;
 		}
+		
 
 		ResponseEntity< List<OrderItemBean>> re 
 		=new ResponseEntity<List<OrderItemBean>>(oib, HttpStatus.OK);
