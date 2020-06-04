@@ -101,11 +101,11 @@
 							<div class="fh5co-contact-info">
 								<h3 id="PetProduct">Pet Product</h3>
 								<ul>
-									<li class="icon-shopping-bag"><a href="#" id='cate1'>過往訂單</a></li>									
+									<li class="icon-shopping-bag"><a href="<c:url value='/getOrderBean.do'/>" id='cate1'>我的訂單</a></li>									
 									<li class="icon-heart2"><a href="<c:url value='/getFavorite.do'/> ">我的最愛</a></li>
 									<li class="icon-home"><a href="<c:url value='/intoCart'/> ">回首頁</a></li>
-									<li class="icon-game-controller"><a href="<c:url value='/OrderCheck'/>"  id='cate4'>上一頁</a></li>
-									<li class="icon-game-controller"><a href="<c:url value='/OrderCheck'/>"  id='cate4'>下一頁</a></li>
+									<li class="icon-game-controller"><a href="<c:url value='/showProduct2'/>"  id='cate4'>回到商城</a></li>
+									
 								</ul>
 							</div>
 
@@ -115,7 +115,7 @@
 						<div class="col-8">
 							<div align="center">
 								<table id='dtBasicExample'
-									class='table table-striped table-bordered '
+									class='table table-striped table-bordered  display'
 									style="text-align: center">
 
 									<thead>
@@ -149,7 +149,7 @@
 														pattern="#,###" 														
 														/>元</td>
 												<td style="text-align: center;">
-													<a href='<c:url value='/remove.do/${anEntry.value.productId}'/> ' >刪除</a></td>
+													<a href='<c:url value='/remove.do/${anEntry.value.productId}'/> ' class='btn btn-primary' >刪除</a></td>
 											</TR>
 
 
@@ -162,7 +162,11 @@
 											<TD align='center' class="th-sm" id='total'><fmt:formatNumber
 													value="${cart.subtotal}" pattern="#,###,###" />元</TD>
 										</TR>
-
+										<tr>
+											<TD colspan='5' style="text-align: center;" class="th-sm">
+												<a href="<c:url value='/OrderCheck'/>"  class='btn btn-primary'>確認訂單</a>
+											</TD>
+										</tr>
 									</tfoot>
 
 								</table>
