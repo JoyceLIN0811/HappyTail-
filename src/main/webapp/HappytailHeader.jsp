@@ -14,12 +14,12 @@
 	</c:if>
 		<li>
 			<c:if test="${empty LoginOK}">
-			<a href="<c:url value='login' />" title="登入">
+			<a href="<c:url value='/login' />" title="登入">
 				<i class='fas fa-user' style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
 			</a>
 			</c:if>
 			<c:if test="${ !empty LoginOK}">
-			<a href="<c:url value='logoutCheck' />" title="登出">
+			<a href="<c:url value='/logoutCheck' />" title="登出">
 				<i class='fas fa-user' style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
 			</a>
 			</c:if>
@@ -52,7 +52,7 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="<c:url value='/shopIndex'/>">Online Shop</a> 
 					<a class='dropdown-item' href="<c:url value='/Evaluationlist' />">Reservation Service</a> 
-					<a class="dropdown-item" href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1' />">Pet Forum</a>
+					<a class="dropdown-item" href="<c:url value='/forum/topiclist' />">Pet Forum</a>
 				</div></li>
 			<li class="nav-item"><a class="nav-link" href="#">Contact
 					Us</a></li>
