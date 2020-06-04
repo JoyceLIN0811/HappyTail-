@@ -6,23 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>變更密碼</title>
+<link href="css/style28.css" rel="stylesheet">
 </head>
-<body style="background-color: lightblue">
+<body>
 <jsp:include page="/HappytailHeader.jsp" />
-<h2>請重新設定您的密碼</h2>
+<div class="divbig">
+	<h5>請重新設定您的密碼 :</h5>
+	<br><br>
 	<form action="<c:url value="changePassword" />" method="post">
-		<input type="hidden" name="id" value = "${sessionScope.LoginOK.id }" />		
-		<table>
-			<tr>
-				<td>Password :	</td>
-				<td><input type="text" name="password"  value = "${param.password }"/></td>
-				<td><font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font></td>
-				
-			</tr>
-			
-		</table>
-		<button  type="submit" name="changePassword">變更密碼</button>
-	</form>	
+		<input class="inpu" type="hidden" name="id" value = "${sessionScope.LoginOK.id }" />		
+		
+		<label class="lab">Password :</label>
+		<input class="inpu" type="password" name="password"  value = "${param.password }" />
+		<br>
+		<font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font>
+		<br><br>
+		<button class="btn btn-info" type="submit" name="changePassword">變更密碼</button>
+	</form>
+</div>	
 <jsp:include page="/HappytailFooter.jsp" />
 </body>
 </html>

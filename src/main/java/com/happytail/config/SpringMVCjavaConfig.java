@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -23,13 +24,13 @@ import org.springframework.web.servlet.view.JstlView;
 		"com.happytail.reservation.controller",
 		"com.happytail.admin.controller",
 		"com.happytail.member.controller",
-		"com.happytail.general.controller",
 		"com.happytail.general.controller"
 		})
 @Import({com.happytail.config.view.ReservationView.class,
 	     com.happytail.config.view.MembersView.class,
 	     com.happytail.config.view.AdminView.class,
-	     com.happytail.config.view.ShopView.class})
+	     com.happytail.config.view.ShopView.class,
+	     com.happytail.config.view.ForumView.class})
 public class SpringMVCjavaConfig implements WebMvcConfigurer {
 
 	//Static Resources
@@ -49,7 +50,7 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 	}
 	
 	// for file upload
-	@Bean
+//	@Bean
 //	public MultipartResolver multipartResolver() {
 //		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 //		resolver.setDefaultEncoding("UTF-8");

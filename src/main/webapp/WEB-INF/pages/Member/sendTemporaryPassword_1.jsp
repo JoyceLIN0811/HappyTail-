@@ -6,28 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <title>會員臨時登入頁面</title>
+
+<link href="css/style28.css" rel="stylesheet">
 </head>
-<body style="background-color: lightblue">
+<body>
 
 <jsp:include page="/HappytailHeader.jsp" />
-
-<h2>會員臨時登入</h2>
+<div class="divbig">
+<h3>會員臨時登入頁面</h3>
 	<form action="<c:url value="sendTemporaryPassword" />" method="post">
-		<h3>請輸入您的 HappyTail 會員帳號 (您的email)</h3>
-		<table>
-			<tr>
-				<td>Account :	</td>
-				<td><input type="text" name="temporaryPasswordAccount"  value = "${param.temporaryPasswordAccount }"/></td>
-				<td><font color='red' size="-1">${errorMsg.temporaryPasswordAccountError }</font></td>
-				
-			</tr>
-			
-		</table>
-		<button  type="submit" name="sendTemporaryPassword">寄送臨時密碼</button>
+	<br><br>
+		<h5>請輸入您的 HappyTail 會員帳號 (您的email) : </h5>
+		
+			<label class="lab">Account :</label>
+			<input class="inpu" type="text" name="temporaryPasswordAccount"  value = "${param.temporaryPasswordAccount }"/>
+		<br>
+			<font color='red' size="-1">${errorMsg.temporaryPasswordAccountError }</font>
+		<br><br>
+		<button class="btn btn-info" type="submit" name="sendTemporaryPassword">寄送臨時密碼</button>
 	</form>
-
-	<hr>
-	<a href="<c:url value='/index.jsp' />">回首頁</a>
+</div>
 <jsp:include page="/HappytailFooter.jsp" />
 </body>
 </html>

@@ -6,148 +6,97 @@
 <head>
 <meta charset="UTF-8">
 <title>Pet Forum</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-	crossorigin="anonymous">
-<link href="css/Forum.css" rel="stylesheet">
+	<%@include file="/WEB-INF/pages/include/coreLibrary.jsp" %>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-		crossorigin="anonymous"></script>
-	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-	
-	<script>
-    $(document).ready(function(){
-
-
-
-
-    }
-	</script>
+<link href="<c:url value="/css/Forum.css"/> " rel="stylesheet">
 
 </head>
 <body>
 
-   <jsp:include page="/HappytailHeader.jsp" />
+	<%@include file="/HappytailHeader.jsp" %>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2" style="margin-top: 60px;">
 				<div class="list-group" id="list-tab" role="tablist">
 					<a class="list-group-item list-group-item-action active"
-						data-toggle="list" href="<c:url value='/topic/topiclist'/>" role="tab"
-						aria-controls="home">所有文章</a> 
-					<a class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/topic/topiclist?categoryId=1'/>" role="tab" aria-controls="profile">生活</a> 
-					<a clsss="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/topic/topiclist?categoryId=2'/>" role="tab" aria-controls="messages">資訊</a> 
-					<a class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/topic/topiclist?categoryId=3'/>" role="tab" aria-controls="settings">新聞</a> 
-					<a class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/topic/topiclist?categoryId=4'/>" role="tab" aria-controls="settings">發問</a> 
-					<a class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/topic/topiclist?categoryId=5'/>" role="tab" aria-controls="settings">認養</a> 
-					<a class="list-group-item list-group-item-action" data-toggle="list"
-						href="<c:url value='/topic/topiclist?categoryId=6'/>" role="tab" aria-controls="settings">其他</a>
+						data-toggle="list" href="<c:url value='/topic/topiclist'/>"
+						role="tab" aria-controls="home">所有文章</a> <a
+						class="list-group-item list-group-item-action" data-toggle="list"
+						href="<c:url value='/forum/topiclist?categoryId=1'/>" role="tab"
+						aria-controls="profile">生活</a> <a
+						class="list-group-item list-group-item-action" data-toggle="list"
+						href="<c:url value='/forum/topiclist?categoryId=2'/>" role="tab"
+						aria-controls="messages">資訊</a> <a
+						class="list-group-item list-group-item-action" data-toggle="list"
+						href="<c:url value='/forum/topiclist?categoryId=3'/>" role="tab"
+						aria-controls="settings">新聞</a> <a
+						class="list-group-item list-group-item-action" data-toggle="list"
+						href="<c:url value='/forum/topiclist?categoryId=4'/>" role="tab"
+						aria-controls="settings">發問</a> <a
+						class="list-group-item list-group-item-action" data-toggle="list"
+						href="<c:url value='/forum/topiclist?categoryId=5'/>" role="tab"
+						aria-controls="settings">認養</a> <a
+						class="list-group-item list-group-item-action" data-toggle="list"
+						href="<c:url value='/forum/topiclist?categoryId=6'/>" role="tab"
+						aria-controls="settings">其他</a>
 				</div>
 			</div>
-			<div class="col-sm-10">
-				<blockquote class="blockquote" style="margin-top: 60px;">
-					<p class="mb-0">總文章數量：<c:out value="${TopicsTotalNum}" default="0"></c:out></p>
-				</blockquote>
+			<div class="col-sm-10" style="margin-top: 60px;">
+				<div class="row">
 
-				<div style="float: right;">
-					<ul class="nav nav-pills">
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-							role="button" aria-haspopup="true" aria-expanded="false">文章排序</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="<c:url value='/topic/topiclist?tagType=hit'/>">熱門</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<c:url value='/topic/topiclist?tagType=createDate'/>">最新</a>
-							</div></li>
-					</ul>
+					<div class="col-sm-2">
+						<blockquote class="blockquote">
+							<span class="mb-0">總文章數量：<span id="totalNum"></span></span>
+
+						</blockquote>
+					</div>
+
+					<div class="col-sm-8"></div>
+
+					<div class="col-sm-2">
+						<ul class="nav nav-pills">
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+								role="button" aria-haspopup="true" aria-expanded="false">文章排序</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="#">熱門</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">最新</a>
+								</div></li>
+						</ul>
+					</div>
 				</div>
-				
-                <div class="card bg-dark text-white" style="max-width: 100%;">
-                    <div class=" card-body">
-                        <div class="row justify-content-around">
 
-                            <div class="col-md-2"> <img src="<c:url value='/img/story2.png'/>" class="card-img" alt="..."></div>
-                            <div class="col-md-2"> <img src="img/story2.png" class="card-img" alt="..."></div>
-                            <div class="col-md-2"> <img src="img/story2.png" class="card-img" alt="..."></div>
-                            <div class="col-md-2"> <img src="img/story2.png" class="card-img" alt="..."></div>
-                            <div class="col-md-2"> <img src="img/story2.png" class="card-img" alt="..."></div>
-                            <div class="col-md-2"> <img src="img/story2.png" class="card-img" alt="..."></div>
-                        </div>
-                    </div>
-                </div>
+				<div class="row justify-content-around">
 
+					<div class=" col-md-2">
+						<img src="<c:url value='/img/story2.png'/>" class="card-img"
+							alt="...">
+					</div>
+					<div class="col-md-2">
+						<img src="<c:url value='/img/story2.png'/>" class="card-img"
+							alt="...">
+					</div>
+					<div class="col-md-2">
+						<img src="<c:url value='/img/story2.png'/>" class="card-img"
+							alt="...">
+					</div>
+					<div class="col-md-2">
+						<img src="<c:url value='/img/story2.png'/>" class="card-img"
+							alt="...">
+					</div>
+					<div class="col-md-2">
+						<img src="<c:url value='/img/story2.png'/>" class="card-img"
+							alt="...">
+					</div>
+					<div class="col-md-2">
+						<img src="<c:url value='/img/story2.png'/>" class="card-img"
+							alt="...">
+					</div>
+				</div>
 				<article class="all-browsers">
-					<article class="browser bg-transparent">
-						<div class="card mb-3" style="max-width: 100%;">
-						<c:forEach varStatus="star" var="aTopicBean"
-								items="${topiclist}">
-							<div class="card-body">
-								<div class="row no-gutters">
-
-									<div class="col-md-4">
-										<p class="card-text">
-											<img src="<c:url value='/img/foot.png'/>" class="card-img" alt="..."
-												style="height: 30px; width: 40px;"> <span>${aTopicBean.username}</span>
-										</p>
-									</div>
-
-									<div class="col-md-4">
-										<p class="card-text">${aTopicBean.postTime}</p>
-									</div>
-
-									<div class="col-md-4">
-										<p class="card-text">${aTopicBean.category}</p>
-									</div>
-
-								</div>
-								<div class="row no-gutters">
-									<div class="col-md-10">
-
-										<div class="row no-gutters">
-											<div class="col-md-12" style="height: 100px;">
-												<h2 class="card-title">${aTopicBean.title}</h2>
-											</div>
-										</div>
-										<div class="row no-gutters">
-											<div class="col-md-4">
-												<i class="far fa-thumbs-up fa-2x"></i> <span
-													class="card-text">${aTopicBean.thumbsUpNum}</span>
-											</div>
-											<div class="col-md-4">
-												<i class="far fa-comment-dots fa-2x"></i> <span
-													class="card-text">${aTopicBean.replyNum}</span>
-											</div>
-											<div class="col-md-4">
-												<!-- <i class="fas fa-bookmark"></i> -->
-												<i class="far fa-bookmark fa-2x"></i> <span
-													class="card-text">FollowBtn</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<img src="image\story4.jpg" class="card-img" alt="...">
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-						</div>
+					<article id="topicListArea" class="browser bg-transparent">
 					</article>
 				</article>
 			</div>
@@ -155,6 +104,96 @@
 
 	</div>
 
+	<%@include file="/HappytailFooter.jsp" %>
+	
+	<script>
+	var contextRoot = "/happytail";
+	var topicListTemplate = "";
+	var pageNum = 1; // start from page 1
+	var categoryId = ${categoryId};
+	var tagType = ${tagType};
+
+   
+   $(document).ready(function(){
+
+	   initTemplate();
+
+		console.log(topicListTemplate);
+
+		var fakeData = { 
+				   'records':[
+				   		{
+				            "userId": 2,
+				            "username": "915",
+				            "categoryId": 1,
+				            "topicId": 18,
+				            "title": "01062020",
+				            "createDate": "2020-06-01 02:47",
+				            "imageUrl": null,
+				            "replyNum": 0,
+				            "count": 0,
+				            "likeNum": 0,
+				            "category": "生活",
+				            "isThumbsUp": null,
+				            "isFollowed": null,
+				            "isReported": null
+				        }
+				   ]
+				};
+
+
+// 		render(fakeData);
+
+		getTopicListData();
+		
+   });
+
+   function initTemplate(){
+       $.ajax({
+           url: contextRoot + "/template/topicTemplate.mst",
+          type: "get",
+         async: false,
+       success: function(template){
+    	   			topicListTemplate = $(template).filter("#topicList").html();
+               }
+       });
+   }
+
+   function getTopicListData(){
+	   var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum=" + pageNum;
+		if(tagType != null){
+			url += "&tagType=" + tagType;
+		}
+
+		if(categoryId != null){
+			url += "&categoryId=" + categoryId;
+		}
+	   
+ 		$.ajax({
+ 			url: url,
+	       type: "get",
+	      async: false,
+	    success: function(data){
+		    
+	    			render(data);
+
+					$("#totalNum").text(data.totalNum);
+	    			// check whether has next page or not
+					if(data.hasNext){
+						// to the next page
+		    			pageNum++;
+					}
+	    			
+		    	}
+ 	    });
+	}
+
+   function render(jsonObj){
+	var data = Mustache.render(topicListTemplate,jsonObj);
+	   
+	$("#topicListArea").append(data);
+  }
+</script>
 
 </body>
 

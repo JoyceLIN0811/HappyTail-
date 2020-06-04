@@ -24,8 +24,10 @@ import com.happytail.shopping.model.CartBean;
 import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.OrderItem;
 import com.happytail.shopping.model.OrderItemBean;
+import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.dao.impl.OrderItemDaoImpl;
 import com.happytail.shopping.model.service.OrderService;
+import com.happytail.shopping.model.service.ProductService;
 
 
 //確認訂單
@@ -38,6 +40,8 @@ public class ProcessCartController {
 //	OrderDao orderDao;
 	@Autowired
 	OrderItemDaoImpl oidao;
+	@Autowired
+	ProductService pdao;
 	
 	@PostMapping("/OrderSure")
 	public String OrderConfirm(Model m ,
@@ -75,6 +79,8 @@ public class ProcessCartController {
 		//新建訂單物件
 		OrderBean orderBean=
 				new OrderBean(1, totalPrice, address, orderDate,message,"成立");
+//				new OrderBean(會員	,總價格	, 地址,		 日期,		備註,"狀態");
+		
 		Set<OrderItemBean> itemSet = new HashSet<OrderItemBean>();
 		// 取出存放在購物車內的商品，放入Map型態的變數OrderItem，準備將其內的商品一個一個轉換為OrderItemBean，
 				// 然後存入items。
@@ -91,7 +97,8 @@ public class ProcessCartController {
 			System.out.println(oi);
 			String  description = "商品編號="+oi.getProductId()+" 商品名稱="+oi.getName();
 //			System.out.println(S"description="+description);
-			OrderItemBean oib =new OrderItemBean(oi.getProductId(), oi.getName(), oi.getQuantity(), oi.getUnitPrice(), oi.getDiscount());
+			ProductBean pBean = pdao.selectOne(oi.getProductId());
+			OrderItemBean oib =new OrderItemBean(pBean, oi.getName(), oi.getQuantity(), oi.getUnitPrice(), oi.getDiscount());
 			System.out.println("oib="+oib);
 			itemSet.add(oib);
 			

@@ -11,16 +11,19 @@ public class ForumView {
 	@Bean
 	public View TopicListPage() {
 		InternalResourceView view = new InternalResourceView();
-		view.setUrl("/WEB-INF/pages/forum/ForumTop.jsp");
+		view.setUrl("/WEB-INF/pages/forum/forumTop.jsp");
 		return view;
 	}
 	
+	
 	@Bean
-	public View backReservationPage() {
+	public View TopicContentPage() {
 		InternalResourceView view = new InternalResourceView();
-		view.setUrl("/WEB-INF/pages/reservation/backReservation.jsp");
+		view.setUrl("/WEB-INF/pages/forum/topicContent.jsp");
 		return view;
 	}
+	
+
 
 }
 

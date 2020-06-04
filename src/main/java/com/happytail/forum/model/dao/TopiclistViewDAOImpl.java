@@ -48,7 +48,7 @@ public class TopiclistViewDAOImpl implements TopiclistViewDAO {
 	private final String FollowOrThumbsUpTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE topicId in (:topicIdList)";
 
 	//self favorite category topic
-	private final String SelectByFavorteCategoryId = "FROM com.happytail.forum.model.TopiclistView WHERE categoryId in (:categoryId) ORDER BY createDate DESC";
+	private final String SelectByFavorteCategoryId = "FROM com.happytail.forum.model.TopiclistView WHERE categoryId in (:categoryIdList) ORDER BY createDate DESC";
 	private final String FavorateTopicCounts = "SELECT COUNT(*) FROM com.happytail.forum.model.TopiclistView WHERE categoryId in (:categoryIdList)";
 
 	//all hit topic
@@ -67,6 +67,7 @@ public class TopiclistViewDAOImpl implements TopiclistViewDAO {
 				.setFirstResult(startPosition).setMaxResults(pageInfo.getPageSize()).getResultList();
 		Query query = getSession().createQuery(AllTopicCounts);
 		Long totalCount = (Long) query.uniqueResult();
+		System.out.println("totalCount="+totalCount);
 
 		return new Page<TopiclistView>(resultList, pageInfo.getPageNum(), pageInfo.getPageSize(), totalCount);
 	}

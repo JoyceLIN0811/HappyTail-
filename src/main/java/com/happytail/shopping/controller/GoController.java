@@ -96,11 +96,20 @@ public class GoController {
 //		Integer id = mem.getId();
 		Integer a = 1;
 		List<OrderBean> list = odao.selectOrderByMemberId(a);
+		List<OrderBean> list2 = odao.selectOrderByMemberIdNew(a);
+		List<OrderBean> list3 = odao.selectOrderByMemberIdOld(a);
+		
 		System.out.println("獲取所有訂單");
 		m.addAttribute("orderList",list);
+		m.addAttribute("orderList2",list2);
+		m.addAttribute("orderList3",list3);
 		return "showOrder";
 	}
 	
-	
+	@GetMapping("/getOrderDtail.do")
+	public String getOrderDtail() {
+//		System.out.println("進入商城首頁");
+		return "showOrderDetail";
+	}
 	
 }
