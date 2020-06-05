@@ -97,16 +97,31 @@
 			<div id="topicContentDialog" class="modal" tabindex="-1" role="dialog">
 				<div class="modal-dialog modal-xl" role="document">
 				    <div class="modal-content">
-          <div class="modal-body" id="topicContent">
+          				<div class="modal-body" id="topicContent">
+						</div>
+					</div>
 				</div>
 			</div>
-			</div>
+			
+			<div id="addTopicDialog" class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-xl" role="document">
+				    <div class="modal-content">
+          				<div class="modal-body" id="addTopic">
+          				        <div class="row">
+           						 <div class="col-md-2 offset-md-6">
+               					 	<button type="button" class="btn btn-info" type="submit" name="add">發表</button>
+            					</div>
+        					</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 	<script>
 		var contextRoot = "/happytail";
 		var topicListTemplate = "";
 		var topicContentTemplate = "";
+		var addTopicTemplate = "";
 		var pageNum = 1; // start from page 1
 		var categoryId = null;
 		var tagType = null;
@@ -151,6 +166,7 @@
 							topicListTemplate = $(template).filter("#topicList").html();
 							topicContentTemplate = $(template).filter("#topicContent").html();
 							console.log(topicContentTemplate);
+							addTopicTemplate = $(template).filter("#addTopic").html();
 
 						}
 					});
@@ -192,7 +208,7 @@
 			$("#topicListArea").append(data);
 		}
 
-		function openContentDialog(topicId) {
+		function openTopicContentDialog(topicId) {
 
 						console.log("topicId = " + topicId);
 
@@ -203,7 +219,7 @@
 							type : "get",
 							async : false,
 							success : function(data) {
-								$("#topicContent").html(Mustache.render(topicContentTemplate, data));
+								$("#addTopic").html(Mustache.render(topicContentTemplate, data));
 								console.log(data);
 								
 							}
@@ -211,8 +227,29 @@
 						});
 		console.log("Hello!");
 
-			$('#topicContentDialog').modal('show');
+			$('#addTopicDialog').modal('show');
 		}
+
+		function openAddTopicDialog() {
+
+			var url = contextRoot + "/topicPost";
+
+// 			$.ajax({
+// 				url : url,
+// 				type : "POST",
+// 				async : false,
+// 				success : function(data) {
+// 					$("#topicContent").html(Mustache.render(addTopicTemplate, data));
+// 					console.log(data);
+					
+// 				}
+
+// 			});
+			console.log("Hello!");
+
+				$('#topicContentDialog').modal('show');
+}
+		
 		
 		function setCategoryId(catId,targetObj){
 			$(".list-group-item").removeClass("active");

@@ -55,6 +55,7 @@ public class TestController {
 	@GetMapping("/forum/topiclist")
 	public String getTopicListPage(@RequestParam(required = false) Integer categoryId,
 								   @RequestParam(required = false) String tagType,
+								   @RequestParam String isForumArea,
 								Model model) {
 //		if ("hit".equals(tagType)) {
 //			Page<TopiclistView> list = forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
@@ -71,6 +72,7 @@ public class TestController {
 		
 		model.addAttribute("categoryId",categoryId != null ? categoryId : "null");
 		model.addAttribute("tagType",tagType != null ? tagType : "null");
+		model.addAttribute("isForumArea", isForumArea != null ? isForumArea : "null");
 		
 		return "TopicListPage";
 	}
@@ -139,7 +141,7 @@ public class TestController {
 		return forumService.getThumbsUpList(topicId);
 	}
 
-	@PostMapping("/topic")
+	@PostMapping("/topicPost")
 	@ResponseBody
 	public Topic addTopic(@RequestBody Topic topic) {
 		return forumService.addTopic(topic);
