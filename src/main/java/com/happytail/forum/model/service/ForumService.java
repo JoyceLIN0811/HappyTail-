@@ -86,7 +86,7 @@ public class ForumService {
 
 	@Autowired
 	private NoticeDAO noticeDAO;
-	
+
 	@Autowired
 	private HistoryDAO historyDAO;
 
@@ -121,20 +121,9 @@ public class ForumService {
 				return topiclistViewDAO.getCategoryTopiclist(categoryId, pageInfo);
 			} else {
 				Page<TopiclistView> result = topiclistViewDAO.getCategoryTopiclist(categoryId, pageInfo);
-				
+
 				setExtraColumn(result.getRecords(), petMembers.getId());
 
-//				for (TopiclistView topicView : result.getRecords()) {
-//
-//					ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), petMembers.getId());
-//					topicView.setIsThumbsUp(thumbsUp != null);
-//
-//					Follow follow = followDAO.select(topicView.getTopicId(), petMembers.getId());
-//					topicView.setIsFollowed(follow != null);
-//
-//					Report report = reportDAO.select(topicView.getTopicId(), petMembers.getId());
-//					topicView.setIsReported(report != null);
-//				}
 				return result;
 			}
 
@@ -146,41 +135,16 @@ public class ForumService {
 				if (list.isEmpty()) {
 
 					Page<TopiclistView> result = topiclistViewDAO.getAllTopiclist(pageInfo);
-					
+
 					setExtraColumn(result.getRecords(), petMembers.getId());
-
-
-//					for (TopiclistView topicView : result.getRecords()) {
-//
-//						ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsThumbsUp(thumbsUp != null);
-//
-//						Follow follow = followDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsFollowed(follow != null);
-//
-//						Report report = reportDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsReported(report != null);
-//					}
 
 					return result;
 
 				} else {
 					Page<TopiclistView> result = topiclistViewDAO.getFavorateCategoryTopiclist(list, pageInfo);
-					
+
 					setExtraColumn(result.getRecords(), petMembers.getId());
 
-
-//					for (TopiclistView topicView : result.getRecords()) {
-//
-//						ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsThumbsUp(thumbsUp != null);
-//
-//						Follow follow = followDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsFollowed(follow != null);
-//
-//						Report report = reportDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsReported(report != null);
-//					}
 					return result;
 				}
 			} else {
@@ -191,11 +155,11 @@ public class ForumService {
 		}
 
 	}
-	
+
 	/**
 	 * To set isThumbsUp, isFollowed and is Reported status
 	 */
-	private void setExtraColumn(List<TopiclistView> topiclistViewList,Integer userId) {
+	private void setExtraColumn(List<TopiclistView> topiclistViewList, Integer userId) {
 		for (TopiclistView topicView : topiclistViewList) {
 
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), userId);
@@ -210,13 +174,32 @@ public class ForumService {
 	}
 
 	// get hit topiclist
-	public Page<TopiclistView> getHitTopicList(Integer categoryId, PageInfo pageInfo) {
+	public Page<TopiclistView> getHitTopicList(PetMembers petMembers,Integer categoryId, PageInfo pageInfo) {
 
 		if (categoryId != null) {
-			return topiclistViewDAO.getHitCategoryTopiclist(categoryId, pageInfo);
+
+			if (petMembers == null) {
+				return topiclistViewDAO.getHitCategoryTopiclist(categoryId, pageInfo);
+			} else {
+				Page<TopiclistView> result = topiclistViewDAO.getHitCategoryTopiclist(categoryId, pageInfo);
+
+				setExtraColumn(result.getRecords(), petMembers.getId());
+
+				return result;
+			}
+
+		}else {
+			if (petMembers == null) {
+				return topiclistViewDAO.getHitAllTopiclist(pageInfo);
+			}
+			Page<TopiclistView> result = topiclistViewDAO.getHitAllTopiclist(pageInfo);
+
+			setExtraColumn(result.getRecords(), petMembers.getId());
+
+			return result;
+			
 		}
 
-		return topiclistViewDAO.getHitAllTopiclist(pageInfo);
 	}
 
 	// get topic content
@@ -229,22 +212,22 @@ public class ForumService {
 			String type = Const.CategoryType.topicCategory;
 			String key = Integer.toString(topic.getCategoryId());
 			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
-			System.out.println("codeMap = " +codeMap);
-			
+			System.out.println("codeMap = " + codeMap);
+
 			topic.setCategory(codeMap.getValue());
 			return topic;
 		} else {
 			Topic topic = topicDAO.select(topicId);
-			
+
 			String module = Const.ModuleType.Forum;
 			String type = Const.CategoryType.topicCategory;
 			String key = Integer.toString(topic.getCategoryId());
-			
+
 			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
-			System.out.println("codeMap = " +codeMap);
-			
+			System.out.println("codeMap = " + codeMap);
+
 			topic.setCategory(codeMap.getValue());
-			
+
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			topic.setIsThumbsUp(thumbsUp != null);
 
@@ -253,8 +236,8 @@ public class ForumService {
 
 			Report report = reportDAO.select(topic.getId(), petMembers.getId());
 			topic.setIsReported(report != null);
-			
-			System.out.println("topic = "+topic);
+
+			System.out.println("topic = " + topic);
 			return topic;
 		}
 	}
@@ -268,14 +251,14 @@ public class ForumService {
 
 			Topic topic = topicDAO.select(id);
 			map.put("topicData", topic);
-			
+
 			String module = Const.ModuleType.Forum;
 			String type = Const.CategoryType.topicCategory;
 			String key = Integer.toString(topic.getCategoryId());
-			
+
 			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
 			map.put("category", codeMap.getValue());
-			
+
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			map.put("isThumbsUp", thumbsUp != null);
 
@@ -335,8 +318,8 @@ public class ForumService {
 	public Topic addTopic(Topic topic) {
 		return topicDAO.insert(topic);
 	}
-	
-	//add read history record
+
+	// add read history record
 	public History addHistory(History history) {
 		return historyDAO.insert(history);
 	}
@@ -374,17 +357,17 @@ public class ForumService {
 
 	// delete thumbsUp
 	public void removeThumbsUp(String type, Integer targetId, Integer userId) {
-		
+
 		if (type.equals("topic")) {
 			thumbsUpDAO.deleteTopicThumbsUp(type, userId, targetId);
 			System.out.println("delete topic thumbsUp");
-		}else{
+		} else {
 			thumbsUpDAO.deleteReplyThumbsUp(type, userId, targetId);
 			System.out.println("delete reply thumbsUp");
 
 		}
 		System.out.println("delete fail");
-	
+
 	}
 
 	// update follow status
@@ -402,7 +385,7 @@ public class ForumService {
 
 	// update per notice isRead status
 	public void updateIsReadStatus(Integer noticeId) {
-		
+
 		Notice notice = noticeDAO.select(noticeId);
 		notice.setIsRead(true);
 		noticeDAO.update(notice);

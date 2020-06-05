@@ -83,7 +83,7 @@ public class TestController {
 			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
 			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType) {
 		if ("hit".equals(tagType)) {
-			return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
+			return forumService.getHitTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
 		} else {
 			return forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
 		}
@@ -143,7 +143,8 @@ public class TestController {
 
 	@PostMapping("/topicPost")
 	@ResponseBody
-	public Topic addTopic(@RequestBody Topic topic) {
+	public Topic addTopic(@ModelAttribute Topic topic) {
+		System.out.println(topic);
 		return forumService.addTopic(topic);
 	}
 

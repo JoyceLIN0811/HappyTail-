@@ -20,13 +20,27 @@
 		<div class="row">
 			<div class="col-sm-2" style="margin-top: 60px;">
 				<div class="list-group" id="list-tab" role="tablist">
-					<button type="button" class="list-group-item list-group-item-action active" onclick="setCategoryId(null,this)">所有文章</button>
-					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(1,this)">生活</button>
-					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(2,this)">資訊</button>
-					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(3,this)">新聞</button>
-					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(4,this)">發問</button>
-					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(5,this)">認養</button>
-					<button type="button" class="list-group-item list-group-item-action" onclick="setCategoryId(6,this)">其他</button>
+					<button type="button"
+						class="list-group-item list-group-item-action active"
+						onclick="setCategoryId(null,this)">所有文章</button>
+					<button type="button"
+						class="list-group-item list-group-item-action"
+						onclick="setCategoryId(1,this)">生活</button>
+					<button type="button"
+						class="list-group-item list-group-item-action"
+						onclick="setCategoryId(2,this)">資訊</button>
+					<button type="button"
+						class="list-group-item list-group-item-action"
+						onclick="setCategoryId(3,this)">新聞</button>
+					<button type="button"
+						class="list-group-item list-group-item-action"
+						onclick="setCategoryId(4,this)">發問</button>
+					<button type="button"
+						class="list-group-item list-group-item-action"
+						onclick="setCategoryId(5,this)">認養</button>
+					<button type="button"
+						class="list-group-item list-group-item-action"
+						onclick="setCategoryId(6,this)">其他</button>
 				</div>
 			</div>
 			<div class="col-sm-10" style="margin-top: 60px;">
@@ -47,9 +61,11 @@
 								class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 								role="button" aria-haspopup="true" aria-expanded="false">文章排序</a>
 								<div class="dropdown-menu">
-									<button type="button" class="dropdown-item" onclick="setTagType(null)">最新</button>
+									<button type="button" class="dropdown-item"
+										onclick="setTagType(null)">最新</button>
 									<div class="dropdown-divider"></div>
-									<button type="button" class="dropdown-item" onclick="setTagType('hit')">熱門</button>
+									<button type="button" class="dropdown-item"
+										onclick="setTagType('hit')">熱門</button>
 								</div></li>
 						</ul>
 					</div>
@@ -93,29 +109,92 @@
 
 
 	<%@include file="/HappytailFooter.jsp"%>
-	
-			<div id="topicContentDialog" class="modal" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-xl" role="document">
-				    <div class="modal-content">
-          				<div class="modal-body" id="topicContent">
+
+	<div id="topicContentDialog" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-body" id="topicContent"></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="addTopicDialog" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-body" id="addTopic">
+					<div class="row justify-content-md-center">
+						<div class="col-2">
+							<blockquote class="flow-text left">發表文章</blockquote>
+						</div>
+						<div class="col-9"></div>
+						<div class="col-1">
+							<i class="fas fa-times fa-2x"></i>
+						</div>
+					</div>
+					<form id="addTopicForm">
+						<div class="form-group">
+
+							<div class="row justify-content-md-center">
+								<div class="col-12">
+									<div class="form-check" style="margin-top: 15px;">
+										<input class="form-check-input" type="radio" name="categoryId"
+											id="life" value="1" required="required"> <label
+											class="form-check-label" for="life"> 生活 </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="categoryId"
+											id="knowledge" value="2"> <label
+											class="form-check-label" for="knowledge"> 資訊 </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="categoryId"
+											id="news" value="3"> <label class="form-check-label"
+											for="news"> 新聞 </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="categoryId"
+											id="question" value="4"> <label
+											class="form-check-label" for="question"> 發問 </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="categoryId"
+											id="adopt" value="5"> <label class="form-check-label"
+											for="adopt"> 認養 </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="categoryId"
+											id="other" value="6"> <label
+											class="form-check-label" for="other"> 其他 </label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row justify-content-md-center">
+								<div class="col-12" style="margin-top: 15px;">
+									<input name="title" class="form-control form-control-lg" type="text"
+										placeholder="Title">
+								</div>
+							</div>
+          					  <input type="hidden" name="username" value="${petMembers.username}" />
+          					  <input type="hidden" name="userId" value="${petMembers.id}" />
+
+							<div class="form-group" style="margin-top: 15px;">
+								<label for="exampleFormControlTextarea1">Content:</label>
+								<textarea name="content" class="form-control"
+									id="exampleFormControlTextarea1" rows="20" cols="40"
+									required="required"></textarea>
+							</div>
+						</div>
+					</form>
+					<div class="row">
+						<div class="col-md-2 offset-md-6">
+							<button type="button" class="btn btn-info" name="add" onclick="clickAddTopic()">發表</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<div id="addTopicDialog" class="modal" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-xl" role="document">
-				    <div class="modal-content">
-          				<div class="modal-body" id="addTopic">
-          				        <div class="row">
-           						 <div class="col-md-2 offset-md-6">
-               					 	<button type="button" class="btn btn-info" type="submit" name="add">發表</button>
-            					</div>
-        					</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		</div>
+	</div>
 
 	<script>
 		var contextRoot = "/happytail";
@@ -158,22 +237,27 @@
 		});
 
 		function initTemplate() {
-			$.ajax({
+			$
+					.ajax({
 						url : contextRoot + "/template/topicTemplate.mst",
 						type : "get",
 						async : false,
 						success : function(template) {
-							topicListTemplate = $(template).filter("#topicList").html();
-							topicContentTemplate = $(template).filter("#topicContent").html();
+							topicListTemplate = $(template)
+									.filter("#topicList").html();
+							topicContentTemplate = $(template).filter(
+									"#topicContent").html();
 							console.log(topicContentTemplate);
-							addTopicTemplate = $(template).filter("#addTopic").html();
+							addTopicTemplate = $(template).filter("#addTopic")
+									.html();
 
 						}
 					});
 		}
 
 		function getTopicListData() {
-			var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum="+ pageNum;
+			var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum="
+					+ pageNum;
 			if (tagType != null) {
 				url += "&tagType=" + tagType;
 			}
@@ -210,61 +294,75 @@
 
 		function openTopicContentDialog(topicId) {
 
-						console.log("topicId = " + topicId);
+			console.log("topicId = " + topicId);
 
-						var url = contextRoot + "/topic/" + topicId;
+			var url = contextRoot + "/topic/" + topicId;
 
-						$.ajax({
-							url : url,
-							type : "get",
-							async : false,
-							success : function(data) {
-								$("#addTopic").html(Mustache.render(topicContentTemplate, data));
-								console.log(data);
-								
-							}
+			$.ajax({
+				url : url,
+				type : "get",
+				async : false,
+				success : function(data) {
+					$("#topicContent").html(
+							Mustache.render(topicContentTemplate, data));
+					console.log(data);
 
-						});
-		console.log("Hello!");
+				}
 
-			$('#addTopicDialog').modal('show');
+			});
+			console.log("Hello!");
+
+			$('#topicContentDialog').modal('show');
 		}
 
 		function openAddTopicDialog() {
 
-			var url = contextRoot + "/topicPost";
-
-// 			$.ajax({
-// 				url : url,
-// 				type : "POST",
-// 				async : false,
-// 				success : function(data) {
-// 					$("#topicContent").html(Mustache.render(addTopicTemplate, data));
-// 					console.log(data);
-					
-// 				}
-
-// 			});
 			console.log("Hello!");
 
-				$('#topicContentDialog').modal('show');
-}
-		
-		
-		function setCategoryId(catId,targetObj){
+			$('#addTopicDialog').modal('show');
+		}
+
+		function setCategoryId(catId, targetObj) {
 			$(".list-group-item").removeClass("active");
 			$(targetObj).addClass("active");
-			
+
 			categoryId = catId;
 			pageNum = 1;
 			getTopicListData();
 		}
-		
-		function setTagType(tagTypeSrc){
+
+		function setTagType(tagTypeSrc) {
 			tagType = tagTypeSrc;
 			pageNum = 1;
 			getTopicListData();
 		}
+
+		function clickAddTopic(){
+
+			
+			console.log($(addTopicForm).serialize());
+
+			var url = contextRoot + "/topicPost";
+			var form = $(addTopicForm);
+
+			$.ajax({
+				url : url,
+				type : "POST",
+				async : false,
+				data: form.serialize(),
+				success : function(data) {
+// 					$("#addTopic")
+// 							.html(Mustache.render(addTopicTemplate, data));
+					console.log(data);
+
+				}
+
+			});
+			console.log("GoodBye!");
+
+			$('#addTopic').modal('hide')
+
+			}
 	</script>
 
 </body>
