@@ -39,6 +39,7 @@ public class AllInOneBase {
 //			doc = EcpayFunction.xmlParser(configPath);
 			/* when using testing code*/
 			String paymentConfPath = "./src/main/resources/payment_conf.xml";
+			System.out.println("paymentConfPath="+paymentConfPath);
 			doc = EcpayFunction.xmlParser(paymentConfPath);
 			
 			doc.getDocumentElement().normalize();

@@ -17,3 +17,11 @@
 	margin: 4px;
 	font-size: 90%;
 }
+
+#topicListArea .card {
+	box-shadow: 0 0 10px black;
+}
+
+#topicListArea .checked {
+	color: green;
+}
