@@ -1,5 +1,7 @@
 package com.happytail.admin.model.service;
 
+import java.util.List;
+
 public interface AdminShopService {
 	
 	//商品總數
@@ -10,5 +12,7 @@ public interface AdminShopService {
 	public Long sumOrders();
 	//商品類別數
 	public Long countProjectType();
+	
+	public List<String> adminAllOrders();
 
 }

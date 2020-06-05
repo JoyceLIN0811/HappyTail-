@@ -67,6 +67,12 @@ public class AdminMemberController {
 		return "adminIndex";
 	}
 	
+	//回前台首頁
+	@GetMapping(value = "admin-happyTail")
+	public String happyTailIndex() {
+		return "petMemberIndex";
+	}
+	
 	//選取所有會員資料
 	@GetMapping(value = "admin-AllMembers")
 	public String selectAllMembers(Model model) {

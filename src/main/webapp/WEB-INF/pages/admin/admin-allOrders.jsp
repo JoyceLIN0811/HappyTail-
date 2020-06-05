@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>會員管理</title>
+<title>訂單管理</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -272,7 +272,8 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>會員資料</h1>
+							<h1>訂單資料</h1>
+							<a href='<c:url value='admin-AllOrders-json' />'>Json</a>
 
 						</div>
 					</div>
@@ -289,28 +290,28 @@
 							<div class="card">
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="allMembers" class="table table-bordered table-striped">
+									<table id="allOrders" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
-												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>訂單編號</th>
+												<th>會員姓名</th>
+												<th>價格</th>
+												<th>購買時間</th>
+												<th>備註</th>
+												<th>狀態</th>
+												<th>修改</th>
 											</tr>
 										</thead>
 
 										<tfoot>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
-												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>訂單編號</th>
+												<th>會員姓名</th>
+												<th>價格</th>
+												<th>購買時間</th>
+												<th>備註</th>
+												<th>狀態</th>
+												<th>修改</th>
 											</tr>
 										</tfoot>
 									</table>
@@ -349,67 +350,7 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- 會員更新表單 -->
-	<div class="modal fade" id="member-update">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">修改資料</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- Form表單 -->
-					<form method='POST'>
-
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>姓名</label>
-										<input type="text" class="form-control" id="upadte-name" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>年齡</label>
-										<input type="text" class="form-control" id="upadte-age" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>生日</label>
-										<input type="date" class="form-control" id="upadte-bday" />
-									</div>
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label for="exampleInputemail">E-mail</label>
-								<input type="text" class="form-control" id="update-email" />
-							</div>
-							<div class="form-group">
-								<label for="exampleInputaddress">地址</label>
-								<input type="text" class="form-control" id="update-address" />
-							</div>
-
-							<div class="modal-footer justify-content-between">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary">修改</button>
-							</div>
-						</div>
-
-					</form>
-
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-	</div>
-	<!-- /.modal -->
+	
 
 
 
@@ -431,63 +372,61 @@
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#allMembers')
-									.DataTable(
+// 		$(document)
+// 				.ready(
+// 						function() {
+// 							$('#allMembers')
+// 									.DataTable(
 
-											{
-												searching : false,
-												"ajax" : {
-													"url" : "<c:url value='admin-allMembersJSON' />",
-													"dataSrc" : ""
-												},
+// 											{
+// 												searching : false,
+// 												"ajax" : {
+// 													"url" : "<c:url value='admin-allMembersJSON' />",
+// 													"dataSrc" : ""
+// 												},
 
-												"columns" : [
-														{
-															"data" : "username"
-														},
-														{
-															"data" : "gender"
-														},
-														{
-															"data" : "bday"
-														},
-														{
-															"data" : "email"
-														},
-														{
-															"data" : "address"
-														},
-														{
-															"data" : "status",
-															"render" : function(
-																	data, type,
-																	full, meta) {
-																if (data == 0) {
-																	return data = '<span class="badge badge-secondary">未驗證</span>';
-																} else if (data == 1) {
-																	return data = '<span class="badge badge-success">正常</span>';
-																} else if (data == 2) {
-																	return data = '<span class="badge badge-danger">停權</span>';
-																} else if (data == 3) {
-																	return data = '<span class="badge badge-info">管理者</span>'}
-															}
-														},
+// 												"columns" : [
+// 														{
+// 															"data" : "orderId"
+// 														},
+// 														{
+// 															"data" : "username"
+// 														},
+// 														{
+// 															"data" : "price"
+// 														},
+// 														{
+// 															"data" : "orderDate"
+// 														},
+		
+// 														{
+// 															"data" : "status",
+// 															"render" : function(
+// 																	data, type,
+// 																	full, meta) {
+// 																if (data == "未付款") {
+// 																	return data = '<span class="badge badge-secondary">未付款</span>';
+// 																} else if (data == "成立") {
+// 																	return data = '<span class="badge badge-success">成立</span>';
+// 																} else if (data == "過期") {
+// 																	return data = '<span class="badge badge-danger">失敗</span>';
+// 																}
+// 															}
+// 														},
 
-												],
-												columnDefs : [ {
-													//最後一行加上修改按鈕
-													"data" : "id",
-													targets : 6,
-													orderable : false,
-													render : function(data,
-															type, row, meta) {
-														return "<a href='<c:url value='admin-changeStatus/" + data + "'/>' class='btn btn-info btn-sm'<i class='fas fa-trash'></i>更改</a>";
-													}
-												} ]
-											});
+// 												],
+// 												columnDefs : [ {
+// 													//最後一行加上修改按鈕
+// 													"data" : "id",
+// 													targets : 5,
+// 													orderable : false,
+// 													render : function(data,
+// 															type, row, meta) {
+// 														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>修改</button>&emsp;"
+// 																+ "<a id='status' class='btn btn-danger btn-sm' href='<c:url value='admin-changeStatus/" + data +"' />' <i class='fas fa-trash'></i>停權</a>";
+// 													}
+// 												} ]
+// 											});
 							
 							//停權按鈕事件
 // 							$("#allMembers tbody").on("click", "#status", function () {
