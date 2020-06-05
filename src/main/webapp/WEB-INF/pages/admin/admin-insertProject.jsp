@@ -203,10 +203,11 @@
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
+
 								<li class="nav-item">
-									<a href="admin-ShoppingIndex" class="nav-link">
+									<a href="admin-InsertProject" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>總覽</p>
+										<p>新增商品</p>
 									</a>
 								</li>
 								<li class="nav-item">
@@ -216,24 +217,34 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="admin-InsertProject" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>新增商品</p>
-									</a>
-								</li>
-								<li class="nav-item">
 									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
 									</a>
 								</li>
-								<li class="nav-item">
-									<a href="admin-OrderInfo" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>訂單狀態</p>
-									</a>
-								</li>
 							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a href="admin-AllProjects-json" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>預約管理</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="admin-allMembersJSON" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>討論區管理</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="admin-happyTail" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>回首頁</p>
+							</a>
+						</li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>

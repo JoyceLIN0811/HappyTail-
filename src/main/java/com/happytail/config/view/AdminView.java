@@ -50,5 +50,13 @@ public class AdminView {
 		return view;
 	}
 	
+	//訂單列表
+	@Bean
+	public View adminAllOrders() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/admin/admin-allOrders.jsp");
+		return view;
+	}
+	
 
 }

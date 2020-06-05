@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.happytail.admin.model.service.AdminShopService;
+import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductBeanImageData;
 import com.happytail.shopping.model.dao.ProductDao;
+import com.happytail.shopping.model.service.OrderService;
 import com.happytail.shopping.model.service.ProductService;
 import com.happytail.shopping.model.service.ShowProductService;
 
@@ -42,6 +45,12 @@ public class AdminShoppingController {
 
 	@Autowired
 	ProductDao pdao;
+	
+	@Autowired
+	OrderService orderService;
+	
+	@Autowired
+	AdminShopService adminShopService;
 
 	// 回商城總覽
 	@GetMapping(value = "admin-ShoppingIndex")
@@ -53,6 +62,12 @@ public class AdminShoppingController {
 	@GetMapping(value = "admin-AllProjects")
 	public String adminAllProject() {
 		return "adminAllProject";
+	}
+	
+	//所有訂單
+	@GetMapping(value = "admin-AllOrders")
+	public String adminAllOrders() {
+		return "adminAllOrders";
 	}
 
 	// 商品列表Json
@@ -120,5 +135,14 @@ public class AdminShoppingController {
 
 		return "adminAllProject";
 	}
+	
+	//訂單列表Json
+	@GetMapping(value = "admin-AllOrders-json")
+	public ResponseEntity<List<OrderBean>> allOrdersJson() {
+		List<OrderBean> list = orderService.getAllOrderJson();
+		ResponseEntity<List<OrderBean>> re  = new ResponseEntity<>(list, HttpStatus.OK);
+		return re;
+	}
+	
 
 }

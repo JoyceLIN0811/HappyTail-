@@ -1,5 +1,7 @@
 package com.happytail.admin.model;
 
+import java.util.List;
+
 import com.happytail.shopping.model.OrderBean;
 
 public interface AdminShopDao {
@@ -15,6 +17,9 @@ public interface AdminShopDao {
 	
 	//更改訂單
 	OrderBean changeOrderStatus(Integer id);
+	
+	//所有訂單
+	public List<String> adminAllOrders();
 	
 
 }
