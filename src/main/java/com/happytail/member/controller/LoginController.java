@@ -68,6 +68,8 @@ public class LoginController {
 				}else if(pMember.getStatus() == 2) {
 					return "accountStop";
 				}else if(pMember.getStatus() == 3) {
+					session.setAttribute("LoginOK", pMember);
+					m.addAttribute("petMembers",pMember);
 					return"adminIndex";
 				}
 			
