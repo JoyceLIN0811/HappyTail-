@@ -108,7 +108,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach varStatus="vs" var="li" items="${list}">
+							<c:forEach varStatus="vs" var="li" items="${dlist}">
 								<tr>
 									<td>${li.pBean.getProductId()}</td>
 									<td>${li.pBean.getName()}</td>

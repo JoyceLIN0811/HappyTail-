@@ -1,11 +1,16 @@
 package com.happytail.config;
 
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -78,6 +83,17 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 		messageSource.setBasenames("MemberMessage", "ValidationMessages");
 		return messageSource;
 	}
+
+	@Override
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.remove(1);
+		converters.add(1, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+//		WebMvcConfigurer.super.extendMessageConverters(converters);
+	}
+	
+	
+	
+	
 	
 //	@Bean 
 //	public InternalResourceViewResolver viewResolver() {

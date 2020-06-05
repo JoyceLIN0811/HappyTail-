@@ -79,14 +79,14 @@
 							<div class="display-tc animate-box " data-animate-effect="fadeIn">
 
 								<h1>show order</h1>
-								
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 
 
 		</header>
@@ -134,10 +134,11 @@
 														<td>${ol.getState()}</td>
 														<td><input type="button" class='btn btn-primary '
 															value='查看'
-															onclick="document.getElementById('myform1').submit();">
-															<form action="<c:url value='/getOrderDtail.do1'/>"
-																method="post" id='myform1'>
-																<Input type='hidden' name='oId1' value='${ol.getOrderId()}'>
+															onclick="document.getElementById('${ol.getOrderId()}').submit();">
+															<form
+																action="<c:url value='/getOrderDtail.do${ol.getOrderId()}'/>"
+																method="post" id='${ol.getOrderId()}'>
+																<Input type='hidden' value='${ol.getOrderId()}'>
 															</form></td>
 													</tr>
 												</c:forEach>
@@ -174,12 +175,14 @@
 														<td>${ol2.getState()}</td>
 														<td><input type="button" class='btn btn-primary '
 															value='查看'
-															onclick="document.getElementById('myform').submit();">
-															<form action="<c:url value='/getOrderDtail.do2'/>"
-																method="POST" id='myform'>
-																<Input type='hidden' name='oId2' value='${ol2.getOrderId()}'>
+															onclick="document.getElementById('m${ol2.getOrderId()}').submit();">
+															<form
+																action="<c:url value='/getOrderDtail.do${ol2.getOrderId()}'/>"
+																method="POST" id='m${ol2.getOrderId()}'>
+																<Input type='hidden' value='${ol2.getOrderId()}'>
 															</form></td>
-														<td><button class='btn btn-primary '>付款</button></td>
+														<td><a href="<c:url value='/getGreen.do'/> "
+															class='btn btn-primary '>付款</a></td>
 													</tr>
 												</c:forEach>
 
@@ -213,10 +216,11 @@
 														<td>${ol3.getState()}</td>
 														<td><input type="button" class='btn btn-primary '
 															value='查看'
-															onclick="document.getElementById('myform2').submit();">
-															<form action="<c:url value='/getOrderDtail.do3'/>"
-																method="POST" id='myform2'>
-																<Input type='hidden' name='oId3' value='${ol3.getOrderId()}'>
+															onclick="document.getElementById('my${ol3.getOrderId()}').submit();">
+															<form
+																action="<c:url value='/getOrderDtail.do/getOrderDtail.do${ol3.getOrderId()}'/>"
+																method="POST" id='my${ol3.getOrderId()}'>
+																<Input type='hidden' value='${ol3.getOrderId()}'>
 															</form></td>
 													</tr>
 												</c:forEach>

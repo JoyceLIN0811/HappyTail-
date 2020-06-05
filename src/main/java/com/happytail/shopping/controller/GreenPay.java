@@ -1,21 +1,22 @@
 package com.happytail.shopping.controller;
 
-import java.io.UnsupportedEncodingException;
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutCVS;
-import ecpay.payment.integration.domain.AioCheckOutDevide;
 import ecpay.payment.integration.domain.InvoiceObj;
+
+
 @Controller
 public class GreenPay {
 	//開啟綠界交易
@@ -124,10 +125,12 @@ public class GreenPay {
 //		String form = all.aioCheckOut(obj, null);
 //		return form;
 //	}
-	
+	@ResponseBody
 	@GetMapping("/getGreen.do")
 	public String getGreen(Model m) {
-		initial();
+		try {
+			
+			AllInOne all = new AllInOne("");
 		AioCheckOutCVS obj = new AioCheckOutCVS();
 		InvoiceObj invoice = new InvoiceObj();
 		UUID uid = UUID.randomUUID();
@@ -140,7 +143,7 @@ public class GreenPay {
 		obj.setMerchantTradeDate(strBeginDate); //設定MerchantTradeDate 合作特店交易時間，請以 yyyy/MM/dd HH:mm:ss格式帶入
 		obj.setTotalAmount("10000");
 		obj.setTradeDesc("商品");//交易描述
-		obj.setItemName("寵毛往商品");	
+		obj.setItemName("Happy Tail商品");	
 		obj.setReturnURL("http://211.23.128.214:5000");
 		obj.setNeedExtraPaidInfo("N");
 		obj.setStoreExpireDate("3");
@@ -165,6 +168,10 @@ public class GreenPay {
 		invoice.setInvoiceItemTaxType("1");
 		String form = all.aioCheckOut(obj, invoice);
 		return form;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

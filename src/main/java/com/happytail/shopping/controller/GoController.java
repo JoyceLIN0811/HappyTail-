@@ -108,36 +108,49 @@ public class GoController {
 		return "showOrder";
 	}
 	
-	@PostMapping("/getOrderDtail.do1")
-	public String getOrderDtail1(Model m,@RequestParam("oId1") Integer oId) {
+//	@PostMapping("/getOrderDtail.do1")
+//	public String getOrderDtail1(Model m,@RequestParam("oId1") Integer oId) {
+//		System.out.println(oId);
+//		OrderBean oBean = odao.selectOrder(oId);
+//		List<OrderItemBean> dlist = odao.getOrderItemBean(oBean);
+//		
+//		m.addAttribute("dlist",dlist);
+//		System.out.println("dlist="+dlist);
+//		return "showOrderDetail";
+//	}
+//	
+//	@PostMapping("/getOrderDtail.do2")
+//	public String getOrderDtail2(Model m,@RequestParam("oId2") Integer oId) {
+//		System.out.println("oId="+oId);
+//		OrderBean oBean = odao.selectOrder(oId);
+//		List<OrderItemBean> dlist = odao.getOrderItemBean(oBean);
+//		
+//		m.addAttribute("dlist",dlist);
+//		System.out.println(dlist);
+//		return "showOrderDetail";
+//	}
+//	
+//	@PostMapping("/getOrderDtail.do3")
+//	public String getOrderDtail3(Model m,@RequestParam("oId3") Integer oId) {
+//		System.out.println(oId);
+//		OrderBean oBean = odao.selectOrder(oId);
+//		List<OrderItemBean> dlist = odao.getOrderItemBean(oBean);
+//	
+//		m.addAttribute("dlist",dlist);
+//		System.out.println(dlist);
+//		return "showOrderDetail";
+//	}
+	
+	@PostMapping("/getOrderDtail.do{oId}")
+	public String getOrderDtail(Model m,@PathVariable("oId")Integer oId) {
 		System.out.println(oId);
 		OrderBean oBean = odao.selectOrder(oId);
-		List<OrderItemBean> list = odao.getOrderItemBean(oBean);
-		m.addAttribute("list",list);
-		System.out.println(list);
+		List<OrderItemBean> dlist = odao.getOrderItemBean(oBean);
+		
+		m.addAttribute("dlist",dlist);
+		System.out.println(dlist);
 		return "showOrderDetail";
 	}
-	
-	@PostMapping("/getOrderDtail.do2")
-	public String getOrderDtail2(Model m,@RequestParam("oId2") Integer oId) {
-		System.out.println("oId="+oId);
-		OrderBean oBean = odao.selectOrder(oId);
-		List<OrderItemBean> list = odao.getOrderItemBean(oBean);
-		m.addAttribute("list",list);
-		System.out.println(list);
-		return "showOrderDetail";
-	}
-	
-	@PostMapping("/getOrderDtail.do3")
-	public String getOrderDtail3(Model m,@RequestParam("oId3") Integer oId) {
-		System.out.println(oId);
-		OrderBean oBean = odao.selectOrder(oId);
-		List<OrderItemBean> list = odao.getOrderItemBean(oBean);
-		m.addAttribute("list",list);
-		System.out.println(list);
-		return "showOrderDetail";
-	}
-	
 	
 	
 }

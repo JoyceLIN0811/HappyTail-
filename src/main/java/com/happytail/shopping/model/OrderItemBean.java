@@ -64,17 +64,8 @@ public class OrderItemBean {
 	public void setOrderBean(OrderBean orderBean) {
 		this.orderBean = orderBean;
 	}
-//	@Column(name = "productId")
-//	public Integer getProductId() {
-//		return productId;
-//	}
-//	public void setProductId(Integer productId) {
-//		this.productId = productId;
-//	}
-	
-	
-	
-	
+
+
 	@Column(name = "description")
 	public String getDescription() {
 		return description;
