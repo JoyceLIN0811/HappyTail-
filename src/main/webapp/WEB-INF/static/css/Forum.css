@@ -22,6 +22,30 @@
 	box-shadow: 0 0 10px black;
 }
 
-#topicListArea .checked {
+#topicListArea
+.checked ,
+#topicContentDialog
+.checked{
 	color: #0d47a1;
+}
+
+.side-block {
+	width: 50px;
+	margin: 0
+}
+
+.center-block {
+    width: calc(100% - (100px));
+	margin: 0
+}
+
+.replyList {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 30px;
+}
+
+.side-block img {
+	padding-top: 10px;
+	width: 100%;
 }

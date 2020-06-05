@@ -114,6 +114,7 @@
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-body" id="topicContent"></div>
+				<div class="modal-body" id="replyContentList"></div>
 			</div>
 		</div>
 	</div>
@@ -201,7 +202,9 @@
 		var topicListTemplate = "";
 		var topicContentTemplate = "";
 		var addTopicTemplate = "";
-		var pageNum = 1; // start from page 1
+		var replyListTemplate = "";
+		var topicListPageNum = 1; // start from page 1
+		var replyListPageNum = 1; // start from page 1
 		var categoryId = null;
 		var tagType = null;
 
@@ -237,19 +240,14 @@
 		});
 
 		function initTemplate() {
-			$
-					.ajax({
-						url : contextRoot + "/template/topicTemplate.mst",
-						type : "get",
-						async : false,
-						success : function(template) {
-							topicListTemplate = $(template)
-									.filter("#topicList").html();
-							topicContentTemplate = $(template).filter(
-									"#topicContent").html();
-							console.log(topicContentTemplate);
-							addTopicTemplate = $(template).filter("#addTopic")
-									.html();
+			$.ajax({
+					url : contextRoot + "/template/topicTemplate.mst",
+					type : "get",
+					async : false,
+					success : function(template) {
+						topicListTemplate = $(template).filter("#topicList").html();
+						topicContentTemplate = $(template).filter("#topicContent").html();
+						replyListTemplate = $(template).filter("#replyContentList").html();
 
 						}
 					});
@@ -257,7 +255,7 @@
 
 		function getTopicListData() {
 			var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum="
-					+ pageNum;
+					+ topicListPageNum;
 			if (tagType != null) {
 				url += "&tagType=" + tagType;
 			}
@@ -278,7 +276,7 @@
 					// check whether has next page or not
 					if (data.hasNext) {
 						// to the next page
-						pageNum++;
+						topicListPageNum++;
 					}
 
 				}
@@ -292,24 +290,52 @@
 			$("#topicListArea").append(data);
 		}
 
-		function openTopicContentDialog(topicId) {
+		function openTopicContentDialog(topicId,likeNum, replyNum) {
 
 			console.log("topicId = " + topicId);
 
-			var url = contextRoot + "/topic/" + topicId;
+			var topicurl = contextRoot + "/topic/" + topicId;
+
+			var replyurl = contextRoot + "/reply?pageSize=10&pageNum="
+			+ replyListPageNum +"&topicId=" + topicId;
+
+			var stageListObj = { stageList : [] };
 
 			$.ajax({
-				url : url,
+				url : topicurl,
 				type : "get",
 				async : false,
 				success : function(data) {
+					data.likeNum = likeNum;
+					data.replyNum = replyNum;
+					
 					$("#topicContent").html(
 							Mustache.render(topicContentTemplate, data));
 					console.log(data);
-
 				}
 
 			});
+
+			$.ajax({
+				url : replyurl,
+				type: "get",
+				async : false,
+				success : function(data){
+
+					for(let i=0 ; i<data.records.length ; i++){
+						  data.records[i].stage = 'B' + (i + 1);
+						}					
+					$("#replyContentList").html("");
+					$("#replyContentList").append(Mustache.render(replyListTemplate, data));
+
+					// check whether has next page or not
+					if (data.hasNext) {
+						// to the next page
+						replyListPageNum++;
+					}
+				}
+
+				});
 			console.log("Hello!");
 
 			$('#topicContentDialog').modal('show');

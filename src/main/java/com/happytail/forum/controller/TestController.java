@@ -130,6 +130,7 @@ public class TestController {
 
 	
 	@GetMapping("/reply")
+	@ResponseBody
 	public Page<ReplylistView> ReplyList(@SessionAttribute(required = false) PetMembers petMembers,
 			@RequestParam Integer topicId, @RequestParam Integer pageSize, @RequestParam Integer pageNum) {
 
