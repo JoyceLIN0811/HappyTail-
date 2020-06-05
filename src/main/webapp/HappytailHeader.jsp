@@ -11,12 +11,11 @@
 	</a>
 	<ul class="nav navbar-nav navbar-right navbar-top">
 	
-<<<<<<< HEAD
 	<c:if test="${!empty isForumArea}">
 		<li onclick="openAddTopicDialog()"><i class="fas fa-edit"
 			style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
 			</li>
-=======
+	</c:if>
 	<c:if test="${ !empty LoginOK}">
 		<li style="font-size: 1.4em"> Hello ,  ${sessionScope.LoginOK.username}</li>
 	</c:if>
@@ -30,24 +29,8 @@
 			<a href="<c:url value='/logoutCheck' />" title="登出">
 				<i class='fas fa-user' style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
 			</a>
->>>>>>> a38c15de1e48b75ae4a3399061eb3c051b5f3500
 			</c:if>
-			
-		<c:if test="${ !empty LoginOK}">
-			<li style="font-size: 1.4em">Hello ,
-				${sessionScope.LoginOK.username}</li>
-		</c:if>
-		<li><c:if test="${empty LoginOK}">
-				<a href="<c:url value='login' />" title="登入"> <i
-					class='fas fa-user'
-					style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
-				</a>
-			</c:if> <c:if test="${ !empty LoginOK}">
-				<a href="<c:url value='logoutCheck' />" title="登出"> <i
-					class='fas fa-user'
-					style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
-				</a>
-			</c:if></li>
+		</li>
 
 		<li><a data-toggle="tab" href="#"> <i class='fas fa-bell'
 				style='font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;'></i>
@@ -74,18 +57,9 @@
 				id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false"> Our Services </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-<<<<<<< HEAD
-					<a class="dropdown-item" href="<c:url value='/shopIndex'/>">Online
-						Shop</a> <a class='dropdown-item'
-						href="<c:url value='/Evaluationlist' />">Reservation Service</a> <a
-						class="dropdown-item"
-						href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1&isForumArea=isForumArea' />">Pet
-						Forum</a>
-=======
 					<a class="dropdown-item" href="<c:url value='/shopIndex'/>">Online Shop</a> 
 					<a class='dropdown-item' href="<c:url value='/Evaluationlist' />">Reservation Service</a> 
-					<a class="dropdown-item" href="<c:url value='/forum/topiclist' />">Pet Forum</a>
->>>>>>> a38c15de1e48b75ae4a3399061eb3c051b5f3500
+					<a class="dropdown-item" href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">Pet Forum</a>
 				</div></li>
 			<li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
 		</ul>
@@ -115,7 +89,7 @@
 	</c:if>
 	<a href="<c:url value='/shopIndex'/> ">Online Shop</a> <a
 		href="#Reservation Service">Reservation Service</a> <a
-		href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1' />">Pet Forum</a> 
+		href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">Pet Forum</a> 
 		<a class="subheader">Learn About
 		Us</a>
 
