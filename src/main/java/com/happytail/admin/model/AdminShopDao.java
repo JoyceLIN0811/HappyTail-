@@ -21,5 +21,7 @@ public interface AdminShopDao {
 	//所有訂單
 	public List<String> adminAllOrders();
 	
+	
+	
 
 }

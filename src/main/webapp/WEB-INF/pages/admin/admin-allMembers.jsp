@@ -441,7 +441,9 @@
 												searching : false,
 												"ajax" : {
 													"url" : "<c:url value='admin-allMembersJSON' />",
-													"dataSrc" : ""
+													"contentType": "application/json",
+													"dataSrc" : "",
+													
 												},
 
 												"columns" : [
@@ -480,21 +482,31 @@
 												columnDefs : [ {
 													//最後一行加上修改按鈕
 													"data" : "id",
+													
 													targets : 6,
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<a href='<c:url value='admin-changeStatus/" + data + "'/>' class='btn btn-info btn-sm'<i class='fas fa-trash'></i>更改</a>";
+														
+														return "<a  class='btn btn-info btn-sm' data-test='" + data + "'><i class='fas fa-trash'></i>更改</a>";
 													}
 												} ]
 											});
 							
 							//停權按鈕事件
-// 							$("#allMembers tbody").on("click", "#status", function () {
-					
-// 								alert(name + 'hi');
-				              
-// 				            });
+							$("#allMembers tbody").on("click", ".btn", function () {
+								var id = $(this).data("test");
+// 								alert("<c:url value='admin-changeStatus/" + id + "' />");
+								$.ajax({
+									type: "GET",
+									url: "<c:url value='admin-changeStatus/" + id + "' />",
+									data: {},
+									dataType: 'json'
+									
+																	
+									})	
+										              
+				            });
 							
 							
 						});

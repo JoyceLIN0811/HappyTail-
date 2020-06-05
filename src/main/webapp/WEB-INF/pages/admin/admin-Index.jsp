@@ -310,14 +310,13 @@
 								</a>
 							</div>
 						</div>
-
 						<div class="col-lg-3 col-6">
 							<!-- small box -->
 							<div class="small-box bg-danger">
 								<div class="inner">
-									<h3>65</h3>
+									<h3>${sumPrice}</h3>
 
-									<p>Unique Visitors</p>
+									<p>總銷售金額</p>
 								</div>
 								<div class="icon">
 									<i class="ion ion-pie-graph"></i>
@@ -331,6 +330,30 @@
 						<!-- ./col -->
 					</div>
 				</div>
+				<!-- LINE CHART -->
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">每月銷售金額</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart">
+							<canvas id="lineChart"
+								style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
 				<!-- PIE CHART -->
 				<div class="row">
 					<div class="col-md-6">
@@ -378,10 +401,13 @@
 								</div>
 							</div>
 							<!-- /.card-body -->
+
 						</div>
 						<!-- /.card -->
 
+
 					</div>
+
 				</div>
 
 
@@ -505,6 +531,34 @@
 		    
 			});
 	})
+	</script>
+	
+	//每月銷售金額
+	<script>
+	var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+	
+	var Data = {
+			labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+			datasets: [
+				
+				]
+		}
+
+	var Options = {
+			scales: {
+				yAxes: [{
+					scaleStartValue: 100
+					
+					}]
+				}
+		
+		}
+	
+	var lineChart = new Chart(lineChartCanvas, { 
+	      type: 'line',
+	      data: Data, 
+	      options: Options
+	    })
 	</script>
 </body>
 </html>

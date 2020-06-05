@@ -63,6 +63,9 @@ public class AdminMemberController {
 		Long countProjects = adShopService.countProjects();
 		model.addAttribute("countProjects", countProjects);
 		
+		//總銷售金額
+//		Long sumPrice = adShopService.sumOrders();
+//		model.addAttribute("sumPrice",sumPrice);
 
 		return "adminIndex";
 	}

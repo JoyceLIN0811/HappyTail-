@@ -37,8 +37,9 @@ public class AdminShopDaoImpl implements AdminShopDao {
 
 	@Override
 	public Long sumOrders() {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "select sum(o.totalPrice) from OrderBean o";
+		Query query = getSession().createQuery(hql);
+		return (Long) query.uniqueResult();
 	}
 
 	@Override

@@ -29,8 +29,8 @@ public class AdminShopServiceImpl implements AdminShopService{
 
 	@Override
 	public Long sumOrders() {
-		// TODO Auto-generated method stub
-		return null;
+		long sum = adsDao.sumOrders();
+		return sum;
 	}
 
 	@Override
