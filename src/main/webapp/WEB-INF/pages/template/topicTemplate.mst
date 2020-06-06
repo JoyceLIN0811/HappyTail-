@@ -213,7 +213,7 @@ $("#target").html(data);
 
 
 {{ #records }}
-<div class="card mb-3" onclick="openTopicContentDialog({{ topicId }}, {{likeNum}}, {{replyNum}})" style="max-width: 100%;">
+<div class="card mb-3" style="max-width: 100%;">
 	<div class="card-body">
 		<div class="row no-gutters">
 			<div class="col-md-4">
@@ -238,14 +238,14 @@ $("#target").html(data);
 
 				<div class="row no-gutters">
 					<div class="col-md-12" style="height: 100px;">
-						<h2 class="card-title">{{ title }}</h2>
+						<h2 class="card-title"  onclick="openTopicContentDialog({{ topicId }}, {{likeNum}}, {{replyNum}})" >{{ title }}</h2>
 					</div>
 				</div>
 
 				<div class="row no-gutters">
 
 					<div class="col-md-3">
-						<i class="{{#isThumbsUp}} fas checked {{/isThumbsUp}}{{^isThumbsUp}} far {{/isThumbsUp}} fa-thumbs-up fa-2x"></i> 
+						<i class="{{#isThumbsUp}} fas checked {{/isThumbsUp}}{{^isThumbsUp}} far {{/isThumbsUp}} fa-thumbs-up fa-2x" onclick="clickTopicThumbsUp({{ topicId }}, this)" ></i> 
 						<span class="card-text">{{ likeNum }}</span>
 					</div>
 
@@ -260,8 +260,7 @@ $("#target").html(data);
 					</div>
 
 					<div class="col-md-3">
-						<i class="{{#isFollowed}} fas checked {{/isFollowed}}{{^isFollowed}} far {{/isFollowed}} fa-bookmark fa-2x "></i> 
-						<span class="card-text">FollowBtn</span>
+						<i class="{{#isFollowed}} fas checked {{/isFollowed}}{{^isFollowed}} far {{/isFollowed}} fa-bookmark fa-2x" onclick="clickTopicFollowed({{ topicId }},this)"></i> 
 					</div>
 				</div>
 
@@ -300,7 +299,7 @@ $("#target").html(data);
                                 <span>{{username}}</span></p>
                         </div>
                         <div class="col align-self-end">
-                            <i class="fas fa-times fa-2x"></i>
+                            <i class="fas fa-times fa-2x" onclick="closeTopicContentDialog()"></i>
                         </div>
                     </div>
 
@@ -368,8 +367,15 @@ $("#target").html(data);
                         </div>
 
                         <div class="col-md-11">
-                            <input type="reply" class="form-control" id="inputReply" placeholder="Reply Here.....">
+       						<form id="addReplyForm">
+                         	   <input type="text" class="form-control" name="replyContent" placeholder="Reply Here.....">
+                         		<input type="hidden" name="username" />
+                         		<input type="hidden" name="userId" />
+                         		<input type="hidden" name="topicId" value="{{topicId}}"/>
+                         </form> 
                         </div>
+                        <button type="button" class="btn btn-primary" onclick="clickAddReply()">送出</button>
+                        
 
                     </div>
 
@@ -404,7 +410,8 @@ $("#target").html(data);
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <span class="stage-value">{{ stage }}</span>
+                                <span class="stage">{{ stage }}</span>
+                                <span class="d-none stage-value">{{ stageValue }}</span>
                             </div>
                             <div class="col-8">
                                 <span>{{ createDate }}</span>
@@ -438,7 +445,7 @@ $("#target").html(data);
         <div class="col-9">
         </div>
         <div class="col-1">
-            <i class="fas fa-times fa-2x"></i>
+            <i class="fas fa-times fa-2x" onclick="closeAddTopicDialog()"></i>
         </div>
     </div>
     <form>

@@ -110,11 +110,12 @@
 
 	<%@include file="/HappytailFooter.jsp"%>
 
-	<div id="topicContentDialog" class="modal" tabindex="-1" role="dialog">
+	<div id="topicContentDialog" class="modal vh-100" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-body" id="topicContent"></div>
 				<div class="modal-body" id="replyContentList"></div>
+				<div class="modal-body" id="addReply"></div>
 			</div>
 		</div>
 	</div>
@@ -129,7 +130,7 @@
 						</div>
 						<div class="col-9"></div>
 						<div class="col-1">
-							<i class="fas fa-times fa-2x"></i>
+							<i class="fas fa-times fa-2x" onclick="closeAddTopicDialog()"></i>
 						</div>
 					</div>
 					<form id="addTopicForm">
@@ -188,7 +189,7 @@
 						</div>
 					</form>
 					<div class="row">
-						<div class="col-md-2 offset-md-6">
+						<div class="col-md-2 offset-md-5">
 							<button type="button" class="btn btn-info" name="add" onclick="clickAddTopic()">發表</button>
 						</div>
 					</div>
@@ -256,6 +257,8 @@
 		function getTopicListData() {
 			var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum="
 					+ topicListPageNum;
+
+			
 			if (tagType != null) {
 				url += "&tagType=" + tagType;
 			}
@@ -308,6 +311,7 @@
 				success : function(data) {
 					data.likeNum = likeNum;
 					data.replyNum = replyNum;
+					data.topicId = topicId;
 					
 					$("#topicContent").html(
 							Mustache.render(topicContentTemplate, data));
@@ -324,7 +328,9 @@
 
 					for(let i=0 ; i<data.records.length ; i++){
 						  data.records[i].stage = 'B' + (i + 1);
-						}					
+						  data.records[i].stageValue = i + 1;
+						}
+									
 					$("#replyContentList").html("");
 					$("#replyContentList").append(Mustache.render(replyListTemplate, data));
 
@@ -364,7 +370,6 @@
 		}
 
 		function clickAddTopic(){
-
 			
 			console.log($(addTopicForm).serialize());
 
@@ -388,6 +393,159 @@
 
 			$('#addTopic').modal('hide')
 
+			}
+
+		function clickAddReply(){
+			console.log($("#loginUsername"));
+			console.log($("#loginUserId"));
+			console.log("text = " + $("#loginUsername").text());
+			console.log("text = " + $("#loginUserId").text());
+			console.log("val = " + $("#loginUsername").val());
+			console.log("val = " + $("#loginUserId").val());
+			
+			$("#addReplyForm input[name='username']").val($("#loginUsername").text());
+			$("#addReplyForm input[name='userId']").val($("#loginUserId").text());
+			
+			console.log($(addReplyForm).serialize());
+
+			var url = contextRoot + "/replyPost";
+			var form = $(addReplyForm);
+			console.log($(addReplyForm).serialize());
+			
+
+			$.ajax({
+				url : url,
+				type : "POST",
+				async : false,
+				data: form.serialize(),
+				success : function(data) {
+					
+						var maxStageValue = 0
+					$(".stage-value").each(function(index, element){
+						maxStageValue = parseInt($(element).text());
+						})
+						data.stageValue	= maxStageValue + 1;
+						data.stage = "B" + (maxStageValue + 1);
+
+						var replyListObj = {
+								records : [data]
+							};
+
+						console.log(data);
+						
+					$("#replyContentList").append(Mustache.render(replyListTemplate, replyListObj));
+					
+
+				}
+
+			});
+			console.log("GoodBye!");
+			}
+
+		function clickTopicThumbsUp(topicId, targetObj){
+
+			if($(targetObj).hasClass("checked")){
+
+				var url = contextRoot + "/myPage/removeThumbsUp/topic/" + $("#loginUserId").text()+ "/" + topicId;
+				
+				console.log($(targetObj).hasClass("checked"));
+				
+				$.ajax({
+					url : url,
+					type : "DELETE",
+					async : false,
+					success : function(data) {
+						$(targetObj).attr("class", "far fa-thumbs-up fa-2x");
+						 var likeValue = parseInt($(targetObj).next().text());
+						 likeValue--;
+						 $(targetObj).next().text(likeValue);
+					
+						}
+					});
+				
+			}else{
+				
+				var url = contextRoot + "/thumbsUpPost";
+				var dataObj = {
+							type : "topic",
+							topicId : topicId, 
+							replyId : null,
+							userId : $("#loginUserId").text(),
+							username : $("#loginUsername").text(),	
+							categoryId :1
+						}
+				console.log(dataObj);
+				console.log($(targetObj).hasClass("checked"));
+				
+				$.ajax({
+					url : url,
+					type : "POST",
+					async : false,
+					data : JSON.stringify(dataObj),
+					contentType : "application/json",
+					success : function(data) {
+							$(targetObj).attr("class", "fas checked  fa-thumbs-up fa-2x");
+							 var likeValue = parseInt($(targetObj).next().text());
+							 likeValue++;
+							 $(targetObj).next().text(likeValue);
+					
+						}
+				});
+				
+			}
+			
+	}
+
+		function clickTopicFollowed(topicId,targetObj){
+
+			if($(targetObj).hasClass("checked")){
+
+				var url = contextRoot + "/myPage/removeFollow/" + $("#loginUserId").text()+ "/" + topicId;
+				
+				console.log($(targetObj).hasClass("checked"));
+				
+				$.ajax({
+					url : url,
+					type : "DELETE",
+					async : false,
+					success : function(data) {
+						$(targetObj).attr("class", "far fa-bookmark fa-2x");
+					
+						}
+					});
+				}else{
+					var url = contextRoot + "/followPost";
+					var dataObj = {
+							topicId : topicId, 
+							userId : $("#loginUserId").text(),
+							username :$("#loginUsername").text(),	
+							}
+					console.log(dataObj);
+	
+					console.log($(targetObj).hasClass("checked"));
+			
+					$.ajax({
+						url : url,
+						type : "POST",
+						async : false,
+						data : JSON.stringify(dataObj),
+						contentType : "application/json",
+						success : function(data) {
+							$(targetObj).attr("class", "fas checked fa-bookmark fa-2x");
+				
+						}
+				});
+			}
+				
+		}
+
+
+		function closeTopicContentDialog(topicId,targetObj){
+			$('#topicContentDialog').modal('hide')
+			}
+
+		function closeAddTopicDialog(topicId,targetObj){
+			$('#addTopicDialog').modal('hide')
 			}
 	</script>
 

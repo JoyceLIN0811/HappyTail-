@@ -101,9 +101,9 @@ public class TestController {
 	@GetMapping("/topic/{topicId}")
 	@ResponseBody
 	public Topic TopicContent(@SessionAttribute(required = false) PetMembers petMembers,
-			@PathVariable Integer topicId) {
-		
-		
+			@PathVariable Integer topicId, Model model) {
+		model.addAttribute("topicId", topicId != null ? topicId : "null");
+
 		return forumService.getTopicContent(petMembers, topicId);
 	}
 
@@ -149,18 +149,21 @@ public class TestController {
 		return forumService.addTopic(topic);
 	}
 
-	@PostMapping("/reply")
+	@PostMapping("/replyPost")
+	@ResponseBody
 	public Reply addReply(@ModelAttribute Reply reply) {
 		return forumService.addReply(reply);
 	}
 
-	@PostMapping("/thumbsUp")
-	public ThumbsUp addThumbsUp(@ModelAttribute ThumbsUp thumbsUp, @RequestParam(required = false) Integer replyId) {
+	@PostMapping("/thumbsUpPost")
+	@ResponseBody
+	public ThumbsUp addThumbsUp(@RequestBody ThumbsUp thumbsUp, @RequestParam(required = false) Integer replyId) {
 		return forumService.addThumbsUp(thumbsUp, replyId);
 	}
 
-	@PostMapping("/follow")
-	public Follow addFollowTopic(@ModelAttribute Follow follow) {
+	@PostMapping("/followPost")
+	@ResponseBody
+	public Follow addFollowTopic(@RequestBody Follow follow) {
 		return forumService.addFollowTopic(follow);
 	}
 
@@ -257,20 +260,24 @@ public class TestController {
 	}
 	
 	@DeleteMapping("/myPage/removeThumbsUp/{type}/{userId}/{topicId}")
-	public void removeThumbsUpViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,
+	@ResponseBody
+	public Map<String,String> removeThumbsUpViaMyPage(@SessionAttribute PetMembers petMembers,
 			@PathVariable Integer topicId, @PathVariable String type, @PathVariable Integer userId) {
 		fourmMemberService.removeThumbsUp(type, topicId, petMembers, userId);
+		
+		return Collections.singletonMap("status", "delete success");
 	}
 	
 	@DeleteMapping("/myPage/removeHistory/{topicId}")
-	public void removeThumbsUpViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,
+	public void removeThumbsUpViaMyPage(@SessionAttribute PetMembers petMembers,
 			@PathVariable Integer topicId, @RequestParam Integer userId) {
 		fourmMemberService.removeHistory(petMembers, topicId, userId);
 	}
 	
-	@DeleteMapping("/myPage/removeFollow/{topicId}")
-	public void removeFollowViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,
-			@PathVariable Integer topicId, @RequestParam Integer userId) {
+	@DeleteMapping("/myPage/removeFollow/{userId}/{topicId}")
+	@ResponseBody
+	public void removeFollowViaMyPage(@SessionAttribute PetMembers petMembers,
+			@PathVariable Integer topicId, @PathVariable Integer userId) {
 	fourmMemberService.removeFollow(topicId, petMembers, userId);
 	}
 	
