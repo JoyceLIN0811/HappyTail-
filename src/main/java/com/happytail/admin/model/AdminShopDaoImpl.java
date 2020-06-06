@@ -36,10 +36,19 @@ public class AdminShopDaoImpl implements AdminShopDao {
 	}
 
 	@Override
-	public Long sumOrders() {
-		String hql = "select sum(o.totalPrice) from OrderBean o";
+	public Double sumOrders() {
+		String sql = "select sum(totalPrice) from Orders where state = '完成'";
+		Query query = getSession().createSQLQuery(sql);
+		
+		return (Double) query.uniqueResult();
+	}
+	
+	//未處理訂單
+	@Override
+	public Long unChickOrders() {
+		String hql = "select count(o.state) from OrderBean o where state = '已付款'";
 		Query query = getSession().createQuery(hql);
-		return (Long) query.uniqueResult();
+		return (Long)query.uniqueResult();
 	}
 
 	@Override
@@ -62,5 +71,18 @@ public class AdminShopDaoImpl implements AdminShopDao {
 		List<String> list = query.getResultList();
 		return list;
 	}
+
+	//每月銷售額
+	@Override
+	public List<Long> sumOrdersByMonth() {
+		String sql = "select sum(totalPrice) as total from Orders "
+				+ "where orderDate between '2019/01/01' and '2019/12/31' "
+				+ "group by MONTH(orderDate)";
+		Query<Long> query = getSession().createSQLQuery(sql);
+		List<Long> list = query.getResultList();
+		return list;
+	}
+
+
 
 }

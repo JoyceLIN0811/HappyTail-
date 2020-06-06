@@ -269,7 +269,7 @@
 								<div class="icon">
 									<i class="ion ion-bag"></i>
 								</div>
-								<a href="#" class="small-box-footer">
+								<a href="admin-AllProjects" class="small-box-footer">
 									More info
 									<i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -297,7 +297,7 @@
 							<!-- small box -->
 							<div class="small-box bg-success">
 								<div class="inner">
-									<h3>53</h3>
+									<h3>${unchickOrders}</h3>
 
 									<p>未處理訂單</p>
 								</div>
@@ -315,13 +315,12 @@
 							<div class="small-box bg-danger">
 								<div class="inner">
 									<h3>${sumPrice}</h3>
-
 									<p>總銷售金額</p>
 								</div>
 								<div class="icon">
 									<i class="ion ion-pie-graph"></i>
 								</div>
-								<a href="#" class="small-box-footer">
+								<a href="admin-AllOrders" class="small-box-footer">
 									More info
 									<i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -347,7 +346,7 @@
 					<div class="card-body">
 						<div class="chart">
 							<canvas id="lineChart"
-								style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+								style="min-height: 250px; height: 450px; max-height: 450px; max-width: 100%;"></canvas>
 						</div>
 					</div>
 					<!-- /.card-body -->
@@ -536,28 +535,51 @@
 	//每月銷售金額
 	<script>
 	var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-	
-	var Data = {
-			labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-			datasets: [
-				
-				]
-		}
 
-	var Options = {
-			scales: {
-				yAxes: [{
-					scaleStartValue: 100
-					
-					}]
-				}
-		
-		}
+
 	
 	var lineChart = new Chart(lineChartCanvas, { 
 	      type: 'line',
-	      data: Data, 
-	      options: Options
+	      data: {
+	    	  labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+	    	  datasets: [{
+	    		  label: "金額",
+	              lineTension: 0.1,
+	              backgroundColor: "rgba(75,192,192,0.4)",
+	              borderColor: "rgba(75,192,192,1)",
+	              borderCapStyle: 'butt',
+	              borderDash: [],
+	              borderDashOffset: 0.0,
+	              borderJoinStyle: 'miter',
+	              pointBorderColor: "rgba(75,192,192,1)",
+	              pointBackgroundColor: "#fff",
+	              pointBorderWidth: 1,
+	              pointHoverRadius: 5,
+	              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	              pointHoverBorderColor: "rgba(220,220,220,1)",
+	              pointHoverBorderWidth: 2,
+	              pointRadius: 5,
+	              pointHitRadius: 10,         
+	    		  data: [${list2[0]},${list2[1]},${list2[2]},${list2[3]},${list2[4]},${list2[5]},${list2[6]},${list2[7]},${list2[8]},${list2[9]},${list2[10]},${list2[11]}],
+    			  borderWidth: 5
+		    	  }  
+	 		  ]
+		      },
+		      
+		      options: {
+		          scales: {
+		              yAxes: [{
+		                  ticks: {
+		                	  fontSize: 20
+		                  }
+		              }],
+		              xAxes: [{
+		                  ticks: {
+		                	  fontSize: 20
+		                  }
+		              }]
+		          }
+		      }
 	    })
 	</script>
 </body>

@@ -436,12 +436,11 @@
 						function() {
 							$('#allMembers')
 									.DataTable(
-
 											{
-												searching : false,
+												"searching" : false,
 												"ajax" : {
 													"url" : "<c:url value='admin-allMembersJSON' />",
-													"contentType": "application/json",
+													
 													"dataSrc" : "",
 													
 												},
@@ -479,7 +478,8 @@
 														},
 
 												],
-												columnDefs : [ {
+												columnDefs : [ 
+													{
 													//最後一行加上修改按鈕
 													"data" : "id",
 													
@@ -488,9 +488,10 @@
 													render : function(data,
 															type, row, meta) {
 														
-														return "<a  class='btn btn-info btn-sm' data-test='" + data + "'><i class='fas fa-trash'></i>更改</a>";
-													}
-												} ]
+														return "<a class='btn btn-info btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>更改</a>";
+													  }
+												    }
+													]
 											});
 							
 							//停權按鈕事件
@@ -498,13 +499,19 @@
 								var id = $(this).data("test");
 // 								alert("<c:url value='admin-changeStatus/" + id + "' />");
 								$.ajax({
+									async:false,
 									type: "GET",
 									url: "<c:url value='admin-changeStatus/" + id + "' />",
 									data: {},
-									dataType: 'json'
+									dataType: 'json',
+									success: function() {
+										alert("修改成功");
+										$('#allMembers').DataTable().ajax.reload();
+										}
 									
 																	
 									})	
+								
 										              
 				            });
 							

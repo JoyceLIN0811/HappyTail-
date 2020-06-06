@@ -28,8 +28,8 @@ public class AdminShopServiceImpl implements AdminShopService{
 	}
 
 	@Override
-	public Long sumOrders() {
-		long sum = adsDao.sumOrders();
+	public Double sumOrders() {
+		Double sum = adsDao.sumOrders();
 		return sum;
 	}
 
@@ -42,6 +42,18 @@ public class AdminShopServiceImpl implements AdminShopService{
 	@Override
 	public List<String> adminAllOrders() {
 		List<String> list = adsDao.adminAllOrders();
+		return list;
+	}
+
+	@Override
+	public Long unChickOrders() {
+		Long count = adsDao.unChickOrders();
+		return count;
+	}
+
+	@Override
+	public List<Long> sumOrdersByMonth() {
+		List<Long> list = adsDao.sumOrdersByMonth();
 		return list;
 	}
 

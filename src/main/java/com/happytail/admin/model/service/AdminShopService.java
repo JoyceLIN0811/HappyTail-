@@ -9,9 +9,13 @@ public interface AdminShopService {
 	//訂單總數
 	public Long countOrders();
 	//商品銷售金額
-	public Long sumOrders();
+	public Double sumOrders();
 	//商品類別數
 	public Long countProjectType();
+	//未處理訂單數
+	public Long unChickOrders();
+	//每月銷售額
+	public List<Long> sumOrdersByMonth();
 	
 	public List<String> adminAllOrders();
 

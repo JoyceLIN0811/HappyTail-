@@ -303,6 +303,18 @@
 											</tr>
 										</thead>
 
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>david</td>
+												<td>133</td>
+												<td>2029-12-22</td>
+												<td></td>
+												<td>成立</td>
+												<td>1</td>
+											</tr>
+										</tbody>
+
 										<tfoot>
 											<tr>
 												<th>訂單編號</th>
@@ -350,7 +362,7 @@
 	</div>
 	<!-- ./wrapper -->
 
-	
+
 
 
 
@@ -371,72 +383,8 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
+	//所有訂單
 	<script>
-// 		$(document)
-// 				.ready(
-// 						function() {
-// 							$('#allMembers')
-// 									.DataTable(
-
-// 											{
-// 												searching : false,
-// 												"ajax" : {
-// 													"url" : "<c:url value='admin-allMembersJSON' />",
-// 													"dataSrc" : ""
-// 												},
-
-// 												"columns" : [
-// 														{
-// 															"data" : "orderId"
-// 														},
-// 														{
-// 															"data" : "username"
-// 														},
-// 														{
-// 															"data" : "price"
-// 														},
-// 														{
-// 															"data" : "orderDate"
-// 														},
-		
-// 														{
-// 															"data" : "status",
-// 															"render" : function(
-// 																	data, type,
-// 																	full, meta) {
-// 																if (data == "未付款") {
-// 																	return data = '<span class="badge badge-secondary">未付款</span>';
-// 																} else if (data == "成立") {
-// 																	return data = '<span class="badge badge-success">成立</span>';
-// 																} else if (data == "過期") {
-// 																	return data = '<span class="badge badge-danger">失敗</span>';
-// 																}
-// 															}
-// 														},
-
-// 												],
-// 												columnDefs : [ {
-// 													//最後一行加上修改按鈕
-// 													"data" : "id",
-// 													targets : 5,
-// 													orderable : false,
-// 													render : function(data,
-// 															type, row, meta) {
-// 														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>修改</button>&emsp;"
-// 																+ "<a id='status' class='btn btn-danger btn-sm' href='<c:url value='admin-changeStatus/" + data +"' />' <i class='fas fa-trash'></i>停權</a>";
-// 													}
-// 												} ]
-// 											});
-							
-							//停權按鈕事件
-// 							$("#allMembers tbody").on("click", "#status", function () {
-					
-// 								alert(name + 'hi');
-				              
-// 				            });
-							
-							
-						});
 		
 	</script>
 </body>

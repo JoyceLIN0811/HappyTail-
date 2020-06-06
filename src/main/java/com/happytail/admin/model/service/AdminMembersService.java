@@ -15,6 +15,7 @@ public interface AdminMembersService {
 	// 所有女性會員總數
 	public Long countFemale();
 	
+	//年齡分布
 	public List<Long> age();
 
 	// 更改會員狀態

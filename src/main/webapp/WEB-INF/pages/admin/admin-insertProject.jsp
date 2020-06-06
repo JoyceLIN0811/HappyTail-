@@ -253,9 +253,17 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6"></div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 			<section class="content">
-				<div class="col">
-					<!-- general form elements -->
+				<!-- general form elements -->
+				<div class="container-fluid">
 					<div class="card card-primary">
 						<div class="card-header">
 							<h3 class="card-title">新增商品</h3>
@@ -264,17 +272,33 @@
 						<!-- form start -->
 						<form:form method="POST" modelAttribute="productBean" enctype='multipart/form-data'>
 							<div class="card-body">
-								<div class="form-group">
-									<label for="exampleInputEmail1">商品名稱</label>
-									<form:input path='name' class="form-control" />
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputEmail1">商品名稱</label>
+											<form:input path='name' class="form-control" />
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">商品價格</label>
+											<form:input path='price' class="form-control" />
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">商品庫存</label>
+											<form:input path='amount' class="form-control" />
+										</div>
+									</div>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputPassword1">商品價格</label>
-									<form:input path='price' class="form-control" />
+									<label for="exampleInputPassword1">商品種類</label>
+									<form:input path='categoryId' class="form-control" />
 								</div>
 								<div class="form-group">
-									<label for="exampleInputPassword1">商品數量</label>
-									<form:input path='amount' class="form-control" />
+									<label for="exampleInputPassword1">商品狀態</label>
+									<form:input path='status' class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品描述</label>
@@ -301,6 +325,7 @@
 						</form:form>
 					</div>
 				</div>
+
 			</section>
 		</div>
 		<!-- /.content-wrapper -->

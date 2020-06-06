@@ -11,9 +11,13 @@ public interface AdminShopDao {
 	//訂單總數
 	public Long countOrders();
 	//商品銷售金額
-	public Long sumOrders();
+	public Double sumOrders();
 	//商品類別數
 	public Long countProjectType();
+	//未處理訂單
+	public Long unChickOrders();
+	//每月銷售金額
+	public List<Long> sumOrdersByMonth();
 	
 	//更改訂單
 	OrderBean changeOrderStatus(Integer id);
