@@ -181,8 +181,17 @@
 																method="POST" id='m${ol2.getOrderId()}'>
 																<Input type='hidden' value='${ol2.getOrderId()}'>
 															</form></td>
-														<td><a href="<c:url value='/getGreen.do'/> "
-															class='btn btn-primary '>付款</a></td>
+														<td>													
+															<input type="button" class='btn btn-primary '
+															value='付款'
+															onclick="document.getElementById('g${ol2.getOrderId()}').submit();">
+															<form
+																action="<c:url value='/getGreen.do${ol2.getOrderId()}'/>"
+																method="POST" id='g${ol2.getOrderId()}'>
+																<Input type='hidden' value='${ol2.getOrderId()}'>
+															</form>
+															
+															</td>
 													</tr>
 												</c:forEach>
 

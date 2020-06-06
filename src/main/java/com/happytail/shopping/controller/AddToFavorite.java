@@ -1,5 +1,7 @@
 package com.happytail.shopping.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.sql.Timestamp;
 
 import org.hibernate.SessionFactory;
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductLike;
 import com.happytail.shopping.model.service.ProductLikeService;
@@ -28,14 +32,17 @@ public class AddToFavorite {
 	ProductLikeService ldao;
 
 	@GetMapping(value = "/addToLike")
-	public ResponseEntity<ProductLike> addFacorite(@RequestParam("productId") Integer productId, Model m) {
+	public ResponseEntity<ProductLike> addFacorite(
+			@RequestParam("productId") Integer productId, Model m,@SessionAttribute("logionOK")PetMembers pMembers) {
 		ProductBean pBean = pdao.selectOne(productId);
-
+		if(pMembers==null) {
+			return null;
+		}
 		System.out.println("進入");
 		ProductLike pLike = new ProductLike();
 
 		pLike.setBean(pBean);
-		pLike.setPetMemberId(1);
+		pLike.setPetMemberId(pMembers.getId());
 
 		Boolean check = ldao.check(pLike.getBean().getProductId(), pLike.getPetMemberId());
 

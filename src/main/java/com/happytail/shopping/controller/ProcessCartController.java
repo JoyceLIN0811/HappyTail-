@@ -19,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.CartBean;
 import com.happytail.shopping.model.OrderBean;
 import com.happytail.shopping.model.OrderItem;
@@ -47,27 +49,25 @@ public class ProcessCartController {
 	public String OrderConfirm(Model m ,
 			@RequestParam("address") String address,
 			@RequestParam("message") String message,
+			@SessionAttribute("LoginOK")PetMembers petMembers,
 			HttpServletRequest request) {
 		HttpSession session = request.getSession();
 //		PetMembers members= (PetMembers) session.getAttribute("LoginOk");
 		//最終決定
 //		 String finalDecision= (String) session.getAttribute("finalDecision");
-//		if(members==null) {
-//			//沒有登入
-//			return "index";
-//		}
+		if(petMembers==null) {
+			//沒有登入
+			return "index";
+		}
+		 
+		
 		CartBean cart =  (CartBean) session.getAttribute("cart");
 		if(cart==null) {
 			// 處理訂單時如果找不到購物車，沒有必要往下執行
 						// 導向首頁
 			return "index";
 		}
-//	
-//		if(finalDecision.equalsIgnoreCase("CANCEL")) {
-//			session.removeAttribute("cart");
-//			return"showProduct";
-//		}
-//		Integer memberId =members.getMemberId();
+
 		double totalPrice = Math.round(cart.getSubtotal()*1.0);
 
 		System.out.println("address="+address);
@@ -78,7 +78,7 @@ public class ProcessCartController {
 
 		//新建訂單物件
 		OrderBean orderBean=
-				new OrderBean(1, totalPrice, address, orderDate,message,"成立");
+				new OrderBean(petMembers.getId(), totalPrice, address, orderDate,message,"成立");
 //				new OrderBean(會員	,總價格	, 地址,		 日期,		備註,"狀態");
 		
 		Set<OrderItemBean> itemSet = new HashSet<OrderItemBean>();
