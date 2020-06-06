@@ -357,7 +357,7 @@ $("#target").html(data);
                         </div>
 
                         <div class="col-md-1">
-                            <i class="fas fa-exclamation-triangle fa-2x" onclick="openReportDialog({{ topicId }}, this)"></i>
+                            <i class="fas fa-exclamation-triangle fa-2x" onclick="openAddReportDialog({{ topicId }}, this)"></i>
                         </div>
                     </div>
 
@@ -510,3 +510,4 @@ $("#target").html(data);
 
 </div>
 ---------------------------------------------------------------
+
