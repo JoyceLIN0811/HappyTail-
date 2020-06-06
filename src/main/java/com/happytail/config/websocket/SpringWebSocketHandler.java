@@ -17,10 +17,13 @@ public class SpringWebSocketHandler extends DefaultHandshakeHandler {
 	@Override
 	protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) {
+		
 		String userId = "-1";
-		if (attributes.containsKey("loginUser")) {
-			userId = ((PetMembers) attributes.get("loginUser")).getId().toString();
+		
+		if (attributes.containsKey("petMembers")) {
+			userId = ((PetMembers) attributes.get("petMembers")).getId().toString();
 		}
+		
 		return new SpringWebSocketPrincipal(userId);
 	}
 

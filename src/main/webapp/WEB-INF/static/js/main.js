@@ -1,9 +1,12 @@
 var contextRoot = "/happytail";
+var webSocketEndpoint = contextRoot + "/inform";
 var noticeListTemplate = "";
+var stompClient = null;
 
 $(document).ready(function(){
 	initMainTemplate();
 	initNotice();
+	initNoticeConnection();
 });
 
 
@@ -53,6 +56,37 @@ function initNotice(){
 	$(".notice-dropdown .counter").text($("#notice-list .dropdown-item").length);
 }
 
+ 
+function initNoticeConnection() {
+    var socket = new SockJS(webSocketEndpoint);
+    stompClient = Stomp.over(socket);
+    
+ // console debug log setting (show / not show message)
+//  stompClient.debug = null;
+    
+    stompClient.connect({}, function(frame) {
+    	
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/user/queue/messages', function(messageOutput) {
+        	console.log(messageOutput.body);
+        	
+        	var noticeList = {
+        			noticeList : [JSON.parse(messageOutput.body)]
+        	};
+        	
+        	$("#notice-list").append(Mustache.render(noticeListTemplate, noticeList));
+        	
+        	// refresh notice counter
+        	$(".notice-dropdown .counter").text($("#notice-list .dropdown-item").length);
+        });
+        
+        stompClient.subscribe('/topic/messages', function(messageOutput) {
+        	console.log(messageOutput.body);
+        });
+    });
+}
+
+ 
 function forwardNoticeLink(id,link){
 	
 	// TODO : set notice isRead = true

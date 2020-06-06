@@ -228,7 +228,7 @@ public class NoticeService {
 
 	private void sendNotice(Notice notice) {
 		System.out.println("send notice success: " + notice.getMessage());
-		simpMessagingTemplate.convertAndSendToUser(String.valueOf(notice.getUserId()), "/forum/notice", notice);
+		simpMessagingTemplate.convertAndSendToUser(String.valueOf(notice.getUserId()), "/queue/messages", notice);
 	}
 
 }
