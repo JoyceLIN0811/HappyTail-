@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
+<span class="d-none" id="loginUserId">${sessionScope.LoginOK.id}</span>
+<span class="d-none" id="loginUsername">${sessionScope.LoginOK.username}</span>
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
 	<a class="navbar-brand" href="<c:url value='/HappyTailIndex.jsp'/>"
 		style="display: block; margin: auto;"> <img

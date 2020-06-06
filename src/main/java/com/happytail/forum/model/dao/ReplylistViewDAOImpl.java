@@ -30,7 +30,7 @@ public class ReplylistViewDAOImpl implements ReplylistViewDAO{
 	}
 	
 	private final String selectAllReply =
-			"FROM com.happytail.forum.model.ReplylistView r WHERE r.topicId=:topicId ORDER BY r.createDate DESC";
+			"FROM com.happytail.forum.model.ReplylistView r WHERE r.topicId=:topicId";
 	
 	private final String AllReplyCounts = 
 			"SELECT COUNT(*) FROM com.happytail.forum.model.ReplylistView r WHERE r.topicId=:topicId";
