@@ -9,37 +9,55 @@
 		src="<c:url value='/img/logo210_1905.png'/>" width="210" height="210"
 		style="display: block; margin-left: 110px">
 	</a>
-	<ul class="nav navbar-nav navbar-right navbar-top">
+	<ul class="nav navbar-nav navbar-right navbar-top top-bar">
 	
-	<c:if test="${!empty isForumArea}">
-		<li onclick="openAddTopicDialog()"><i class="fas fa-edit"
-			style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
-			</li>
-	</c:if>
 	<c:if test="${ !empty LoginOK}">
-		<li style="font-size: 1.4em"> Hello ,  ${sessionScope.LoginOK.username}</li>
+		<li> 
+			<span id="loginUserText" >Hello ,  ${sessionScope.LoginOK.username}</span>
+		</li>
+	</c:if>
+	<c:if test="${!empty isForumArea}">
+		<li onclick="openAddTopicDialog()">
+			<i class="fas fa-edit fa-2x"></i>
+		</li>
 	</c:if>
 		<li>
 			<c:if test="${empty LoginOK}">
 			<a href="<c:url value='/login' />" title="登入">
-				<i class='fas fa-user' style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
+				<i class='fas fa-user fa-2x'></i>
 			</a>
 			</c:if>
 			<c:if test="${ !empty LoginOK}">
 			<a href="<c:url value='/logoutCheck' />" title="登出">
-				<i class='fas fa-user' style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"></i>
+				<i class='fas fa-user fa-2x'></i>
 			</a>
 			</c:if>
 		</li>
 
-		<li><a data-toggle="tab" href="#"> <i class='fas fa-bell'
-				style='font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;'></i>
-		</a></li>
-		<li><a class="right sidenav-trigger show-on-medium-and-up"
-			data-target="side-nav" href="#"> <i class="fa fa-align-justify"
-				style="font-size: 24px; color: rgba(0, 0, 0, 0.54); padding: 10px; margin-bottom: 170px;"
-				onclick="openNav()"></i>
-		</a></li>
+<!-- 		<li> -->
+<!-- 			<i class='fas fa-bell fa-2x'></i> -->
+<!-- 			<span class="counter">10</span>			 -->
+<!-- 		</li> -->
+		<li>
+			<div class="dropdown notice-dropdown">
+			  <i class='fas fa-bell fa-2x dropdown-toggle' data-toggle="dropdown" ></i>
+			  <span class="counter">10</span>	
+			  <div id="notice-list" class="dropdown-menu dropdown-menu-right">
+			  	<button type="button" class="dropdown-item" onclick="noticeLink(id,link)">
+				    replyusername 回覆了你的文章 title
+				</button>
+			    <a class="dropdown-item" href="/happytail">replyusername 回覆了你的文章 title</a>
+			    <a class="dropdown-item" href="#">thumbsUpusername 對你的文章title 按了value 表示心情</a>
+			    <a class="dropdown-item" href="#">thumbsUpusername 對你的回覆按了讚</a>
+			    <a class="dropdown-item" href="#">追蹤的文章 title 更新了，快去看看吧！</a>
+			  </div>
+			</div>			
+		</li>
+		<li>
+			<a class="right sidenav-trigger show-on-medium-and-up" data-target="side-nav" href="#"> 
+				<i class="fa fa-align-justify fa-2x" onclick="openNav()"></i>
+			</a>
+		</li>
 	</ul>
 </nav>
 

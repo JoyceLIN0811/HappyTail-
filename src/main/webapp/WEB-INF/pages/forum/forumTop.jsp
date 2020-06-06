@@ -212,29 +212,6 @@
 
 			initTemplate();
 
-			console.log(topicListTemplate);
-
-			var fakeData = {
-				'records' : [ {
-					"userId" : 2,
-					"username" : "915",
-					"categoryId" : 1,
-					"topicId" : 18,
-					"title" : "01062020",
-					"createDate" : "2020-06-01 02:47",
-					"imageUrl" : null,
-					"replyNum" : 0,
-					"count" : 0,
-					"likeNum" : 0,
-					"category" : "生活",
-					"isThumbsUp" : null,
-					"isFollowed" : null,
-					"isReported" : null
-				} ]
-			};
-
-			// 		render(fakeData);
-
 			getTopicListData();
 
 		});
