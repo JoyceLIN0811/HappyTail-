@@ -121,6 +121,7 @@
 	</div>
 
 	<div id="addTopicDialog" class="modal" tabindex="-1" role="dialog">
+	
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-body" id="addTopic">
@@ -201,6 +202,74 @@
 		</div>
 	</div>
 
+	<div id="addReportDialog" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-body" id="addReport">
+					<div class="row justify-content-md-center">
+						<div class="col-2">
+							<blockquote class="flow-text">檢舉文章</blockquote>
+						</div>
+						<div class="col-9"></div>
+						<div class="col-1">
+							<i class="fas fa-times fa-2x" onclick="closeAddReportDialog()"></i>
+						</div>
+					</div>
+					<form id="addReportForm">
+						<div class="form-group">
+
+							<div class="custom-control custom-radio">
+        						<input type="radio" class="custom-control-input" id="report1" name="categoryId" value="1">
+       							 <label class="custom-control-label" for="report1">中傷、歧視、挑釁或謾罵他人</label>
+   							 </div>
+
+   							 <div class="custom-control custom-radio">
+      							  <input type="radio" class="custom-control-input" id="report2" name="categoryId" value="2">
+     							   <label class="custom-control-label" for="report2">惡意洗板、重複張貼</label>
+   							 </div>
+
+    						<div class="custom-control custom-radio">
+      							  <input type="radio" class="custom-control-input" id="report3" name="categoryId" value="3">
+      							  <label class="custom-control-label" for="report3">包含色情、露點、性騷擾或血腥恐怖等讓人不舒服之內容</label>
+    						</div>
+    						<div class="custom-control custom-radio">
+        						<input type="radio" class="custom-control-input" id="report4" name="categoryId" value="4">
+      							  <label class="custom-control-label" for="report4">包含鼓吹暴力、犯罪之內容</label>
+						    </div>
+						    <div class="custom-control custom-radio">
+						        <input type="radio" class="custom-control-input" id="report5" name="categoryId" value="5">
+						        <label class="custom-control-label" for="report5">包含廣告、商業宣傳之內容</label>
+						    </div>
+						    <div class="custom-control custom-radio">
+						        <input type="radio" class="custom-control-input" id="report6" name="categoryId" value="6">
+						        <label class="custom-control-label" for="report6">文章發表在不適當的看板</label>
+						    </div>
+						    <div class="custom-control custom-radio">
+						        <input type="radio" class="custom-control-input" id="report7" name="categoryId" value="7">
+						        <label class="custom-control-label" for="report7">使用者名稱內含不適當的字詞</label>
+						    </div>
+						    <div class="custom-control custom-radio">
+						        <input type="radio" class="custom-control-input" id="report8" name="categoryId" value="8">
+						        <label class="custom-control-label" for="report8">其他原因</label>
+						    </div>
+
+         					  <input type="hidden" name="content"/>
+          					  <input type="hidden" name="username" value="${petMembers.username}" />
+          					  <input type="hidden" name="userId" value="${petMembers.id}" />
+						</div>
+					</form>
+					<div class="row">
+						<div class="col-md-2 offset-md-5">
+							<button type="button" class="btn btn-info" name="add" onclick="clickAddReport()">送出</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 	<script>
 // 		var contextRoot = "/happytail";
 		var topicListTemplate = "";
@@ -599,10 +668,21 @@
 			$('#addTopicDialog').modal('hide')
 			}
 
+		function closeAddReportDialog(topicId,targetObj){
+			$('#addReportDialog').modal('hide')
+			}
+
 		function shareLine(){
 			var shareUrl = "https://social-plugins.line.me/lineit/share?url=" + location.href;
 	        window.open(shareUrl,"_blank","left=400,top=200,width=750,height=500");
 			}
+
+		function openAddReportDialog() {
+
+			console.log("Hello!");
+
+			$('#addReportDialog').modal('show');
+		}
 	</script>
 
 </body>
