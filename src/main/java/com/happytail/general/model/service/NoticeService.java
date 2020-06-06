@@ -83,7 +83,7 @@ public class NoticeService {
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.ReceiveReply);
 			String module = Const.ModuleType.Forum;
 			String noticeMsg = String.format(template, replyUsername, title);
-			String link = "/topic/" + reply.getTopicId();
+			String link = "/forum/topicPage/" + reply.getTopicId();
 
 			Notice notice = new Notice();
 			notice.setUserId(topic.getUserId());
@@ -108,7 +108,7 @@ public class NoticeService {
 			String replyUsername = reply.getUsername();
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.AtReply);
 			String noticeMsg = String.format(template, replyUsername);
-			String link = "/topic/" + reply.getTopicId();
+			String link = "/forum/topicPage/" + reply.getTopicId();
 
 			Notice notice = new Notice();
 			notice.setUserId(userId);
@@ -143,7 +143,7 @@ public class NoticeService {
 
 				String template = NoticeUtil.getNoticeTemplate(NoticeType.LikeTopic);
 				String noticeMsg = String.format(template, thumbsUpUsername, title, value);
-				String link = "/topic/" + thumbsUp.getTopicId();
+				String link = "/forum/topicPage/" + thumbsUp.getTopicId();
 
 				Notice notice = new Notice();
 				notice.setUserId(userId);
@@ -175,7 +175,7 @@ public class NoticeService {
 
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.LikeReply);
 			String noticeMsg = String.format(template, thumbsUpUsername);
-			String link = "/topic/" + thumbsUp.getTopicId();
+			String link = "/forum/topicPage/" + thumbsUp.getTopicId();
 
 			Notice notice = new Notice();
 			notice.setUserId(userId);
@@ -203,7 +203,7 @@ public class NoticeService {
 			String module = Const.ModuleType.Forum;
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.UpdateTopic);
 			String noticeMsg = String.format(template, title);
-			String link = "/topic/" + topic.getId();
+			String link = "/forum/topicPage/" + topic.getId();
 			
 			Notice notice = new Notice();
 			notice.setUserId(userId);

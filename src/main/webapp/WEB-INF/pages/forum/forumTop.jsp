@@ -224,6 +224,11 @@
 			initCKEditor();
 
 	        initTemplate();
+	        
+			if(location.href.indexOf("/topicPage/") != -1){
+				var topicId = location.href.substring(location.href.indexOf("/topicPage/") + 11);
+				openTopicContentDialog(topicId, null);
+			}
 
 	        $("#sendBtn").click(function(){
 	                sendReply();
@@ -286,12 +291,9 @@
 
 		function openTopicContentDialog(topicId, targetObj) {
 
-			console.log("topicId = " + topicId);
-
-			console.log();
 			
-			var likeNum = $(targetObj).parentsUntil(".card").find(".likeNum").text();
-			var replyNum = $(targetObj).parentsUntil(".card").find(".replyNum").text();
+			var likeNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".likeNum").text() : 0;
+			var replyNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".replyNum").text() : 0;
 
 			var topicurl = contextRoot + "/topic/" + topicId;
 
@@ -338,7 +340,8 @@
 				}
 
 				});
-			console.log("Hello!");
+			
+			history.pushState({foo: "Post"},"","/forum/topicPage/" + topicId);
 
 			$('#topicContentDialog').modal('show');
 		}

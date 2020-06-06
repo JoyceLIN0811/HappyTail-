@@ -77,6 +77,15 @@ public class TestController {
 		return "TopicListPage";
 	}
 	
+	@GetMapping("/forum/topicPage/{topicId}")
+	public String getTopic(@PathVariable Integer topicId,
+			Model model) {
+		
+		model.addAttribute("isForumArea", true);
+		
+		return "TopicListPage";
+	}
+	
 	@GetMapping("/topic/topiclist")
 	@ResponseBody
 	public Page<TopiclistView> getTopicList(@SessionAttribute(required = false) PetMembers petMembers,
