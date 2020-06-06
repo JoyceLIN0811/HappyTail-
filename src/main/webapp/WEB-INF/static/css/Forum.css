@@ -1,3 +1,7 @@
+body{
+	background-color: #e3f2fd;
+}
+
 .all-browsers {
 	margin: 0;
 	padding: 5px;
@@ -19,7 +23,7 @@
 }
 
 #topicListArea .card {
-	box-shadow: 0 0 10px black;
+	box-shadow: 0 0 10px #000080;
 }
 
 #topicListArea
@@ -48,4 +52,9 @@
 .side-block img {
 	padding-top: 10px;
 	width: 100%;
+}
+
+#addTopicDialog .modal-body{
+	margin: 40px;
+	z-index: 99;
 }

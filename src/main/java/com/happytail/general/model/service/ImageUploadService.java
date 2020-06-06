@@ -30,8 +30,8 @@ public class ImageUploadService {
 		URI url = URI.create(IMGUR_UPLOAD_URL);
 		RestTemplate restTemplate = new RestTemplate();
 		//RestTemplate => Synchronous client to perform HTTP requests.
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
 		// body
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
@@ -48,7 +48,7 @@ public class ImageUploadService {
 		
 		RequestEntity<MultiValueMap<String, Object>> request = 
 				RequestEntity.post(url) //Create an HTTP POST builder with the given url.
-				.header("Authorization", "Client-ID" + IMGUR_CLIENT_ID) //Authorization: Client-ID <YOUR_CLIENT_ID>
+				.header("Authorization", "Client-ID " + IMGUR_CLIENT_ID) //Authorization: Client-ID <YOUR_CLIENT_ID>
 				.contentType(MediaType.MULTIPART_FORM_DATA) //Set the media type of the body, as specified by the Content-Type header.
 				.body(body);
 		ResponseEntity<Map> response = restTemplate.exchange(request, Map.class);//T - the body type

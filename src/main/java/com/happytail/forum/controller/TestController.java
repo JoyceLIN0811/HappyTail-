@@ -173,6 +173,7 @@ public class TestController {
 	}
 
 	@DeleteMapping("/thumbsUp/{type}/{userId}/{targetId}")
+	@ResponseBody
 	public Boolean removeThumbsUp(@SessionAttribute(required = false) PetMembers petMembers,
 			@PathVariable Integer targetId, @PathVariable String type, @PathVariable Integer userId) {
 		forumService.removeThumbsUp(type, targetId, userId);
@@ -180,6 +181,7 @@ public class TestController {
 	}
 
 	@DeleteMapping("/follow/{userId}/{topicId}")
+	@ResponseBody
 	public Boolean removeFollow(@SessionAttribute(required = false) PetMembers petMembers,
 			@PathVariable Integer topicId, @PathVariable Integer userId) {
 		forumService.removeFollow(topicId, userId);
@@ -187,6 +189,7 @@ public class TestController {
 	}
 
 	@PutMapping("/notice/{noticeId}")
+	@ResponseBody
 	public Boolean updateIsReadStatus(@PathVariable Integer noticeId) {
 		forumService.updateIsReadStatus(noticeId);
 		return true;
@@ -291,6 +294,12 @@ public class TestController {
 	public void updateAllIsReadStatusViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,  @RequestParam Integer userId) {
 		fourmMemberService.updateAllIsReadStatus(petMembers, userId);
 
+	}
+	
+	@GetMapping("/topNotice/{userId}")
+	@ResponseBody
+	public List<Notice> NoticeList(@SessionAttribute(required = false) PetMembers petMembers, @PathVariable Integer userId ){
+		return forumService.getMemberNoticeList(userId);
 	}
 	
 	

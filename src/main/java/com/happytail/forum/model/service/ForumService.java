@@ -391,8 +391,10 @@ public class ForumService {
 		noticeDAO.update(notice);
 	}
 
-//	public Boolean removeReport(Integer id) {
-//		return reportDAO.delete(id);
-//	}
+	public List<Notice> getMemberNoticeList(Integer userId){
+		
+		return noticeDAO.selectByUserIdList(userId);
+		
+	}
 
 }

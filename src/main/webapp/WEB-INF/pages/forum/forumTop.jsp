@@ -174,17 +174,20 @@
 							<div class="row justify-content-md-center">
 								<div class="col-12" style="margin-top: 15px;">
 									<input name="title" class="form-control form-control-lg" type="text"
-										placeholder="Title">
+										placeholder="標題">
 								</div>
 							</div>
+         					  <input type="hidden" name="content"/>
           					  <input type="hidden" name="username" value="${petMembers.username}" />
           					  <input type="hidden" name="userId" value="${petMembers.id}" />
 
 							<div class="form-group" style="margin-top: 15px;">
 								<label for="exampleFormControlTextarea1">Content:</label>
-								<textarea name="content" class="form-control"
-									id="exampleFormControlTextarea1" rows="20" cols="40"
-									required="required"></textarea>
+								 <div id="topicEditor" >
+                        		</div>
+<!-- 								<textarea name="content" class="form-control" -->
+<!-- 									id="exampleFormControlTextarea1" rows="20" cols="40" -->
+<!-- 									required="required"></textarea> -->
 							</div>
 						</div>
 					</form>
@@ -199,7 +202,7 @@
 	</div>
 
 	<script>
-		var contextRoot = "/happytail";
+// 		var contextRoot = "/happytail";
 		var topicListTemplate = "";
 		var topicContentTemplate = "";
 		var addTopicTemplate = "";
@@ -208,12 +211,23 @@
 		var replyListPageNum = 1; // start from page 1
 		var categoryId = null;
 		var tagType = null;
+		var topicEditor = null;
+	    var replyTemplate = "";
+	    var stageLinkTemplate = "";
+	    var stageListTemplate = "";
 
 		$(document).ready(function() {
 
 			initTemplate();
-
 			getTopicListData();
+
+			initCKEditor();
+
+	        initTemplate();
+
+	        $("#sendBtn").click(function(){
+	                sendReply();
+	         });
 
 		});
 
@@ -270,9 +284,14 @@
 			$("#topicListArea").append(data);
 		}
 
-		function openTopicContentDialog(topicId,likeNum, replyNum) {
+		function openTopicContentDialog(topicId, targetObj) {
 
 			console.log("topicId = " + topicId);
+
+			console.log();
+			
+			var likeNum = $(targetObj).parentsUntil(".card").find(".likeNum").text();
+			var replyNum = $(targetObj).parentsUntil(".card").find(".replyNum").text();
 
 			var topicurl = contextRoot + "/topic/" + topicId;
 
@@ -331,6 +350,57 @@
 			$('#addTopicDialog').modal('show');
 		}
 
+
+        function initCKEditor(){
+            // CKEditor 初始化
+            ClassicEditor
+            .create( document.querySelector( '#topicEditor' ),{
+                placeholder: '在此輸入內容...',
+                ckfinder: {
+                uploadUrl: contextRoot + "/uploadTopicImg"
+                }
+            } )
+            .then( editorInstance => {
+            	topicEditor = editorInstance;
+                
+                // 將輸入區綁定change事件(:data為僅限輸入值更動,不包含輸入區中工具列及滑鼠的任何操作)
+//                 editor.model.document.on( 'change:data', () => {
+                    // console.log( 'The Document has changed!' );
+
+//                     let lastTagText = getLastOuterTagText($(editor.getData()));
+
+//                     atSignCheck(lastTagText);
+
+//                 } );
+            })
+            .catch( error => {
+                console.error( error );
+            });
+        }
+
+     // 檢查@是否出現於輸入區
+        function atSignCheck(text){
+            let strLen = text.length;
+            /*
+            * 1.檢查輸入字串的長度是否為零(避免裁切字串出問題)
+            * 2.檢查輸入字串最後一個字母是否為 '@'
+            * 3.檢查倒數第二個字母是否為空白 (需空格後方可使用@功能)
+            * 4.檢查輸入字串是否只有一個字母 (解決直接輸入@的情況)
+            * 5.第二點為必要條件,三四點則符合其一及可啟動 
+            */
+            if (strLen != 0) {
+                let atCheck = (text.substring(strLen - 1) == "@");
+                let emptyCheck = (text.substring(strLen - 2,strLen - 1) == " ");
+                let leadCheck = (strLen == 1);
+
+                if (atCheck && (emptyCheck || leadCheck)) {
+                    showStageSelectDialog();
+                    
+                }
+            }
+
+        }
+
 		function setCategoryId(catId, targetObj) {
 			$(".list-group-item").removeClass("active");
 			$(targetObj).addClass("active");
@@ -347,7 +417,11 @@
 		}
 
 		function clickAddTopic(){
-			
+
+			var content = topicEditor.getData();
+
+			$("#addTopicForm input[name='content']").val(content);
+			console.log($("#addTopicForm input[name='content']").val()); 
 			console.log($(addTopicForm).serialize());
 
 			var url = contextRoot + "/topicPost";
@@ -368,7 +442,7 @@
 			});
 			console.log("GoodBye!");
 
-			$('#addTopic').modal('hide')
+			$('#addTopicDialog').modal('hide')
 
 			}
 
@@ -396,6 +470,7 @@
 				async : false,
 				data: form.serialize(),
 				success : function(data) {
+					$("input[name='replyContent']").val("");
 					
 						var maxStageValue = 0
 					$(".stage-value").each(function(index, element){
@@ -409,9 +484,8 @@
 							};
 
 						console.log(data);
-						
+							
 					$("#replyContentList").append(Mustache.render(replyListTemplate, replyListObj));
-					
 
 				}
 
@@ -423,7 +497,7 @@
 
 			if($(targetObj).hasClass("checked")){
 
-				var url = contextRoot + "/myPage/removeThumbsUp/topic/" + $("#loginUserId").text()+ "/" + topicId;
+				var url = contextRoot + "/thumbsUp/topic/" + $("#loginUserId").text()+ "/" + topicId;
 				
 				console.log($(targetObj).hasClass("checked"));
 				
@@ -477,7 +551,7 @@
 
 			if($(targetObj).hasClass("checked")){
 
-				var url = contextRoot + "/myPage/removeFollow/" + $("#loginUserId").text()+ "/" + topicId;
+				var url = contextRoot + "/follow/" + $("#loginUserId").text()+ "/" + topicId;
 				
 				console.log($(targetObj).hasClass("checked"));
 				
@@ -523,6 +597,11 @@
 
 		function closeAddTopicDialog(topicId,targetObj){
 			$('#addTopicDialog').modal('hide')
+			}
+
+		function shareLine(){
+			var shareUrl = "https://social-plugins.line.me/lineit/share?url=" + location.href;
+	        window.open(shareUrl,"_blank","left=400,top=200,width=750,height=500");
 			}
 	</script>
 

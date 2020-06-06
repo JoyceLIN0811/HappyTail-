@@ -238,7 +238,7 @@ $("#target").html(data);
 
 				<div class="row no-gutters">
 					<div class="col-md-12" style="height: 100px;">
-						<h2 class="card-title"  onclick="openTopicContentDialog({{ topicId }}, {{likeNum}}, {{replyNum}})" >{{ title }}</h2>
+						<h2 class="card-title"  onclick="openTopicContentDialog({{ topicId }}, this)" >{{ title }}</h2>
 					</div>
 				</div>
 
@@ -246,12 +246,12 @@ $("#target").html(data);
 
 					<div class="col-md-3">
 						<i class="{{#isThumbsUp}} fas checked {{/isThumbsUp}}{{^isThumbsUp}} far {{/isThumbsUp}} fa-thumbs-up fa-2x" onclick="clickTopicThumbsUp({{ topicId }}, this)" ></i> 
-						<span class="card-text">{{ likeNum }}</span>
+						<span class="card-text likeNum">{{ likeNum }}</span>
 					</div>
 
 					<div class="col-md-3">
 						<i class="far fa-comment-dots fa-2x"></i> 
-						<span class="card-text">{{ replyNum }}</span>
+						<span class="card-text replyNum">{{ replyNum }}</span>
 					</div>
 
 					<div class="col-md-3 ">
@@ -293,13 +293,13 @@ $("#target").html(data);
                 <div class="col-10">
 
                     <div class="row justify-content-md-center">
-                        <div class="col-md-11">
+                        <div class="col-md-11 mb-4">
                             <p class="card-text"><img src='/happytail/img/foot.png' class="card-img"
 						alt="..." style="height: 60px; width: 80px;">
                                 <span>{{username}}</span></p>
                         </div>
                         <div class="col align-self-end">
-                            <i class="fas fa-times fa-2x" onclick="closeTopicContentDialog()"></i>
+                            <i class="fas fa-times fa-2x mb-5" onclick="closeTopicContentDialog()"></i>
                         </div>
                     </div>
 
@@ -320,9 +320,9 @@ $("#target").html(data);
                         </div>
                     </div>
 
-                    <div class="row justify-content-md-center" style="height: 800px; text-align:center;">
+                    <div class="row justify-content-md-center mb-5 mt-5" >
                         <div class="col-md-12">
-                            {{content}}
+                            {{{content}}}
                         </div>
                     </div>
 
@@ -345,19 +345,19 @@ $("#target").html(data);
                         </div>
 
                         <div class="col-md-1">
-                            <i class="{{#isThumbsUp}}fas checked{{/isThumbsUp}} {{^isThumbsUp}} far{{/isThumbsUp}} fa-heart fa-2x"></i>
+                            <i class="{{#isThumbsUp}}fas checked{{/isThumbsUp}} {{^isThumbsUp}} far{{/isThumbsUp}} fa-heart fa-2x" onclick="clickTopicThumbsUp({{ topicId }}, this)"></i>
                         </div>
 
                         <div class="col-md-1">
-                            <i class="{{#isFollowed}} fas checked {{/isFollowed}}{{^isFollowed}} far{{/isFollowed}} fa-bookmark fa-2x"></i>
+                            <i class="{{#isFollowed}} fas checked {{/isFollowed}}{{^isFollowed}} far{{/isFollowed}} fa-bookmark fa-2x" onclick="clickTopicFollowed({{ topicId }},this)"></i>
                         </div>
 
                         <div class="col-md-1">
-                            <i class="fas fa-share fa-2x"></i>
+                            <i class="fas fa-share fa-2x" onclick="shareLine()"></i>
                         </div>
 
                         <div class="col-md-1">
-                            <i class="fas fa-exclamation-triangle fa-2x"></i>
+                            <i class="fas fa-exclamation-triangle fa-2x" onclick="openReportDialog({{ topicId }}, this)"></i>
                         </div>
                     </div>
 
@@ -425,7 +425,7 @@ $("#target").html(data);
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 ml-5">
                         <span>{{ replyContent }}</span>
                     </div>
                 </div>

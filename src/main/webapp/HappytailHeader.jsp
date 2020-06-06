@@ -42,15 +42,15 @@
 		<li>
 			<div class="dropdown notice-dropdown">
 			  <i class='fas fa-bell fa-2x dropdown-toggle' data-toggle="dropdown" ></i>
-			  <span class="counter">10</span>	
+			  <span class="counter"></span>	
 			  <div id="notice-list" class="dropdown-menu dropdown-menu-right">
-			  	<button type="button" class="dropdown-item" onclick="noticeLink(id,link)">
-				    replyusername 回覆了你的文章 title
-				</button>
-			    <a class="dropdown-item" href="/happytail">replyusername 回覆了你的文章 title</a>
-			    <a class="dropdown-item" href="#">thumbsUpusername 對你的文章title 按了value 表示心情</a>
-			    <a class="dropdown-item" href="#">thumbsUpusername 對你的回覆按了讚</a>
-			    <a class="dropdown-item" href="#">追蹤的文章 title 更新了，快去看看吧！</a>
+<!-- 			  	<button type="button" class="dropdown-item" onclick="noticeLink(id,link)"> -->
+<!-- 				    replyusername 回覆了你的文章 title -->
+<!-- 				</button> -->
+<!-- 			    <a class="dropdown-item" href="/happytail">replyusername 回覆了你的文章 title</a> -->
+<!-- 			    <a class="dropdown-item" href="#">thumbsUpusername 對你的文章title 按了value 表示心情</a> -->
+<!-- 			    <a class="dropdown-item" href="#">thumbsUpusername 對你的回覆按了讚</a> -->
+<!-- 			    <a class="dropdown-item" href="#">追蹤的文章 title 更新了，快去看看吧！</a> -->
 			  </div>
 			</div>			
 		</li>
