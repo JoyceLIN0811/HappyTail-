@@ -1,0 +1,19 @@
+.container-fluid {
+    min-height: 100vh;
+    padding-top: 15px;
+    
+    background-color: #e3f2fd;
+}
+
+.info-card {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.info-card .frame-body {
+    height: calc(100vh - (40px));
+}
+
+.side-bar {
+    border-right: 1px solid lightgrey;
+}
