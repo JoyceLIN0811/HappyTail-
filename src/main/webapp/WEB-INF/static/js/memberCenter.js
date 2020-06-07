@@ -18,6 +18,7 @@ $(document).ready(function(){
 	getMyFollowListData();
 	getMyLikeTopicData();
 	getMyReadHistoryData();
+	getFavorateCategory();
 	
 	// TODO : all the delete function and update function
 	
@@ -57,6 +58,53 @@ function getMyReadHistoryData(){
 	// target area : id="history"
 }
 
+function getFavorateCategory(){
+	// TODO : get current user's favorate category 
+	var codeMapList = null;
+	var url = ""
+	
+//	$.ajax({
+//		url: url,
+//	   type: "GET",
+//	success: function(data){
+//				codeMapList = data;
+//			}
+//	});
+	
+	// fake data
+	codeMapList = [
+		{
+			id : 1,
+		module : "Forum",
+		  type : "topicCategory",
+		   key : 1,
+		 value : "生活"
+		},
+		{
+			id : 2,
+			module : "Forum",
+			type : "topicCategory",
+			key : 2,
+			value : "資訊"
+		}
+	];
+	
+	var categoryIdList = []; // need to get from API
+	
+	// get categoryId from codeMap JSON Object
+	for(let codeMap of codeMapList){
+		categoryIdList.push(codeMap.key);
+	}
+	
+	$("#favorateCategoryList .list-group-item").each(function(index,element){
+		for(let categoryId of categoryIdList){
+			if($(element).attr("value") == categoryId){
+				$(element).addClass("active");
+			}
+		}
+	});
+}
+
 function deleteTopic(topicId){
 	// TODO : get user id from Header
 }
@@ -76,4 +124,27 @@ function deleteHistory(topicId){
 // for favorate
 function toggleActive(targetObj){
     $(targetObj).toggleClass("active");
+}
+
+function updateFavorateCategory(){
+	var userId =  parseInt($("#loginUserId").text());
+	var categoryList = [];
+	
+	$("#favorateCategoryList .active").each(function(index,element){
+		categoryList.push({ userId: userId, categoryId: parseInt($(element).attr("value"))});
+	});
+	
+	
+	// TODO : need to defined
+	var url = "";
+	
+	$.ajax({
+		url: url,
+	   type: "POST",
+	   data: JSON.stringify(),
+	success: function(data){
+				alert("更新成功 !");
+			}
+	});
+	
 }
