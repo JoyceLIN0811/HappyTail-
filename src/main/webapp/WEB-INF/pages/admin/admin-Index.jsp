@@ -232,7 +232,7 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="admin-allMembersJSON" class="nav-link">
+							<a href="admin-forum" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>討論區管理</p>
 							</a>
