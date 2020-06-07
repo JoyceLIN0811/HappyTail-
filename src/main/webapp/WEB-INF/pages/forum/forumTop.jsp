@@ -178,18 +178,23 @@
 										placeholder="標題">
 								</div>
 							</div>
-         					  <input type="hidden" name="content"/>
-          					  <input type="hidden" name="username" value="${petMembers.username}" />
-          					  <input type="hidden" name="userId" value="${petMembers.id}" />
+							<div class="row justify-content-md-center">
+								<div class="col-12" style="margin-top: 15px;">
+									 <div id="topicEditor" ></div>
+								</div>
+							</div>
+        					  <input type="hidden" name="content"/>
+        					  <input type="hidden" name="imgList"/>
+         					  <input type="hidden" name="username" value="${petMembers.username}" />
+         					  <input type="hidden" name="userId" value="${petMembers.id}" />
 
-							<div class="form-group" style="margin-top: 15px;">
-								<label for="exampleFormControlTextarea1">Content:</label>
-								 <div id="topicEditor" >
-                        		</div>
+<!-- 							<div class="form-group" style="margin-top: 15px;"> -->
+<!-- 								<label for="exampleFormControlTextarea1">Content:</label> -->
+								
 <!-- 								<textarea name="content" class="form-control" -->
 <!-- 									id="exampleFormControlTextarea1" rows="20" cols="40" -->
 <!-- 									required="required"></textarea> -->
-							</div>
+<!-- 							</div> -->
 						</div>
 					</form>
 					<div class="row">
@@ -290,7 +295,7 @@
 			initTemplate();
 			getTopicListData();
 
-			initCKEditor();
+			initTopicCKEditor();
 
 	        initTemplate();
 	        
@@ -302,7 +307,7 @@
 	        $("#sendBtn").click(function(){
 	                sendReply();
 	         });
-
+	        
 		});
 
 		function initTemplate() {
@@ -410,7 +415,7 @@
 
 				});
 			
-			history.pushState({foo: "Post"},"","/forum/topicPage/" + topicId);
+			history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
 
 			$('#topicContentDialog').modal('show');
 		}
@@ -423,14 +428,15 @@
 		}
 
 
-        function initCKEditor(){
-            // CKEditor 初始化
-            ClassicEditor
+        function initTopicCKEditor(){
+            // topic CKEditor 初始化
+//             ClassicEditor
+            BalloonEditor
             .create( document.querySelector( '#topicEditor' ),{
                 placeholder: '在此輸入內容...',
                 ckfinder: {
-                uploadUrl: contextRoot + "/uploadTopicImg"
-                }
+			                uploadUrl: contextRoot + "/uploadTopicImg"
+			              }
             } )
             .then( editorInstance => {
             	topicEditor = editorInstance;
@@ -491,7 +497,21 @@
 		function clickAddTopic(){
 
 			var content = topicEditor.getData();
-
+			
+			var imgListStr = "";
+			$(content).find("img").each(function(index,element){
+				console.log("index = " + index);
+				console.log("src = " + $(element).attr("src"));
+				
+				imgListStr += $(element).attr("src") + ",";
+			});
+			
+			if(imgListStr.length != 0){
+				imgListStr = imgListStr.substring(0,imgListStr.length - 1);
+			}
+			
+			$("#addTopicForm input[name='imgList']").val(imgListStr);
+			
 			$("#addTopicForm input[name='content']").val(content);
 			console.log($("#addTopicForm input[name='content']").val()); 
 			console.log($(addTopicForm).serialize());

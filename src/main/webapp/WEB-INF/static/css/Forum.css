@@ -56,5 +56,11 @@ body{
 
 #addTopicDialog .modal-body{
 	margin: 40px;
-	z-index: 99;
+}
+
+/* #addTopicDialog #topicEditor { */
+/* 	margin-left: 50px; */
+/* } */
+:root {
+   --ck-z-default: 1080
 }

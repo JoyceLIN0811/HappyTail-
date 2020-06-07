@@ -42,7 +42,7 @@
 		<li>
 			<div class="dropdown notice-dropdown">
 			  <i class='fas fa-bell fa-2x dropdown-toggle' data-toggle="dropdown" ></i>
-			  <span class="counter"></span>	
+			  <span class="d-none counter"></span>	
 			  <div id="notice-list" class="dropdown-menu dropdown-menu-right">
 <!-- 			  	<button type="button" class="dropdown-item" onclick="noticeLink(id,link)"> -->
 <!-- 				    replyusername 回覆了你的文章 title -->

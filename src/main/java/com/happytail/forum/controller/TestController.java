@@ -153,7 +153,13 @@ public class TestController {
 
 	@PostMapping("/topicPost")
 	@ResponseBody
-	public Topic addTopic(@ModelAttribute Topic topic) {
+	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam List<String> imgList) {
+		// TODO : Add image source to TopicImage
+		
+		for(String imgSrc : imgList) {
+			System.out.println(imgSrc);
+		}
+		
 		System.out.println(topic);
 		return forumService.addTopic(topic);
 	}

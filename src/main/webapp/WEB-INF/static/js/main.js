@@ -63,6 +63,13 @@ function initNotice(){
 			$("#notice-list").html(Mustache.render(noticeListTemplate, {noticeList: data}));
 	
 			$(".notice-dropdown .counter").text($("#notice-list .dropdown-item").length);
+			
+			if($("#notice-list .dropdown-item").length == 0){
+				$(".notice-dropdown .counter").addClass("d-none");
+			} else {
+				$(".notice-dropdown .counter").removeClass("d-none");
+			}
+			
 		}
 	
 	});

@@ -23,8 +23,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
 <!-- ckeditor -->
-<script src="https://cdn.ckeditor.com/ckeditor5/19.1.1/classic/ckeditor.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/balloon-block/ckeditor.js"></script> -->
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/19.1.1/classic/ckeditor.js"></script> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/balloon-block/ckeditor.js"></script>
 
 <!-- bootstrap -->
 <link rel="stylesheet"
