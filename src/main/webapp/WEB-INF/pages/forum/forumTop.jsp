@@ -320,6 +320,7 @@
 		var replyListTemplate = "";
 		var topicListPageNum = 1; // start from page 1
 		var replyListPageNum = 1; // start from page 1
+		var topicListIndexArray = [];
 		var categoryId = null;
 		var tagType = null;
 		var topicEditor = null;
@@ -391,6 +392,10 @@
 					render(data);
 
 					$("#totalNum").text(data.totalNum);
+					
+					
+					refreshTopicListIndexArray();
+					
 					// check whether has next page or not
 					if (data.hasNext) {
 						// to the next page
@@ -406,6 +411,59 @@
 
 			$("#topicListArea").html("");
 			$("#topicListArea").append(data);
+		}
+		
+		// data prepare for topicContentDialog get next or previous topic
+		function refreshTopicListIndexArray(){
+			topicListIndexArray = [];
+			
+			$("#topicListArea .topicId").each(function(index,element){
+				topicListIndexArray.push({
+						index: index, 
+						topicId: $(element).text(),
+						element: $(element)});
+			});
+			
+			console.log(topicListIndexArray);
+		}
+		
+		function getPreviousTopic(){
+			var currentTopicId = $("#addReplyForm input[name='topicId']").val();
+			var targetTopicListObj = null;
+			
+			for(let i=0 ; i<topicListIndexArray.length ; i++){
+				
+				if(topicListIndexArray[i].topicId == currentTopicId 
+				   && i != 0){ // prevent first topic condition
+					targetTopicListObj = topicListIndexArray[i-1];
+				}
+			}
+			
+			// check previous topic is found
+			if(targetTopicListObj != null){
+				openTopicContentDialog(targetTopicListObj.topicId,targetTopicListObj.element);
+			}
+			
+		}
+		
+		function getNextTopic(){
+			var currentTopicId = $("#addReplyForm input[name='topicId']").val();
+			var targetTopicListObj = null;
+			
+			for(let i=0 ; i<topicListIndexArray.length ; i++){
+				
+				if(topicListIndexArray[i].topicId == currentTopicId 
+				   && i != (topicListIndexArray.length - 1)){ // prevent last topic condition
+					
+					targetTopicListObj = topicListIndexArray[i+1];
+				}
+			}
+			
+			// check previous topic is found
+			if(targetTopicListObj != null){
+				openTopicContentDialog(targetTopicListObj.topicId,targetTopicListObj.element);
+			}
+			
 		}
 
 		function openTopicContentDialog(topicId, targetObj) {
