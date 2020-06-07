@@ -286,6 +286,30 @@
 		</div>
 	</div>
 	
+	<div id="favorateCatgoryDialog" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row ml-3 mr-3 mt-3 mb-3">
+						<div class="col-12">
+							<div id="favorateCategoryList" class="list-group">
+				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="1"><h5>生活</h5></button>
+				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="2"><h5>資訊</h5></button>
+				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="3"><h5>新聞</h5></button>
+				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="4"><h5>發問</h5></button>
+				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="5"><h5>認養</h5></button>
+				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="6"><h5>其他</h5></button>
+			                </div>
+			                <button type="button" class="btn btn-primary btn-lg btn-block mt-3" onclick="updateFavorateCategory()">
+			                 	 選擇喜好類別
+			                </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 	
 	<script>
@@ -303,6 +327,9 @@
 	    var replyTemplate = "";
 	    var stageLinkTemplate = "";
 	    var stageListTemplate = "";
+	    
+	    // TODO : check from API
+	    var hasNotSetFavorateCategory = true;
 
 		$(document).ready(function() {
 
@@ -321,6 +348,10 @@
 	        $("#sendBtn").click(function(){
 	                sendReply();
 	         });
+	        
+	        if(($("#loginUserId").text() != "") && hasNotSetFavorateCategory){
+	        	$("#favorateCatgoryDialog").modal('show');
+	        }
 	        
 		});
 
@@ -833,7 +864,34 @@
 
 			$('#addReportDialog').modal('hide')
 
-			}
+		}
+		
+		function toggleActive(targetObj){
+		    $(targetObj).toggleClass("active");
+		}
+		
+		function updateFavorateCategory(){
+			var userId =  parseInt($("#loginUserId").text());
+			var categoryList = [];
+			
+			$("#favorateCategoryList .active").each(function(index,element){
+				categoryList.push({ userId: userId, categoryId: parseInt($(element).attr("value"))});
+			});
+			
+			
+			// TODO : need to defined
+			var url = "";
+			
+			$.ajax({
+				url: url,
+			   type: "POST",
+			   data: JSON.stringify(),
+			success: function(data){
+						alert("更新成功 !");
+					}
+			});
+			
+		}
 	</script>
 
 </body>
