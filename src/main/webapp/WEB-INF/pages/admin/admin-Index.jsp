@@ -304,7 +304,7 @@
 								<div class="icon">
 									<i class="ion ion-stats-bars"></i>
 								</div>
-								<a href="admin-AllOrders" class="small-box-footer">
+								<a href="admin-uncheckOrders" class="small-box-footer">
 									More info
 									<i class="fas fa-arrow-circle-right"></i>
 								</a>

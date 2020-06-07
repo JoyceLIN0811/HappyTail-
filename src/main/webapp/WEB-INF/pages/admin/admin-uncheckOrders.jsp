@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>商品管理</title>
+<title>訂單管理</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,11 +26,6 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
-
-
-<script>
-	
-</script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -66,7 +62,82 @@
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-
+				<!-- Messages Dropdown Menu -->
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-comments"></i>
+						<span class="badge badge-danger navbar-badge">3</span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<a href="#" class="dropdown-item">
+							<!-- Message Start -->
+							<div class="media">
+								<img src="${pageContext.request.contextPath}/dist/img/user1-128x128.jpg" alt="User Avatar"
+									class="img-size-50 mr-3 img-circle">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										Brad Diesel
+										<span class="float-right text-sm text-danger">
+											<i class="fas fa-star"></i>
+										</span>
+									</h3>
+									<p class="text-sm">Call me whenever you can...</p>
+									<p class="text-sm text-muted">
+										<i class="far fa-clock mr-1"></i>
+										4 Hours Ago
+									</p>
+								</div>
+							</div>
+							<!-- Message End -->
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item">
+							<!-- Message Start -->
+							<div class="media">
+								<img src="${pageContext.request.contextPath}/dist/img/user8-128x128.jpg" alt="User Avatar"
+									class="img-size-50 img-circle mr-3">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										John Pierce
+										<span class="float-right text-sm text-muted">
+											<i class="fas fa-star"></i>
+										</span>
+									</h3>
+									<p class="text-sm">I got your message bro</p>
+									<p class="text-sm text-muted">
+										<i class="far fa-clock mr-1"></i>
+										4 Hours Ago
+									</p>
+								</div>
+							</div>
+							<!-- Message End -->
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item">
+							<!-- Message Start -->
+							<div class="media">
+								<img src="${pageContext.request.contextPath}/dist/img/user3-128x128.jpg" alt="User Avatar"
+									class="img-size-50 img-circle mr-3">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										Nora Silvester
+										<span class="float-right text-sm text-warning">
+											<i class="fas fa-star"></i>
+										</span>
+									</h3>
+									<p class="text-sm">The subject goes here</p>
+									<p class="text-sm text-muted">
+										<i class="far fa-clock mr-1"></i>
+										4 Hours Ago
+									</p>
+								</div>
+							</div>
+							<!-- Message End -->
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+					</div>
+				</li>
 				<!-- Notifications Dropdown Menu -->
 				<li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#">
@@ -96,6 +167,11 @@
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+						<i class="fas fa-th-large"></i>
+					</a>
 				</li>
 			</ul>
 		</nav>
@@ -185,7 +261,6 @@
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
-
 			</div>
 			<!-- /.sidebar -->
 		</aside>
@@ -197,7 +272,8 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>商品資料</h1>
+							<h1>訂單資料</h1>
+<%-- 							<a href='<c:url value='admin-AllOrders-json' />'>Json</a> --%>
 						</div>
 					</div>
 				</div>
@@ -213,34 +289,29 @@
 							<div class="card">
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="projects" class="table table-bordered table-striped">
+									<table id="allOrders" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>商品編號</th>
-												<th>商品名稱</th>
-												<th>商品價格</th>
-												<th>商品描述</th>
-												<th>商品數量</th>
-												<th>商品照片</th>
-												<th>商品狀態</th>
+												<th>訂單編號</th>
+												<th>會員姓名</th>
+												<th>購買價格</th>
+												<th>購買時間</th>
+												<th>地址</th>
+												<th>備註</th>
+												<th>狀態</th>
 												<th>修改</th>
-
 											</tr>
 										</thead>
-
-										<tbady> </tbady>
-
 										<tfoot>
 											<tr>
-												<th>商品編號</th>
-												<th>商品名稱</th>
-												<th>商品價格</th>
-												<th>商品描述</th>
-												<th>商品數量</th>
-												<th>商品照片</th>
-												<th>商品狀態</th>
+												<th>訂單編號</th>
+												<th>會員姓名</th>
+												<th>購買價格</th>
+												<th>購買時間</th>
+												<th>地址</th>
+												<th>備註</th>
+												<th>狀態</th>
 												<th>修改</th>
-
 											</tr>
 										</tfoot>
 									</table>
@@ -279,82 +350,6 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- 商品更新表單 -->
-	<div class="modal fade" id="member-update">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">修改商品資料</h4>
-<!-- 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 						<span aria-hidden="true">&times;</span> -->
-<!-- 					</button> -->
-				</div>
-				<div class="modal-body">
-					<!-- Form表單 -->
-					<form method='POST' id="update-product" enctype="multipart/form-data">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>名稱</label>
-										<input type="text" class="form-control" id="upadte-name" />
-										<input type="hidden" class="form-control" id="upadte-id" />							
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>種類</label>
-										<input type="text" class="form-control" id="upadte-type" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>價格</label>
-										<input type="text" class="form-control" id="upadte-price" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>數量</label>
-										<input type="text" class="form-control" id="upadte-amount" />
-									</div>
-								</div>
-								
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>描述</label>
-										<input type="text" class="form-control" id="upadte-descriptrion" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>狀態</label>
-										<input type="text" class="form-control" id="upadte-status" />
-									</div>
-								</div>
-								<div class="col-sm">
-									<div class="form-group">
-										<label>照片</label>
-										<input type="file" class="form-control" id="upadte-photo" />
-									</div>
-								</div>
-								<input type="hidden" class="form-control" id="update-sales"/>
-							</div>
-							<div class="modal-footer justify-content-between">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary" >修改</button>
-							</div>
-						</div>
-					</form>
-
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-	</div>
-	<!-- /.modal -->
 
 
 
@@ -376,97 +371,70 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
+	//所有訂單
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#projects')
-									.DataTable(
-
+	$(document)
+	.ready(
+			function() {
+				$('#allOrders')
+						.DataTable(
+								{
+									searching : false,
+									"ajax" : {
+										"url" : "<c:url value='admin-UnchickOrdersList-json' />",
+										"dataSrc" : ""
+									},
+									"columns" : [
 											{
-												searching : false,
-												"ajax" : {
-													"url" : "<c:url value='admin-AllProjects-json' />",
-													"dataSrc" : ""
-												},
-
-												"columns" : [
-														{
-															"data" : "productId"
-														},
-														{
-															"data" : "name"
-														},
-														{
-															"data" : "price"
-														},
-														{
-															"data" : "descriptrion"
-														},
-														{
-															"data" : "amount"
-														},
-														{
-															"data" : "biPhoto",
-															render : function(
-																	data, type,
-																	row) {
-																return '<img src="data:image/jpeg;base64,'+ data + '" width="150px" height="150px">';
-															}
-														},
-														{
-															"data" : "status",
-															"render" : function(
-																	data, type,
-																	full, meta) {
-																if (data == "0") {
-																	return data = '<span class="badge badge-danger">下架</span>';
-																} else {
-																	return data = '<span class="badge badge-success">供貨中</span>';
-																}
-															}
-
-														}
-
-												],
-												columnDefs : [ {
-													//最後一行加上修改按鈕
-													"data" : "productId",
-													targets : 7,
-													orderable : false,
-													render : function(data,
-															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
-
+												"data" : "orderId"
+											},
+											{
+												"data" : "memberId"
+											},
+											{
+												"data" : "totalPrice"
+											},
+											{
+												"data" : "orderDate"
+											},
+											{
+												"data" : "shippingAddress"
+											},
+											{
+												"data" : "text"
+											},
+											{
+												"data" : "state",
+												"render" : function(
+														data, type,
+														full, meta) {
+													if (data == "完成") {
+														return data = '<span class="badge badge-success">完成</span>';
+													} else if (data == "未付款") {
+														return data = '<span class="badge badge-secondary">未付款</span>';
+													} else if (data == "已付款") {
+														return data = '<span class="badge badge-warning">已付款</span>';
+													} else if (data == "失敗") {
+														return data = '<span class="badge badge-danger">失敗</span>';
 													}
-												} ]
-											});
-						});
-	</script>
+												}
 
-	<script type="text/javascript">
-		$(document).on('click','.btn', function() {
-			var id = $(this).attr("id");
-			
-			$.ajax({
-				url: "<c:url value='admin-updateProduct/" + id + "' />",
-				method: "POST",
-				data: {},
-				dataType: "json",
-				success: function(data)
-				{
-					$('#update-product').modal('show');
-					$('#upadte-id').val(data.productId);
-					$('#upadte-name').val(data.name);
-					$('#upadte-price').val(data.price);
-					$('#upadte-amount').val(data.amount);
-					$('#upadte-descriptrion').val(data.descriptrion);
-					$('#upadte-status').val(data.status);
-					$('#upadte-type').val(data.categoryId);
-					$('#upadte-sales').val(data.sales);
-				}
-				})
-			})
+											}
+
+									],
+									columnDefs : [ {
+										//最後一行加上修改按鈕
+										"data" : "orderId",
+										targets : 7,
+										orderable : false,
+										render : function(data,
+												type, row, meta) {
+											return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-chick' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
+												+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
+										}
+									} ]
+								});
+			});
 	</script>
 </body>
 

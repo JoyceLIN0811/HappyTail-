@@ -273,8 +273,7 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1>訂單資料</h1>
-							<a href='<c:url value='admin-AllOrders-json' />'>Json</a>
-
+<%-- 							<a href='<c:url value='admin-AllOrders-json' />'>Json</a> --%>
 						</div>
 					</div>
 				</div>
@@ -295,32 +294,21 @@
 											<tr>
 												<th>訂單編號</th>
 												<th>會員姓名</th>
-												<th>價格</th>
+												<th>購買價格</th>
 												<th>購買時間</th>
+												<th>地址</th>
 												<th>備註</th>
 												<th>狀態</th>
 												<th>修改</th>
 											</tr>
 										</thead>
-
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>david</td>
-												<td>133</td>
-												<td>2029-12-22</td>
-												<td></td>
-												<td>成立</td>
-												<td>1</td>
-											</tr>
-										</tbody>
-
 										<tfoot>
 											<tr>
 												<th>訂單編號</th>
 												<th>會員姓名</th>
-												<th>價格</th>
+												<th>購買價格</th>
 												<th>購買時間</th>
+												<th>地址</th>
 												<th>備註</th>
 												<th>狀態</th>
 												<th>修改</th>
@@ -385,7 +373,69 @@
 	<!-- page script -->
 	//所有訂單
 	<script>
-		
+	$(document)
+	.ready(
+			function() {
+				$('#allOrders')
+						.DataTable(
+								{
+									searching : false,
+									"ajax" : {
+										"url" : "<c:url value='admin-AllOrders-json' />",
+										"dataSrc" : ""
+									},
+									"columns" : [
+											{
+												"data" : "orderId"
+											},
+											{
+												"data" : "memberId"
+											},
+											{
+												"data" : "totalPrice"
+											},
+											{
+												"data" : "orderDate"
+											},
+											{
+												"data" : "shippingAddress"
+											},
+											{
+												"data" : "text"
+											},
+											{
+												"data" : "state",
+												"render" : function(
+														data, type,
+														full, meta) {
+													if (data == "完成") {
+														return data = '<span class="badge badge-success">完成</span>';
+													} else if (data == "未付款") {
+														return data = '<span class="badge badge-secondary">未付款</span>';
+													} else if (data == "已付款") {
+														return data = '<span class="badge badge-warning">已付款</span>';
+													} else if (data == "失敗") {
+														return data = '<span class="badge badge-danger">失敗</span>';
+													}
+												}
+
+											}
+
+									],
+									columnDefs : [ {
+										//最後一行加上修改按鈕
+										"data" : "orderId",
+										targets : 7,
+										orderable : false,
+										render : function(data,
+												type, row, meta) {
+											return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-chick' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
+												   + "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
+
+										}
+									} ]
+								});
+			});
 	</script>
 </body>
 

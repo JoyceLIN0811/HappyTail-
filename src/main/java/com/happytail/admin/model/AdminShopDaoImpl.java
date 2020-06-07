@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.ProductBean;
+import com.happytail.shopping.model.dao.ProductDao;
 
 @Repository
 public class AdminShopDaoImpl implements AdminShopDao {
@@ -43,16 +45,16 @@ public class AdminShopDaoImpl implements AdminShopDao {
 		return (Double) query.uniqueResult();
 	}
 	
-	//未處理訂單
+	//未處理訂單數
 	@Override
-	public Long unChickOrders() {
+	public Long unCheckOrders() {
 		String hql = "select count(o.state) from OrderBean o where state = '已付款'";
 		Query query = getSession().createQuery(hql);
 		return (Long)query.uniqueResult();
 	}
 
 	@Override
-	public Long countProjectType() {
+	public Long countProductType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -65,11 +67,8 @@ public class AdminShopDaoImpl implements AdminShopDao {
 	}
 
 	@Override
-	public List<String> adminAllOrders() {
-		String sql = "select o.orderId, p.username, o.totalPrice, o.orderDate, o.text, o.state from Orders o left join PetMembers p on  o.memberId = p.id";
-		Query<String> query = getSession().createSQLQuery(sql);
-		List<String> list = query.getResultList();
-		return list;
+	public List<OrderBean> adminAllOrders() {
+		return null;
 	}
 
 	//每月銷售額
@@ -81,6 +80,26 @@ public class AdminShopDaoImpl implements AdminShopDao {
 		Query<Long> query = getSession().createSQLQuery(sql);
 		List<Long> list = query.getResultList();
 		return list;
+	}
+
+	@Override
+	public List<OrderBean> unCheckOrderList() {
+		String hql = "From OrderBean o where o.state='已付款'";
+		Query<OrderBean> query = getSession().createQuery(hql);
+		List<OrderBean> list = query.getResultList();
+		return list;
+	}
+
+	@Override
+	public ProductBean updateProduct(Integer id) {
+		Query<ProductBean> query = getSession().createQuery("From ProductBean p where p.productId=:id",ProductBean.class);
+		query.setParameter("id", id);
+		ProductBean product = (ProductBean) query.uniqueResult();
+		
+		if (product != null) {
+			getSession().update(product);
+		}
+		return product;
 	}
 
 

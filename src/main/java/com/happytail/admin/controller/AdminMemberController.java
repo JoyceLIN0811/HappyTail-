@@ -68,7 +68,7 @@ public class AdminMemberController {
 		model.addAttribute("sumPrice",sumPrice);
 		
 		//未處理訂單數
-		Long unchickOrders = adShopService.unChickOrders();
+		Long unchickOrders = adShopService.unCheckOrders();
 		model.addAttribute("unchickOrders", unchickOrders);
 		
 		//每月銷售額

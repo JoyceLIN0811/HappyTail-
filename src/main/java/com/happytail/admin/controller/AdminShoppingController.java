@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,6 +70,12 @@ public class AdminShoppingController {
 	public String adminAllOrders() {
 		return "adminAllOrders";
 	}
+	
+	//未處理訂單
+	@GetMapping(value = "admin-uncheckOrders")
+	public String unchickOrders() {
+		return "adminUncheckOrders";
+	}
 
 	// 商品列表Json
 	@GetMapping(value = "admin-AllProjects-json")
@@ -76,8 +83,22 @@ public class AdminShoppingController {
 		List<ProductBean> list = pservice.getAllProductsJson();
 		ResponseEntity<List<ProductBean>> re  = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
-		
-		
+	}
+	
+	//單項商品
+	@GetMapping(value = "admin-singleProduct/{key}",produces= {"application/json"})
+	public ResponseEntity<ProductBean> singleProduct(@PathVariable Integer key, ProductBean product) {
+		ProductBean singleProject = (ProductBean) pservice.selectCategory(key);
+		ResponseEntity<ProductBean> re = new ResponseEntity<>(singleProject, HttpStatus.OK);
+		return re;
+	}
+	
+	//修改商品
+	@PostMapping(value = "admin-updateProduct/{key}", produces= {"application/json"})
+	public ResponseEntity<ProductBean> updateProduct(@PathVariable Integer key, ProductBean product) {
+		ProductBean product1 = adminShopService.updateProduct(key);
+		ResponseEntity<ProductBean> re = new ResponseEntity<>(product1, HttpStatus.OK);
+		return re;
 	}
 
 	// 新增商品1
@@ -141,6 +162,14 @@ public class AdminShoppingController {
 	public ResponseEntity<List<OrderBean>> allOrdersJson() {
 		List<OrderBean> list = orderService.getAllOrderJson();
 		ResponseEntity<List<OrderBean>> re  = new ResponseEntity<>(list, HttpStatus.OK);
+		return re;
+	}
+	
+	//未處理訂單Json
+	@GetMapping(value = "admin-UnchickOrdersList-json")
+	public ResponseEntity<List<OrderBean>> unchickOrdersJson() {
+		List<OrderBean> list = adminShopService.unCheckOrderList();
+		ResponseEntity<List<OrderBean>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
 	}
 	

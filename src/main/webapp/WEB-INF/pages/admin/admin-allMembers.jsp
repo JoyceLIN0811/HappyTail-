@@ -292,25 +292,25 @@
 									<table id="allMembers" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
+												<th>姓名</th>
+												<th>性別</th>
+												<th>生日</th>
 												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>地址</th>
+												<th>狀態</th>
+												<th>編輯</th>
 											</tr>
 										</thead>
 
 										<tfoot>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
+												<th>姓名</th>
+												<th>性別</th>
+												<th>生日</th>
 												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>地址</th>
+												<th>狀態</th>
+												<th>編輯</th>
 											</tr>
 										</tfoot>
 									</table>
@@ -348,70 +348,6 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-
-	<!-- 會員更新表單 -->
-	<div class="modal fade" id="member-update">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">修改資料</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- Form表單 -->
-					<form method='POST'>
-
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>姓名</label>
-										<input type="text" class="form-control" id="upadte-name" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>年齡</label>
-										<input type="text" class="form-control" id="upadte-age" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>生日</label>
-										<input type="date" class="form-control" id="upadte-bday" />
-									</div>
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label for="exampleInputemail">E-mail</label>
-								<input type="text" class="form-control" id="update-email" />
-							</div>
-							<div class="form-group">
-								<label for="exampleInputaddress">地址</label>
-								<input type="text" class="form-control" id="update-address" />
-							</div>
-
-							<div class="modal-footer justify-content-between">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary">修改</button>
-							</div>
-						</div>
-
-					</form>
-
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-	</div>
-	<!-- /.modal -->
-
-
 
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
