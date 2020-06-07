@@ -180,9 +180,19 @@
 							</div>
 							<div class="row justify-content-md-center">
 								<div class="col-12" style="margin-top: 15px;">
-									 <div id="topicEditor" ></div>
+									 <div id="topicEditor"></div>
 								</div>
 							</div>
+							<div class="row justify-content-md-center">
+								<div class="col-12" style="margin-top: 15px;">
+									<div class="form-check">
+ 										 <input class="form-check-input" type="checkbox" value="true" id="isCover" name="isCover">
+  											<label class="form-check-label" for="isCover">是否顯示封面圖片
+  											</label>
+								</div>
+							</div>
+							</div>
+							
         					  <input type="hidden" name="content"/>
         					  <input type="hidden" name="imgList"/>
          					  <input type="hidden" name="username" value="${petMembers.username}" />
@@ -454,10 +464,13 @@
 
 //                 } );
             })
+            
             .catch( error => {
                 console.error( error );
             });
         }
+
+
 
      // 檢查@是否出現於輸入區
         function atSignCheck(text){
@@ -631,6 +644,60 @@
 					contentType : "application/json",
 					success : function(data) {
 							$(targetObj).attr("class", "fas checked  fa-thumbs-up fa-2x");
+							 var likeValue = parseInt($(targetObj).next().text());
+							 likeValue++;
+							 $(targetObj).next().text(likeValue);
+					
+						}
+				});
+				
+			}
+			
+	}
+
+		function clickReplyThumbsUp(topicId, replyId, targetObj){
+
+			if($(targetObj).hasClass("checked")){
+
+				var url = contextRoot + "/thumbsUp/reply/" + $("#loginUserId").text()+ "/" + replyId;
+				
+				console.log($(targetObj).hasClass("checked"));
+				
+				$.ajax({
+					url : url,
+					type : "DELETE",
+					async : false,
+					success : function(data) {
+						$(targetObj).attr("class", "far fa-heart fa-3x");
+						 var likeValue = parseInt($(targetObj).next().text());
+						 likeValue--;
+						 $(targetObj).next().text(likeValue);
+					
+						}
+					});
+				
+			}else{
+				
+				var url = contextRoot + "/thumbsUpPost";
+				var dataObj = {
+							type : "reply",
+							topicId : topicId, 
+							replyId : replyId,
+							userId : $("#loginUserId").text(),
+							username : $("#loginUsername").text(),	
+							categoryId :1
+						}
+				console.log(dataObj);
+				console.log($(targetObj).hasClass("checked"));
+				
+				$.ajax({
+					url : url,
+					type : "POST",
+					async : false,
+					data : JSON.stringify(dataObj),
+					contentType : "application/json",
+					success : function(data) {
+							$(targetObj).attr("class", "fas checked  fa-heart fa-3x");
 							 var likeValue = parseInt($(targetObj).next().text());
 							 likeValue++;
 							 $(targetObj).next().text(likeValue);

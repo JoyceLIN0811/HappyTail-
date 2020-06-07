@@ -321,7 +321,7 @@ $("#target").html(data);
                     </div>
 
                     <div class="row justify-content-md-center mb-5 mt-5" >
-                        <div class="col-md-12">
+                        <div class="col-md-12 text-wrap topicContentArea ">
                             {{{content}}}
                         </div>
                     </div>
@@ -420,7 +420,7 @@ $("#target").html(data);
                     </div>
                     <div class="d-inline-block side-block">
                         <i
-                            class="{{#isThumbsUp}} fas checked {{/isThumbsUp}}{{^isThumbsUp}} far{{/isThumbsUp}} fa-heart fa-3x"></i>
+                            class="{{#isThumbsUp}} fas checked {{/isThumbsUp}}{{^isThumbsUp}} far{{/isThumbsUp}} fa-heart fa-3x" onclick="clickReplyThumbsUp({{ topicId }},{{ replyId }},this)"></i>
                         <span class="card-text">{{ likeNum }}</span>
                     </div>
                 </div>

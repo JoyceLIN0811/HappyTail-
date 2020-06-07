@@ -155,22 +155,24 @@ public class TestController {
 
 	@PostMapping("/topicPost")
 	@ResponseBody
-	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam List<String> imgList) {
+	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam List<String> imgList, @RequestParam(defaultValue = "false") Boolean isCover) {
 		// TODO : Add image source to TopicImage
-		topic = forumService.addTopic(topic);
-
-		for(String imgSrc : imgList) {
-			System.out.println("imgSrc=" + imgSrc);
-
-			TopicImage topicImage = new TopicImage();
-			topicImage.setTopidId(topic.getId());
-			topicImage.setImageUrl(imgSrc);
-			forumService.addTopicImage(topicImage);
-			
-		}
+//		topic = forumService.addTopic(topic);
+//
+//		for(String imgSrc : imgList) {
+//			System.out.println("imgSrc=" + imgSrc);
+//
+//			TopicImage topicImage = new TopicImage();
+//			topicImage.setTopidId(topic.getId());
+//			topicImage.setImageUrl(imgSrc);
+//			forumService.addTopicImage(topicImage);
+//			
+		
+		
+//		}
 		
 		System.out.println(topic);
-		return topic;
+		return forumService.addTopic(topic, imgList, isCover);
 	}
 
 	@PostMapping("/replyPost")
@@ -181,8 +183,8 @@ public class TestController {
 
 	@PostMapping("/thumbsUpPost")
 	@ResponseBody
-	public ThumbsUp addThumbsUp(@RequestBody ThumbsUp thumbsUp, @RequestParam(required = false) Integer replyId) {
-		return forumService.addThumbsUp(thumbsUp, replyId);
+	public ThumbsUp addThumbsUp(@RequestBody ThumbsUp thumbsUp) {
+		return forumService.addThumbsUp(thumbsUp, thumbsUp.getReplyId());
 	}
 
 	@PostMapping("/followPost")

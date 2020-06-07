@@ -368,8 +368,25 @@ public class ForumService {
 	}
 
 	// add topic
-	public Topic addTopic(Topic topic) {
-		return topicDAO.insert(topic);
+	public Topic addTopic(Topic topic, List<String> imgList, Boolean isCover) {
+		topic = topicDAO.insert(topic);
+		
+		if (isCover) {
+			if(!imgList.isEmpty()) {
+				for(int i = 0 ; i < imgList.size() ; i++) {
+					TopicImage topicImage = new TopicImage();
+					topicImage.setTopidId(topic.getId());
+					topicImage.setImageUrl(imgList.get(i));
+					if(i ==0) {
+						topicImage.setIsCover(true);
+					}
+					
+					addTopicImage(topicImage);
+				}
+			}
+		}
+		
+		return topic;
 	}
 	
 	//add topic image
