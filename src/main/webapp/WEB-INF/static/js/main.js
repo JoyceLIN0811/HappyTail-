@@ -1,5 +1,7 @@
 var contextRoot = "/happytail";
 var webSocketEndpoint = contextRoot + "/inform";
+// webSocketEndpoint no use "/notice" will happen connect fail
+
 var noticeListTemplate = "";
 var stompClient = null;
 
@@ -22,7 +24,8 @@ function initMainTemplate(){
 }
 
 function initNotice(){
-	
+	//when the user login get the unread notice List
+
 	// TODO : get unread notice , template in /template/mainTemplate.mst
 	
 	if($("#loginUserId").text() != ""){
@@ -78,14 +81,16 @@ function initNotice(){
 
  
 function initNoticeConnection() {
+	//Receive the notice immediately
+
     var socket = new SockJS(webSocketEndpoint);
     stompClient = Stomp.over(socket);
-    
- // console debug log setting (show / not show message)
-//  stompClient.debug = null;
-    
     stompClient.connect({}, function(frame) {
+   
+    //Above 3 lines for connection
     	
+    // console debug log setting (show / not show message)
+    //  stompClient.debug = null;  	
         console.log('Connected: ' + frame);
         stompClient.subscribe('/user/queue/messages', function(messageOutput) {
         	console.log(messageOutput.body);
@@ -93,6 +98,8 @@ function initNoticeConnection() {
         	var noticeList = {
         			noticeList : [JSON.parse(messageOutput.body)]
         	};
+        	
+        	//convert noticeList to JSON
         	
         	$("#notice-list").append(Mustache.render(noticeListTemplate, noticeList));
         	

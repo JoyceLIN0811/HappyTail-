@@ -229,6 +229,20 @@ public class NoticeService {
 	private void sendNotice(Notice notice) {
 		System.out.println("send notice success: " + notice.getMessage());
 		simpMessagingTemplate.convertAndSendToUser(String.valueOf(notice.getUserId()), "/queue/messages", notice);
+		
+		//user the user that should receive the message.
+		//please see the SpringWebSocketHandler will get the userId(can be the different column) 
+		//then return to SpringWebSocketPrincipal, userId is the value of name(name is default cannot be changed)
+		
+		// destination the destination to send the message to. Please see the main.js, "/user" will be add at js 
+		// "/user" is not the path which is the target for WebSocket
+		// convertAndSend => for broadcast, "/topic" and send the message to everyone
+		// convertAndSendToUser => "/user", just send the message to target
+		
+		
+		//payload the payload to send
+		//notice = body (the message put into the <div>)
+		
 	}
 
 }

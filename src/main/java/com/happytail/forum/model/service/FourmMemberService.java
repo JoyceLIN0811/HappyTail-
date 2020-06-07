@@ -21,6 +21,7 @@ import com.happytail.general.model.CodeMap;
 import com.happytail.general.model.Notice;
 import com.happytail.general.model.dao.CodeMapDAO;
 import com.happytail.general.model.dao.NoticeDAO;
+import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Const;
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
@@ -57,6 +58,9 @@ public class FourmMemberService {
 	
 	@Autowired
 	private CodeMapDAO codeMapDAO;
+	
+	@Autowired 
+	private NoticeService noticeService;
 
 	// get my topiclist
 	public Page<TopiclistView> getMemberIdTopiclist(Integer userId, PageInfo pageInfo) {
@@ -66,7 +70,7 @@ public class FourmMemberService {
 	// get my followlist
 	public Page<TopiclistView> getMyFollowlist(Integer userId, PageInfo pageInfo) {
 
-		List<Integer> list = followDAO.selectTopicIdList(userId);
+		List<Integer> list = followDAO.selectTopicIdListByUserId(userId);
 		return topiclistViewDAO.getFollowOrThumbsUpOrHistorylist(list, pageInfo);
 	}
 
@@ -99,10 +103,9 @@ public class FourmMemberService {
 	}
 
 	// update topic
-	public void updateTopic(Topic topic, Integer topicId) {
+	public void updateTopic(Topic topic) {
 		
-//		Topic bean = topicDAO.select(topic.getId());
-		Topic bean = topicDAO.select(topicId);
+		Topic bean = topicDAO.select(topic.getId());
 		if (bean != null) {
 			bean.setCategoryId(topic.getCategoryId());
 			bean.setTitle(topic.getTitle());
@@ -110,6 +113,14 @@ public class FourmMemberService {
 			
 			topicDAO.update(bean);
 			System.out.println("Update topic");
+			
+			 List<Follow> list = followDAO.selectTopicIdListByTopicId(bean.getId());
+			 
+			 for(Follow follow : list) {
+			 
+			noticeService.sendUpdateTopicNotice(follow);
+			
+			 }
 		}else {
 		
 		System.out.println("Update fail");
@@ -156,7 +167,7 @@ public class FourmMemberService {
 	public void removeFollow(Integer topicId, PetMembers petMembers, Integer userId) {
 
 //		Follow follow = followDAO.select(topicId, petMembers.getId());
-		Follow follow = followDAO.select(topicId, userId);
+		Follow follow = followDAO.selectByTopicIdAndUserId(topicId, userId);
 		if (follow != null) {
 			follow.setStatus(false);
 			followDAO.update(follow);

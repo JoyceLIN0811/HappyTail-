@@ -74,3 +74,8 @@ body{
 	max-width:100%;
 	
 }
+
+#replyEditor{
+
+	border: 1px solid lightgrey;
+}

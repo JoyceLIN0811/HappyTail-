@@ -279,7 +279,7 @@ public class TestController {
 			fourmMemberService.deleteTopic(topicId);
 		}else if("update".equals(action)){
 
-			fourmMemberService.updateTopic(topic, topicId);
+			fourmMemberService.updateTopic(topic);
 		}
 	}
 	

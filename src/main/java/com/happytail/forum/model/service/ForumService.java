@@ -37,6 +37,7 @@ import com.happytail.general.model.CodeMap;
 import com.happytail.general.model.Notice;
 import com.happytail.general.model.dao.CodeMapDAO;
 import com.happytail.general.model.dao.NoticeDAO;
+import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Const;
 import com.happytail.general.util.Const.ThumbsUpType;
 import com.happytail.general.util.Page;
@@ -92,6 +93,9 @@ public class ForumService {
 
 	@Autowired
 	private HistoryDAO historyDAO;
+	
+	@Autowired 
+	private NoticeService noticeService;
 
 	// Forum Top
 
@@ -197,7 +201,7 @@ public class ForumService {
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), userId);
 			topicView.setIsThumbsUp(thumbsUp != null);
 
-			Follow follow = followDAO.select(topicView.getTopicId(), userId);
+			Follow follow = followDAO.selectByTopicIdAndUserId(topicView.getTopicId(), userId);
 			topicView.setIsFollowed(follow != null);
 
 			Report report = reportDAO.select(topicView.getTopicId(), userId);
@@ -255,7 +259,7 @@ public class ForumService {
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			topic.setIsThumbsUp(thumbsUp != null);
 
-			Follow follow = followDAO.select(topic.getId(), petMembers.getId());
+			Follow follow = followDAO.selectByTopicIdAndUserId(topic.getId(), petMembers.getId());
 			topic.setIsFollowed(follow != null);
 
 			Report report = reportDAO.select(topic.getId(), petMembers.getId());
@@ -315,7 +319,7 @@ public class ForumService {
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			map.put("isThumbsUp", thumbsUp != null);
 
-			Follow follow = followDAO.select(topic.getId(), petMembers.getId());
+			Follow follow = followDAO.selectByTopicIdAndUserId(topic.getId(), petMembers.getId());
 			map.put("isFollowed", follow != null);
 
 			Report report = reportDAO.select(topic.getId(), petMembers.getId());
@@ -402,12 +406,22 @@ public class ForumService {
 
 	// add reply
 	public Reply addReply(Reply reply) {
+		if(reply != null) {
+			noticeService.sendReplyTopicNotice(reply);
+		}
+		
 		return replyDAO.insert(reply);
 	}
 
 	// add thumbsUp
 	public ThumbsUp addThumbsUp(ThumbsUp thumbsUp, Integer replyId) {
 		thumbsUp.setType((replyId == null) ? ThumbsUpType.topic : ThumbsUpType.reply);
+		
+		if(thumbsUp.getType().equals(ThumbsUpType.topic)) {
+			noticeService.sendLikeTopicNotice(thumbsUp);
+		}else {
+			noticeService.sendLikeReplyNotice(thumbsUp);
+		}
 
 		return thumbsUpDAO.insert(thumbsUp);
 
@@ -449,7 +463,7 @@ public class ForumService {
 	// update follow status
 	public void removeFollow(Integer topicId, Integer userId) {
 
-		Follow follow = followDAO.select(topicId, userId);
+		Follow follow = followDAO.selectByTopicIdAndUserId(topicId, userId);
 		if (follow != null) {
 			follow.setStatus(false);
 			followDAO.update(follow);

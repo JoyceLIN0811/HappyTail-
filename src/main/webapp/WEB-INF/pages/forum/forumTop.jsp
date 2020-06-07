@@ -299,6 +299,7 @@
 		var categoryId = null;
 		var tagType = null;
 		var topicEditor = null;
+		var replyEditor = null;
 	    var replyTemplate = "";
 	    var stageLinkTemplate = "";
 	    var stageListTemplate = "";
@@ -427,6 +428,7 @@
 				}
 
 				});
+			initReplyCKEditor();
 			
 			history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
 
@@ -453,6 +455,32 @@
             } )
             .then( editorInstance => {
             	topicEditor = editorInstance;
+                
+                // 將輸入區綁定change事件(:data為僅限輸入值更動,不包含輸入區中工具列及滑鼠的任何操作)
+//                 editor.model.document.on( 'change:data', () => {
+                    // console.log( 'The Document has changed!' );
+
+//                     let lastTagText = getLastOuterTagText($(editor.getData()));
+
+//                     atSignCheck(lastTagText);
+
+//                 } );
+            })
+            
+            .catch( error => {
+                console.error( error );
+            });
+        }
+
+        function initReplyCKEditor(){
+            // reply CKEditor 初始化
+//             ClassicEditor
+            BalloonEditor
+            .create( document.querySelector( '#replyEditor' ),{
+                placeholder: '在此輸入回覆...'
+            } )
+            .then( editorInstance => {
+            	replyEditor = editorInstance;
                 
                 // 將輸入區綁定change事件(:data為僅限輸入值更動,不包含輸入區中工具列及滑鼠的任何操作)
 //                 editor.model.document.on( 'change:data', () => {
@@ -555,6 +583,9 @@
 			}
 
 		function clickAddReply(){
+
+			var content = replyEditor.getData();
+			
 			console.log($("#loginUsername"));
 			console.log($("#loginUserId"));
 			console.log("text = " + $("#loginUsername").text());
@@ -564,7 +595,7 @@
 			
 			$("#addReplyForm input[name='username']").val($("#loginUsername").text());
 			$("#addReplyForm input[name='userId']").val($("#loginUserId").text());
-			
+			$("#addReplyForm input[name='replyContent']").val(content);
 			console.log($(addReplyForm).serialize());
 
 			var url = contextRoot + "/replyPost";
@@ -578,8 +609,7 @@
 				async : false,
 				data: form.serialize(),
 				success : function(data) {
-					$("input[name='replyContent']").val("");
-					
+										
 						var maxStageValue = 0
 					$(".stage-value").each(function(index, element){
 						maxStageValue = parseInt($(element).text());
