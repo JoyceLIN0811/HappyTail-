@@ -345,7 +345,7 @@ $("#target").html(data);
                         </div>
 
                         <div class="col-md-1">
-                            <i class="{{#isThumbsUp}}fas checked{{/isThumbsUp}} {{^isThumbsUp}} far{{/isThumbsUp}} fa-heart fa-2x" onclick="clickTopicThumbsUp({{ topicId }}, this)"></i>
+                            <i class="{{#isThumbsUp}}fas checked{{/isThumbsUp}} {{^isThumbsUp}} far{{/isThumbsUp}} fa-thumbs-up fa-2x" onclick="clickTopicThumbsUp({{ topicId }}, this)"></i>
                         </div>
 
                         <div class="col-md-1">
@@ -357,7 +357,7 @@ $("#target").html(data);
                         </div>
 
                         <div class="col-md-1">
-                            <i class="fas fa-exclamation-triangle fa-2x" onclick="openAddReportDialog({{ topicId }}, this)"></i>
+                            <i class="fas fa-exclamation-triangle fa-2x" onclick="openAddReportDialog({{ topicId }})"></i>
                         </div>
                     </div>
 

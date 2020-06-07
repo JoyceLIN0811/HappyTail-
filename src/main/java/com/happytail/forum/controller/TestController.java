@@ -29,7 +29,9 @@ import com.happytail.forum.model.Report;
 import com.happytail.forum.model.ThumbsUp;
 import com.happytail.forum.model.ThumbsUpView;
 import com.happytail.forum.model.Topic;
+import com.happytail.forum.model.TopicImage;
 import com.happytail.forum.model.TopiclistView;
+import com.happytail.forum.model.dao.TopicImageDAO;
 import com.happytail.forum.model.service.ForumService;
 import com.happytail.forum.model.service.FourmMemberService;
 import com.happytail.forum.model.service.LimitPostService;
@@ -155,13 +157,20 @@ public class TestController {
 	@ResponseBody
 	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam List<String> imgList) {
 		// TODO : Add image source to TopicImage
-		
+		topic = forumService.addTopic(topic);
+
 		for(String imgSrc : imgList) {
-			System.out.println(imgSrc);
+			System.out.println("imgSrc=" + imgSrc);
+
+			TopicImage topicImage = new TopicImage();
+			topicImage.setTopidId(topic.getId());
+			topicImage.setImageUrl(imgSrc);
+			forumService.addTopicImage(topicImage);
+			
 		}
 		
 		System.out.println(topic);
-		return forumService.addTopic(topic);
+		return topic;
 	}
 
 	@PostMapping("/replyPost")
@@ -182,7 +191,8 @@ public class TestController {
 		return forumService.addFollowTopic(follow);
 	}
 
-	@PostMapping("/report")
+	@PostMapping("/reportPost")
+	@ResponseBody
 	public Report addReport(@ModelAttribute Report report) {
 		return forumService.addReport(report);
 	}

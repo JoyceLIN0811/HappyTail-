@@ -222,6 +222,10 @@
 					</div>
 					<form id="addReportForm">
 						<div class="form-group">
+						<div>
+							<blockquote class="flow-text">檢舉這篇文章的原因？</blockquote>
+						</div>
+						
 
 							<div class="custom-control custom-radio">
         						<input type="radio" class="custom-control-input" id="report1" name="categoryId" value="1">
@@ -257,8 +261,7 @@
 						        <input type="radio" class="custom-control-input" id="report8" name="categoryId" value="8">
 						        <label class="custom-control-label" for="report8">其他原因</label>
 						    </div>
-
-         					  <input type="hidden" name="content"/>
+                         	  <input type="hidden" name="topicId"/>
           					  <input type="hidden" name="username" value="${petMembers.username}" />
           					  <input type="hidden" name="userId" value="${petMembers.id}" />
 						</div>
@@ -500,14 +503,14 @@
 			
 			var imgListStr = "";
 			$(content).find("img").each(function(index,element){
-				console.log("index = " + index);
+				console.log("index = " + index);// number of picture
 				console.log("src = " + $(element).attr("src"));
 				
 				imgListStr += $(element).attr("src") + ",";
 			});
 			
 			if(imgListStr.length != 0){
-				imgListStr = imgListStr.substring(0,imgListStr.length - 1);
+				imgListStr = imgListStr.substring(0,imgListStr.length - 1);//cut the ,
 			}
 			
 			$("#addTopicForm input[name='imgList']").val(imgListStr);
@@ -700,12 +703,40 @@
 	        window.open(shareUrl,"_blank","left=400,top=200,width=750,height=500");
 			}
 
-		function openAddReportDialog() {
+		function openAddReportDialog(topicId) {
 
 			console.log("Hello!");
+			$("#addReportForm input[name='topicId']").val(topicId);
+			
 
 			$('#addReportDialog').modal('show');
 		}
+
+		function clickAddReport(){
+
+			var url = contextRoot + "/reportPost";
+			var form = $(addReportForm);
+			
+			console.log($(addReportForm).serialize());
+
+			
+
+			$.ajax({
+				url : url,
+				type : "POST",
+				async : false,
+				data: form.serialize(),
+				success : function(data) {
+					console.log(data);
+
+				}
+
+			});
+			console.log("GoodBye!");
+
+			$('#addReportDialog').modal('hide')
+
+			}
 	</script>
 
 </body>
