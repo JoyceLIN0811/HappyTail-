@@ -308,9 +308,8 @@
 									<label for="exampleInputFile">照片</label>
 									<div class="input-group">
 										<div class="custom-file">
-											<form:input path='productImage' type='file' class="custom-file-input"
-												id="exampleInputFile" />
-											<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+											<form:input path='productImage' type='file'  />
+											
 										</div>
 
 									</div>
