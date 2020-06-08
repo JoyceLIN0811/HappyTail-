@@ -69,7 +69,24 @@
 			class="fh5co-cover fh5co-cover-sm text-center" role="banner"
 			style="background-image: url(images/order.jpg);">
 			<div class="overlay "></div>
+			<div class="container">
+				<div class="row">
 
+					<div class="col-md-8 col-md-offset-2 text-center">
+
+						<div class="display-t">
+
+							<div class="display-tc animate-box " data-animate-effect="fadeIn">
+
+								<h1>Order Detail</h1>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
 
 		</header>
 		<div id="fh5co-product">
@@ -91,7 +108,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach varStatus="vs" var="li" items="${list}">
+							<c:forEach varStatus="vs" var="li" items="${dlist}">
 								<tr>
 									<td>${li.pBean.getProductId()}</td>
 									<td>${li.pBean.getName()}</td>

@@ -29,7 +29,9 @@ import com.happytail.forum.model.Report;
 import com.happytail.forum.model.ThumbsUp;
 import com.happytail.forum.model.ThumbsUpView;
 import com.happytail.forum.model.Topic;
+import com.happytail.forum.model.TopicImage;
 import com.happytail.forum.model.TopiclistView;
+import com.happytail.forum.model.dao.TopicImageDAO;
 import com.happytail.forum.model.service.ForumService;
 import com.happytail.forum.model.service.FourmMemberService;
 import com.happytail.forum.model.service.LimitPostService;
@@ -55,6 +57,7 @@ public class TestController {
 	@GetMapping("/forum/topiclist")
 	public String getTopicListPage(@RequestParam(required = false) Integer categoryId,
 								   @RequestParam(required = false) String tagType,
+								   @RequestParam String isForumArea,
 								Model model) {
 //		if ("hit".equals(tagType)) {
 //			Page<TopiclistView> list = forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
@@ -71,6 +74,16 @@ public class TestController {
 		
 		model.addAttribute("categoryId",categoryId != null ? categoryId : "null");
 		model.addAttribute("tagType",tagType != null ? tagType : "null");
+		model.addAttribute("isForumArea", isForumArea != null ? isForumArea : "null");
+		
+		return "TopicListPage";
+	}
+	
+	@GetMapping("/forum/topicPage/{topicId}")
+	public String getTopic(@PathVariable Integer topicId,
+			Model model) {
+		
+		model.addAttribute("isForumArea", true);
 		
 		return "TopicListPage";
 	}
@@ -81,7 +94,7 @@ public class TestController {
 			@RequestParam(required = false) Integer categoryId, @RequestParam Integer pageSize,
 			@RequestParam Integer pageNum, @RequestParam(required = false, name = "tagType") String tagType) {
 		if ("hit".equals(tagType)) {
-			return forumService.getHitTopicList(categoryId, new PageInfo(pageSize, pageNum));
+			return forumService.getHitTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
 		} else {
 			return forumService.getTopicList(petMembers, categoryId, new PageInfo(pageSize, pageNum));
 		}
@@ -99,7 +112,9 @@ public class TestController {
 	@GetMapping("/topic/{topicId}")
 	@ResponseBody
 	public Topic TopicContent(@SessionAttribute(required = false) PetMembers petMembers,
-			@PathVariable Integer topicId) {
+			@PathVariable Integer topicId, Model model) {
+		model.addAttribute("topicId", topicId != null ? topicId : "null");
+
 		return forumService.getTopicContent(petMembers, topicId);
 	}
 
@@ -126,6 +141,7 @@ public class TestController {
 
 	
 	@GetMapping("/reply")
+	@ResponseBody
 	public Page<ReplylistView> ReplyList(@SessionAttribute(required = false) PetMembers petMembers,
 			@RequestParam Integer topicId, @RequestParam Integer pageSize, @RequestParam Integer pageNum) {
 
@@ -137,32 +153,54 @@ public class TestController {
 		return forumService.getThumbsUpList(topicId);
 	}
 
-	@PostMapping("/topic")
-	public Topic addTopic(@ModelAttribute Topic topic) {
-		return forumService.addTopic(topic);
+	@PostMapping("/topicPost")
+	@ResponseBody
+	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam List<String> imgList, @RequestParam(defaultValue = "false") Boolean isCover) {
+		// TODO : Add image source to TopicImage
+//		topic = forumService.addTopic(topic);
+//
+//		for(String imgSrc : imgList) {
+//			System.out.println("imgSrc=" + imgSrc);
+//
+//			TopicImage topicImage = new TopicImage();
+//			topicImage.setTopidId(topic.getId());
+//			topicImage.setImageUrl(imgSrc);
+//			forumService.addTopicImage(topicImage);
+//			
+		
+		
+//		}
+		
+		System.out.println(topic);
+		return forumService.addTopic(topic, imgList, isCover);
 	}
 
-	@PostMapping("/reply")
+	@PostMapping("/replyPost")
+	@ResponseBody
 	public Reply addReply(@ModelAttribute Reply reply) {
 		return forumService.addReply(reply);
 	}
 
-	@PostMapping("/thumbsUp")
-	public ThumbsUp addThumbsUp(@ModelAttribute ThumbsUp thumbsUp, @RequestParam(required = false) Integer replyId) {
-		return forumService.addThumbsUp(thumbsUp, replyId);
+	@PostMapping("/thumbsUpPost")
+	@ResponseBody
+	public ThumbsUp addThumbsUp(@RequestBody ThumbsUp thumbsUp) {
+		return forumService.addThumbsUp(thumbsUp, thumbsUp.getReplyId());
 	}
 
-	@PostMapping("/follow")
-	public Follow addFollowTopic(@ModelAttribute Follow follow) {
+	@PostMapping("/followPost")
+	@ResponseBody
+	public Follow addFollowTopic(@RequestBody Follow follow) {
 		return forumService.addFollowTopic(follow);
 	}
 
-	@PostMapping("/report")
+	@PostMapping("/reportPost")
+	@ResponseBody
 	public Report addReport(@ModelAttribute Report report) {
 		return forumService.addReport(report);
 	}
 
 	@DeleteMapping("/thumbsUp/{type}/{userId}/{targetId}")
+	@ResponseBody
 	public Boolean removeThumbsUp(@SessionAttribute(required = false) PetMembers petMembers,
 			@PathVariable Integer targetId, @PathVariable String type, @PathVariable Integer userId) {
 		forumService.removeThumbsUp(type, targetId, userId);
@@ -170,6 +208,7 @@ public class TestController {
 	}
 
 	@DeleteMapping("/follow/{userId}/{topicId}")
+	@ResponseBody
 	public Boolean removeFollow(@SessionAttribute(required = false) PetMembers petMembers,
 			@PathVariable Integer topicId, @PathVariable Integer userId) {
 		forumService.removeFollow(topicId, userId);
@@ -177,6 +216,7 @@ public class TestController {
 	}
 
 	@PutMapping("/notice/{noticeId}")
+	@ResponseBody
 	public Boolean updateIsReadStatus(@PathVariable Integer noticeId) {
 		forumService.updateIsReadStatus(noticeId);
 		return true;
@@ -239,7 +279,7 @@ public class TestController {
 			fourmMemberService.deleteTopic(topicId);
 		}else if("update".equals(action)){
 
-			fourmMemberService.updateTopic(topic, topicId);
+			fourmMemberService.updateTopic(topic);
 		}
 	}
 	
@@ -250,20 +290,24 @@ public class TestController {
 	}
 	
 	@DeleteMapping("/myPage/removeThumbsUp/{type}/{userId}/{topicId}")
-	public void removeThumbsUpViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,
+	@ResponseBody
+	public Map<String,String> removeThumbsUpViaMyPage(@SessionAttribute PetMembers petMembers,
 			@PathVariable Integer topicId, @PathVariable String type, @PathVariable Integer userId) {
 		fourmMemberService.removeThumbsUp(type, topicId, petMembers, userId);
+		
+		return Collections.singletonMap("status", "delete success");
 	}
 	
 	@DeleteMapping("/myPage/removeHistory/{topicId}")
-	public void removeThumbsUpViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,
+	public void removeThumbsUpViaMyPage(@SessionAttribute PetMembers petMembers,
 			@PathVariable Integer topicId, @RequestParam Integer userId) {
 		fourmMemberService.removeHistory(petMembers, topicId, userId);
 	}
 	
-	@DeleteMapping("/myPage/removeFollow/{topicId}")
-	public void removeFollowViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,
-			@PathVariable Integer topicId, @RequestParam Integer userId) {
+	@DeleteMapping("/myPage/removeFollow/{userId}/{topicId}")
+	@ResponseBody
+	public void removeFollowViaMyPage(@SessionAttribute PetMembers petMembers,
+			@PathVariable Integer topicId, @PathVariable Integer userId) {
 	fourmMemberService.removeFollow(topicId, petMembers, userId);
 	}
 	
@@ -277,6 +321,12 @@ public class TestController {
 	public void updateAllIsReadStatusViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,  @RequestParam Integer userId) {
 		fourmMemberService.updateAllIsReadStatus(petMembers, userId);
 
+	}
+	
+	@GetMapping("/topNotice/{userId}")
+	@ResponseBody
+	public List<Notice> NoticeList(@SessionAttribute(required = false) PetMembers petMembers, @PathVariable Integer userId ){
+		return forumService.getMemberNoticeList(userId);
 	}
 	
 	

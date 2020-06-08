@@ -83,7 +83,7 @@ public class NoticeService {
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.ReceiveReply);
 			String module = Const.ModuleType.Forum;
 			String noticeMsg = String.format(template, replyUsername, title);
-			String link = "/topic/" + reply.getTopicId();
+			String link = "/forum/topicPage/" + reply.getTopicId();
 
 			Notice notice = new Notice();
 			notice.setUserId(topic.getUserId());
@@ -108,7 +108,7 @@ public class NoticeService {
 			String replyUsername = reply.getUsername();
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.AtReply);
 			String noticeMsg = String.format(template, replyUsername);
-			String link = "/topic/" + reply.getTopicId();
+			String link = "/forum/topicPage/" + reply.getTopicId();
 
 			Notice notice = new Notice();
 			notice.setUserId(userId);
@@ -143,7 +143,7 @@ public class NoticeService {
 
 				String template = NoticeUtil.getNoticeTemplate(NoticeType.LikeTopic);
 				String noticeMsg = String.format(template, thumbsUpUsername, title, value);
-				String link = "/topic/" + thumbsUp.getTopicId();
+				String link = "/forum/topicPage/" + thumbsUp.getTopicId();
 
 				Notice notice = new Notice();
 				notice.setUserId(userId);
@@ -175,7 +175,7 @@ public class NoticeService {
 
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.LikeReply);
 			String noticeMsg = String.format(template, thumbsUpUsername);
-			String link = "/topic/" + thumbsUp.getTopicId();
+			String link = "/forum/topicPage/" + thumbsUp.getTopicId();
 
 			Notice notice = new Notice();
 			notice.setUserId(userId);
@@ -203,7 +203,7 @@ public class NoticeService {
 			String module = Const.ModuleType.Forum;
 			String template = NoticeUtil.getNoticeTemplate(NoticeType.UpdateTopic);
 			String noticeMsg = String.format(template, title);
-			String link = "/topic/" + topic.getId();
+			String link = "/forum/topicPage/" + topic.getId();
 			
 			Notice notice = new Notice();
 			notice.setUserId(userId);
@@ -228,7 +228,21 @@ public class NoticeService {
 
 	private void sendNotice(Notice notice) {
 		System.out.println("send notice success: " + notice.getMessage());
-		simpMessagingTemplate.convertAndSendToUser(String.valueOf(notice.getUserId()), "/forum/notice", notice);
+		simpMessagingTemplate.convertAndSendToUser(String.valueOf(notice.getUserId()), "/queue/messages", notice);
+		
+		//user the user that should receive the message.
+		//please see the SpringWebSocketHandler will get the userId(can be the different column) 
+		//then return to SpringWebSocketPrincipal, userId is the value of name(name is default cannot be changed)
+		
+		// destination the destination to send the message to. Please see the main.js, "/user" will be add at js 
+		// "/user" is not the path which is the target for WebSocket
+		// convertAndSend => for broadcast, "/topic" and send the message to everyone
+		// convertAndSendToUser => "/user", just send the message to target
+		
+		
+		//payload the payload to send
+		//notice = body (the message put into the <div>)
+		
 	}
 	
 	

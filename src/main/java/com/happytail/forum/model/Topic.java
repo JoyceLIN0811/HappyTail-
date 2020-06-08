@@ -29,10 +29,11 @@ public class Topic {
 	private Timestamp updateDate = new Timestamp(System.currentTimeMillis());
 	private Boolean isThumbsUp;
 	private Boolean isFollowed;
-	private Boolean isReported;	
+	private Boolean isReported;
+	private String category;
 	
 	public Topic(Integer categoryId, String title, String content, Integer userId,
-	String username, Timestamp createDate,Timestamp updateDate) {
+	String username, Timestamp createDate,Timestamp updateDate,String category) {
 		this.categoryId = categoryId;
 		this.title = title;
 		this.content = content;
@@ -40,6 +41,7 @@ public class Topic {
 		this.username = username;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
+		this.category = category;
 	}
 	
 	public Topic() {
@@ -146,13 +148,23 @@ public class Topic {
 	public void setIsReported(Boolean isReported) {
 		this.isReported = isReported;
 	}
+	
+	
+	@Transient
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	@Override
 	public String toString() {
 		return "Topic [id=" + id + ", categoryId=" + categoryId + ", title=" + title + ", content=" + content
 				+ ", userId=" + userId + ", username=" + username + ", createDate=" + createDate + ", updateDate="
 				+ updateDate + ", isThumbsUp=" + isThumbsUp + ", isFollowed=" + isFollowed + ", isReported="
-				+ isReported + "]";
+				+ isReported + ", category=" + category + "]";
 	}
 
 }

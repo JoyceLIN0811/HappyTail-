@@ -89,6 +89,13 @@ public class MembersView {
 	}
 	
 	@Bean
+	public View accountStop() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/Member/accountStop.jsp");
+		return view;	
+	}
+	
+	@Bean
 	public View memberCRUD() {
 		InternalResourceView view = new InternalResourceView();
 		view.setUrl("/WEB-INF/pages/Member/member_CRUD.jsp");

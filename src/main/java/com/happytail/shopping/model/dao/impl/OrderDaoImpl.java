@@ -58,6 +58,8 @@ public class OrderDaoImpl implements OrderDao {
 	public List<OrderBean> selectOrderByMemberIdNew(Integer Id){
 		String state ="成立";
 		String hql = "from OrderBean o where o.memberId=:Id and o.state = :state order by o.orderId desc";
+//		String hql2 = "from OrderBean o where o.memberId=:Id and o.state = :state order by o.orderId desc";
+//		Query createQuery2 = s().createQuery(hql2);
 		
 		 Query<OrderBean> createQuery = getSession().createQuery(hql,OrderBean.class);
 		 createQuery.setParameter("Id", Id);
@@ -82,6 +84,7 @@ public class OrderDaoImpl implements OrderDao {
 		Integer id =orderBean.getOrderId();
 		String hql ="from OrderItemBean where orderId=:id";
 		List<OrderItemBean> resultList = s().createQuery(hql, OrderItemBean.class).setParameter("id", id).getResultList();
+		
 		return resultList;
 		
 	}

@@ -182,7 +182,7 @@
 						<li class="nav-item">
 							<a href="admin-Index" class="nav-link">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
-								<p>首頁</p>
+								<p>後台首頁</p>
 							</a>
 						</li>
 
@@ -202,6 +202,13 @@
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
+
+								<li class="nav-item">
+									<a href="admin-InsertProject" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>新增商品</p>
+									</a>
+								</li>
 								<li class="nav-item">
 									<a href="admin-AllProjects" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
@@ -209,21 +216,9 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="admin-AllProjects" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>新增商品</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
+									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>訂單狀態</p>
 									</a>
 								</li>
 							</ul>
@@ -237,9 +232,15 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="admin-allMembersJSON" class="nav-link">
+							<a href="admin-forum" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>討論區管理</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="admin-happyTail" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>回首頁</p>
 							</a>
 						</li>
 					</ul>
@@ -268,7 +269,7 @@
 								<div class="icon">
 									<i class="ion ion-bag"></i>
 								</div>
-								<a href="#" class="small-box-footer">
+								<a href="admin-AllProjects" class="small-box-footer">
 									More info
 									<i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -296,35 +297,30 @@
 							<!-- small box -->
 							<div class="small-box bg-success">
 								<div class="inner">
-									<h3>
-										53
-										<sup style="font-size: 20px">%</sup>
-									</h3>
+									<h3>${unchickOrders}</h3>
 
-									<p>Bounce Rate</p>
+									<p>未處理訂單</p>
 								</div>
 								<div class="icon">
 									<i class="ion ion-stats-bars"></i>
 								</div>
-								<a href="#" class="small-box-footer">
+								<a href="admin-uncheckOrders" class="small-box-footer">
 									More info
 									<i class="fas fa-arrow-circle-right"></i>
 								</a>
 							</div>
 						</div>
-
 						<div class="col-lg-3 col-6">
 							<!-- small box -->
 							<div class="small-box bg-danger">
 								<div class="inner">
-									<h3>65</h3>
-
-									<p>Unique Visitors</p>
+									<h3>${sumPrice}</h3>
+									<p>總銷售金額</p>
 								</div>
 								<div class="icon">
 									<i class="ion ion-pie-graph"></i>
 								</div>
-								<a href="#" class="small-box-footer">
+								<a href="admin-AllOrders" class="small-box-footer">
 									More info
 									<i class="fas fa-arrow-circle-right"></i>
 								</a>
@@ -333,6 +329,30 @@
 						<!-- ./col -->
 					</div>
 				</div>
+				<!-- LINE CHART -->
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">每月銷售金額</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart">
+							<canvas id="lineChart"
+								style="min-height: 250px; height: 450px; max-height: 450px; max-width: 100%;"></canvas>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
 				<!-- PIE CHART -->
 				<div class="row">
 					<div class="col-md-6">
@@ -362,7 +382,7 @@
 
 						<div class="card card-success">
 							<div class="card-header">
-								<h3 class="card-title">年齡分布</h3>
+								<h3 class="card-title">會員年齡分布</h3>
 
 								<div class="card-tools">
 									<button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -380,10 +400,13 @@
 								</div>
 							</div>
 							<!-- /.card-body -->
+
 						</div>
 						<!-- /.card -->
 
+
 					</div>
+
 				</div>
 
 
@@ -464,21 +487,100 @@
 	//年齡分布
 	<script>
 	$(function() {
-		var ctx = $('#barChart').get(0).getContext('2d')
+		var ctx = $('#barChart')
 		var barChart = new Chart(ctx, {
-			
 			type: 'bar',
 			data: {
 			  labels: ['10-19', '20-29', '30-39', '40-49', '50-59', '60-69'],
 			  datasets: [{
 			   borderWidth: 1,
 			     label: '人數',
-			     data: [${list[0]}, ${list[1]}, ${list[2]}, ${list[3]}, ${list[4]}, ${list[5]}]
+			     data: [${list[0]}, ${list[1]}, ${list[2]}, ${list[3]}, ${list[4]}, ${list[5]}],
+			  	 backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	             ],
+	             borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	             ],
+	             
+	             borderWidth: 1
 			  }]
-			  }
+			  },
+			  options: {
+				  scales: {
+					  yAxes: [{
+						  ticks: {
+							  beginAtZero: true,
+							  precision: 0
+							  }
+						  }]
+					  }
+				  }
+		  
 		    
 			});
 	})
+	</script>
+	
+	//每月銷售金額
+	<script>
+	var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+
+
+	
+	var lineChart = new Chart(lineChartCanvas, { 
+	      type: 'line',
+	      data: {
+	    	  labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+	    	  datasets: [{
+	    		  label: "金額",
+	              lineTension: 0.1,
+	              backgroundColor: "rgba(75,192,192,0.4)",
+	              borderColor: "rgba(75,192,192,1)",
+	              borderCapStyle: 'butt',
+	              borderDash: [],
+	              borderDashOffset: 0.0,
+	              borderJoinStyle: 'miter',
+	              pointBorderColor: "rgba(75,192,192,1)",
+	              pointBackgroundColor: "#fff",
+	              pointBorderWidth: 1,
+	              pointHoverRadius: 5,
+	              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	              pointHoverBorderColor: "rgba(220,220,220,1)",
+	              pointHoverBorderWidth: 2,
+	              pointRadius: 5,
+	              pointHitRadius: 10,         
+	    		  data: [${list2[0]},${list2[1]},${list2[2]},${list2[3]},${list2[4]},${list2[5]},${list2[6]},${list2[7]},${list2[8]},${list2[9]},${list2[10]},${list2[11]}],
+    			  borderWidth: 5
+		    	  }  
+	 		  ]
+		      },
+		      
+		      options: {
+		          scales: {
+		              yAxes: [{
+		                  ticks: {
+		                	  fontSize: 20
+		                  }
+		              }],
+		              xAxes: [{
+		                  ticks: {
+		                	  fontSize: 20
+		                  }
+		              }]
+		          }
+		      }
+	    })
 	</script>
 </body>
 </html>

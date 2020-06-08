@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.member.model.dao.PetMembersDAO;
@@ -24,7 +25,9 @@ public class CheckoutController {
 	
 	
 	@GetMapping("/OrderCheck")
-	public String OrderSureForm(HttpServletRequest request) {
+	public String OrderSureForm(
+			@SessionAttribute("LoginOK")PetMembers petMembers,
+			HttpServletRequest request) {
 		System.out.println("進去確認訂單");
 		HttpSession session = request.getSession(false);
 		CartBean cart=(CartBean)session.getAttribute("cart");
@@ -37,9 +40,9 @@ public class CheckoutController {
 		
 		System.out.println("以下用來測試");
 //		PetMembers member =new PetMembers();
-		PetMembers member = mem.selectPetMembers(1);
+//		PetMembers member = mem.selectPetMembers(1);
 		
-		session.setAttribute("LoginOK", member);
+//		session.setAttribute("LoginOK", member);
 		
 		
 		return"OrderCheck";	

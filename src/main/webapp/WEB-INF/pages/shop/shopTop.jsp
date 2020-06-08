@@ -51,7 +51,7 @@
 				<div class="row">
 					<div class="col-md-3 col-xs-2">
 						<div id="fh5co-logo">
-							<a class="navbar-brand" href="#" style="display: block; margin: auto;">
+							<a class="navbar-brand" href="<c:url value='/HappyTailIndex.jsp'/> " style="display: block; margin: auto;">
 			<img src="img/logo210_1905.png" width="100" 
 			style="display: block;margin-left: 110px">
 		</a>
@@ -74,7 +74,7 @@
 									<li><a href="#">Branding</a></li>
 									<li><a href="#">API</a></li>
 								</ul></li>
-							<li><a href="<c:url value='/forum/topiclist?pageSize=10&pageNum=1' />">論壇</a></li>
+							<li><a href="<c:url value='/getFavorite.do'/>">我的最愛</a></li>
 						</ul>
 					</div>
 			<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
@@ -89,7 +89,7 @@
 									</span>
 								</div>
 							</li>
-							<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i
+							<li class="shopping-cart"><a href="<c:url value='/intoCart'/>" class="cart"><span><small>0</small><i
 										class="icon-shopping-cart"></i></span></a></li>
 						</ul>
 					</div>

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.OrderBean;
@@ -82,11 +83,12 @@ public class OrderTest {
 	@PostMapping("/testo")
 	public ResponseEntity<List<OrderItemBean>> getOrderItems(Model m,	
 			@RequestParam("oId") Integer oId,
+			@SessionAttribute("LoginOK")PetMembers petMembers,
 			HttpServletRequest res) {
 //		PetMembers member =(PetMembers) res.getSession().getAttribute("LoginOK");
 		System.out.println("進入con");
 		Integer mId = 1;
-		List<OrderItemBean> oib = Odao.getOib(mId, oId);
+		List<OrderItemBean> oib = Odao.getOib(petMembers.getId(), oId);
 		
 		if(oib==null) {
 			return null;

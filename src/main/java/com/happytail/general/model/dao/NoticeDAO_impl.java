@@ -32,6 +32,7 @@ public class NoticeDAO_impl implements NoticeDAO {
 	}
 
 	private final String AllNotice = "FROM com.happytail.general.model.Notice ORDER BY createDate DESC";
+	private final String SelectByUserId = "FROM com.happytail.general.model.Notice WHERE userId=: userId and isRead='N' ORDER BY createDate DESC";
 	private final String SelectByModuleAndUserId = "FROM com.happytail.general.model.Notice WHERE module =: module and userId=: userId ORDER BY createDate DESC";
 	private final String AllNoticeCounts = "SELECT COUNT(*) FROM com.happytail.general.model.Notice WHERE module =: module and userId=: userId and isRead='N'";
 
@@ -121,6 +122,21 @@ public class NoticeDAO_impl implements NoticeDAO {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<Notice> selectByUserIdList(Integer userId){
+		List<Notice> list = null;
+		try {
+			list = getSession().createQuery(SelectByUserId, Notice.class)
+					.setParameter("userId", userId)
+					.getResultList();
+			
+		} catch (Exception e) {
+			return null;
+		}
+		return list;
+	}
+
 
 	@Override
 	public List<Notice> selectByModule(Integer userId, String module) {

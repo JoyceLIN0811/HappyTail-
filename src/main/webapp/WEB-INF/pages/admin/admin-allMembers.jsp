@@ -217,10 +217,11 @@
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
+
 								<li class="nav-item">
-									<a href="admin-ShoppingIndex" class="nav-link">
+									<a href="admin-InsertProject" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>總覽</p>
+										<p>新增商品</p>
 									</a>
 								</li>
 								<li class="nav-item">
@@ -230,37 +231,31 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="admin-InsertProject" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>新增商品</p>
-									</a>
-								</li>
-								<li class="nav-item">
 									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="admin-OrderInfo" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>訂單狀態</p>
 									</a>
 								</li>
 							</ul>
 						</li>
 
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="admin-AllProjects-json" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>預約管理</p>
 							</a>
 						</li>
 
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="admin-allMembersJSON" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>討論區管理</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="admin-happyTail" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>回首頁</p>
 							</a>
 						</li>
 					</ul>
@@ -297,25 +292,25 @@
 									<table id="allMembers" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
+												<th>姓名</th>
+												<th>性別</th>
+												<th>生日</th>
 												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>地址</th>
+												<th>狀態</th>
+												<th>編輯</th>
 											</tr>
 										</thead>
 
 										<tfoot>
 											<tr>
-												<th>Name</th>
-												<th>Gender</th>
-												<th>Birthday</th>
+												<th>姓名</th>
+												<th>性別</th>
+												<th>生日</th>
 												<th>E-mail</th>
-												<th>Address</th>
-												<th>Status</th>
-												<th>Update</th>
+												<th>地址</th>
+												<th>狀態</th>
+												<th>編輯</th>
 											</tr>
 										</tfoot>
 									</table>
@@ -354,70 +349,6 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- 會員更新表單 -->
-	<div class="modal fade" id="member-update">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">修改資料</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- Form表單 -->
-					<form method='POST'>
-
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>姓名</label>
-										<input type="text" class="form-control" id="upadte-name" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>年齡</label>
-										<input type="text" class="form-control" id="upadte-age" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>生日</label>
-										<input type="date" class="form-control" id="upadte-bday" />
-									</div>
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label for="exampleInputemail">E-mail</label>
-								<input type="text" class="form-control" id="update-email" />
-							</div>
-							<div class="form-group">
-								<label for="exampleInputaddress">地址</label>
-								<input type="text" class="form-control" id="update-address" />
-							</div>
-
-							<div class="modal-footer justify-content-between">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary">修改</button>
-							</div>
-						</div>
-
-					</form>
-
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-	</div>
-	<!-- /.modal -->
-
-
-
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
@@ -441,12 +372,13 @@
 						function() {
 							$('#allMembers')
 									.DataTable(
-
 											{
-												searching : false,
+												"searching" : false,
 												"ajax" : {
 													"url" : "<c:url value='admin-allMembersJSON' />",
-													"dataSrc" : ""
+													
+													"dataSrc" : "",
+													
 												},
 
 												"columns" : [
@@ -476,30 +408,48 @@
 																	return data = '<span class="badge badge-success">正常</span>';
 																} else if (data == 2) {
 																	return data = '<span class="badge badge-danger">停權</span>';
-																}
+																} else if (data == 3) {
+																	return data = '<span class="badge badge-info">管理者</span>'}
 															}
 														},
 
 												],
-												columnDefs : [ {
+												columnDefs : [ 
+													{
 													//最後一行加上修改按鈕
 													"data" : "id",
+													
 													targets : 6,
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>修改</button>&emsp;"
-																+ "<a id='status' class='btn btn-danger btn-sm' href='<c:url value='admin-changeStatus/" + data +"' />' <i class='fas fa-trash'></i>停權</a>";
-													}
-												} ]
+														
+														return "<a class='btn btn-info btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>更改</a>";
+													  }
+												    }
+													]
 											});
 							
 							//停權按鈕事件
-// 							$("#allMembers tbody").on("click", "#status", function () {
-					
-// 								alert(name + 'hi');
-				              
-// 				            });
+							$("#allMembers tbody").on("click", ".btn", function () {
+								var id = $(this).data("test");
+// 								alert("<c:url value='admin-changeStatus/" + id + "' />");
+								$.ajax({
+									async:false,
+									type: "GET",
+									url: "<c:url value='admin-changeStatus/" + id + "' />",
+									data: {},
+									dataType: 'json',
+									success: function() {
+										alert("修改成功");
+										$('#allMembers').DataTable().ajax.reload();
+										}
+									
+																	
+									})	
+								
+										              
+				            });
 							
 							
 						});

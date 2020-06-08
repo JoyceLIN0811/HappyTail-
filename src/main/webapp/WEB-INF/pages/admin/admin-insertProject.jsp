@@ -203,10 +203,11 @@
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
+
 								<li class="nav-item">
-									<a href="admin-ShoppingIndex" class="nav-link">
+									<a href="admin-InsertProject" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>總覽</p>
+										<p>新增商品</p>
 									</a>
 								</li>
 								<li class="nav-item">
@@ -216,24 +217,34 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="admin-InsertProject" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>新增商品</p>
-									</a>
-								</li>
-								<li class="nav-item">
 									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
 									</a>
 								</li>
-								<li class="nav-item">
-									<a href="admin-OrderInfo" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>訂單狀態</p>
-									</a>
-								</li>
 							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a href="admin-AllProjects-json" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>預約管理</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="admin-allMembersJSON" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>討論區管理</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="admin-happyTail" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>回首頁</p>
+							</a>
+						</li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -242,9 +253,17 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6"></div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 			<section class="content">
-				<div class="col">
-					<!-- general form elements -->
+				<!-- general form elements -->
+				<div class="container-fluid">
 					<div class="card card-primary">
 						<div class="card-header">
 							<h3 class="card-title">新增商品</h3>
@@ -253,17 +272,33 @@
 						<!-- form start -->
 						<form:form method="POST" modelAttribute="productBean" enctype='multipart/form-data'>
 							<div class="card-body">
-								<div class="form-group">
-									<label for="exampleInputEmail1">商品名稱</label>
-									<form:input path='name' class="form-control" />
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputEmail1">商品名稱</label>
+											<form:input path='name' class="form-control" />
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">商品價格</label>
+											<form:input path='price' class="form-control" />
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">商品庫存</label>
+											<form:input path='amount' class="form-control" />
+										</div>
+									</div>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputPassword1">商品價格</label>
-									<form:input path='price' class="form-control" />
+									<label for="exampleInputPassword1">商品種類</label>
+									<form:input path='categoryId' class="form-control" />
 								</div>
 								<div class="form-group">
-									<label for="exampleInputPassword1">商品數量</label>
-									<form:input path='amount' class="form-control" />
+									<label for="exampleInputPassword1">商品狀態</label>
+									<form:input path='status' class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品描述</label>
@@ -273,9 +308,8 @@
 									<label for="exampleInputFile">照片</label>
 									<div class="input-group">
 										<div class="custom-file">
-											<form:input path='productImage' type='file' class="custom-file-input"
-												id="exampleInputFile" />
-											<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+											<form:input path='productImage' type='file'  />
+											
 										</div>
 
 									</div>
@@ -290,6 +324,7 @@
 						</form:form>
 					</div>
 				</div>
+
 			</section>
 		</div>
 		<!-- /.content-wrapper -->

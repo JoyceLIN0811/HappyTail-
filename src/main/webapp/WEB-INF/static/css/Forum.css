@@ -1,3 +1,7 @@
+body{
+	background-color: #e3f2fd;
+}
+
 .all-browsers {
 	margin: 0;
 	padding: 5px;
@@ -16,4 +20,62 @@
 .browser>h2, p {
 	margin: 4px;
 	font-size: 90%;
+}
+
+#topicListArea .card {
+	box-shadow: 0 0 10px #000080;
+}
+
+#topicListArea
+.checked ,
+#topicContentDialog
+.checked{
+	color: #0d47a1;
+}
+
+.side-block {
+	width: 50px;
+	margin: 0
+}
+
+.center-block {
+    width: calc(100% - (100px));
+	margin: 0
+}
+
+.replyList {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 30px;
+}
+
+.side-block img {
+	padding-top: 10px;
+	width: 100%;
+}
+
+#addTopicDialog .modal-body{
+	margin: 40px;
+}
+
+/* #addTopicDialog #topicEditor { */
+/* 	margin-left: 50px; */
+/* } */
+:root {
+   --ck-z-default: 1080
+}
+
+#topicEditor{
+	height: 300px;
+	border: 1px solid lightgrey;
+}
+
+.topicContentArea img{
+	max-width:100%;
+	
+}
+
+#replyEditor{
+
+	border: 1px solid lightgrey;
 }

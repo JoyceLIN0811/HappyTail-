@@ -90,7 +90,7 @@ public class ReservationController {
 		
 		service.save(rb);
 		
-		noticeService.sendReservationNotice(rb);
+//		noticeService.sendReservationNotice(rb);
 		
 		List<Evaluation> list = service2.queryAllEvaluation();
 		m.addAttribute("Evaluation" , list);

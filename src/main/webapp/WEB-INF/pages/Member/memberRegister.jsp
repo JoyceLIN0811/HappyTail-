@@ -18,25 +18,25 @@
 <div class="divbig" style="width:1000px;">
 	<h3>會員註冊</h3><br>
 	<form class="form" action="<c:url value="registerInsert" />" method="post" enctype="multipart/form-data">
-<br>
+<p><small style="color: red; font-weight: bold;">有*號的欄位為必填</small></p>
 	<table style="width: 100%;">
 		<tr>
 			<td style="height: 70px; vertical-align:top;">
-				<label class="lab">Account :</label>
+				<label class="lab">*Account :</label>
 				<input class="inpu" name="account" placeholder="請輸入你的email" value="${param.account }"/>
 			<br><font color='red' size="-1">${errorMsg.accountformatError}${errorMsg.accountIsExist}${errorMsg.accountError}</font>
 			</td>	
 			<td>
-				<label class="lab">Username :</label>
+				<label class="lab">*Username :</label>
 				<input class="inpu" type="text" name="username" value="${param.username }"/>
 			<br><font color='red' size="-1">${errorMsg.usernameError}</font>
 			</td>	
 		</tr>
 		<tr>
 			<td style="height: 70px; vertical-align:top;">
-				<label class="lab">Password :</label>
+				<label class="lab">*Password :</label>
 				<input class="inpu" type="password" name="password" value="${param.password }"/>
-				<br><small>*密碼須同時包含小寫英文字母、大寫英文字母、數字和特殊符號</small>
+				<br><small style="font-style: italic;">密碼須同時包含小寫英文字母、大寫英文字母、數字和特殊符號</small>
 				<br><font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font>				
 			</td>				
 			<td>										

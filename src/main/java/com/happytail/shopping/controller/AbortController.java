@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.CartBean;
@@ -28,7 +29,7 @@ public class AbortController {
 	
 	
 	@GetMapping("/abortBuy")
-	public String abortBuy(Model m,HttpServletRequest request) {
+	public String abortBuy(Model m,HttpServletRequest request,@SessionAttribute("LoginOK")PetMembers petMembers) {
 		HttpSession session = request.getSession();
 		CartBean cart = (CartBean) session.getAttribute("cart");
 		if(cart==null) {
@@ -40,18 +41,19 @@ public class AbortController {
 	}
 	
 	@GetMapping("/remove.do/{pid}")
-	public String remove(@PathVariable("pid") int pId,HttpServletRequest request,Model m) {
+	public String remove(@PathVariable("pid") int pId,HttpServletRequest request,Model m,@SessionAttribute("LoginOK")PetMembers petMembers) {
 		
-		ProductLike oneLike = ldao.getOneLike(pId, 1);
+		Integer id = petMembers.getId();
+		ProductLike oneLike = ldao.getOneLike(pId, id);
 		if (oneLike==null) {
-			List<ProductLike> pLike = ldao.showLikes(1);
+			List<ProductLike> pLike = ldao.showLikes(id);
 			
 			m.addAttribute("pLike", pLike);
 			return "getFavorite";
 		}
 		ldao.delete(oneLike);
 
-		List<ProductLike> pLike = ldao.showLikes(1);
+		List<ProductLike> pLike = ldao.showLikes(id);
 		
 		m.addAttribute("pLike", pLike);
 

@@ -19,6 +19,8 @@ public interface NoticeDAO {
 	public Notice select(Integer id);
 	
 	public List<Notice> selectAll();
+
+	public List<Notice> selectByUserIdList(Integer userId);
 	
 	public List<Notice> selectByModule(Integer userId, String module);
 	

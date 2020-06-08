@@ -63,8 +63,25 @@ public class AdminMemberController {
 		Long countProjects = adShopService.countProjects();
 		model.addAttribute("countProjects", countProjects);
 		
+		//總銷售金額
+		Double sumPrice = adShopService.sumOrders();
+		model.addAttribute("sumPrice",sumPrice);
+		
+		//未處理訂單數
+		Long unchickOrders = adShopService.unCheckOrders();
+		model.addAttribute("unchickOrders", unchickOrders);
+		
+		//每月銷售額
+		List<Long> sumOrderByMonth = adShopService.sumOrdersByMonth();
+		model.addAttribute("list2",sumOrderByMonth);
 
 		return "adminIndex";
+	}
+	
+	//回前台首頁
+	@GetMapping(value = "admin-happyTail")
+	public String happyTailIndex() {
+		return "petMemberIndex";
 	}
 	
 	//選取所有會員資料

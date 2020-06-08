@@ -1,5 +1,6 @@
 package com.happytail.forum.model.service;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.happytail.forum.model.Favorate;
 import com.happytail.forum.model.Follow;
 import com.happytail.forum.model.History;
+import com.happytail.forum.model.Hit;
 import com.happytail.forum.model.Reply;
 import com.happytail.forum.model.ReplylistView;
 import com.happytail.forum.model.Report;
 import com.happytail.forum.model.ThumbsUp;
 import com.happytail.forum.model.ThumbsUpView;
 import com.happytail.forum.model.Topic;
+import com.happytail.forum.model.TopicImage;
 import com.happytail.forum.model.TopiclistView;
 import com.happytail.forum.model.dao.FavorateDAO;
 import com.happytail.forum.model.dao.FollowDAO;
@@ -34,6 +37,7 @@ import com.happytail.general.model.CodeMap;
 import com.happytail.general.model.Notice;
 import com.happytail.general.model.dao.CodeMapDAO;
 import com.happytail.general.model.dao.NoticeDAO;
+import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Const;
 import com.happytail.general.util.Const.ThumbsUpType;
 import com.happytail.general.util.Page;
@@ -86,9 +90,12 @@ public class ForumService {
 
 	@Autowired
 	private NoticeDAO noticeDAO;
-	
+
 	@Autowired
 	private HistoryDAO historyDAO;
+	
+	@Autowired 
+	private NoticeService noticeService;
 
 	// Forum Top
 
@@ -121,20 +128,9 @@ public class ForumService {
 				return topiclistViewDAO.getCategoryTopiclist(categoryId, pageInfo);
 			} else {
 				Page<TopiclistView> result = topiclistViewDAO.getCategoryTopiclist(categoryId, pageInfo);
-				
+
 				setExtraColumn(result.getRecords(), petMembers.getId());
 
-//				for (TopiclistView topicView : result.getRecords()) {
-//
-//					ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), petMembers.getId());
-//					topicView.setIsThumbsUp(thumbsUp != null);
-//
-//					Follow follow = followDAO.select(topicView.getTopicId(), petMembers.getId());
-//					topicView.setIsFollowed(follow != null);
-//
-//					Report report = reportDAO.select(topicView.getTopicId(), petMembers.getId());
-//					topicView.setIsReported(report != null);
-//				}
 				return result;
 			}
 
@@ -146,41 +142,16 @@ public class ForumService {
 				if (list.isEmpty()) {
 
 					Page<TopiclistView> result = topiclistViewDAO.getAllTopiclist(pageInfo);
-					
+
 					setExtraColumn(result.getRecords(), petMembers.getId());
-
-
-//					for (TopiclistView topicView : result.getRecords()) {
-//
-//						ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsThumbsUp(thumbsUp != null);
-//
-//						Follow follow = followDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsFollowed(follow != null);
-//
-//						Report report = reportDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsReported(report != null);
-//					}
 
 					return result;
 
 				} else {
 					Page<TopiclistView> result = topiclistViewDAO.getFavorateCategoryTopiclist(list, pageInfo);
-					
+
 					setExtraColumn(result.getRecords(), petMembers.getId());
 
-
-//					for (TopiclistView topicView : result.getRecords()) {
-//
-//						ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsThumbsUp(thumbsUp != null);
-//
-//						Follow follow = followDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsFollowed(follow != null);
-//
-//						Report report = reportDAO.select(topicView.getTopicId(), petMembers.getId());
-//						topicView.setIsReported(report != null);
-//					}
 					return result;
 				}
 			} else {
@@ -192,16 +163,45 @@ public class ForumService {
 
 	}
 	
+	// get hit topiclist
+	public Page<TopiclistView> getHitTopicList(PetMembers petMembers,Integer categoryId, PageInfo pageInfo) {
+
+		if (categoryId != null) {
+
+			if (petMembers == null) {
+				return topiclistViewDAO.getHitCategoryTopiclist(categoryId, pageInfo);
+			} else {
+				Page<TopiclistView> result = topiclistViewDAO.getHitCategoryTopiclist(categoryId, pageInfo);
+
+				setExtraColumn(result.getRecords(), petMembers.getId());
+
+				return result;
+			}
+
+		}else {
+			if (petMembers == null) {
+				return topiclistViewDAO.getHitAllTopiclist(pageInfo);
+			}
+			Page<TopiclistView> result = topiclistViewDAO.getHitAllTopiclist(pageInfo);
+
+			setExtraColumn(result.getRecords(), petMembers.getId());
+
+			return result;
+			
+		}
+
+	}
+
 	/**
 	 * To set isThumbsUp, isFollowed and is Reported status
 	 */
-	private void setExtraColumn(List<TopiclistView> topiclistViewList,Integer userId) {
+	private void setExtraColumn(List<TopiclistView> topiclistViewList, Integer userId) {
 		for (TopiclistView topicView : topiclistViewList) {
 
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topicView.getTopicId(), userId);
 			topicView.setIsThumbsUp(thumbsUp != null);
 
-			Follow follow = followDAO.select(topicView.getTopicId(), userId);
+			Follow follow = followDAO.selectByTopicIdAndUserId(topicView.getTopicId(), userId);
 			topicView.setIsFollowed(follow != null);
 
 			Report report = reportDAO.select(topicView.getTopicId(), userId);
@@ -209,33 +209,92 @@ public class ForumService {
 		}
 	}
 
-	// get hit topiclist
-	public Page<TopiclistView> getHitTopicList(Integer categoryId, PageInfo pageInfo) {
 
-		if (categoryId != null) {
-			return topiclistViewDAO.getHitCategoryTopiclist(categoryId, pageInfo);
-		}
-
-		return topiclistViewDAO.getHitAllTopiclist(pageInfo);
-	}
 
 	// get topic content
 	public Topic getTopicContent(PetMembers petMembers, Integer topicId) {
 
 		if (petMembers == null) {
-			return topicDAO.select(topicId);
+			Topic topic = topicDAO.select(topicId);
+
+			String module = Const.ModuleType.Forum;
+			String type = Const.CategoryType.topicCategory;
+			String key = Integer.toString(topic.getCategoryId());
+			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
+			System.out.println("codeMap = " + codeMap);
+
+			topic.setCategory(codeMap.getValue());
+			
+			Hit hit = hitDAO.selectByTopicId(topic.getId());
+			
+			if(hit == null) {
+				hit = new Hit();
+				hit.setTopicId(topicId);
+				hit.setCount(1);
+				System.out.println("hit = " + hit);
+
+				hitDAO.insert(hit);
+			}else {
+				hit.setCount(hit.getCount()+1);
+
+				hitDAO.update(hit);	
+				System.out.println("hit = " + hit);
+
+			}
+
+			return topic;
+			
 		} else {
 			Topic topic = topicDAO.select(topicId);
+
+			String module = Const.ModuleType.Forum;
+			String type = Const.CategoryType.topicCategory;
+			String key = Integer.toString(topic.getCategoryId());
+
+			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
+			System.out.println("codeMap = " + codeMap);
+
+			topic.setCategory(codeMap.getValue());
 
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			topic.setIsThumbsUp(thumbsUp != null);
 
-			Follow follow = followDAO.select(topic.getId(), petMembers.getId());
+			Follow follow = followDAO.selectByTopicIdAndUserId(topic.getId(), petMembers.getId());
 			topic.setIsFollowed(follow != null);
 
 			Report report = reportDAO.select(topic.getId(), petMembers.getId());
 			topic.setIsReported(report != null);
 
+			System.out.println("topic = " + topic);
+			
+			Hit hit = hitDAO.selectByTopicId(topicId);
+			
+			if(hit == null) {
+				hit = new Hit();
+				hit.setTopicId(topicId);
+				hit.setCount(1);
+				
+				hitDAO.insert(hit);
+			}else {
+				hit.setCount(hit.getCount()+1);
+
+				hitDAO.update(hit);		
+			}
+			
+			History history = historyDAO.selectByTopicIdAndUserId(topic.getId(), petMembers.getId());
+			if(history == null) {
+				history = new History();
+				history.setTopicId(topic.getId());
+				history.setUserId(petMembers.getId());
+				history.setUsername(petMembers.getUsername());
+				
+				historyDAO.insert(history);
+			}else {
+				history.setReadDate(new Date(System.currentTimeMillis()));
+				
+				historyDAO.update(history);				
+			}
+			
 			return topic;
 		}
 	}
@@ -249,10 +308,18 @@ public class ForumService {
 
 			Topic topic = topicDAO.select(id);
 			map.put("topicData", topic);
+
+			String module = Const.ModuleType.Forum;
+			String type = Const.CategoryType.topicCategory;
+			String key = Integer.toString(topic.getCategoryId());
+
+			CodeMap codeMap = codeMapDAO.selectValue(module, type, key);
+			map.put("category", codeMap.getValue());
+
 			ThumbsUp thumbsUp = thumbsUpDAO.selectByTopic(topic.getId(), petMembers.getId());
 			map.put("isThumbsUp", thumbsUp != null);
 
-			Follow follow = followDAO.select(topic.getId(), petMembers.getId());
+			Follow follow = followDAO.selectByTopicIdAndUserId(topic.getId(), petMembers.getId());
 			map.put("isFollowed", follow != null);
 
 			Report report = reportDAO.select(topic.getId(), petMembers.getId());
@@ -305,23 +372,56 @@ public class ForumService {
 	}
 
 	// add topic
-	public Topic addTopic(Topic topic) {
-		return topicDAO.insert(topic);
+	public Topic addTopic(Topic topic, List<String> imgList, Boolean isCover) {
+		topic = topicDAO.insert(topic);
+		
+		if (isCover) {
+			if(!imgList.isEmpty()) {
+				for(int i = 0 ; i < imgList.size() ; i++) {
+					TopicImage topicImage = new TopicImage();
+					topicImage.setTopidId(topic.getId());
+					topicImage.setImageUrl(imgList.get(i));
+					if(i ==0) {
+						topicImage.setIsCover(true);
+					}
+					
+					addTopicImage(topicImage);
+				}
+			}
+		}
+		
+		return topic;
 	}
 	
-	//add read history record
+	//add topic image
+	public TopicImage addTopicImage(TopicImage topicImage) {
+	
+		return topicImageDAO.insert(topicImage);
+	}
+
+	// add read history record
 	public History addHistory(History history) {
 		return historyDAO.insert(history);
 	}
 
 	// add reply
 	public Reply addReply(Reply reply) {
+		if(reply != null) {
+			noticeService.sendReplyTopicNotice(reply);
+		}
+		
 		return replyDAO.insert(reply);
 	}
 
 	// add thumbsUp
 	public ThumbsUp addThumbsUp(ThumbsUp thumbsUp, Integer replyId) {
 		thumbsUp.setType((replyId == null) ? ThumbsUpType.topic : ThumbsUpType.reply);
+		
+		if(thumbsUp.getType().equals(ThumbsUpType.topic)) {
+			noticeService.sendLikeTopicNotice(thumbsUp);
+		}else {
+			noticeService.sendLikeReplyNotice(thumbsUp);
+		}
 
 		return thumbsUpDAO.insert(thumbsUp);
 
@@ -347,23 +447,23 @@ public class ForumService {
 
 	// delete thumbsUp
 	public void removeThumbsUp(String type, Integer targetId, Integer userId) {
-		
+
 		if (type.equals("topic")) {
 			thumbsUpDAO.deleteTopicThumbsUp(type, userId, targetId);
 			System.out.println("delete topic thumbsUp");
-		}else{
+		} else {
 			thumbsUpDAO.deleteReplyThumbsUp(type, userId, targetId);
 			System.out.println("delete reply thumbsUp");
 
 		}
 		System.out.println("delete fail");
-	
+
 	}
 
 	// update follow status
 	public void removeFollow(Integer topicId, Integer userId) {
 
-		Follow follow = followDAO.select(topicId, userId);
+		Follow follow = followDAO.selectByTopicIdAndUserId(topicId, userId);
 		if (follow != null) {
 			follow.setStatus(false);
 			followDAO.update(follow);
@@ -375,14 +475,16 @@ public class ForumService {
 
 	// update per notice isRead status
 	public void updateIsReadStatus(Integer noticeId) {
-		
+
 		Notice notice = noticeDAO.select(noticeId);
 		notice.setIsRead(true);
 		noticeDAO.update(notice);
 	}
 
-//	public Boolean removeReport(Integer id) {
-//		return reportDAO.delete(id);
-//	}
+	public List<Notice> getMemberNoticeList(Integer userId){
+		
+		return noticeDAO.selectByUserIdList(userId);
+		
+	}
 
 }

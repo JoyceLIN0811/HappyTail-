@@ -141,10 +141,11 @@
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
+
 								<li class="nav-item">
-									<a href="admin-ShoppingIndex" class="nav-link">
+									<a href="admin-InsertProject" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>總覽</p>
+										<p>新增商品</p>
 									</a>
 								</li>
 								<li class="nav-item">
@@ -154,23 +155,33 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="admin-InsertProject" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>新增商品</p>
-									</a>
-								</li>
-								<li class="nav-item">
 									<a href="admin-AllOrders" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>訂單列表</p>
 									</a>
 								</li>
-								<li class="nav-item">
-									<a href="admin-OrderInfo" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>訂單狀態</p>
-									</a>
-								</li>
+							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a href="admin-AllProjects-json" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>預約管理</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="admin-allMembersJSON" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>討論區管理</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="admin-happyTail" class="nav-link">
+								<i class="nav-icon fas fa-table"></i>
+								<p>回首頁</p>
+							</a>
+						</li>
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -205,6 +216,7 @@
 									<table id="projects" class="table table-bordered table-striped">
 										<thead>
 											<tr>
+												<th>商品編號</th>
 												<th>商品名稱</th>
 												<th>商品價格</th>
 												<th>商品描述</th>
@@ -220,6 +232,7 @@
 
 										<tfoot>
 											<tr>
+												<th>商品編號</th>
 												<th>商品名稱</th>
 												<th>商品價格</th>
 												<th>商品描述</th>
@@ -265,21 +278,20 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-	
-	<!-- 會員更新表單 -->
+
+	<!-- 商品更新表單 -->
 	<div class="modal fade" id="member-update">
 		<div class="modal-dialog  modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">修改商品資料</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+<!-- 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
 				</div>
 				<div class="modal-body">
 					<!-- Form表單 -->
-					<form method='POST'>
-
+					<form method='POST' id="update-product" enctype="multipart/form-data">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-6">
@@ -287,34 +299,53 @@
 									<div class="form-group">
 										<label>名稱</label>
 										<input type="text" class="form-control" id="upadte-name" />
+										<input type="hidden" class="form-control" id="upadte-id" />							
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>種類</label>
+										<input type="text" class="form-control" id="upadte-type" />
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>價格</label>
-										<input type="text" class="form-control" id="upadte-age" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>描述</label>
-										<input type="date" class="form-control" id="upadte-bday" />
+										<input type="text" class="form-control" id="upadte-price" />
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>數量</label>
-										<input type="date" class="form-control" id="upadte-bday" />
+										<input type="text" class="form-control" id="upadte-amount" />
 									</div>
 								</div>
-
+								
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>描述</label>
+										<input type="text" class="form-control" id="upadte-descriptrion" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>狀態</label>
+										<input type="text" class="form-control" id="upadte-status" />
+									</div>
+								</div>
+								<div class="col-sm">
+									<div class="form-group">
+										<label>照片</label>
+										<input type="file" class="form-control" id="upadte-photo" />
+									</div>
+								</div>
+								<input type="hidden" class="form-control" id="update-sales"/>
 							</div>
 							<div class="modal-footer justify-content-between">
 								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary">修改</button>
+								<button type="submit" class="btn btn-primary" >修改</button>
 							</div>
 						</div>
-
 					</form>
 
 				</div>
@@ -361,6 +392,9 @@
 
 												"columns" : [
 														{
+															"data" : "productId"
+														},
+														{
 															"data" : "name"
 														},
 														{
@@ -398,20 +432,42 @@
 												columnDefs : [ {
 													//最後一行加上修改按鈕
 													"data" : "productId",
-													targets : 6,
+													targets : 7,
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' id='" + data + "'><i class='fas fa-pencil-alt'></i>修改</button>&nbsp"
-															 + "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update'><i class='fas fa-pencil-alt'></i>測試</button>";
-																
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
+
 													}
 												} ]
 											});
 						});
 	</script>
 
-
+	<script type="text/javascript">
+		$(document).on('click','.btn', function() {
+			var id = $(this).attr("id");
+			
+			$.ajax({
+				url: "<c:url value='admin-updateProduct/" + id + "' />",
+				method: "POST",
+				data: {},
+				dataType: "json",
+				success: function(data)
+				{
+					$('#update-product').modal('show');
+					$('#upadte-id').val(data.productId);
+					$('#upadte-name').val(data.name);
+					$('#upadte-price').val(data.price);
+					$('#upadte-amount').val(data.amount);
+					$('#upadte-descriptrion').val(data.descriptrion);
+					$('#upadte-status').val(data.status);
+					$('#upadte-type').val(data.categoryId);
+					$('#upadte-sales').val(data.sales);
+				}
+				})
+			})
+	</script>
 </body>
 
 </html>

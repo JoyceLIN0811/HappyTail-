@@ -2,7 +2,6 @@ package com.happytail.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -16,18 +15,20 @@ public class SpringWebSocketJavaConfig  implements WebSocketMessageBrokerConfigu
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/notice")
+		// Endpoint no use "/notice" will happen connect fail
+
+		registry.addEndpoint("/inform")
 		.addInterceptors(new HttpSessionHandshakeInterceptor())
 		.setHandshakeHandler(new SpringWebSocketHandler())
 		.withSockJS();
-		};
 		
-		@Override
-		public void configureMessageBroker(MessageBrokerRegistry registry) {
-			registry.enableSimpleBroker("/topic");
-			registry.setApplicationDestinationPrefixes("/app");
-		}
+		//Cause we do not know the sessionId of user, we find the userId to notice the user
+	}
 		
-	
+	@Override
+	public void configureMessageBroker(MessageBrokerRegistry registry) {
+		registry.enableSimpleBroker("/topic/","/queue/");
+		registry.setApplicationDestinationPrefixes("/app");
+	}
 
 }
