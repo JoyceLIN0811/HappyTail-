@@ -19,6 +19,9 @@
 <!-- include top and footer -->
 <script src="<c:url value='/js/main.js'/>"></script>
 
+<!-- for Notice -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 <!-- mustache js -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>

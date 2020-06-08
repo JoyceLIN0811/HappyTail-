@@ -62,9 +62,13 @@ public class SpringMVCjavaConfig implements WebMvcConfigurer {
 //		resolver.setMaxUploadSize(81920000);
 //		return resolver;
 //	}
+//	
 	
+	//測試用  暫時先關掉
 	public MultipartResolver multipartResolver() {
 		StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
+		
+
 		return resolver;
 	}
 	

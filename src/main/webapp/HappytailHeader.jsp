@@ -77,7 +77,7 @@
 				aria-haspopup="true" aria-expanded="false"> Our Services </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="<c:url value='/shopIndex'/>">Online Shop</a> 
-					<a class='dropdown-item' href="<c:url value='/Evaluationlist' />">Reservation Service</a> 
+					<a class='dropdown-item' href="<c:url value='/Evaluationlist?id=${petMembers.id}' />">Reservation Service</a> 
 					<a class="dropdown-item" href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">Pet Forum</a>
 				</div></li>
 			<li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>

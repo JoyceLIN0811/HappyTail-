@@ -63,5 +63,13 @@ public class AdminView {
 		view.setUrl("/WEB-INF/pages/admin/admin-uncheckOrders.jsp");
 		return view;
 	}
+	
+	//討論區管理
+	@Bean
+	public View adminForum() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/admin/admin-forum.jsp");
+		return view;
+	}
 
 }

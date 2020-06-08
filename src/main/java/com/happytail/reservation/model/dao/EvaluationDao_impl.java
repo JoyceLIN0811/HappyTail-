@@ -2,6 +2,8 @@ package com.happytail.reservation.model.dao;
 
 
 
+import static org.hamcrest.CoreMatchers.describedAs;
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -42,7 +44,7 @@ public class EvaluationDao_impl implements EvaluationDao{
 	
 	@Override
 	public List<Evaluation> queryAllEvaluation() {
-		Query<Evaluation> bean = getSession().createQuery("FROM Evaluation", Evaluation.class);
+		Query<Evaluation> bean = getSession().createQuery("FROM Evaluation order by evaluationId", Evaluation.class);
 		List<Evaluation> list = bean.list();
 		return list;
 	}
@@ -96,6 +98,37 @@ public class EvaluationDao_impl implements EvaluationDao{
 		Long totalCount = (Long)query.uniqueResult();
 	
 		return new Page<backView>(resultList,pageinfo.getPageNum(),pageinfo.getPageSize(),totalCount);
+	}
+
+	@Override
+	public List<Evaluation> queryMyEvaluation(Integer id) {
+		Query<Evaluation> bean = getSession().createQuery("FROM Evaluation where id=:id order by evaluationId ", Evaluation.class);
+		bean.setParameter("id", id);
+		List<Evaluation> list = bean.list();
+		return list;
+	}
+
+	@Override
+	public Evaluation updateEvaluation(Evaluation bean) {
+		Evaluation et = getSession().get(Evaluation.class,bean.getEvaluationId());
+		et.setEvaluationId(bean.getEvaluationId());
+		et.setScore(bean.getScore());
+		et.setContent(bean.getContent());
+		getSession().update(et);
+		return et;
+	}
+
+	@Override
+	public Evaluation queryByEvaluationId(Integer evaluationId) {
+		Evaluation et = getSession().get(Evaluation.class,evaluationId);
+		return et;
+	}
+
+	@Override
+	public Evaluation deleteByEvaluationId(Integer evaluationId) {
+		Evaluation et = getSession().get(Evaluation.class, evaluationId);
+		getSession().delete(et);
+		return et;
 	}
 
 
