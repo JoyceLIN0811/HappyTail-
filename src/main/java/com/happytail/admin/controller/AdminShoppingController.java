@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.happytail.admin.model.service.AdminShopService;
+import com.happytail.member.model.PetMembers;
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.ProductBeanImageData;
 import com.happytail.shopping.model.dao.ProductDao;
@@ -88,7 +90,7 @@ public class AdminShoppingController {
 	//單項商品
 	@GetMapping(value = "admin-singleProduct/{key}",produces= {"application/json"})
 	public ResponseEntity<ProductBean> singleProduct(@PathVariable Integer key, ProductBean product) {
-		ProductBean singleProject = (ProductBean) pservice.selectCategory(key);
+		ProductBean singleProject = pservice.selectOne(key);
 		ResponseEntity<ProductBean> re = new ResponseEntity<>(singleProject, HttpStatus.OK);
 		return re;
 	}
@@ -99,6 +101,12 @@ public class AdminShoppingController {
 		ProductBean product1 = adminShopService.updateProduct(key);
 		ResponseEntity<ProductBean> re = new ResponseEntity<>(product1, HttpStatus.OK);
 		return re;
+	}
+	
+	//修改商品2
+	@GetMapping(value = "admin-updateProduct2/{key}")
+	public String udateProduct2(@PathVariable Integer key) {
+		return "adminupdateProduct";
 	}
 
 	// 新增商品1
@@ -112,11 +120,15 @@ public class AdminShoppingController {
 
 	// 新增商品2
 	@PostMapping(value = "admin-InsertProject")
-	public String addProduct(@ModelAttribute("productBean") ProductBean productBean, 
-			BindingResult result,
-			Model model) {
+	public String addProduct(@ModelAttribute("productBean") 
+		ProductBean productBean, 
+		BindingResult result,
+		Model model) {
 		MultipartFile productImage = productBean.getProductImage();
+		System.out.println(productImage);
 		String originalFilename = productImage.getOriginalFilename();
+		System.out.println(originalFilename);
+		
 		ProductBean pBean = (ProductBean) model.getAttribute("productBean");
 		if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
 			pBean.setFileName(originalFilename);
@@ -173,5 +185,14 @@ public class AdminShoppingController {
 		return re;
 	}
 	
+	//改變訂單狀態
+	@GetMapping(value = "admin-changeOrderStatus-json/{key}", produces= {"application/json"})
+	public ResponseEntity<OrderBean> changeStatus(@PathVariable Integer key, OrderBean orderBean) {
+		OrderBean order = adminShopService.changeOrderStatus(key);
+		ResponseEntity<OrderBean> re = new ResponseEntity<>(order, HttpStatus.OK);
+		return re;
+		
+	}
+
 
 }

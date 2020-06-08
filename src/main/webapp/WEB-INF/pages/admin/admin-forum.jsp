@@ -296,7 +296,7 @@
 											<tr>
 												<th>文章編號</th>
 												<th>文章標題</th>
-												<th>發文帳號</th>
+												<th>檢舉帳號</th>
 												<th>發文日期</th>
 												<th>檢舉原因</th>
 												<th>修改</th>
@@ -337,81 +337,32 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-	<!-- 商品更新表單 -->
+
 	<div class="modal fade" id="Topic">
-		<div class="modal-dialog  modal-lg">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">文章</h4>
-<!-- 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 						<span aria-hidden="true">&times;</span> -->
-<!-- 					</button> -->
+					<h4 class="modal-title">被檢舉文章</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="modal-body">
-					<!-- Form表單 -->
-					<form method='POST' id="topic" enctype="multipart/form-data">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>名稱</label>
-										<input type="text" class="form-control" id="upadte-name" />							
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>種類</label>
-										<input type="text" class="form-control" id="upadte-type" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>價格</label>
-										<input type="text" class="form-control" id="upadte-price" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>數量</label>
-										<input type="text" class="form-control" id="upadte-amount" />
-									</div>
-								</div>
-								
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>描述</label>
-										<input type="text" class="form-control" id="upadte-descriptrion" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>狀態</label>
-										<input type="text" class="form-control" id="upadte-status" />
-									</div>
-								</div>
-								<div class="col-sm">
-									<div class="form-group">
-										<label>照片</label>
-										<input type="file" class="form-control" id="upadte-photo" />
-									</div>
-								</div>
-								<input type="hidden" class="form-control" id="update-sales"/>
-							</div>
-							<div class="modal-footer justify-content-between">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary" >修改</button>
-							</div>
-						</div>
-					</form>
-
+					<h3 id="title"></h3>
+					<p id="content"></p>
 				</div>
-				<!-- /.modal-content -->
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
 			</div>
-			<!-- /.modal-dialog -->
+			<!-- /.modal-content -->
 		</div>
+		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+
+
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
@@ -429,7 +380,7 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
-	//所有訂單
+
 	<script>
 		$(document)
 				.ready(
@@ -460,34 +411,35 @@
 												columnDefs : [ {
 
 													//最後一行加上修改按鈕
-													"data" : "userId",
+													"data" : "topicId",
 													targets : 5,
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看文章</button>&emsp;"
-																+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>停權</button>";
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看</button>&emsp;";
+
 													}
 												} ]
 											});
 						});
 	</script>
 	<script type="text/javascript">
-		$(document).on('click','.btn', function() {
+		$(document).on('click', '.btn', function() {
 			var id = $(this).attr("id");
-			
+
 			$.ajax({
-				url: "<c:url value='admin-singleTopic/" + id + "' />",
-				method: "POST",
-				data: {},
-				dataType: "json",
-				success: function(data)
-				{
-					$('#topic').modal('show');
-					$('#upadte-name').val(data.username);
+				url : "<c:url value='admin-singleTopic/" + id + "' />",
+				method : "GET",
+				async : false,
+				data : {},
+				dataType : "json",
+				success : function(data) {
+					$("#title").empty().append(data[0]['title']);
+					$("#content").empty().append(data[0]['content']);
+
 				}
-				})
 			})
+		})
 	</script>
 </body>
 

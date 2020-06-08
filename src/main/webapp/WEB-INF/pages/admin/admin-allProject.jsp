@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -279,86 +281,68 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- 商品更新表單 -->
-	<div class="modal fade" id="member-update">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">修改商品資料</h4>
-<!-- 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 						<span aria-hidden="true">&times;</span> -->
-<!-- 					</button> -->
-				</div>
-				<div class="modal-body">
-					<!-- Form表單 -->
-					<form method='POST' id="update-product" enctype="multipart/form-data">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-6">
-									<!-- text input -->
-									<div class="form-group">
-										<label>名稱</label>
-										<input type="text" class="form-control" id="upadte-name" />
-										<input type="hidden" class="form-control" id="upadte-id" />							
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>種類</label>
-										<input type="text" class="form-control" id="upadte-type" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>價格</label>
-										<input type="text" class="form-control" id="upadte-price" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>數量</label>
-										<input type="text" class="form-control" id="upadte-amount" />
-									</div>
-								</div>
-								
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>描述</label>
-										<input type="text" class="form-control" id="upadte-descriptrion" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label>狀態</label>
-										<input type="text" class="form-control" id="upadte-status" />
-									</div>
-								</div>
-								<div class="col-sm">
-									<div class="form-group">
-										<label>照片</label>
-										<input type="file" class="form-control" id="upadte-photo" />
-									</div>
-								</div>
-								<input type="hidden" class="form-control" id="update-sales"/>
-							</div>
-							<div class="modal-footer justify-content-between">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary" >修改</button>
-							</div>
-						</div>
-					</form>
+<!-- 	<!-- 商品更新表單 --> -->
+<!-- 	<div class="container-fluid"> -->
+<!-- 					<div class="card card-primary"> -->
+<!-- 						<div class="card-header"> -->
+<!-- 							<h3 class="card-title">新增商品</h3> -->
+<!-- 						</div> -->
+<!-- 						/.card-header -->
+<!-- 						form start -->
+<%-- 						<form:form method="POST" modelAttribute="productBean" enctype='multipart/form-data'> --%>
+<!-- 							<div class="card-body"> -->
+<!-- 								<div class="row"> -->
+<!-- 									<div class="col-sm-4"> -->
+<!-- 										<div class="form-group"> -->
+<!-- 											<label for="exampleInputEmail1">商品名稱</label> -->
+<%-- 											<form:input path='name' class="form-control" /> --%>
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-4"> -->
+<!-- 										<div class="form-group"> -->
+<!-- 											<label for="exampleInputPassword1">商品價格</label> -->
+<%-- 											<form:input path='price' class="form-control" /> --%>
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-sm-4"> -->
+<!-- 										<div class="form-group"> -->
+<!-- 											<label for="exampleInputPassword1">商品庫存</label> -->
+<%-- 											<form:input path='amount' class="form-control" /> --%>
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="exampleInputPassword1">商品種類</label> -->
+<%-- 									<form:input path='categoryId' class="form-control" /> --%>
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="exampleInputPassword1">商品狀態</label> -->
+<%-- 									<form:input path='status' class="form-control" /> --%>
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="exampleInputPassword1">商品描述</label> -->
+<%-- 									<form:input path='descriptrion' class="form-control" /> --%>
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label for="exampleInputFile">照片</label> -->
+<!-- 									<div class="input-group"> -->
+<!-- 										<div class="custom-file"> -->
+<%-- 											<form:input path='productImage' type='file'/> --%>
+<!-- 										</div> -->
 
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-	</div>
-	<!-- /.modal -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							/.card-body -->
 
-
-
-
+<!-- 							<div class="card-footer"> -->
+<!-- 								<button type="submit" class="btn btn-primary float-right">送出</button> -->
+<!-- 								<button type="submit" class="btn btn-default float-right">取消</button> -->
+<!-- 							</div> -->
+<%-- 						</form:form> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
@@ -436,7 +420,8 @@
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>"
+															+ "<a class='btn btn-info btn-sm' href='<c:url value='admin-updateProduct2/"+ data +"'/>'><i class='fas fa-pencil-alt'></i>修改</a>";
 
 													}
 												} ]
@@ -451,6 +436,7 @@
 			$.ajax({
 				url: "<c:url value='admin-updateProduct/" + id + "' />",
 				method: "POST",
+				async : false,
 				data: {},
 				dataType: "json",
 				success: function(data)

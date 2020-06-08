@@ -3,6 +3,7 @@ package com.happytail.admin.model.service;
 import java.util.List;
 
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 import com.happytail.shopping.model.ProductBean;
 
 public interface AdminShopService {
@@ -27,5 +28,8 @@ public interface AdminShopService {
 	
 	//修改產品
 	ProductBean updateProduct(Integer id);
+	
+	OrderBean changeOrderStatus(Integer id);
+	
 
 }

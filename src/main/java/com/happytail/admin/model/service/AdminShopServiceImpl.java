@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.happytail.admin.model.AdminShopDao;
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 import com.happytail.shopping.model.ProductBean;
 
 @Service
@@ -70,5 +71,12 @@ public class AdminShopServiceImpl implements AdminShopService{
 		ProductBean product = adsDao.updateProduct(id);
 		return product;
 	}
+
+	@Override
+	public OrderBean changeOrderStatus(Integer id) {
+		OrderBean order = adsDao.changeOrderStatus(id);
+		return order;
+	}
+
 
 }

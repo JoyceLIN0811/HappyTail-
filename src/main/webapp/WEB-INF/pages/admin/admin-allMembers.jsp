@@ -443,17 +443,10 @@
 									success: function() {
 										alert("修改成功");
 										$('#allMembers').DataTable().ajax.reload();
-										}
-									
-																	
-									})	
-								
-										              
-				            });
-							
-							
+										}													
+									})							              
+				            });			
 						});
-		
 	</script>
 </body>
 

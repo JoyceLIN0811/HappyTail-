@@ -3,6 +3,7 @@ package com.happytail.admin.model;
 import java.util.List;
 
 import com.happytail.shopping.model.OrderBean;
+import com.happytail.shopping.model.OrderItemBean;
 import com.happytail.shopping.model.ProductBean;
 import com.happytail.shopping.model.dao.ProductDao;
 
@@ -30,6 +31,7 @@ public interface AdminShopDao {
 	
 	//修改產品
 	ProductBean updateProduct(Integer id);
+
 	
 	
 	

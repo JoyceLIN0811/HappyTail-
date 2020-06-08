@@ -273,7 +273,7 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1>訂單資料</h1>
-<%-- 							<a href='<c:url value='admin-AllOrders-json' />'>Json</a> --%>
+							<a href='<c:url value='admin-changeOrderStatus-json/1' />'>Json</a>
 						</div>
 					</div>
 				</div>
@@ -430,10 +430,25 @@
 										render : function(data,
 												type, row, meta) {
 											return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-chick' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
-												+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
+												+ "<a class='btn btn-primary btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</a>";
 										}
 									} ]
 								});
+				$("#allOrders tbody").on("click", ".btn", function () {
+					var id = $(this).data("test");
+						alert("<c:url value='admin-changeStatus/" + id + "' />");
+					$.ajax({
+						async:false,
+						type: "GET",
+						url: "<c:url value='admin-changeOrderStatus-json/" + id + "' />",
+						data: {},
+						dataType: 'json',
+						success: function() {
+							alert("修改成功");
+							$('#allOrders').DataTable().ajax.reload();
+							}													
+						})							              
+	            });
 			});
 	</script>
 </body>

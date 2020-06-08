@@ -39,7 +39,7 @@ public class AdminForumController {
 	}
 	
 	//單一文章
-	@PostMapping(value = "admin-singleTopic/{id}", produces= {"application/json"})
+	@GetMapping(value = "admin-singleTopic/{id}", produces= {"application/json"})
 	public ResponseEntity<List<Topic>> singleTopic(@PathVariable Integer id, Topic topic) {
 		List<Topic> list = forumService.singleTopic(id);
 		ResponseEntity<List<Topic>> re = new ResponseEntity<>(list, HttpStatus.OK);
