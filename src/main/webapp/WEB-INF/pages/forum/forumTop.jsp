@@ -690,8 +690,10 @@
 
 		function setTagType(tagTypeSrc) {
 			tagType = tagTypeSrc;
-			pageNum = 1;
-			getTopicListData();
+			topicListPageNum = 1;
+			isTopicListHasNextPage = true;
+			
+			refreshTopicList();
 		}
 
 		function clickAddTopic(){
