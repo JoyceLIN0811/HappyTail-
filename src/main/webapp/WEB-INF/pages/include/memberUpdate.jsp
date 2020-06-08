@@ -5,19 +5,20 @@
 	<h3>會員資料</h3><br>
 	
 	<form class="form" action="<c:url value="memberUpdate" />" method="post" enctype="multipart/form-data">
-<br>
+
 	<table style="width: 100%;">
+	<p><small style="color: red; font-weight: bold;">有*號的欄位為必填</small></p>
 		<tr><td><input type="hidden" name="id" value = "${petMember.id }" /></td></tr>			
 		<tr>
 			<td style="height: 70px; vertical-align:top;">		
-				<label class="lab">Username :</label>
+				<label class="lab">*Username :</label>
 				<input class="inpu" type="text" name="username" value = "${petMember.username }${param.username }" />
 				<br><font color='red' size="-1">${errorMsg.usernameError}</font>
 			</td>	
 			<td>
-				<label class="lab">Passwor :</label>
+				<label class="lab">*Passwor :</label>
 				<input class="inpu" type="text" name="password" value= "${petMember.password }${param.password }" />
-				<br><small style="font">*密碼須同時包含小寫英文字母、大寫英文字母、數字和特殊符號</small>		
+				<br><small style="font-style: italic;">密碼須同時包含小寫英文字母、大寫英文字母、數字和特殊符號</small>		
 				<br><font color='red' size="-1">${errorMsg.passwordError}${errorMsg.passwordformatError}</font>
 <!-- 				<tr> -->
 <!-- 					<td>Email :	</td> -->
