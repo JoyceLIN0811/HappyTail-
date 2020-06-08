@@ -2,21 +2,29 @@
     pageEncoding="UTF-8"%>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="topic-tab" data-toggle="tab" href="#topic" role="tab" aria-controls="topic" aria-selected="true">My Topic</a>
+    <a class="nav-link active" id="topic-tab" data-toggle="tab" href="#topic" role="tab" aria-controls="topic" aria-selected="true" onclick="setTagType('myTopiclist')">My Topic</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="false">My Follow List</a>
+    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="false" onclick="setTagType('myFollowlist')">My Follow List</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="like-tab" data-toggle="tab" href="#like" role="tab" aria-controls="like" aria-selected="false">My Like Topic</a>
+    <a class="nav-link" id="like-tab" data-toggle="tab" href="#like" role="tab" aria-controls="like" aria-selected="false" onclick="setTagType('myThumbsUplist')">My Like Topic</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">My Read History</a>
+    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false" onclick="setTagType('myReadHistorylist')">My Read History</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="favorate-tab" data-toggle="tab" href="#favorate" role="tab" aria-controls="favorate" aria-selected="false">Favorate Category</a>
+    <a class="nav-link" id="favorate-tab" data-toggle="tab" href="#favorate" role="tab" aria-controls="favorate" aria-selected="false" onclick="setTagType('favorateCategorylist')">Favorate Category</a>
   </li>
 </ul>
+<div class="row">
+<div class="col-sm-3"  id="topicNum">
+	<blockquote class="blockquote">
+		<span class="mb-0">總文章數量：<span id="totalNum"></span></span>
+
+		</blockquote>
+</div>
+</div>
 <div class="tab-content" id="forum-tab-content">
   <div class="tab-pane fade show active" id="topic" role="tabpanel" aria-labelledby="topic-tab">
 	<!--   TODO : use memberCenterTemplate[id="myTopic"] here -->
@@ -51,3 +59,20 @@
       </div>
   </div>
 </div>
+
+	<div id="topicContentDialog" class="modal vh-100" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-body" id="topicContent"></div>
+				<div class="modal-body" id="replyContentList"></div>
+			</div>
+		</div>
+	</div>
+	
+		<div id="UpdateDialog" class="modal vh-100" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-body" id="updateTopicContent"></div>
+			</div>
+		</div>
+	</div>

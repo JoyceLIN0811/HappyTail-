@@ -101,10 +101,10 @@
 		src="<c:url value='/img/logo_white3.png'/>">Happy Tail</span> <a
 		href="#home">Home</a> <a href="#notice">Notice</a>
 	<c:if test="${!empty LoginOK}">
-		<a href="<c:url value='memberCenter'/>">Personal Profile</a>
+		<a href="<c:url value='/memberCenter'/>">Personal Profile</a>
 	</c:if>
 	<c:if test="${empty LoginOK}">
-		<a href="<c:url value='login'/>">Personal Profile</a>
+		<a href="<c:url value='/login'/>">Personal Profile</a>
 	</c:if>
 	<a href="<c:url value='/shopIndex'/> ">Online Shop</a> <a
 		href="#Reservation Service">Reservation Service</a> <a

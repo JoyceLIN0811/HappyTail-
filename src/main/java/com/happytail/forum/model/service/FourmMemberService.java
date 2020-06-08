@@ -1,5 +1,6 @@
 package com.happytail.forum.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,10 @@ public class FourmMemberService {
 	// get my favorate category
 	public List<CodeMap> getMyFavorateCategory(Integer userId) {
 		 List<Integer> list = favorateDAO.selectCategoryIdList(userId);
+		 
+		 if(list.isEmpty()) {
+			 return new ArrayList<CodeMap>();
+		 }
 		 return codeMapDAO.getMyFavorateCategorylist(list, Const.ModuleType.Forum, Const.CategoryType.topicCategory);
 	}
 	// get all my forum notice

@@ -321,7 +321,7 @@ $("#target").html(data);
                     </div>
 
                     <div class="row justify-content-md-center mb-5 mt-5" >
-                        <div class="col-md-12 text-wrap topicContentArea ">
+                        <div class="col-md-12 topicContentArea text-wrap">
                             {{{content}}}
                         </div>
                     </div>
@@ -429,7 +429,7 @@ $("#target").html(data);
                 </div>
                 <div class="row">
                     <div class="col-12 ml-5">
-                        <span>{{ replyContent }}</span>
+                        {{{ replyContent }}}
                     </div>
                 </div>
             </div>

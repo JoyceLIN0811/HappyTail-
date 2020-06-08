@@ -106,16 +106,27 @@ public class ForumService {
 
 		return codeMapDAO.selectValueList(module, type);
 	}
+	
+	
+	//check favorate category
+	public List<CodeMap> getMyFavorateCategory(Integer userId) {
+		 List<Integer> list = favorateDAO.selectCategoryIdList(userId);
+		 return codeMapDAO.getMyFavorateCategorylist(list, Const.ModuleType.Forum, Const.CategoryType.topicCategory);
+	}
+	
+	
 
 	// insert favorate category
-	public void addFavorate(List<Favorate> list) {
-
+	public void addFavorate(PetMembers petMembers, List<Favorate> list) {
+		
+		List<Favorate> result = favorateDAO.selectFavorateCategoryList(petMembers.getId());
+		if(result.isEmpty() ) {
+		
 		for (Favorate favorate : list) {
 			favorateDAO.insert(favorate);
 			System.out.println("insert favorate success");
-
+			}
 		}
-
 		System.out.println("insert favorate fail");
 	}
 
@@ -442,6 +453,7 @@ public class ForumService {
 
 	// add report
 	public Report addReport(Report report) {
+			
 		return reportDAO.insert(report);
 	}
 

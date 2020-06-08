@@ -93,14 +93,10 @@ public class FavorateDAOImpl implements FavorateDAO {
 
 	@Override
 	public List<Favorate> selectFavorateCategoryList(Integer userId) {
-		Query<Favorate> check = getSession().createQuery(selectCategoryIdByUserId, Favorate.class);
+		Query<Favorate> check = getSession().createQuery(selectByUserId, Favorate.class);
 		check.setParameter("userId", userId);
 
 		List<Favorate> list = check.list();
-		if (list == null || list.size() == 0) {
-			System.out.println("No result");
-			return null;
-		}
 
 		return list;
 

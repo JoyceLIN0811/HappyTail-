@@ -299,6 +299,8 @@
 				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="4"><h5>發問</h5></button>
 				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="5"><h5>認養</h5></button>
 				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="6"><h5>其他</h5></button>
+			  					  <input type="hidden" name="userId" value="${petMembers.id}" />
+			                
 			                </div>
 			                <button type="button" class="btn btn-primary btn-lg btn-block mt-3" onclick="updateFavorateCategory()">
 			                 	 選擇喜好類別
@@ -337,7 +339,10 @@
 			getTopicListData();
 
 			initTopicCKEditor();
-
+			initReplyCKEditor();
+			
+			getFavorateCategory();
+			
 	        initTemplate();
 	        
 			if(location.href.indexOf("/topicPage/") != -1){
@@ -348,8 +353,9 @@
 	        $("#sendBtn").click(function(){
 	                sendReply();
 	         });
-	        
+	        	console.log("hasNotSetFavorateCategory = "+ hasNotSetFavorateCategory);
 	        if(($("#loginUserId").text() != "") && hasNotSetFavorateCategory){
+		        
 	        	$("#favorateCatgoryDialog").modal('show');
 	        }
 	        
@@ -358,7 +364,7 @@
 		function initTemplate() {
 			$.ajax({
 					url : contextRoot + "/template/topicTemplate.mst",
-					type : "get",
+					type : "GET",
 					async : false,
 					success : function(template) {
 						topicListTemplate = $(template).filter("#topicList").html();
@@ -368,6 +374,7 @@
 						}
 					});
 		}
+
 
 		function getTopicListData() {
 			var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum="
@@ -384,7 +391,7 @@
 
 			$.ajax({
 				url : url,
-				type : "get",
+				type : "GET",
 				async : false,
 				success : function(data) {
 
@@ -423,7 +430,7 @@
 
 			$.ajax({
 				url : topicurl,
-				type : "get",
+				type : "GET",
 				async : false,
 				success : function(data) {
 					data.likeNum = likeNum;
@@ -439,7 +446,7 @@
 
 			$.ajax({
 				url : replyurl,
-				type: "get",
+				type: "GET",
 				async : false,
 				success : function(data){
 
@@ -600,13 +607,19 @@
 				async : false,
 				data: form.serialize(),
 				success : function(data) {
-// 					$("#addTopic")
-// 							.html(Mustache.render(addTopicTemplate, data));
 					console.log(data);
 
 				}
 
 			});
+
+	        $("#content").val("");
+	        topicEditor.setData("");
+			$("input[name='title']").val("");
+			$("input[name='isCover']").val("");
+			$("input[name='categoryId']").val("");
+	        
+	        
 			console.log("GoodBye!");
 
 			$('#addTopicDialog').modal('hide')
@@ -659,6 +672,11 @@
 				}
 
 			});
+
+
+	        $("#replyContent").val("");
+	        replyEditor.setData("");
+	        
 			console.log("GoodBye!");
 			}
 
@@ -869,6 +887,28 @@
 		function toggleActive(targetObj){
 		    $(targetObj).toggleClass("active");
 		}
+
+		function getFavorateCategory(){
+			var userId =  parseInt($("#loginUserId").text());
+			var categoryList = [];
+			
+			var url =contextRoot + "/myPage/favorateCategorylist";
+
+			$.ajax({
+				url: url,
+			   type: "GET",
+			   async: false,
+			success: function(data){
+					console.log(data)
+				if(data.length==0){
+					hasNotSetFavorateCategory=true;
+				}else{
+					hasNotSetFavorateCategory=false;
+						
+					}
+				}
+			});
+		}
 		
 		function updateFavorateCategory(){
 			var userId =  parseInt($("#loginUserId").text());
@@ -880,16 +920,19 @@
 			
 			
 			// TODO : need to defined
-			var url = "";
-			
+			var url =contextRoot + "/insertFavorateCategory";
+
 			$.ajax({
 				url: url,
 			   type: "POST",
-			   data: JSON.stringify(),
+			   data: JSON.stringify(categoryList),
+			   contentType: "application/json",
 			success: function(data){
 						alert("更新成功 !");
 					}
 			});
+			$('#favorateCatgoryDialog').modal('hide');
+			
 			
 		}
 	</script>

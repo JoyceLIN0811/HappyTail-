@@ -131,9 +131,10 @@ public class TestController {
 	}
 
 	@PostMapping("/insertFavorateCategory")
+	@ResponseBody
 	public Map<String, String> insertFavorateCategory(@SessionAttribute(required = false) PetMembers petMembers, @RequestBody List<Favorate> list) {
 		Map<String, String> map = new HashMap<String, String>();
-		forumService.addFavorate(list);
+		forumService.addFavorate(petMembers, list);
 		map.put("insert", "success");
 		return map;
 	}
@@ -224,34 +225,35 @@ public class TestController {
 	}
 
 	@GetMapping("/myPage/topiclist")
+	@ResponseBody
 	public Page<TopiclistView> getMyTopiclist(@SessionAttribute(required = false) PetMembers petMembers,
-			@RequestParam Integer userId, @RequestParam Integer pageSize, @RequestParam Integer pageNum,
+			@RequestParam Integer pageSize, @RequestParam Integer pageNum,
 			@RequestParam(required = false) String type, @RequestParam(name = "tagType") String tagType) {
 
 		if ("myTopiclist".equals(tagType)) {
 
-			return fourmMemberService.getMemberIdTopiclist(userId, new PageInfo(pageSize, pageNum));
+			return fourmMemberService.getMemberIdTopiclist(petMembers.getId(), new PageInfo(pageSize, pageNum));
 
 		} else if ("myFollowlist".equals(tagType)) {
 
-			return fourmMemberService.getMyFollowlist(userId, new PageInfo(pageSize, pageNum));
+			return fourmMemberService.getMyFollowlist(petMembers.getId(), new PageInfo(pageSize, pageNum));
 
 		} else if ("myThumbsUplist".equals(tagType)) {
 
-			return fourmMemberService.getMyThumbsUplist(userId, type, new PageInfo(pageSize, pageNum));
+			return fourmMemberService.getMyThumbsUplist(petMembers.getId(), type, new PageInfo(pageSize, pageNum));
 
 		} else if ("myReadHistorylist".equals(tagType)) {
-			return fourmMemberService.getMyReadHistorylist(userId, new PageInfo(pageSize, pageNum));
+			return fourmMemberService.getMyReadHistorylist(petMembers.getId(), new PageInfo(pageSize, pageNum));
 		}
 
 		return new Page<TopiclistView>();
 	}
 
 	@GetMapping("/myPage/favorateCategorylist")
-	public List<CodeMap> getFavorateCategory(@SessionAttribute(required = false) PetMembers petMembers,
-			@RequestParam Integer userId) {
+	@ResponseBody
+	public List<CodeMap> getFavorateCategory(@SessionAttribute(required = false) PetMembers petMembers) {
 
-		return fourmMemberService.getMyFavorateCategory(userId);
+		return fourmMemberService.getMyFavorateCategory(petMembers.getId());
 	}
 
 	@GetMapping("/myPage/forumNotice/{userId}")
@@ -268,11 +270,15 @@ public class TestController {
 		return fourmMemberService.getTopicContent(petMembers, topicId);
 	}
 	
+	
+	
+	
 	@PutMapping("/myPage/UpdateOrDeleteTopic/{topicId}")
+	@ResponseBody
 	public void UpdateOrDeleteTopic(@SessionAttribute(required = false) PetMembers petMembers
 							,  @PathVariable Integer topicId
 							, @RequestParam(name = "action") String action
-							, @ModelAttribute Topic topic) {
+							, @RequestBody(required = false) Topic topic) {
 		
 
 		if("delete".equals(action)){

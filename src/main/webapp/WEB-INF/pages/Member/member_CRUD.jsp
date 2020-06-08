@@ -32,7 +32,7 @@
                    <a class="nav-link active" id="v-pills-member-tab" data-toggle="pill" href="#v-pills-member" role="tab" aria-controls="v-pills-member" aria-selected="true">Members</a>
                    <a class="nav-link" id="v-pills-forum-tab" data-toggle="pill" href="#v-pills-forum" role="tab" aria-controls="v-pills-forum" aria-selected="false">Forum</a>
                    <a class="nav-link" id="v-pills-reservation-tab" data-toggle="pill" href="#v-pills-reservation" role="tab" aria-controls="v-pills-reservation" aria-selected="false">Reservation</a>
-                   <a class="nav-link" id="v-pills-shopping-tab" data-toggle="pill" href="#v-pills-shopping" role="tab" aria-controls="v-pills-shopping" aria-selected="false">Shopping</a>
+<!--                    <a class="nav-link" id="v-pills-shopping-tab" data-toggle="pill" href="#v-pills-shopping" role="tab" aria-controls="v-pills-shopping" aria-selected="false">Shopping</a> -->
                  </div>
                </div>
                <div class="col-10">
@@ -46,9 +46,9 @@
                    <div class="tab-pane fade" id="v-pills-reservation" role="tabpanel" aria-labelledby="v-pills-reservation-tab">
                    		預約系統用
                    </div>
-                   <div class="tab-pane fade" id="v-pills-shopping" role="tabpanel" aria-labelledby="v-pills-shopping-tab">
-                   		商城用
-                   </div>
+<!--                    <div class="tab-pane fade" id="v-pills-shopping" role="tabpanel" aria-labelledby="v-pills-shopping-tab"> -->
+<!--                    		商城用 -->
+<!--                    </div> -->
                  </div>
                </div>
              </div>
