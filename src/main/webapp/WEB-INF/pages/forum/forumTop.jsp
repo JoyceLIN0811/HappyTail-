@@ -118,11 +118,25 @@
 	<%@include file="/HappytailFooter.jsp"%>
 
 	<div id="topicContentDialog" class="modal vh-100" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-xl" role="document">
+		<div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
 			<div class="modal-content">
-				<div class="modal-body" id="topicContent"></div>
-				<div class="modal-body" id="replyContentList"></div>
-				<div class="modal-body" id="addReply"></div>
+				<div class="modal-body">
+					<div id="topicContent"></div>
+					<div id="replyContentList"></div>
+				</div>
+				<div class="modal-footer" id="addReply">
+					<div class="row  w-100">
+						<div class="col-md-1">
+                            <i class="fas fa-paw fa-2x"></i>
+                        </div>
+                         <div class="col-md-10">
+     						<div id="replyEditor"></div>
+                        </div>
+                        <div class="col-md-1">
+                        	<button type="button" class="btn btn-primary" onclick="clickAddReply()">送出</button>
+                        </div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -757,17 +771,21 @@
 				async : false,
 				data: form.serialize(),
 				success : function(data) {
-										
+						
+						data.replyId = data.id;
+						data.likeNum = 0;
+						
 						var maxStageValue = 0
-					$(".stage-value").each(function(index, element){
-						maxStageValue = parseInt($(element).text());
+						$(".stage-value").each(function(index, element){
+							maxStageValue = parseInt($(element).text());
 						})
+						
 						data.stageValue	= maxStageValue + 1;
 						data.stage = "B" + (maxStageValue + 1);
 
 						var replyListObj = {
 								records : [data]
-							};
+						};
 
 						console.log(data);
 							
