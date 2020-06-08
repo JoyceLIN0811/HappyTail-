@@ -17,6 +17,8 @@ var replyListPageNum = 1; // start from page 1
 var updatTopicTemplate = "";
 var updatetopicEditor = null;
 
+var tagType = "";
+
 
 
 $(document).ready(function(){
@@ -25,13 +27,13 @@ $(document).ready(function(){
 	// TODO : all the function below
 	getTopicListData();
 	
-	initUpdateTopicCKEditor();
-
+//	initUpdateTopicCKEditor();
+	
 //	getMyTopicData();
 //	getMyFollowListData();
 //	getMyLikeTopicData();
 //	getMyReadHistoryData();
-//	getFavorateCategory();
+	getFavorateCategory();
 	
 	// TODO : all the delete function and update function
 	
@@ -340,23 +342,6 @@ function getTopicListData() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function setTagType(tagTypeSrc) {
 	tagType = tagTypeSrc;
 	pageNum = 1;
@@ -365,6 +350,9 @@ function setTagType(tagTypeSrc) {
 
 
 function getTopicListData() {
+	
+	// TODO : need to clear list area first
+	refreshAllListArea();
 	
 	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 	+ myTopicPage +  "&tagType=myTopiclist";	
@@ -486,7 +474,16 @@ function getTopicListData() {
 }
 	
 	
-
+function refreshAllListArea(){
+	// Tip : $(element).html("")
+	
+	// TODO : clear myTopic area
+	// TODO : clear myFollow area
+	// TODO : clear myLike area
+	// TODO : clear myReadHistory area
+	
+	console.log("Please clear the list area first");
+}
 
 
 
@@ -530,42 +527,29 @@ function getMyReadHistoryData(){
 }
 
 function getFavorateCategory(){
-	// TODO : get current user's favorate category 
 	var codeMapList = null;
-	var url = ""
-	
-//	$.ajax({
-//		url: url,
-//	   type: "GET",
-//	success: function(data){
-//				codeMapList = data;
-//			}
-//	});
-	
-	// fake data
-	codeMapList = [
-		{
-			id : 1,
-		module : "Forum",
-		  type : "topicCategory",
-		   key : 1,
-		 value : "生活"
-		},
-		{
-			id : 2,
-			module : "Forum",
-			type : "topicCategory",
-			key : 2,
-			value : "資訊"
+	var url = contextRoot + "/myPage/favorateCategorylist";
+
+	$.ajax({
+		url: url,
+	   type: "GET",
+	  async: false,
+	success: function(data){
+				console.log(data);
+				if(data){
+					codeMapList = data;
+				}
 		}
-	];
+	});
 	
 	var categoryIdList = []; // need to get from API
 	
 	// get categoryId from codeMap JSON Object
-	for(let codeMap of codeMapList){
-		categoryIdList.push(codeMap.key);
+	for(let i=0 ; i<codeMapList.length ; i++){
+		categoryIdList.push(codeMapList[i].key);
 	}
+	
+	console.log(categoryIdList);
 	
 	$("#favorateCategoryList .list-group-item").each(function(index,element){
 		for(let categoryId of categoryIdList){
