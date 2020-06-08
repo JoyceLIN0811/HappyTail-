@@ -281,68 +281,6 @@
 	</div>
 	<!-- ./wrapper -->
 
-<!-- 	<!-- 商品更新表單 --> -->
-<!-- 	<div class="container-fluid"> -->
-<!-- 					<div class="card card-primary"> -->
-<!-- 						<div class="card-header"> -->
-<!-- 							<h3 class="card-title">新增商品</h3> -->
-<!-- 						</div> -->
-<!-- 						/.card-header -->
-<!-- 						form start -->
-<%-- 						<form:form method="POST" modelAttribute="productBean" enctype='multipart/form-data'> --%>
-<!-- 							<div class="card-body"> -->
-<!-- 								<div class="row"> -->
-<!-- 									<div class="col-sm-4"> -->
-<!-- 										<div class="form-group"> -->
-<!-- 											<label for="exampleInputEmail1">商品名稱</label> -->
-<%-- 											<form:input path='name' class="form-control" /> --%>
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="col-sm-4"> -->
-<!-- 										<div class="form-group"> -->
-<!-- 											<label for="exampleInputPassword1">商品價格</label> -->
-<%-- 											<form:input path='price' class="form-control" /> --%>
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="col-sm-4"> -->
-<!-- 										<div class="form-group"> -->
-<!-- 											<label for="exampleInputPassword1">商品庫存</label> -->
-<%-- 											<form:input path='amount' class="form-control" /> --%>
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="form-group"> -->
-<!-- 									<label for="exampleInputPassword1">商品種類</label> -->
-<%-- 									<form:input path='categoryId' class="form-control" /> --%>
-<!-- 								</div> -->
-<!-- 								<div class="form-group"> -->
-<!-- 									<label for="exampleInputPassword1">商品狀態</label> -->
-<%-- 									<form:input path='status' class="form-control" /> --%>
-<!-- 								</div> -->
-<!-- 								<div class="form-group"> -->
-<!-- 									<label for="exampleInputPassword1">商品描述</label> -->
-<%-- 									<form:input path='descriptrion' class="form-control" /> --%>
-<!-- 								</div> -->
-<!-- 								<div class="form-group"> -->
-<!-- 									<label for="exampleInputFile">照片</label> -->
-<!-- 									<div class="input-group"> -->
-<!-- 										<div class="custom-file"> -->
-<%-- 											<form:input path='productImage' type='file'/> --%>
-<!-- 										</div> -->
-
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							/.card-body -->
-
-<!-- 							<div class="card-footer"> -->
-<!-- 								<button type="submit" class="btn btn-primary float-right">送出</button> -->
-<!-- 								<button type="submit" class="btn btn-default float-right">取消</button> -->
-<!-- 							</div> -->
-<%-- 						</form:form> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
@@ -420,8 +358,8 @@
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>"
-															+ "<a class='btn btn-info btn-sm' href='<c:url value='admin-updateProduct2/"+ data +"'/>'><i class='fas fa-pencil-alt'></i>修改</a>";
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#test' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>"
+																+ "<a class='btn btn-info btn-sm' href='<c:url value='admin-updateProduct2/"+ data +"'/>'><i class='fas fa-pencil-alt'></i>修改</a>";
 
 													}
 												} ]
@@ -430,17 +368,16 @@
 	</script>
 
 	<script type="text/javascript">
-		$(document).on('click','.btn', function() {
+		$(document).on('click', '.btn', function() {
 			var id = $(this).attr("id");
-			
+
 			$.ajax({
-				url: "<c:url value='admin-updateProduct/" + id + "' />",
-				method: "POST",
+				url : "<c:url value='admin-updateProduct/" + id + "' />",
+				method : "POST",
 				async : false,
-				data: {},
-				dataType: "json",
-				success: function(data)
-				{
+				data : {},
+				dataType : "json",
+				success : function(data) {
 					$('#update-product').modal('show');
 					$('#upadte-id').val(data.productId);
 					$('#upadte-name').val(data.name);
@@ -451,8 +388,8 @@
 					$('#upadte-type').val(data.categoryId);
 					$('#upadte-sales').val(data.sales);
 				}
-				})
 			})
+		})
 	</script>
 </body>
 
