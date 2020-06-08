@@ -102,7 +102,7 @@
 					<article id="topicListArea" class="browser bg-transparent">
 					</article>
 				</article>
-				<div id="loading-img-area" class="container mt-5 mb-5 d-none">
+				<div id="topiclist-loading-img-area" class="container mt-5 mb-5 d-none">
 					<div class="row">
 						<div class="col-12">
 							<img class="mx-auto d-block" style="width: 50px" src="<c:url value="/img/loading.gif"/>"/>						
@@ -123,6 +123,13 @@
 				<div class="modal-body">
 					<div id="topicContent"></div>
 					<div id="replyContentList"></div>
+					<div id="topic-content-loading-img-area" class="container mt-5 mb-5 d-none">
+					<div class="row">
+						<div class="col-12">
+							<img class="mx-auto d-block" style="width: 50px" src="<c:url value="/img/loading.gif"/>"/>						
+						</div>
+					</div>
+				</div>
 				</div>
 				<div class="modal-footer" id="addReply">
 					<div class="row  w-100">
@@ -386,10 +393,13 @@
 	        // for topic list pagination
 	        $(window).scroll(function(){
 // 	        	console.log("scrollTop = " + $(this).scrollTop());
-// 	        	console.log("scroll bottom pos = " + ($(this).scrollTop() + $(this).height()));
+// 	        	console.log("current scroll pos = " + ($(this).scrollTop() + $(this).height()));
 // 	        	console.log("height = " + $("body").height());
 	        	
-	        	if(($("body").height() - ($(this).scrollTop() + $(this).height())) < 300 
+	        	var scrollBottomPos = $("body").height(); 
+	        	var currentScrollPos = $(this).scrollTop() + $(this).height());
+	        	
+	        	if((scrollBottomPos - currentScrollPos) < 300 
 	        			&& !topicListLoadLock // prevent duplicate loading 
 	        			&& isTopicListHasNextPage
 	        			){
@@ -397,7 +407,7 @@
 	        		// prevent duplicate loading, lock when execute function
 	        		topicListLoadLock = true;
 	        		
-	        		$("#loading-img-area").removeClass("d-none");
+	        		$("#topiclist-loading-img-area").removeClass("d-none");
 	        		
 	        		topicListPageNum++;
 	        		
@@ -407,9 +417,23 @@
 	        			
 	        			topicListLoadLock = false;
 	    	        	
-		        		$("#loading-img-area").addClass("d-none");
+		        		$("#topiclist-loading-img-area").addClass("d-none");
 	        		}, 1000);
 	        	}
+	        });
+	        
+	        // for reply content list pagination
+	        $('#topicContentDialog .modal-body').scroll(function(){
+// 	        	console.log("scrollTop = " + $(this).scrollTop());
+// 	        	console.log("current scroll pos = " + ($(this).scrollTop() + $(this).height()));	
+// 	        	console.log("height = " + ($("#topicContent").height() + $("#replyContentList").height()));
+	        	
+	        	var scrollBottomPos = $("#topicContent").height() + $("#replyContentList").height(); 
+	        	var currentScrollPos = $(this).scrollTop() + $(this).height());
+	        	
+	        	// TODO : imitate topic list pagination function above
+	        	// TODO : check the function getReplyListData()
+	        
 	        });
 	        
 		});
@@ -533,7 +557,8 @@
 		}
 		
 		function openTopicContentDialog(topicId, targetObj) {
-
+			// every time open dialog reset the reply page
+			replyListPageNum = 1;
 			
 			var likeNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".likeNum").text() : 0;
 			var replyNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".replyNum").text() : 0;
@@ -587,6 +612,10 @@
 			history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
 
 			$('#topicContentDialog').modal('show');
+		}
+		
+		function getReplyListData(){
+			// TODO : imitate getTopicListData
 		}
 
 		function openAddTopicDialog() {
