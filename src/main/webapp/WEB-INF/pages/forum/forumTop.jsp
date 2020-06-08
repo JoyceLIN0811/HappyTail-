@@ -320,7 +320,9 @@
 		var replyListTemplate = "";
 		var topicListPageNum = 1; // start from page 1
 		var replyListPageNum = 1; // start from page 1
+		var isTopicListHasNextPage = true;
 		var topicListIndexArray = [];
+		var topicListLoadLock = false; 
 		var categoryId = null;
 		var tagType = null;
 		var topicEditor = null;
@@ -354,8 +356,30 @@
 	        	$("#favorateCatgoryDialog").modal('show');
 	        }
 	        
+	        // for topic list pagination
+	        $(window).scroll(function(){
+// 	        	console.log("scrollTop = " + $(this).scrollTop());
+// 	        	console.log("scroll bottom pos = " + ($(this).scrollTop() + $(this).height()));
+// 	        	console.log("height = " + $("body").height());
+	        	
+	        	if(($("body").height() - ($(this).scrollTop() + $(this).height())) < 300 
+	        			&& !topicListLoadLock // prevent duplicate loading 
+	        			&& isTopicListHasNextPage
+	        			){
+	        		
+	        		// prevent duplicate loading, lock when execute function
+	        		topicListLoadLock = true;
+	        		
+	        		topicListPageNum++;
+	        		
+	        		getTopicListData();
+	        		
+	        		topicListLoadLock = false;
+	        	}
+	        });
+	        
 		});
-
+		
 		function initTemplate() {
 			$.ajax({
 					url : contextRoot + "/template/topicTemplate.mst",
@@ -382,28 +406,36 @@
 			if (categoryId != null) {
 				url += "&categoryId=" + categoryId;
 			}
+			console.log("isTopicListHasNextPage = " + isTopicListHasNextPage);
+			if(isTopicListHasNextPage){
+				$.ajax({
+					url : url,
+					type : "get",
+					async : false,
+					success : function(data) {
+						console.log(data);
+//	 					render(data);
+						var resultData = Mustache.render(topicListTemplate, data);
+						$("#topicListArea").append(resultData);
+						
 
-			$.ajax({
-				url : url,
-				type : "get",
-				async : false,
-				success : function(data) {
+						$("#totalNum").text(data.totalNum);
+						
+						
+						refreshTopicListIndexArray();
+						
+						// check whether has next page or not
+						isTopicListHasNextPage = data.isHasNext;
 
-					render(data);
-
-					$("#totalNum").text(data.totalNum);
-					
-					
-					refreshTopicListIndexArray();
-					
-					// check whether has next page or not
-					if (data.hasNext) {
-						// to the next page
-						topicListPageNum++;
 					}
-
-				}
-			});
+				});
+			}
+			
+		}
+		
+		function refreshTopicList(){
+			$("#topicListArea").html("");
+			getTopicListData();
 		}
 
 		function render(jsonObj) {
@@ -424,7 +456,7 @@
 						element: $(element)});
 			});
 			
-			console.log(topicListIndexArray);
+// 			console.log(topicListIndexArray);
 		}
 		
 		function getPreviousTopic(){
@@ -617,8 +649,11 @@
 			$(targetObj).addClass("active");
 
 			categoryId = catId;
-			pageNum = 1;
-			getTopicListData();
+			topicListPageNum = 1;
+			isTopicListHasNextPage = true;
+
+			
+			refreshTopicList();
 		}
 
 		function setTagType(tagTypeSrc) {
