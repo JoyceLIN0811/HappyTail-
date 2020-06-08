@@ -238,7 +238,6 @@ $("#target").html(data);
 
 				<div class="row no-gutters">
 					<div class="col-md-12" style="height: 100px;">
-						<span class="d-none topicId">{{ topicId }}</span>
 						<h2 class="card-title"  onclick="openTopicContentDialog({{ topicId }}, this)" >{{ title }}</h2>
 					</div>
 				</div>
@@ -289,7 +288,7 @@ $("#target").html(data);
 
             <div class="row justify-content-md-center">
                 <div class="col-1" style="margin:auto;">
-                    <i class="fas fa-chevron-left fa-3x pointer" onclick="getPreviousTopic()"></i>
+                    <i class="fas fa-chevron-left fa-3x"></i>
                 </div>
                 <div class="col-10">
 
@@ -322,7 +321,7 @@ $("#target").html(data);
                     </div>
 
                     <div class="row justify-content-md-center mb-5 mt-5" >
-                        <div class="col-md-12 text-wrap topicContentArea ">
+                        <div class="col-md-12 topicContentArea text-wrap">
                             {{{content}}}
                         </div>
                     </div>
@@ -385,7 +384,7 @@ $("#target").html(data);
 
                 </div>
                 <div class="col-1" style="margin:auto;">
-                    <i class="fas fa-chevron-right fa-3x pointer" onclick="getNextTopic()"></i>
+                    <i class="fas fa-chevron-right fa-3x"></i>
                 </div>
             </div>
 </div>
@@ -430,7 +429,7 @@ $("#target").html(data);
                 </div>
                 <div class="row">
                     <div class="col-12 ml-5">
-                        <span>{{ replyContent }}</span>
+                        {{{ replyContent }}}
                     </div>
                 </div>
             </div>

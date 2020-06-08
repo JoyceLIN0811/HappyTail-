@@ -14,11 +14,12 @@ $(document).ready(function(){
 	initTemplate();
 	
 	// TODO : all the function below
-	getMyTopicData();
-	getMyFollowListData();
-	getMyLikeTopicData();
-	getMyReadHistoryData();
-	getFavorateCategory();
+	getTopicListData();
+//	getMyTopicData();
+//	getMyFollowListData();
+//	getMyLikeTopicData();
+//	getMyReadHistoryData();
+//	getFavorateCategory();
 	
 	// TODO : all the delete function and update function
 	
@@ -38,9 +39,164 @@ function initTemplate() {
 	});
 }
 
+function setTagType(tagTypeSrc) {
+	tagType = tagTypeSrc;
+	pageNum = 1;
+	getTopicListData();
+}
+
+
+function getTopicListData() {
+	
+	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
+	+ myTopicPage +  "&tagType=myTopiclist";	
+	
+	$.ajax({
+		url : url,
+		type : "get",
+		async : false,
+		success : function(data) {
+			
+			$("#topic").append(Mustache.render(myTopicTemplate, data));
+
+			$("#totalNum").text(data.totalNum);
+			// check whether has next page or not
+			if (data.hasNext) {
+				// to the next page
+				myTopicPage++;
+				}
+			}
+	
+		});
+	
+	if (tagType != null) {
+		
+		if(tagType == "myTopiclist"){
+		
+		var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
+		+ myTopicPage +  "&tagType=myTopiclist";	
+		
+		$.ajax({
+			url : url,
+			type : "get",
+			async : false,
+			success : function(data) {
+				
+				$("#topic").append(Mustache.render(myTopicTemplate, data));
+
+				$("#totalNum").text(data.totalNum);
+				// check whether has next page or not
+				if (data.hasNext) {
+					// to the next page
+					myTopicPage++;
+					}
+				}
+		
+			});
+		}else if(tagType == "myFollowlist"){
+			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
+			+ myFollowListPage +  "&tagType=myFollowlist";	
+			
+			$.ajax({
+				url : url,
+				type : "get",
+				async : false,
+				success : function(data) {
+					
+					$("#follow").append(Mustache.render(myLikeTopicTemplate, data));
+
+					$("#totalNum").text(data.totalNum);
+					// check whether has next page or not
+					if (data.hasNext) {
+						// to the next page
+						myFollowListPage++;
+						}
+					}
+			
+				});
+		}else if(tagType == "myThumbsUplist"){
+				var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
+				+ myLikeTopicPage +  "&tagType=myThumbsUplist";	
+				
+				$.ajax({
+					url : url,
+					type : "get",
+					async : false,
+					success : function(data) {
+						
+						$("#like").append(Mustache.render(myFollowListTemplate, data));
+
+						$("#totalNum").text(data.totalNum);
+						// check whether has next page or not
+						if (data.hasNext) {
+							// to the next page
+							myLikeTopicPage++;
+							}
+						}
+				
+					});
+			
+		}else if(tagType == "myReadHistorylist") {
+			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
+			+ myReadHistoryPage +  "&tagType=myReadHistorylist";	
+			
+			$.ajax({
+				url : url,
+				type : "get",
+				async : false,
+				success : function(data) {
+					
+					$("#history").append(Mustache.render(myReadHistoryTemplate, data));
+
+					$("#totalNum").text(data.totalNum);
+					// check whether has next page or not
+					if (data.hasNext) {
+						// to the next page
+						myReadHistoryPage++;
+						}
+					}
+			
+				});
+		}else{
+			$("#topicNum").addClass("d-none");
+			
+			
+			
+			
+		}
+	}
+}
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getMyTopicData(){
 	// TODO : use myTopicTemplate and myTopicPage to render
 	// target area : id="topic"
+	
+	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
+					+ myTopicPage + "&tagType=myTopiclist";
+	
 }
 
 function getMyFollowListData(){

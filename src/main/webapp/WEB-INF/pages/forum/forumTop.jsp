@@ -299,6 +299,8 @@
 				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="4"><h5>發問</h5></button>
 				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="5"><h5>認養</h5></button>
 				                  <button type="button" class="text-center list-group-item list-group-item-action " onclick="toggleActive(this)" value="6"><h5>其他</h5></button>
+			  					  <input type="hidden" name="userId" value="${petMembers.id}" />
+			                
 			                </div>
 			                <button type="button" class="btn btn-primary btn-lg btn-block mt-3" onclick="updateFavorateCategory()">
 			                 	 選擇喜好類別
@@ -320,9 +322,6 @@
 		var replyListTemplate = "";
 		var topicListPageNum = 1; // start from page 1
 		var replyListPageNum = 1; // start from page 1
-		var isTopicListHasNextPage = true;
-		var topicListIndexArray = [];
-		var topicListLoadLock = false; 
 		var categoryId = null;
 		var tagType = null;
 		var topicEditor = null;
@@ -340,6 +339,8 @@
 			getTopicListData();
 
 			initTopicCKEditor();
+			initReplyCKEditor();
+			
 
 	        initTemplate();
 	        
@@ -356,30 +357,8 @@
 	        	$("#favorateCatgoryDialog").modal('show');
 	        }
 	        
-	        // for topic list pagination
-	        $(window).scroll(function(){
-// 	        	console.log("scrollTop = " + $(this).scrollTop());
-// 	        	console.log("scroll bottom pos = " + ($(this).scrollTop() + $(this).height()));
-// 	        	console.log("height = " + $("body").height());
-	        	
-	        	if(($("body").height() - ($(this).scrollTop() + $(this).height())) < 300 
-	        			&& !topicListLoadLock // prevent duplicate loading 
-	        			&& isTopicListHasNextPage
-	        			){
-	        		
-	        		// prevent duplicate loading, lock when execute function
-	        		topicListLoadLock = true;
-	        		
-	        		topicListPageNum++;
-	        		
-	        		getTopicListData();
-	        		
-	        		topicListLoadLock = false;
-	        	}
-	        });
-	        
 		});
-		
+
 		function initTemplate() {
 			$.ajax({
 					url : contextRoot + "/template/topicTemplate.mst",
@@ -394,6 +373,25 @@
 					});
 		}
 
+// 		function updateFavorateCategory(){
+
+// 				var url = contextRoot + "/insertFavorateCategory"
+// 				console.log("text = " + $("#loginUserId").text());
+// 				console.log("val = " + $("#favorateCategoryList button").val());
+				
+// 				$("#favorateCategoryList input[name='userId']").val($("#loginUserId").text());
+
+
+// 				$.ajax({
+// 					    url: url,
+// 					    type: "POST",
+// 					    data: {
+// 					    }
+// 					});				
+// 			}
+
+		
+
 		function getTopicListData() {
 			var url = contextRoot + "/topic/topiclist?pageSize=10&pageNum="
 					+ topicListPageNum;
@@ -406,36 +404,24 @@
 			if (categoryId != null) {
 				url += "&categoryId=" + categoryId;
 			}
-			console.log("isTopicListHasNextPage = " + isTopicListHasNextPage);
-			if(isTopicListHasNextPage){
-				$.ajax({
-					url : url,
-					type : "get",
-					async : false,
-					success : function(data) {
-						console.log(data);
-//	 					render(data);
-						var resultData = Mustache.render(topicListTemplate, data);
-						$("#topicListArea").append(resultData);
-						
 
-						$("#totalNum").text(data.totalNum);
-						
-						
-						refreshTopicListIndexArray();
-						
-						// check whether has next page or not
-						isTopicListHasNextPage = data.isHasNext;
+			$.ajax({
+				url : url,
+				type : "get",
+				async : false,
+				success : function(data) {
 
+					render(data);
+
+					$("#totalNum").text(data.totalNum);
+					// check whether has next page or not
+					if (data.hasNext) {
+						// to the next page
+						topicListPageNum++;
 					}
-				});
-			}
-			
-		}
-		
-		function refreshTopicList(){
-			$("#topicListArea").html("");
-			getTopicListData();
+
+				}
+			});
 		}
 
 		function render(jsonObj) {
@@ -443,59 +429,6 @@
 
 			$("#topicListArea").html("");
 			$("#topicListArea").append(data);
-		}
-		
-		// data prepare for topicContentDialog get next or previous topic
-		function refreshTopicListIndexArray(){
-			topicListIndexArray = [];
-			
-			$("#topicListArea .topicId").each(function(index,element){
-				topicListIndexArray.push({
-						index: index, 
-						topicId: $(element).text(),
-						element: $(element)});
-			});
-			
-// 			console.log(topicListIndexArray);
-		}
-		
-		function getPreviousTopic(){
-			var currentTopicId = $("#addReplyForm input[name='topicId']").val();
-			var targetTopicListObj = null;
-			
-			for(let i=0 ; i<topicListIndexArray.length ; i++){
-				
-				if(topicListIndexArray[i].topicId == currentTopicId 
-				   && i != 0){ // prevent first topic condition
-					targetTopicListObj = topicListIndexArray[i-1];
-				}
-			}
-			
-			// check previous topic is found
-			if(targetTopicListObj != null){
-				openTopicContentDialog(targetTopicListObj.topicId,targetTopicListObj.element);
-			}
-			
-		}
-		
-		function getNextTopic(){
-			var currentTopicId = $("#addReplyForm input[name='topicId']").val();
-			var targetTopicListObj = null;
-			
-			for(let i=0 ; i<topicListIndexArray.length ; i++){
-				
-				if(topicListIndexArray[i].topicId == currentTopicId 
-				   && i != (topicListIndexArray.length - 1)){ // prevent last topic condition
-					
-					targetTopicListObj = topicListIndexArray[i+1];
-				}
-			}
-			
-			// check previous topic is found
-			if(targetTopicListObj != null){
-				openTopicContentDialog(targetTopicListObj.topicId,targetTopicListObj.element);
-			}
-			
 		}
 
 		function openTopicContentDialog(topicId, targetObj) {
@@ -649,11 +582,8 @@
 			$(targetObj).addClass("active");
 
 			categoryId = catId;
-			topicListPageNum = 1;
-			isTopicListHasNextPage = true;
-
-			
-			refreshTopicList();
+			pageNum = 1;
+			getTopicListData();
 		}
 
 		function setTagType(tagTypeSrc) {
@@ -693,13 +623,19 @@
 				async : false,
 				data: form.serialize(),
 				success : function(data) {
-// 					$("#addTopic")
-// 							.html(Mustache.render(addTopicTemplate, data));
 					console.log(data);
 
 				}
 
 			});
+
+	        $("#content").val("");
+	        topicEditor.setData("");
+			$("input[name='title']").val("");
+			$("input[name='isCover']").val("");
+			$("input[name='categoryId']").val("");
+	        
+	        
 			console.log("GoodBye!");
 
 			$('#addTopicDialog').modal('hide')
@@ -752,6 +688,11 @@
 				}
 
 			});
+
+
+	        $("#replyContent").val("");
+	        replyEditor.setData("");
+	        
 			console.log("GoodBye!");
 			}
 
