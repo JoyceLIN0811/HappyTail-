@@ -71,5 +71,13 @@ public class AdminView {
 		view.setUrl("/WEB-INF/pages/admin/admin-forum.jsp");
 		return view;
 	}
+	
+	//更新商品
+	@Bean
+	public View adminupdateProduct() {
+		InternalResourceView view = new InternalResourceView();
+		view.setUrl("/WEB-INF/pages/admin/admin-updateProduct.jsp");
+		return view;
+	}
 
 }

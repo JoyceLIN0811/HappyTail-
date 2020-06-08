@@ -30,7 +30,7 @@ public interface AdminShopDao {
 	public List<OrderBean> unCheckOrderList();
 	
 	//修改產品
-	ProductBean updateProduct(Integer id);
+	ProductBean updateProduct(ProductBean product);
 
 	
 	

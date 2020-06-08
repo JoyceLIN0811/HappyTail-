@@ -27,7 +27,7 @@ public interface AdminShopService {
 	public List<OrderBean> unCheckOrderList();
 	
 	//修改產品
-	ProductBean updateProduct(Integer id);
+	ProductBean updateProduct(ProductBean product);
 	
 	OrderBean changeOrderStatus(Integer id);
 	

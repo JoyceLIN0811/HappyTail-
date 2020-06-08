@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.happytail.admin.model.service.AdminShopService;
@@ -95,20 +96,6 @@ public class AdminShoppingController {
 		return re;
 	}
 	
-	//修改商品
-	@PostMapping(value = "admin-updateProduct/{key}", produces= {"application/json"})
-	public ResponseEntity<ProductBean> updateProduct(@PathVariable Integer key, ProductBean product) {
-		ProductBean product1 = adminShopService.updateProduct(key);
-		ResponseEntity<ProductBean> re = new ResponseEntity<>(product1, HttpStatus.OK);
-		return re;
-	}
-	
-	//修改商品2
-	@GetMapping(value = "admin-updateProduct2/{key}")
-	public String udateProduct2(@PathVariable Integer key) {
-		return "adminupdateProduct";
-	}
-
 	// 新增商品1
 	@GetMapping(value = "admin-InsertProject")
 	public String insertProject(Model model) {
@@ -166,6 +153,41 @@ public class AdminShoppingController {
 			return "adminInsertProject";
 		}
 
+		return "adminAllProject";
+	}
+	
+	//修改商品  admin-updateProduct.jsp
+	@RequestMapping(value = "/admin-updateProduct2/{id}")
+	public String updateProduct(Model model, @PathVariable Integer id) {
+		ProductBean product = pservice.selectOne(id);
+		model.addAttribute(product);
+		return "adminupdateProduct";
+	}
+	
+	//修改商品
+	@RequestMapping(value = "/update-product")
+	public String updateProduct2(@ModelAttribute ProductBean product, Model model) {
+		
+		MultipartFile productImage = product.getProductImage();
+		String originalFilename = productImage.getOriginalFilename();
+		ProductBean pBean = (ProductBean) model.getAttribute("productBean");
+		if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+			pBean.setFileName(originalFilename);
+		}
+		// 建立Blob物件，交由 Hibernate 寫入資料庫
+		if (productImage != null && !productImage.isEmpty()) {
+			try {
+				byte[] b = productImage.getBytes();
+				Blob blob = new SerialBlob(b);
+				pBean.setCoverImage(blob);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+			}
+		}
+		
+		adminShopService.updateProduct(product);
+		
 		return "adminAllProject";
 	}
 	

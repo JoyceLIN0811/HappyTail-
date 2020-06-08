@@ -341,7 +341,7 @@
 															"render" : function(
 																	data, type,
 																	full, meta) {
-																if (data == "0") {
+																if (data == "2") {
 																	return data = '<span class="badge badge-danger">下架</span>';
 																} else {
 																	return data = '<span class="badge badge-success">供貨中</span>';
@@ -358,39 +358,12 @@
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#test' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>"
-																+ "<a class='btn btn-info btn-sm' href='<c:url value='admin-updateProduct2/"+ data +"'/>'><i class='fas fa-pencil-alt'></i>修改</a>";
+														return "<a class='btn btn-info btn-sm' href='<c:url value='admin-updateProduct2/"+ data +"'/>'><i class='fas fa-pencil-alt'></i>修改</a>";
 
 													}
 												} ]
 											});
 						});
 	</script>
-
-	<script type="text/javascript">
-		$(document).on('click', '.btn', function() {
-			var id = $(this).attr("id");
-
-			$.ajax({
-				url : "<c:url value='admin-updateProduct/" + id + "' />",
-				method : "POST",
-				async : false,
-				data : {},
-				dataType : "json",
-				success : function(data) {
-					$('#update-product').modal('show');
-					$('#upadte-id').val(data.productId);
-					$('#upadte-name').val(data.name);
-					$('#upadte-price').val(data.price);
-					$('#upadte-amount').val(data.amount);
-					$('#upadte-descriptrion').val(data.descriptrion);
-					$('#upadte-status').val(data.status);
-					$('#upadte-type').val(data.categoryId);
-					$('#upadte-sales').val(data.sales);
-				}
-			})
-		})
-	</script>
 </body>
-
 </html>

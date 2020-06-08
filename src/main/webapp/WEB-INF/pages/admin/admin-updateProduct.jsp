@@ -270,13 +270,15 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form:form method="POST" modelAttribute="productBean" enctype='multipart/form-data'>
+						<c:url var="formAction" value="/update-product"/>
+						<form:form method="POST" modelAttribute="productBean" action="${formAction}" enctype='multipart/form-data'>
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="exampleInputEmail1">商品名稱</label>
 											<form:input path='name' class="form-control" />
+											<form:hidden path='productId'/>
 										</div>
 									</div>
 									<div class="col-sm-4">

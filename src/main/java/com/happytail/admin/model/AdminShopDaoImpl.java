@@ -101,14 +101,22 @@ public class AdminShopDaoImpl implements AdminShopDao {
 	}
 
 	@Override
-	public ProductBean updateProduct(Integer id) {
-		Query<ProductBean> query = getSession().createQuery("From ProductBean p where p.productId=:id",ProductBean.class);
-		query.setParameter("id", id);
-		ProductBean product = (ProductBean) query.uniqueResult();
+	public ProductBean updateProduct(ProductBean product) {
 		
-		if (product != null) {
-			getSession().update(product);
+		ProductBean newProduct = getSession().get(ProductBean.class, product.getProductId());
+		
+		if(newProduct != null) {
+			newProduct.setName(product.getName());	//更新商品名稱
+			newProduct.setAmount(product.getAmount());
+			newProduct.setCategoryId(product.getCategoryId());
+			newProduct.setCoverImage(product.getCoverImage());
+			newProduct.setDescriptrion(product.getDescriptrion());
+			newProduct.setFileName(product.getFileName());
+			newProduct.setStatus(product.getStatus());
+			
+			getSession().update(newProduct);
 		}
+		
 		return product;
 	}
 

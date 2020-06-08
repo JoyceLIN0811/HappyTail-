@@ -17,6 +17,7 @@ public class AdminShopServiceImpl implements AdminShopService{
 
 	@Autowired
 	AdminShopDao adsDao;
+
 	
 	@Override
 	public Long countProjects() {
@@ -67,9 +68,9 @@ public class AdminShopServiceImpl implements AdminShopService{
 	}
 
 	@Override
-	public ProductBean updateProduct(Integer id) {
-		ProductBean product = adsDao.updateProduct(id);
-		return product;
+	public ProductBean updateProduct(ProductBean product) {
+		ProductBean products = adsDao.updateProduct(product);
+		return products;
 	}
 
 	@Override
