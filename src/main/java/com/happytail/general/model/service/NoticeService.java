@@ -53,15 +53,15 @@ public class NoticeService {
 		if (reservationBean != null) {
 			String statuss = reservationBean.getStatuss();
 			String reservationUsername = bean.getUsername();
-			String template = NoticeUtil.getNoticeTemplate(NoticeType.ReceiveReservation);
+			String template2 = NoticeUtil.getNoticeTemplate(NoticeType.ReceiveReservation);
 			String module = Const.ModuleType.Reservation;
-			String noticeMsg = String.format(template, reservationUsername, statuss);
+			String noticeMsg = String.format(template2, reservationUsername, statuss);
 			
 			Notice notice = new Notice();
-			String sadminUserId= NoticeUtil.getNoticeTemplate(Const.Admin.AdminUserId);
+			String sadminUserId= Const.Admin.AdminUserId;
 			Integer adminUserId =  Integer.parseInt(sadminUserId);
-			notice.setId(adminUserId);
-			notice.setUsername(NoticeUtil.getNoticeTemplate(Const.Admin.AdminUserName));
+			notice.setUserId(adminUserId);
+			notice.setUsername(Const.Admin.AdminUserName);
 			notice.setModule(module);
 			notice.setMessage(noticeMsg);
 			saveNotice(notice);
@@ -230,5 +230,7 @@ public class NoticeService {
 		System.out.println("send notice success: " + notice.getMessage());
 		simpMessagingTemplate.convertAndSendToUser(String.valueOf(notice.getUserId()), "/forum/notice", notice);
 	}
+	
+	
 
 }

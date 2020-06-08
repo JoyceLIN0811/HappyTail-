@@ -6,9 +6,71 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+        
+        <script type="text/javascript">
+            var stompClient = null;
+             
+            function setConnected(connected) {
+                document.getElementById('connect').disabled = connected;
+                document.getElementById('disconnect').disabled = !connected;
+                document.getElementById('conversationDiv').style.visibility 
+                  = connected ? 'visible' : 'hidden';
+                document.getElementById('response').innerHTML = '';
+            }
+             
+            function connect() {
+                var socket = new SockJS('/notice');
+                stompClient = Stomp.over(socket);  
+                stompClient.connect({}, function(frame) {
+                    setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/forum/notice', function(messageOutput) {
+                        showMessageOutput(JSON.parse(messageOutput.body));
+                    });
+                });
+            }
+             
+            function disconnect() {
+                if(stompClient != null) {
+                    stompClient.disconnect();
+                }
+                setConnected(false);
+                console.log("Disconnected");
+            }
+ 
+            function showMessageOutput(messageOutput) {
+                var response = document.getElementById('response');
+                var p = document.createElement('p');
+                p.style.wordWrap = 'break-word';
+                p.appendChild(document.createTextNode(messageOutput.from + ": " 
+                  + messageOutput.text + " (" + messageOutput.time + ")"));
+                response.appendChild(p);
+            }
+        </script>
 
+
+
+</head>
+<body onload="disconnect()">
+
+
+
+			<div>
+                <button id="connect" onclick="connect();">Connect</button>
+                <button id="disconnect" disabled="disabled" onclick="disconnect();">
+                    Disconnect
+                </button>
+            </div>
+            <br />
+            
+            <div id="conversationDiv">
+               
+                <p id="response"></p>
+            </div>
+
+<div> 共 ${page.totalNum}筆</div>
 
 <table border="1">
 	<tr style="text-align:center">
@@ -35,8 +97,6 @@
 	</tr>
 	</c:forEach>
 	</tr>
-	
-	
 </table><br>
 
 <script>
@@ -50,7 +110,7 @@
 	</td>
 </form>
 
-<span style='float: left;margin-right: 10px;'>第  ${page.currentPage} 頁</span>
+<span style='float: left;margin-right: 10px;'>第  ${page.currentPage} 頁 , 共 ${page.totalPages+1}頁</span>
 
 <form method="get" action="pageBackView" >
 	<td><input type='hidden' name='pageNum' value='${page.currentPage+1}'>
@@ -58,7 +118,7 @@
 	</td>
 </form>
 
-<div> 共 ${page.totalNum}筆</div>
+
 
 
 <a href="<c:url value='pageBackView?pageNum=1' />"><input type="button" value='查詢全部'></a><br><br>

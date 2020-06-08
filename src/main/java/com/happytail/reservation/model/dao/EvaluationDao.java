@@ -2,7 +2,6 @@ package com.happytail.reservation.model.dao;
 
 
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import com.happytail.general.util.Page;
@@ -21,6 +20,8 @@ public interface EvaluationDao {
 	
 //	List<backView> queryAllEvaluationView();
 	
+	List<Evaluation> queryMyEvaluation(Integer id);
+	
 	Page<backView> getAllEvaluationlist(PageInfo pageinfo);
 	
 //	List<backView> queryByDateEvaluationView(String createMonth);
@@ -28,5 +29,11 @@ public interface EvaluationDao {
 	Page<backView> queryByDateEvaluationView(String createMonth,PageInfo pageinfo);
 	
 	Double ScoreAvg();
+	
+	Evaluation updateEvaluation(Evaluation bean);
+	
+	Evaluation queryByEvaluationId(Integer evaluationId);
+	
+	Evaluation deleteByEvaluationId(Integer evaluationId);
 	
 }
