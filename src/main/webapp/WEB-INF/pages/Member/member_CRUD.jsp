@@ -44,7 +44,11 @@
                        <%@include file="/WEB-INF/pages/include/forumUpdate.jsp" %>
                    </div>
                    <div class="tab-pane fade" id="v-pills-reservation" role="tabpanel" aria-labelledby="v-pills-reservation-tab">
-                   		預約系統用
+                   		<c:import  url="/queryMyReservaitionView">
+    						<c:param name="Id" value="${petMembers.id}" />
+   	 						<c:param name="pageNum" value="1" />
+						</c:import >
+<%--                    		<%@include file="/WEB-INF/pages/reservation/myReservation.jsp" %> --%>
                    </div>
 <!--                    <div class="tab-pane fade" id="v-pills-shopping" role="tabpanel" aria-labelledby="v-pills-shopping-tab"> -->
 <!--                    		商城用 -->

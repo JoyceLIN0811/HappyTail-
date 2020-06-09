@@ -2,17 +2,17 @@ package com.happytail.reservation.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -34,6 +35,9 @@ import com.happytail.reservation.model.ReservationBean;
 
 import com.happytail.reservation.model.service.EvaluationService;
 import com.happytail.reservation.model.service.ReservationService;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
 
 
 
@@ -57,7 +61,7 @@ public class ReservationController {
 		return "reservation/index37";
 	}
 	
-	
+	@ResponseBody
 	@PostMapping("/insertSuccess")
 	public String insert(@SessionAttribute("petMembers") PetMembers petMembers,
 			@RequestParam("sortId")Integer sortId, @RequestParam("breed")String breed,
@@ -90,7 +94,7 @@ public class ReservationController {
 		
 		service.save(rb);
 		
-//		noticeService.sendReservationNotice(rb);
+		noticeService.sendReservationNotice(rb);
 		
 		List<Evaluation> list = service2.queryAllEvaluation();
 		m.addAttribute("Evaluation" , list);
@@ -102,10 +106,35 @@ public class ReservationController {
 		
 		System.out.println(avg);
 		
-		return "reservationPage";
+		AllInOne all = new AllInOne("");
+		AioCheckOutALL obj = new AioCheckOutALL();
+		
+		UUID uid = UUID.randomUUID();
+		obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
+		
+		DateFormat  day = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String strBeginDate =day.format(new Date(availableDateTime));
+		obj.setMerchantTradeDate(strBeginDate); 
+		
+		obj.setTotalAmount("700");
+		obj.setTradeDesc("test Description");
+		obj.setItemName("寵物SPA");
+		obj.setReturnURL("http://localhost:8080/happytail/HappyTailIndex.jsp");
+		obj.setNeedExtraPaidInfo("N");
+		obj.setPeriodAmount("700");
+		obj.setPeriodType("D");
+		obj.setFrequency("1");
+		obj.setExecTimes("12");
+		String form = all.aioCheckOut(obj, null);
+		
+		
+		return form ;
+	}	
+		
+		
 		
 //		return "redirect:/Evaluationlist";
-	}
+	
 	
 //	@RequestMapping(value = "/query", method = RequestMethod.GET)
 //	public String MyReservationlist(@SessionAttribute("petMembers") PetMembers petMembers,
@@ -131,13 +160,15 @@ public class ReservationController {
 	
 	
 	@PostMapping("/update")
-	public String update(@RequestParam("reservationId")Integer reservationId,
+	public String update(@SessionAttribute("petMembers") PetMembers petMembers,
+			@RequestParam("reservationId")Integer reservationId,
 			@RequestParam("statuss")String statuss,@RequestParam("Id")Integer Id,
 			Integer pageSize,@RequestParam Integer pageNum, Model m) {
 		
 		ReservationBean rb = new ReservationBean();
 		rb.setReservationId(reservationId);
 		rb.setStatuss(statuss);
+		rb.setUsername(petMembers.getUsername());
 		System.out.println(reservationId);
 		System.out.println(statuss);
 		
@@ -147,9 +178,10 @@ public class ReservationController {
 		System.out.println(pageinfo.getPageSize());
 		System.out.println(pageinfo.getPageNum());
 		Page<MyReservationView> list = service.query(Id,pageinfo);
-		
+
 		m.addAttribute("page",list);
 		
+		noticeService.sendReservationNotice(rb);
 		
 		
 		return "myReservationPage";

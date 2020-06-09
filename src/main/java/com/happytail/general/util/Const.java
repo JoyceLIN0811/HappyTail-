@@ -12,8 +12,8 @@ public class Const {
 	}
 	
 	public static class Admin {
-		public static final String AdminUserId = "5";
-		public static final	String AdminUserName = "fuck";
+		public static final String AdminUserId = "1";
+		public static final	String AdminUserName = "admin@gmail.com";
 	}
 	
 	public static class ModuleType {

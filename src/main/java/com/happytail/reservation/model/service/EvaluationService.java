@@ -66,4 +66,8 @@ public class EvaluationService {
 	public Evaluation deleteByEvaluationId(Integer evaluationId) {
 		return daoImpl.deleteByEvaluationId(evaluationId);
 	}
+	
+	public List<backView> queryByreservationId(Integer reservationId){
+		return daoImpl.queryByreservationId(reservationId);
+	}
 }

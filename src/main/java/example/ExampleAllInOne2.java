@@ -4,7 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.UUID;
 
-import ecpay.payment.integration.AllInOne;
+
+import ecpay.payment.integration.AllInOne2;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import ecpay.payment.integration.domain.AioCheckOutATM;
 import ecpay.payment.integration.domain.AioCheckOutBARCODE;
@@ -23,10 +24,10 @@ import ecpay.payment.integration.domain.QueryTradeInfoObj;
 import ecpay.payment.integration.domain.QueryTradeObj;
 import ecpay.payment.integration.domain.TradeNoAioObj;
 
-public class ExampleAllInOne {
-	public static AllInOne all;
-	public static void main(String[] args) {
-		initial();
+public class ExampleAllInOne2 {
+	public static AllInOne2 all;
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		initial2();
 //		System.out.println("compare CheckMacValue method testing result: " + cmprChkMacValue());
 //		System.out.println("apple pay create order: " + postCreateServerOrder());
 //		System.out.println("doAction: " + postDoAction());
@@ -42,12 +43,12 @@ public class ExampleAllInOne {
 //		System.out.println("aioCheckOutBARCODE: " + genAioCheckOutBARCODE());
 //		System.out.println("aioCheckOutDevide: " + genAioCheckOutDevide());
 //		System.out.println("aioCheckOutOneTime: " + genAioCheckOutOneTime());
-//		System.out.println("aioCheckOutPeriod: " + genAioCheckOutPeriod());
+		System.out.println("aioCheckOutPeriod: " + genAioCheckOutPeriod());
 //		System.out.println("aioCheckOutWebATM: " + genAioCheckOutWebATM());
 		System.out.println("UUID  " + UUID.randomUUID().toString().replaceAll("-", "").substring(0,20));
 	}
-	private static void initial(){
-		all = new AllInOne("");
+	private static void initial2() throws UnsupportedEncodingException{
+		all = new AllInOne2("");
 	}
 	
 	public static boolean cmprChkMacValue(){
@@ -144,7 +145,7 @@ public class ExampleAllInOne {
 	
 	public static String genAioCheckOutALL(){
 		AioCheckOutALL obj = new AioCheckOutALL();
-		obj.setMerchantTradeNo("testCompany0004"); 
+		obj.setMerchantTradeNo("odqwei28452ksdss2"); 
 		obj.setMerchantTradeDate("2017/01/01 08:05:23"); 
 		obj.setTotalAmount("50");
 		obj.setTradeDesc("test Description");
@@ -157,7 +158,7 @@ public class ExampleAllInOne {
 	
 	public static String genAioCheckOutATM(){
 		AioCheckOutATM obj = new AioCheckOutATM();
-		obj.setMerchantTradeNo("testCompany0005");
+		obj.setMerchantTradeNo("asdawdioj2oi11");
 		obj.setMerchantTradeDate("2017/01/01 08:05:23");
 		obj.setTotalAmount("50");
 		obj.setTradeDesc("test Description");
@@ -171,7 +172,7 @@ public class ExampleAllInOne {
 	
 	public static String genAioCheckOutBARCODE(){
 		AioCheckOutBARCODE obj = new AioCheckOutBARCODE();
-		obj.setMerchantTradeNo("testCompany0007");
+		obj.setMerchantTradeNo("asdjoijqwpod1ll");
 		obj.setMerchantTradeDate("2017/01/01 08:05:23");
 		obj.setTotalAmount("50");
 		obj.setTradeDesc("test Description");
@@ -249,7 +250,7 @@ public class ExampleAllInOne {
 	
 	public static String genAioCheckOutPeriod(){
 		AioCheckOutPeriod obj = new AioCheckOutPeriod();
-		obj.setMerchantTradeNo("testCompany0009");
+		obj.setMerchantTradeNo("asdasdawdqwdasdsad");
 		obj.setMerchantTradeDate("2017/01/01 08:05:23");
 		obj.setTotalAmount("50");
 		obj.setTradeDesc("test Description");

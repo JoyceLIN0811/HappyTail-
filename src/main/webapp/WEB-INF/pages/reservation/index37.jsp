@@ -19,16 +19,16 @@
 	
 					<div style='border:#FFFFFF 1px double;height: 600px;background-color: #DEEBF7'>
 					<img src='img/money33.jpg' width="70%" style='float:left;margin-right: 50px'>
-					<div style='margin-top: 10px;'>
-					<h1 style='margin-bottom: 10px;margin-left: 1220px'>預約服務</h1>
-					<form method='post' action='insertSuccess' onsubmit="return check()" style='font-size: 20px'>
+					<div style='margin-top: 25px;'>
+					<h1 style='margin-bottom: 20px;margin-left: 1220px;margin'>預約服務</h1>
+					<form method='post' action='insertSuccess' onsubmit="return check()" style='font-size: 18px'>
 						選擇服務 : 
 						<input type="radio" name='sortId' value="1"> 剪髮 
 						<input type="radio" name='sortId' value="2"> 洗髮 
 						<input type="radio" name='sortId' value="3"> 洗剪 
 						<input type="radio" name='sortId' value="4"> SPA <br><br>
 						寵物品種 : <input type="text" name='breed' id='breed' onblur="checkbreed()" onkeyup="checkbreed(this)">
-								<span id="str1" style='color: red'></span><br><br>
+								<span id="str1" style='color: red;'></span><br><br>
 						 寵物名稱 : <input type="text" name='petName' id='petName' onblur="checkpetname()" onkeyup="checkpetname(this)">
 						 		<span id="str2" style='color: red'></span><br><br> 
 						 寵物性別 : 
@@ -55,8 +55,9 @@
 										<input class="btn btn-success" type="submit" name='statuss' value="預約" style="margin-left: 110px;">
 										<input class="btn btn-success" type="button" value='一鍵新增' onclick='Send()'>
 									</form>
-									
-									<a href="<c:url value='queryMyReservaitionView?Id=${petMembers.id}&pageNum=1' />">MyReservation</a>
+									<div>
+									</div>
+<%-- 									<a href="<c:url value='queryMyReservaitionView?Id=${petMembers.id}&pageNum=1' />">MyReservation</a> --%>
 								</div>	
 							</div>
 							
@@ -220,9 +221,7 @@ document.write('<img src="img/StarCopy.gif">');
 
 
 			
-			<div>
-			<img src='img/1234.jpg' width="350" >
-			</div>
+			
 			<div style='height:500px;width:667px;overflow: auto;'>
 			<c:forEach var="View" items="${Evaluation}" >
 					<div style='border:1px #5B9BD5 solid;width:650px;padding:20px;'>
@@ -233,7 +232,8 @@ document.write('<img src="img/StarCopy.gif">');
 					</div> 				
 			</c:forEach>
 			</div>
-			<img src='img/11111.jpg' width="300" style='margin-left: 400px'>
+			<img src='img/1234.jpg' width="350" style='float: left'>
+			<img src='img/11111.jpg' width="300" >
 			</div>
 			
 			

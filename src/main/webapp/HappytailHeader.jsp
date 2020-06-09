@@ -106,8 +106,9 @@
 	<c:if test="${empty LoginOK}">
 		<a href="<c:url value='/login'/>">個人頁面</a>
 	</c:if>
+
 	<a href="<c:url value='/shopIndex'/> ">網路商城</a> <a
-		href="#Reservation Service">美容服務預約</a> <a
+		href="<c:url value='/Evaluationlist?id=${petMembers.id}' />">美容服務預約</a> <a
 		href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">寵物論壇</a> 
 		<a class="subheader">認識我們</a>
 
