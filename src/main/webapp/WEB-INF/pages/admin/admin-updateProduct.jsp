@@ -264,9 +264,9 @@
 			<section class="content">
 				<!-- general form elements -->
 				<div class="container-fluid">
-					<div class="card card-primary">
+					<div class="card card-info">
 						<div class="card-header">
-							<h3 class="card-title">新增商品</h3>
+							<h3 class="card-title">更新商品</h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
@@ -294,13 +294,28 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+								<div class="col-sm-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品種類</label>
-									<form:input path='categoryId' class="form-control" />
+									<form:select path='categoryId' class="form-control">
+										<option>選擇商品種類</option>
+										<option value='1'>飼料</option>
+										<option value='2'>衣服</option>
+										<option value='3'>玩具</option>
+									</form:select>
 								</div>
+								</div>
+								<div class="col-sm-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品狀態</label>
-									<form:input path='status' class="form-control" />
+									<form:select path='status' class="form-control">
+										<option>選擇狀態</option>
+										<option value='1'>上架</option>
+										<option value='2'>下架</option>
+									</form:select>
+								</div>
+								</div>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品描述</label>

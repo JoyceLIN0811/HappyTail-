@@ -104,7 +104,7 @@
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-				<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="admin-Index" class="brand-link">
 				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
@@ -219,6 +219,7 @@
 										<thead>
 											<tr>
 												<th>商品編號</th>
+												<th>商品類型</th>
 												<th>商品名稱</th>
 												<th>商品價格</th>
 												<th>商品描述</th>
@@ -229,12 +230,10 @@
 
 											</tr>
 										</thead>
-
-										<tbady> </tbady>
-
 										<tfoot>
 											<tr>
 												<th>商品編號</th>
+												<th>商品類型</th>
 												<th>商品名稱</th>
 												<th>商品價格</th>
 												<th>商品描述</th>
@@ -316,6 +315,9 @@
 														{
 															"data" : "productId"
 														},
+														{    
+															"data": "categoryId"
+														},
 														{
 															"data" : "name"
 														},
@@ -354,7 +356,7 @@
 												columnDefs : [ {
 													//最後一行加上修改按鈕
 													"data" : "productId",
-													targets : 7,
+													targets : 8,
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
