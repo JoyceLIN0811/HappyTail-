@@ -85,7 +85,7 @@ public class AdminShopDaoImpl implements AdminShopDao {
 	@Override
 	public List<Long> sumOrdersByMonth() {
 		String sql = "select sum(totalPrice) as total from Orders "
-				+ "where orderDate between '2019/01/01' and '2019/12/31' "
+				+ "where orderDate between '2020/01/01' and '2020/12/31' "
 				+ "group by MONTH(orderDate)";
 		Query<Long> query = getSession().createSQLQuery(sql);
 		List<Long> list = query.getResultList();
