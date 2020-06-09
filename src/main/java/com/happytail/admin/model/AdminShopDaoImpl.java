@@ -125,6 +125,17 @@ public class AdminShopDaoImpl implements AdminShopDao {
 		return null;
 	}
 
+	//熱銷商品前3名
+	@Override
+	public List<Object> top3SalesProduct() {
+		String sql ="select top 3 oi.productId,oi.description, p.price ,SUM(quantity) as total "
+				+ "from OrderItems oi left join Product p on oi.productId = p.productId "
+				+ "group by oi.productId, oi.description, p.price order by total desc";
+		Query<Object> query = getSession().createSQLQuery(sql);
+		List<Object> list = query.getResultList();
+		return list;
+	}
+
 
 
 

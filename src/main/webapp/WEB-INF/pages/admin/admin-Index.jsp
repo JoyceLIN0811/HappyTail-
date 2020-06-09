@@ -353,6 +353,54 @@
 				</div>
 				<!-- /.card -->
 
+				<div class="card">
+					<div class="card-header border-0">
+						<h3 class="card-title">熱銷商品前三名</h3>
+						<div class="card-tools">
+							<a href="#" class="btn btn-tool btn-sm">
+								<i class="fas fa-download"></i>
+							</a>
+							<a href="#" class="btn btn-tool btn-sm">
+								<i class="fas fa-bars"></i>
+							</a>
+						</div>
+					</div>
+					<div class="card-body table-responsive p-0">
+						<table class="table table-striped table-valign-middle">
+							<thead>
+								<tr>
+									<th>商品編號</th>
+									<th>商品名稱</th>
+									<th>商品價格</th>
+									<th>銷售量</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${top3[0][0]}</td>
+									<td>${top3[0][1]}&emsp;<span class="badge bg-danger">HOT</span></td>
+									<td>${top3[0][2]}</td>
+									<td>${top3[0][3]}</td>
+								</tr>
+								<tr>
+									<td>${top3[1][0]}</td>
+									<td>${top3[1][1]}</td>
+									<td>${top3[1][2]}</td>
+									<td>${top3[1][3]}</td>
+								</tr>
+								<tr>
+									<td>${top3[2][0]}</td>
+									<td>${top3[2][1]}</td>
+									<td>${top3[2][2]}</td>
+									<td>${top3[2][3]}</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- /.card -->
+
 				<!-- PIE CHART -->
 				<div class="row">
 					<div class="col-md-6">
@@ -531,7 +579,7 @@
 			});
 	})
 	</script>
-	
+
 	//每月銷售金額
 	<script>
 	var lineChartCanvas = $('#lineChart').get(0).getContext('2d')

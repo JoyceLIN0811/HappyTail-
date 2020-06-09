@@ -85,5 +85,11 @@ public class AdminShopServiceImpl implements AdminShopService{
 		return null;
 	}
 
+	@Override
+	public List<Object> top3SalesProduct() {
+		List<Object> list = adsDao.top3SalesProduct();
+		return list;
+	}
+
 
 }

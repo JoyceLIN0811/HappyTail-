@@ -20,6 +20,8 @@ public interface AdminShopService {
 	public Long unCheckOrders();
 	//每月銷售額
 	public List<Long> sumOrdersByMonth();
+	//熱銷商品前3名
+	public List<Object> top3SalesProduct();
 	
 	//所有訂單
 	public List<OrderBean> adminAllOrders();

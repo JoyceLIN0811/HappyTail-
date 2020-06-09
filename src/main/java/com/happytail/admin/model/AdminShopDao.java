@@ -21,6 +21,8 @@ public interface AdminShopDao {
 	public Long unCheckOrders();
 	//每月銷售金額
 	public List<Long> sumOrdersByMonth();
+	//熱銷商品前三名
+	public List<Object> top3SalesProduct();
 	
 	//更改訂單
 	OrderBean changeOrderStatus(Integer id);

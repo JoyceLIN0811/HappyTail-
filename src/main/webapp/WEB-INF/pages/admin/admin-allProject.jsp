@@ -354,6 +354,7 @@
 
 												],
 												columnDefs : [ {
+													 defaultContent: "",
 													//最後一行加上修改按鈕
 													"data" : "productId",
 													targets : 8,

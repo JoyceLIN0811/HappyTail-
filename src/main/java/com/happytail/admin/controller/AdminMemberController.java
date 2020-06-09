@@ -75,6 +75,10 @@ public class AdminMemberController {
 		//每月銷售額
 		List<Long> sumOrderByMonth = adShopService.sumOrdersByMonth();
 		model.addAttribute("list2",sumOrderByMonth);
+		
+		//Top3
+		List<Object> top3 = adShopService.top3SalesProduct();
+		model.addAttribute("top3" ,top3);
 
 		return "adminIndex";
 	}
