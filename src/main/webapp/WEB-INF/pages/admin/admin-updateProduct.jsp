@@ -1,35 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>訂單管理</title>
+<title>新增商品</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/admin/plugins/fontawesome-free/css/all.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- DataTables -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/dist/css/adminlte.min.css">
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
 </head>
-
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
+
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
 			<!-- Left navbar links -->
@@ -72,8 +65,7 @@
 						<a href="#" class="dropdown-item">
 							<!-- Message Start -->
 							<div class="media">
-								<img src="${pageContext.request.contextPath}/dist/img/user1-128x128.jpg" alt="User Avatar"
-									class="img-size-50 mr-3 img-circle">
+								<img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
 										Brad Diesel
@@ -94,8 +86,7 @@
 						<a href="#" class="dropdown-item">
 							<!-- Message Start -->
 							<div class="media">
-								<img src="${pageContext.request.contextPath}/dist/img/user8-128x128.jpg" alt="User Avatar"
-									class="img-size-50 img-circle mr-3">
+								<img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
 										John Pierce
@@ -116,8 +107,7 @@
 						<a href="#" class="dropdown-item">
 							<!-- Message Start -->
 							<div class="media">
-								<img src="${pageContext.request.contextPath}/dist/img/user3-128x128.jpg" alt="User Avatar"
-									class="img-size-50 img-circle mr-3">
+								<img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
 								<div class="media-body">
 									<h3 class="dropdown-item-title">
 										Nora Silvester
@@ -168,17 +158,12 @@
 						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 					</div>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-						<i class="fas fa-th-large"></i>
-					</a>
-				</li>
 			</ul>
 		</nav>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+				<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="admin-Index" class="brand-link">
 				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
@@ -268,79 +253,108 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1>訂單資料</h1>
-							<a href='<c:url value='admin-getOrderItem-json/1' />'>Json</a>
-						</div>
+						<div class="col-sm-6"></div>
 					</div>
 				</div>
 				<!-- /.container-fluid -->
 			</section>
-
-			<!-- Main content -->
 			<section class="content">
+				<!-- general form elements -->
 				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12">
-
-							<div class="card">
-								<!-- /.card-header -->
-								<div class="card-body">
-									<table id="allOrders" class="table table-bordered table-striped">
-										<thead>
-											<tr>
-												<th>訂單編號</th>
-												<th>會員帳號</th>
-												<th>購買價格</th>
-												<th>購買時間</th>
-												<th>地址</th>
-												<th>備註</th>
-												<th>狀態</th>
-												<th>修改</th>
-											</tr>
-										</thead>
-										<tfoot>
-											<tr>
-												<th>訂單編號</th>
-												<th>會員帳號</th>
-												<th>購買價格</th>
-												<th>購買時間</th>
-												<th>地址</th>
-												<th>備註</th>
-												<th>狀態</th>
-												<th>修改</th>
-											</tr>
-										</tfoot>
-									</table>
-								</div>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
+					<div class="card card-info">
+						<div class="card-header">
+							<h3 class="card-title">更新商品</h3>
 						</div>
-						<!-- /.col -->
+						<!-- /.card-header -->
+						<!-- form start -->
+						<c:url var="formAction" value="/update-product"/>
+						<form:form method="POST" modelAttribute="productBean" action="${formAction}" enctype='multipart/form-data'>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputEmail1">商品名稱</label>
+											<form:input path='name' class="form-control" />
+											<form:hidden path='productId'/>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">商品價格</label>
+											<form:input path='price' class="form-control" />
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">商品庫存</label>
+											<form:input path='amount' class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="row">
+								<div class="col-sm-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">商品種類</label>
+									<form:select path='categoryId' class="form-control">
+										<option>選擇商品種類</option>
+										<option value='1'>飼料</option>
+										<option value='2'>衣服</option>
+										<option value='3'>玩具</option>
+									</form:select>
+								</div>
+								</div>
+								<div class="col-sm-6">
+								<div class="form-group">
+									<label for="exampleInputPassword1">商品狀態</label>
+									<form:select path='status' class="form-control">
+										<option>選擇狀態</option>
+										<option value='1'>上架</option>
+										<option value='2'>下架</option>
+									</form:select>
+								</div>
+								</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">商品描述</label>
+									<form:input path='descriptrion' class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile">照片</label>
+									<div class="input-group">
+										<div class="custom-file">
+											<form:input path='productImage' type='file'/>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!-- /.card-body -->
+
+							<div class="card-footer">
+								<button type="submit" class="btn btn-primary float-right">送出</button>
+								<button type="submit" class="btn btn-default float-right">取消</button>
+							</div>
+						</form:form>
 					</div>
-					<!-- /.row -->
 				</div>
-				<!-- /.container-fluid -->
+
 			</section>
-			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
-			<div class="float-right d-none d-sm-block">
-				<b>Version</b>
-				3.0.5
-			</div>
 			<strong>
 				Copyright &copy; 2014-2019
 				<a href="http://adminlte.io">AdminLTE.io</a>
 				.
 			</strong>
 			All rights reserved.
+			<div class="float-right d-none d-sm-inline-block">
+				<b>Version</b>
+				3.0.5
+			</div>
 		</footer>
 
 		<!-- Control Sidebar -->
@@ -350,171 +364,25 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-
-	<div class="modal fade" id="Topic">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">訂單明細</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" id="detail">
-					<h4>總金額：</h4>
-					<p id="totalPrice"></p> 
-					<h4>購買時間：</h4>
-					<p id="orderDate"></p>
-					<table class="table table-striped" id="tbale">
-                    	<thead>
-                    		<tr>
-                      			<th>編號</th>
-                      			<th>商品名稱</th>
-                      			<th>商品數量</th>
-                      			<th>購買價格</th>
-                   			</tr>
-                  		</thead>
-                  		<tbody id="tbody"></tbody>
-                  </table>					
-				</div>
-				<div class="modal-footer justify-content-between">
-					<button type="button" id="close" class="btn btn-default"data-dismiss="modal">關閉</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
-
-
-
-
-
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button)
+	</script>
 	<!-- Bootstrap 4 -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- DataTables -->
-	<script src="${pageContext.request.contextPath}/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<!-- ChartJS -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/chart.js/Chart.min.js"></script>
+	<!-- Sparkline -->
+	<script src="${pageContext.request.contextPath}/admin/plugins/sparklines/sparkline.js"></script>
 	<!-- AdminLTE App -->
-	<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.min.js"></script>
+	<script src="${pageContext.request.contextPath}/admin/dist/js/adminlte.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="${pageContext.request.contextPath}/admin/dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
-	<!-- page script -->
-	//所有訂單
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#allOrders')
-									.DataTable(
-											{
-												searching : false,
-												"ajax" : {
-													"url" : "<c:url value='admin-AllOrders-json' />",
-													"dataSrc" : ""
-												},
-												"columns" : [
-														{
-															"data" : "orderId"
-														},
-														{
-															"data" : "memberId"
-														},
-														{
-															"data" : "totalPrice"
-														},
-														{
-															"data" : "orderDate"
-														},
-														{
-															"data" : "shippingAddress"
-														},
-														{
-															"data" : "text"
-														},
-														{
-															"data" : "state",
-															"render" : function(
-																	data, type,
-																	full, meta) {
-																if (data == "完成") {
-																	return data = '<span class="badge badge-success">完成</span>';
-																} else if (data == "未付款") {
-																	return data = '<span class="badge badge-secondary">未付款</span>';
-																} else if (data == "已付款") {
-																	return data = '<span class="badge badge-warning">已付款</span>';
-																} else if (data == "失敗") {
-																	return data = '<span class="badge badge-danger">失敗</span>';
-																}
-															}
-
-														}
-
-												],
-												columnDefs : [ {
-													//最後一行加上修改按鈕
-													"data" : "orderId",
-													targets : 7,
-													orderable : false,
-													render : function(data,
-															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
-																+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
-
-													}
-												} ]
-											});
-						});
-	</script>
-	<script type="text/javascript">
-		$(document).on('click', '.btn', function() {
-			var id = $(this).attr("id");
-
-			$.ajax({
-				url : "<c:url value='admin-getOrderItem-json/" + id + "' />",
-				method : "GET",
-				async : false,
-				data : {},
-				dataType : "json",
-				success : function(data) {
-					var i=0;
-					$.each(data, function() {
-						$("#name").append(data[i]['description']);
-						$("#unitPrice").append(data[i]['unitPrice']);
-						$("#quantity").append(data[i]['quantity']);
-						$("#totalPrice").empty().append(data[i]['orderBean']['totalPrice']);
-						$("#orderDate").empty().append(data[i]['orderBean']['orderDate']);
-
-						var tr="<tr>";
-						tr += "<td>" + data[i]['seqno'] + "</td>";
-						tr += "<td>" + data[i]['description'] + "</td>";
-						tr += "<td>" + data[i]['quantity'] + "</td>";
-						tr += "<td>" + data[i]['unitPrice'] + "</td>";
-						tr += "</tr>";
-						$('#tbody').append(tr);
-						i++;
-						})
-				}
-			})
-		})
-	</script>
-	<script>
-		$('#close').click(function() {
-			$('#name').empty();
-			$('#unitPrice').empty();
-			$('#quantity').empty();
-			$('#totalPrice').empty();
-			$('#tbody').empty();
-			})
-	</script>
 </body>
-
 </html>

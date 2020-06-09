@@ -238,6 +238,7 @@ $("#target").html(data);
 
 				<div class="row no-gutters">
 					<div class="col-md-12" style="height: 100px;">
+						<span class="d-none topicId">{{ topicId }}</span>
 						<h2 class="card-title"  onclick="openTopicContentDialog({{ topicId }}, this)" >{{ title }}</h2>
 					</div>
 				</div>
@@ -288,7 +289,7 @@ $("#target").html(data);
 
             <div class="row justify-content-md-center">
                 <div class="col-1" style="margin:auto;">
-                    <i class="fas fa-chevron-left fa-3x"></i>
+                    <i class="fas fa-chevron-left fa-3x pointer" onclick="getPreviousTopic()"></i>
                 </div>
                 <div class="col-10">
 
@@ -329,11 +330,11 @@ $("#target").html(data);
                     <div class="row justify-content-md-center" style="height: 80px">
                         <div class=" col-md-4">
                             <i class="fas fa-thumbs-up fa-2x"></i>
-                            <i class="far fa-laugh-squint fa-2x"></i>
+                           <!-- <i class="far fa-laugh-squint fa-2x"></i>
                             <i class="far fa-sad-cry fa-2x"></i>
                             <i class="far fa-surprise fa-2x"></i>
                             <i class="fas fa-heart fa-2x"></i>
-                            <i class="far fa-angry fa-2x"></i>
+                            <i class="far fa-angry fa-2x"></i> -->
                             <span>{{ likeNum }}</span>
                         </div>
 
@@ -361,30 +362,20 @@ $("#target").html(data);
                         </div>
                     </div>
 
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-1">
-                            <i class="fas fa-paw fa-2x" style="margin-top: 15px;"></i>
-                        </div>
-
-                        <div class="col-md-11">
+                    <div class="row justify-content-md-center d-none">
+                        <div class="col-md-12">
        						<form id="addReplyForm">
-       						<div class="col-12" style="margin-top: 15px;">
-       								<div id="replyEditor"></div>
-       							</div>
        							<input type="hidden" name="replyContent"/>
                          		<input type="hidden" name="username" />
                          		<input type="hidden" name="userId" />
                          		<input type="hidden" name="topicId" value="{{topicId}}"/>
-                         </form> 
+	                         </form> 
                         </div>
-                        <button type="button" class="btn btn-primary"  style="margin-top: 15px;" onclick="clickAddReply()">送出</button>
-                        
-
                     </div>
 
                 </div>
                 <div class="col-1" style="margin:auto;">
-                    <i class="fas fa-chevron-right fa-3x"></i>
+                    <i class="fas fa-chevron-right fa-3x pointer" onclick="getNextTopic()"></i>
                 </div>
             </div>
 </div>
@@ -393,7 +384,7 @@ $("#target").html(data);
  {{#records}}
 
  <div class="replyList">
-        <div id="B{{ stage }}" class="card info-card">
+        <div id="{{ stage }}" class="card info-card">
             <div class="card-header">
 
                 <div class="row">

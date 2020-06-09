@@ -164,7 +164,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="adminIndex" class="brand-link">
+			<a href="admin-Index" class="brand-link">
 				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
 					class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">後臺管理</span>
@@ -225,7 +225,7 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="admin-AllProjects-json" class="nav-link">
+							<a href="<c:url value='/pageBackView?pageNum=1' />" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>預約管理</p>
 							</a>
@@ -350,6 +350,54 @@
 						</div>
 					</div>
 					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+				<div class="card">
+					<div class="card-header border-0">
+						<h3 class="card-title">熱銷商品前三名</h3>
+						<div class="card-tools">
+							<a href="#" class="btn btn-tool btn-sm">
+								<i class="fas fa-download"></i>
+							</a>
+							<a href="#" class="btn btn-tool btn-sm">
+								<i class="fas fa-bars"></i>
+							</a>
+						</div>
+					</div>
+					<div class="card-body table-responsive p-0">
+						<table class="table table-striped table-valign-middle">
+							<thead>
+								<tr>
+									<th>商品編號</th>
+									<th>商品名稱</th>
+									<th>商品價格</th>
+									<th>銷售量</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${top3[0][0]}</td>
+									<td>${top3[0][1]}&emsp;<span class="badge bg-danger">HOT</span></td>
+									<td>${top3[0][2]}</td>
+									<td>${top3[0][3]}</td>
+								</tr>
+								<tr>
+									<td>${top3[1][0]}</td>
+									<td>${top3[1][1]}</td>
+									<td>${top3[1][2]}</td>
+									<td>${top3[1][3]}</td>
+								</tr>
+								<tr>
+									<td>${top3[2][0]}</td>
+									<td>${top3[2][1]}</td>
+									<td>${top3[2][2]}</td>
+									<td>${top3[2][3]}</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<!-- /.card -->
 
@@ -531,7 +579,7 @@
 			});
 	})
 	</script>
-	
+
 	//每月銷售金額
 	<script>
 	var lineChartCanvas = $('#lineChart').get(0).getContext('2d')

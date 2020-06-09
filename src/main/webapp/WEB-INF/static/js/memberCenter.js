@@ -10,18 +10,41 @@ var myLikeTopicPage = 1;
 var myReadHistoryTemplate = "";
 var myReadHistoryPage = 1;
 
+var myNoticeTemplate = "";
+var myNoticePage = 1;
+
+var topicContentTemplate = "";
+var replyListTemplate = "";
+var replyListPageNum = 1; // start from page 1
+
+var updatTopicTemplate = "";
+var updatetopicEditor = null;
+
+var tagType = "";
+
+
+
 $(document).ready(function(){
 	initTemplate();
 	
 	// TODO : all the function below
 	getTopicListData();
-//	getMyTopicData();
-//	getMyFollowListData();
-//	getMyLikeTopicData();
-//	getMyReadHistoryData();
-//	getFavorateCategory();
+	
+// initUpdateTopicCKEditor();
+	
+// getMyTopicData();
+// getMyFollowListData();
+// getMyLikeTopicData();
+// getMyReadHistoryData();
+//getFavorateCategory();
 	
 	// TODO : all the delete function and update function
+	
+	if(location.href.indexOf("/topicPage/") != -1){
+		var topicId = location.href.substring(location.href.indexOf("/topicPage/") + 11);
+		openTopicContentDialog(topicId, null);
+	}
+
 	
 });
 
@@ -35,18 +58,40 @@ function initTemplate() {
 						myFollowListTemplate = $(template).filter("#myFollowList").html();
 						myLikeTopicTemplate = $(template).filter("#myLikeTopic").html();
 						myReadHistoryTemplate = $(template).filter("#myReadHistory").html();
-					}
+						topicContentTemplate = $(template).filter("#topicContent").html();
+						replyListTemplate = $(template).filter("#replyContentList").html();
+						updatTopicTemplate = $(template).filter("#updateContent").html();
+						myNoticeTemplate = $(template).filter("#noticeList").html();
+
+		}
 	});
 }
 
+
+
 function setTagType(tagTypeSrc) {
 	tagType = tagTypeSrc;
+	if(tagType == 'favorateCategorylist'){
+		$("#topicNum").addClass("d-none");
+	}else if(tagType == 'noticelist'){
+		
+		$("#topicNum").addClass("d-none");
+
+	}else{
+		
+		$("#topicNum").removeClass("d-none");
+
+	}
+	
 	pageNum = 1;
 	getTopicListData();
 }
 
 
 function getTopicListData() {
+	
+	// TODO : need to clear list area first
+	refreshAllListArea();
 	
 	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 	+ myTopicPage +  "&tagType=myTopiclist";	
@@ -73,6 +118,8 @@ function getTopicListData() {
 		
 		if(tagType == "myTopiclist"){
 		
+		refreshAllListArea();
+		
 		var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 		+ myTopicPage +  "&tagType=myTopiclist";	
 		
@@ -94,6 +141,9 @@ function getTopicListData() {
 		
 			});
 		}else if(tagType == "myFollowlist"){
+			
+			refreshAllListArea();
+			
 			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 			+ myFollowListPage +  "&tagType=myFollowlist";	
 			
@@ -115,6 +165,9 @@ function getTopicListData() {
 			
 				});
 		}else if(tagType == "myThumbsUplist"){
+			
+			refreshAllListArea();
+
 				var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 				+ myLikeTopicPage +  "&tagType=myThumbsUplist";	
 				
@@ -137,6 +190,9 @@ function getTopicListData() {
 					});
 			
 		}else if(tagType == "myReadHistorylist") {
+			
+			refreshAllListArea();
+			
 			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 			+ myReadHistoryPage +  "&tagType=myReadHistorylist";	
 			
@@ -157,125 +213,299 @@ function getTopicListData() {
 					}
 			
 				});
+		}else if(tagType == "favorateCategorylist"){
+			
+			var codeMapList = null;
+			var url = contextRoot + "/myPage/favorateCategorylist";
+
+			$.ajax({
+				  url: url,
+				  type: "GET",
+				  async: false,
+	   		      contentType: "application/json",
+				  success: function(data){
+							console.log(data);
+							if(data){
+								codeMapList = data;
+							}
+					}
+			});
+			
+			var categoryIdList = []; // need to get from API
+			
+			// get categoryId from codeMap JSON Object
+			for(let i=0 ; i<codeMapList.length ; i++){
+				categoryIdList.push(codeMapList[i].key);
+			}
+			
+			console.log(categoryIdList);
+			
+			$("#favorateCategoryList .list-group-item").each(function(index,element){
+				for(let categoryId of categoryIdList){
+					if($(element).attr("value") == categoryId){
+						$(element).addClass("active");
+					}
+				}
+			});
+			
+			
 		}else{
-			$("#topicNum").addClass("d-none");
 			
+			var url = contextRoot + "/myPage/forumNotice?module=Forum&pageSize=10&pageNum=" + myNoticePage;
 			
+			$.ajax({
+				url : url,
+				type : "get",
+				async : false,
+				success : function(data) {
+					
+					$("#noticeList").append(Mustache.render(myNoticeTemplate, data));
+
+					$("#totalNum").text(data.totalNum);
+					// check whether has next page or not
+					if (data.hasNext) {
+						// to the next page
+						myNoticePage++;
+						}
+					}
 			
+				});
 			
 		}
 	}
 }
 	
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function getMyTopicData(){
-	// TODO : use myTopicTemplate and myTopicPage to render
-	// target area : id="topic"
+function refreshAllListArea(){
+	// Tip : $(element).html("")
 	
-	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
-					+ myTopicPage + "&tagType=myTopiclist";
+	// TODO : clear myTopic area
+	// TODO : clear myFollow area
+	// TODO : clear myLike area
+	// TODO : clear myReadHistory area
 	
-}
-
-function getMyFollowListData(){
-	// TODO : use myFollowListTemplate and  myFollowListPage to render
-	// target area : id="follow"
-}
-
-function getMyLikeTopicData(){
-	// TODO : use myLikeTopicTemplate and  myLikeTopicPage to render
-	// target area : id="like"
-}
-
-function getMyReadHistoryData(){
-	// TODO : use myReadHistoryTemplate and  myReadHistoryPage to render
-	// target area : id="history"
-}
-
-function getFavorateCategory(){
-	// TODO : get current user's favorate category 
-	var codeMapList = null;
-	var url = ""
 	
-//	$.ajax({
-//		url: url,
-//	   type: "GET",
-//	success: function(data){
-//				codeMapList = data;
-//			}
-//	});
-	
-	// fake data
-	codeMapList = [
-		{
-			id : 1,
-		module : "Forum",
-		  type : "topicCategory",
-		   key : 1,
-		 value : "生活"
-		},
-		{
-			id : 2,
-			module : "Forum",
-			type : "topicCategory",
-			key : 2,
-			value : "資訊"
+if (tagType != null) {
+		
+		if(tagType == "myTopiclist"){
+		
+			$("#topic").html("");
+		
+		}else if(tagType == "myFollowlist"){
+			
+			$("#follow").html("");
+		}else if(tagType == "myThumbsUplist"){
+			
+			$("#like").html("");
+			
+		}else if(tagType == "myReadHistorylist"){
+			
+			$("#history").html("");
+			
+		}else{
+			$("#noticeList").html("");
 		}
-	];
-	
-	var categoryIdList = []; // need to get from API
-	
-	// get categoryId from codeMap JSON Object
-	for(let codeMap of codeMapList){
-		categoryIdList.push(codeMap.key);
 	}
 	
-	$("#favorateCategoryList .list-group-item").each(function(index,element){
-		for(let categoryId of categoryIdList){
-			if($(element).attr("value") == categoryId){
-				$(element).addClass("active");
+	console.log("Please clear the list area first");
+}
+
+
+
+function openTopicContentDialog(topicId, targetObj) {
+
+	
+	var likeNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".likeNum").text() : 0;
+	var replyNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".replyNum").text() : 0;
+
+	var topicurl = contextRoot + "/topic/" + topicId;
+
+	var replyurl = contextRoot + "/reply?pageSize=10&pageNum="
+	+ replyListPageNum +"&topicId=" + topicId;
+
+	var stageListObj = { stageList : [] };
+	
+	$.ajax({
+		url : topicurl,
+		type : "get",
+		async : false,
+		success : function(data) {
+			data.likeNum = likeNum;
+			data.replyNum = replyNum;
+			data.topicId = topicId;
+			
+			$("#topicContent").html(
+					Mustache.render(topicContentTemplate, data));
+			console.log(data);
+		}
+
+	});
+	
+	$.ajax({
+		url : replyurl,
+		type: "get",
+		async : false,
+		success : function(data){
+
+			for(let i=0 ; i<data.records.length ; i++){
+				  data.records[i].stage = 'B' + (i + 1);
+				  data.records[i].stageValue = i + 1;
+				}
+							
+			$("#replyContentList").html("");
+			$("#replyContentList").append(Mustache.render(replyListTemplate, data));
+
+			// check whether has next page or not
+			if (data.hasNext) {
+				// to the next page
+				replyListPageNum++;
 			}
 		}
-	});
-}
 
-function deleteTopic(topicId){
-	// TODO : get user id from Header
-}
+		});
 
-function deleteFollow(topicId){
-	// TODO : get user id from Header
+	$('#topicContentDialog').modal('show');
 }
+	
+	function closeTopicContentDialog(topicId,targetObj){
+		$('#topicContentDialog').modal('hide')
+		}
+	
+	function openUpdateDialog(topicId, targetObj){
+// console.log($("#articleContent input[name='content']").val());
+// var content = updatetopicEditor.getData();
 
-function deleteLike(topicId){
-	// TODO : get user id from Header
-}
+		var topicurl = contextRoot + "/topic/" + topicId;
+		
+		$.ajax({
+			url : topicurl,
+			type : "get",
+			async : false,
+			success : function(data) {
+				
+				data.topicId = topicId;
+				console.log(data.topicId);
 
-function deleteHistory(topicId){
-	// TODO : get user id from Header
-}
+				$("#updateTopicContent").html(
+						Mustache.render(updatTopicTemplate, data));
+				console.log(data);
+			}
+
+		});
+		
+		initUpdateTopicCKEditor();
+
+		console.log($("#addTopicForm input[type='hidden']"));
+		console.log($("#addTopicForm input[type='hidden']").find("input[name='categoryId']"));
+		
+		var categoryId = ""; 
+			
+		$("#addTopicForm input[type='hidden']").each(function(index,element){
+			if($(element).attr("name") == "categoryId"){
+				categoryId = $(element).val();
+			}
+		});
+		
+		console.log(categoryId);
+		$(".categoryArea input[name='categoryId']").each(function(index,element){
+			if($(element).val() == categoryId){
+				$(element).attr('checked','checked');
+			}
+		});
+
+		$('#UpdateDialog').modal('show');
+		
+	}
+	
+	function clickUpdateTopic(topicId, targetObj){
+		
+		console.log("topicId=" +topicId);
+		
+		var content = updatetopicEditor.getData();
+		console.log("content=" +content);
+
+		var imgListStr = "";
+		$(content).find("img").each(function(index,element){
+			console.log("index = " + index);// number of picture
+			console.log("src = " + $(element).attr("src"));
+			
+			imgListStr += $(element).attr("src") + ",";
+		});
+		
+		if(imgListStr.length != 0){
+			imgListStr = imgListStr.substring(0,imgListStr.length - 1);//cut the ,
+		}
+		
+		$("#addTopicForm input[name='imgList']").val(imgListStr);
+		$("#addTopicForm input[name='content']").val(content);
+		console.log("updatecontent=" + $("#addTopicForm input[name='content']").val()); 
+		console.log("form=" + $(addTopicForm).serialize());
+
+		var url = contextRoot + "/myPage/UpdateOrDeleteTopic/" + topicId + "?action=update";
+		var form = $(addTopicForm);
+		console.log(form);
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			async : false,
+			data: form.serialize(),
+			success : function(data) {
+						console.log("data="+data);
+						alert("更新成功 !");
+						
+						window.location.reload();
+						
+					}
+			});
+		
+		console.log("GoodBye!");
+
+	}
+	
+	
+	
+	function closeUpdateTopicDialog(topicId,targetObj){
+		$('#UpdateDialog').modal('hide')
+		}
+	
+	function initUpdateTopicCKEditor(){
+
+        BalloonEditor
+        .create( document.querySelector( '#updatetopicEditor' ),{
+        	
+            ckfinder: {
+		                uploadUrl: contextRoot + "/uploadTopicImg"
+		              }
+        } )
+        .then( editorInstance => {
+        	updatetopicEditor = editorInstance;
+            
+        })
+        
+        .catch( error => {
+            console.error( error );
+        });
+    }
+	
+	function deleteTopic(topicId, targetObj){
+		
+		var url = contextRoot + "/myPage/UpdateOrDeleteTopic/" + topicId + "?action=delete";
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			async : false,
+			success : function(data) {
+						console.log($(targetObj).parentsUntil(".myTopicItem").parent());
+						$(targetObj).parentsUntil(".myTopicItem").parent().hide();
+						alert("刪除成功 !");
+					}
+			});
+		
+		
+	}
+
 
 // for favorate
 function toggleActive(targetObj){
@@ -292,15 +522,43 @@ function updateFavorateCategory(){
 	
 	
 	// TODO : need to defined
-	var url = "";
+	var url = contextRoot + "/myPage/UpdateFavorateCategory/" + userId;
 	
 	$.ajax({
 		url: url,
 	   type: "POST",
-	   data: JSON.stringify(),
+	   data: JSON.stringify(categoryList),
+	   contentType: "application/json",
 	success: function(data){
 				alert("更新成功 !");
 			}
 	});
 	
 }
+
+function readAllNotice(){
+	//all read 
+	var userId =  parseInt($("#loginUserId").text());
+	var url = contextRoot + "/myPage/notice";
+	var noticeList = [];
+
+	$("#noticeList").each(function(index,element){
+		noticeList.push({ userId: userId});
+	});
+	
+	$.ajax({
+		url: url,
+	   type: "POST",
+	   data: JSON.stringify(noticeList),
+	   contentType: "application/json",
+	success: function(data){
+			window.location.reload();
+	
+			}
+	});
+	
+
+	
+}
+
+

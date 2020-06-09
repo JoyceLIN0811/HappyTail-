@@ -29,10 +29,10 @@
            <div class="row frame-body">
                <div class="col-2 side-bar">
                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                   <a class="nav-link active" id="v-pills-member-tab" data-toggle="pill" href="#v-pills-member" role="tab" aria-controls="v-pills-member" aria-selected="true">Members</a>
-                   <a class="nav-link" id="v-pills-forum-tab" data-toggle="pill" href="#v-pills-forum" role="tab" aria-controls="v-pills-forum" aria-selected="false">Forum</a>
-                   <a class="nav-link" id="v-pills-reservation-tab" data-toggle="pill" href="#v-pills-reservation" role="tab" aria-controls="v-pills-reservation" aria-selected="false">Reservation</a>
-                   <a class="nav-link" id="v-pills-shopping-tab" data-toggle="pill" href="#v-pills-shopping" role="tab" aria-controls="v-pills-shopping" aria-selected="false">Shopping</a>
+                   <a class="nav-link active" id="v-pills-member-tab" data-toggle="pill" href="#v-pills-member" role="tab" aria-controls="v-pills-member" aria-selected="true">會員資料</a>
+                   <a class="nav-link" id="v-pills-forum-tab" data-toggle="pill" href="#v-pills-forum" role="tab" aria-controls="v-pills-forum" aria-selected="false">討論區</a>
+                   <a class="nav-link" id="v-pills-reservation-tab" data-toggle="pill" href="#v-pills-reservation" role="tab" aria-controls="v-pills-reservation" aria-selected="false">美容服務預約紀錄</a>
+<!--                    <a class="nav-link" id="v-pills-shopping-tab" data-toggle="pill" href="#v-pills-shopping" role="tab" aria-controls="v-pills-shopping" aria-selected="false">Shopping</a> -->
                  </div>
                </div>
                <div class="col-10">
@@ -50,9 +50,9 @@
 						</c:import >
 <%--                    		<%@include file="/WEB-INF/pages/reservation/myReservation.jsp" %> --%>
                    </div>
-                   <div class="tab-pane fade" id="v-pills-shopping" role="tabpanel" aria-labelledby="v-pills-shopping-tab">
-                   		商城用
-                   </div>
+<!--                    <div class="tab-pane fade" id="v-pills-shopping" role="tabpanel" aria-labelledby="v-pills-shopping-tab"> -->
+<!--                    		商城用 -->
+<!--                    </div> -->
                  </div>
                </div>
              </div>

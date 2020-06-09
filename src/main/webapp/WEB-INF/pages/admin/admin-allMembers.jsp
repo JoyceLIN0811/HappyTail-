@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>訂單管理</title>
+<title>會員管理</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -178,7 +178,7 @@
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+				<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="admin-Index" class="brand-link">
 				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
@@ -273,8 +273,8 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>訂單資料</h1>
-							<a href='<c:url value='admin-getOrderItem-json/1' />'>Json</a>
+							<h1>會員資料</h1>
+
 						</div>
 					</div>
 				</div>
@@ -290,29 +290,28 @@
 							<div class="card">
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="allOrders" class="table table-bordered table-striped">
+									<table id="allMembers" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>訂單編號</th>
-												<th>會員帳號</th>
-												<th>購買價格</th>
-												<th>購買時間</th>
+												<th>姓名</th>
+												<th>性別</th>
+												<th>生日</th>
+												<th>E-mail</th>
 												<th>地址</th>
-												<th>備註</th>
 												<th>狀態</th>
-												<th>修改</th>
+												<th>編輯</th>
 											</tr>
 										</thead>
+
 										<tfoot>
 											<tr>
-												<th>訂單編號</th>
-												<th>會員帳號</th>
-												<th>購買價格</th>
-												<th>購買時間</th>
+												<th>姓名</th>
+												<th>性別</th>
+												<th>生日</th>
+												<th>E-mail</th>
 												<th>地址</th>
-												<th>備註</th>
 												<th>狀態</th>
-												<th>修改</th>
+												<th>編輯</th>
 											</tr>
 										</tfoot>
 									</table>
@@ -351,46 +350,6 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<div class="modal fade" id="Topic">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">訂單明細</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" id="detail">
-					<h4>總金額：</h4>
-					<p id="totalPrice"></p> 
-					<h4>購買時間：</h4>
-					<p id="orderDate"></p>
-					<table class="table table-striped" id="tbale">
-                    	<thead>
-                    		<tr>
-                      			<th>編號</th>
-                      			<th>商品名稱</th>
-                      			<th>商品數量</th>
-                      			<th>購買價格</th>
-                   			</tr>
-                  		</thead>
-                  		<tbody id="tbody"></tbody>
-                  </table>					
-				</div>
-				<div class="modal-footer justify-content-between">
-					<button type="button" id="close" class="btn btn-default"data-dismiss="modal">關閉</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
-
-
-
-
-
 	<!-- jQuery -->
 	<script src="${pageContext.request.contextPath}/admin/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
@@ -408,112 +367,87 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
-	//所有訂單
 	<script>
 		$(document)
 				.ready(
 						function() {
-							$('#allOrders')
+							$('#allMembers')
 									.DataTable(
 											{
-												searching : false,
+												"searching" : false,
 												"ajax" : {
-													"url" : "<c:url value='admin-AllOrders-json' />",
-													"dataSrc" : ""
+													"url" : "<c:url value='admin-allMembersJSON' />",
+													
+													"dataSrc" : "",
+													
 												},
+
 												"columns" : [
 														{
-															"data" : "orderId"
+															"data" : "username"
 														},
 														{
-															"data" : "memberId"
+															"data" : "gender"
 														},
 														{
-															"data" : "totalPrice"
+															"data" : "bday"
 														},
 														{
-															"data" : "orderDate"
+															"data" : "email"
 														},
 														{
-															"data" : "shippingAddress"
+															"data" : "address"
 														},
 														{
-															"data" : "text"
-														},
-														{
-															"data" : "state",
+															"data" : "status",
 															"render" : function(
 																	data, type,
 																	full, meta) {
-																if (data == "完成") {
-																	return data = '<span class="badge badge-success">完成</span>';
-																} else if (data == "未付款") {
-																	return data = '<span class="badge badge-secondary">未付款</span>';
-																} else if (data == "已付款") {
-																	return data = '<span class="badge badge-warning">已付款</span>';
-																} else if (data == "失敗") {
-																	return data = '<span class="badge badge-danger">失敗</span>';
-																}
+																if (data == 0) {
+																	return data = '<span class="badge badge-secondary">未驗證</span>';
+																} else if (data == 1) {
+																	return data = '<span class="badge badge-success">正常</span>';
+																} else if (data == 2) {
+																	return data = '<span class="badge badge-danger">停權</span>';
+																} else if (data == 3) {
+																	return data = '<span class="badge badge-info">管理者</span>'}
 															}
-
-														}
+														},
 
 												],
-												columnDefs : [ {
+												columnDefs : [ 
+													{
 													//最後一行加上修改按鈕
-													"data" : "orderId",
-													targets : 7,
+													"data" : "id",
+													
+													targets : 6,
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
-																+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
-
-													}
-												} ]
+														
+														return "<a class='btn btn-default btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>停權</a>";
+													  }
+												    }
+													]
 											});
+							
+							//停權按鈕事件
+							$("#allMembers tbody").on("click", ".btn", function () {
+								var id = $(this).data("test");
+// 								alert("<c:url value='admin-changeStatus/" + id + "' />");
+								$.ajax({
+									async:false,
+									type: "POST",
+									url: "<c:url value='admin-changeStatus/" + id + "' />",
+									data: {},
+									dataType: 'json',
+									success: function() {
+										alert("修改成功");
+										$('#allMembers').DataTable().ajax.reload();
+										}													
+									})							              
+				            });			
 						});
-	</script>
-	<script type="text/javascript">
-		$(document).on('click', '.btn', function() {
-			var id = $(this).attr("id");
-
-			$.ajax({
-				url : "<c:url value='admin-getOrderItem-json/" + id + "' />",
-				method : "GET",
-				async : false,
-				data : {},
-				dataType : "json",
-				success : function(data) {
-					var i=0;
-					$.each(data, function() {
-						$("#name").append(data[i]['description']);
-						$("#unitPrice").append(data[i]['unitPrice']);
-						$("#quantity").append(data[i]['quantity']);
-						$("#totalPrice").empty().append(data[i]['orderBean']['totalPrice']);
-						$("#orderDate").empty().append(data[i]['orderBean']['orderDate']);
-
-						var tr="<tr>";
-						tr += "<td>" + data[i]['seqno'] + "</td>";
-						tr += "<td>" + data[i]['description'] + "</td>";
-						tr += "<td>" + data[i]['quantity'] + "</td>";
-						tr += "<td>" + data[i]['unitPrice'] + "</td>";
-						tr += "</tr>";
-						$('#tbody').append(tr);
-						i++;
-						})
-				}
-			})
-		})
-	</script>
-	<script>
-		$('#close').click(function() {
-			$('#name').empty();
-			$('#unitPrice').empty();
-			$('#quantity').empty();
-			$('#totalPrice').empty();
-			$('#tbody').empty();
-			})
 	</script>
 </body>
 

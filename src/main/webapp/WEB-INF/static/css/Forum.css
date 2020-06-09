@@ -14,7 +14,7 @@ body {
 }
 
 .browser {
-	background: white;
+	background: #ecebcc;
 }
 
 .browser>h2, p {
@@ -60,8 +60,8 @@ body {
 /* #addTopicDialog #topicEditor { */
 /* 	margin-left: 50px; */
 /* } */
-:root { -
-	-ck-z-default: 1080;
+:root { 
+	--ck-z-default: 1080;
 }
 
 #topicEditor {

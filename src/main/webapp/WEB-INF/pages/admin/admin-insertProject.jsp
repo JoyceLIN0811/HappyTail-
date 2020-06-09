@@ -163,9 +163,9 @@
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+				<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="adminIndex" class="brand-link">
+			<a href="admin-Index" class="brand-link">
 				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
 					class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">後臺管理</span>
@@ -183,7 +183,7 @@
 						<li class="nav-item">
 							<a href="admin-Index" class="nav-link">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
-								<p>首頁</p>
+								<p>後台首頁</p>
 							</a>
 						</li>
 
@@ -226,14 +226,14 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="admin-AllProjects-json" class="nav-link">
+							<a href="<c:url value='/pageBackView?pageNum=1' />" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>預約管理</p>
 							</a>
 						</li>
 
 						<li class="nav-item">
-							<a href="admin-allMembersJSON" class="nav-link">
+							<a href="admin-forum" class="nav-link">
 								<i class="nav-icon fas fa-table"></i>
 								<p>討論區管理</p>
 							</a>
@@ -264,7 +264,7 @@
 			<section class="content">
 				<!-- general form elements -->
 				<div class="container-fluid">
-					<div class="card card-primary">
+					<div class="card card-info">
 						<div class="card-header">
 							<h3 class="card-title">新增商品</h3>
 						</div>
@@ -292,13 +292,28 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+								<div class="col-sm-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品種類</label>
-									<form:input path='categoryId' class="form-control" />
+									<form:select path='categoryId' class="form-control">
+										<option>選擇商品種類</option>
+										<option value='1'>飼料</option>
+										<option value='2'>衣服</option>
+										<option value='3'>玩具</option>
+									</form:select>
 								</div>
+								</div>
+								<div class="col-sm-6">
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品狀態</label>
-									<form:input path='status' class="form-control" />
+									<form:select path='status' class="form-control">
+										<option>選擇狀態</option>
+										<option value='1'>上架</option>
+										<option value='2'>下架</option>
+									</form:select>
+								</div>
+								</div>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品描述</label>
@@ -308,8 +323,7 @@
 									<label for="exampleInputFile">照片</label>
 									<div class="input-group">
 										<div class="custom-file">
-											<form:input path='productImage' type='file'  />
-											
+											<form:input path='productImage' type='file' id="File"/>
 										</div>
 
 									</div>

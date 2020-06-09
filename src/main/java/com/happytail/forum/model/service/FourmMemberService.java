@@ -1,5 +1,6 @@
 package com.happytail.forum.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,10 +90,14 @@ public class FourmMemberService {
 	// get my favorate category
 	public List<CodeMap> getMyFavorateCategory(Integer userId) {
 		 List<Integer> list = favorateDAO.selectCategoryIdList(userId);
+		 
+		 if(list.isEmpty()) {
+			 return new ArrayList<CodeMap>();
+		 }
 		 return codeMapDAO.getMyFavorateCategorylist(list, Const.ModuleType.Forum, Const.CategoryType.topicCategory);
 	}
 	// get all my forum notice
-	public Page<Notice> getAllMyForumNotice(String module, Integer userId, PageInfo pageInfo) {
+	public Page<Notice> getAllMyForumNotice(Integer userId, String module, PageInfo pageInfo) {
 		return noticeDAO.getAllNoticelist(userId, module, pageInfo);
 	}
 
@@ -103,9 +108,13 @@ public class FourmMemberService {
 	}
 
 	// update topic
-	public void updateTopic(Topic topic) {
+	public Topic updateTopic(Topic topic) {
 		
 		Topic bean = topicDAO.select(topic.getId());
+		System.out.println("topicId="+topic.getId());
+
+		System.out.println("bean="+bean);
+
 		if (bean != null) {
 			bean.setCategoryId(topic.getCategoryId());
 			bean.setTitle(topic.getTitle());
@@ -124,7 +133,11 @@ public class FourmMemberService {
 		}else {
 		
 		System.out.println("Update fail");
+		
 		}
+		
+		return bean;
+
 	}
 
 	// delete topic
@@ -186,13 +199,13 @@ public class FourmMemberService {
 	}
 
 	// update per notice isRead status
-	public void updateAllIsReadStatus(PetMembers petMembers, Integer userId) {
+	public void updateAllIsReadStatus(PetMembers petMembers) {
 
 //		Notice notice = noticeDAO.selectByUserId(petMembers.getId());
 //		Notice notice = noticeDAO.selectByUserId(userId);
 		
-		List<Notice> noticeList= noticeDAO.selectByModule(userId, Const.ModuleType.Forum);
-		System.out.println(userId);
+		List<Notice> noticeList= noticeDAO.selectByModule(petMembers.getId(), Const.ModuleType.Forum);
+		System.out.println(petMembers.getId());
 		System.out.println(noticeList);
 		for(Notice notice : noticeList) {
 		
