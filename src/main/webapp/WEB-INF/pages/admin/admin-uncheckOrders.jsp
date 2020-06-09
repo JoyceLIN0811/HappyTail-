@@ -350,6 +350,41 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
+	
+	<div class="modal fade" id="Topic">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">訂單明細</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="detail">
+					<h4>總金額：</h4>
+					<p id="totalPrice"></p> 
+					<h4>購買時間：</h4>
+					<p id="orderDate"></p>
+					<table class="table table-striped" id="tbale">
+                    	<thead>
+                    		<tr>
+                      			<th>編號</th>
+                      			<th>商品名稱</th>
+                      			<th>商品數量</th>
+                      			<th>購買價格</th>
+                   			</tr>
+                  		</thead>
+                  		<tbody id="tbody"></tbody>
+                  </table>					
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" id="close" class="btn btn-default"data-dismiss="modal">關閉</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 
 
 
@@ -430,14 +465,13 @@
 										orderable : false,
 										render : function(data,
 												type, row, meta) {
-											return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#member-chick' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
-												+ "<a class='btn btn-primary btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</a>";
+											return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
+												+ "<a class='btn btn-default btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>出貨</a>";
 										}
 									} ]
 								});
 				$("#allOrders tbody").on("click", ".btn", function () {
 					var id = $(this).data("test");
-						alert("<c:url value='admin-changeStatus/" + id + "' />");
 					$.ajax({
 						async:false,
 						type: "GET",
@@ -451,6 +485,47 @@
 						})							              
 	            });
 			});
+	</script>
+	<script type="text/javascript">
+		$(document).on('click', '.btn', function() {
+			var id = $(this).attr("id");
+
+			$.ajax({
+				url : "<c:url value='admin-getOrderItem-json/" + id + "' />",
+				method : "GET",
+				async : false,
+				data : {},
+				dataType : "json",
+				success : function(data) {
+					var i=0;
+					$.each(data, function() {
+						$("#name").append(data[i]['description']);
+						$("#unitPrice").append(data[i]['unitPrice']);
+						$("#quantity").append(data[i]['quantity']);
+						$("#totalPrice").empty().append(data[i]['orderBean']['totalPrice']);
+						$("#orderDate").empty().append(data[i]['orderBean']['orderDate']);
+
+						var tr="<tr>";
+						tr += "<td>" + data[i]['seqno'] + "</td>";
+						tr += "<td>" + data[i]['description'] + "</td>";
+						tr += "<td>" + data[i]['quantity'] + "</td>";
+						tr += "<td>" + data[i]['unitPrice'] + "</td>";
+						tr += "</tr>";
+						$('#tbody').append(tr);
+						i++;
+						})
+				}
+			})
+		})
+	</script>
+	<script>
+		$('#close').click(function() {
+			$('#name').empty();
+			$('#unitPrice').empty();
+			$('#quantity').empty();
+			$('#totalPrice').empty();
+			$('#tbody').empty();
+			})
 	</script>
 </body>
 

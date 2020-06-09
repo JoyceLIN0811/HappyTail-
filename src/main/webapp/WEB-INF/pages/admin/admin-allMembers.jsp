@@ -425,7 +425,7 @@
 													render : function(data,
 															type, row, meta) {
 														
-														return "<a class='btn btn-info btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>更改</a>";
+														return "<a class='btn btn-default btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>停權</a>";
 													  }
 												    }
 													]
