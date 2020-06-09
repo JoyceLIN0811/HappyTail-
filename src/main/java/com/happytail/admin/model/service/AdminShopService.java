@@ -26,6 +26,8 @@ public interface AdminShopService {
 	//未處理訂單
 	public List<OrderBean> unCheckOrderList();
 	
+	public List<OrderBean> orderItemByOrderId(Integer id);
+	
 	//修改產品
 	ProductBean updateProduct(ProductBean product);
 	

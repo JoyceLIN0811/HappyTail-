@@ -547,7 +547,37 @@
 					</div>
 </div>
 
-------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+<div id="noticeList">
+
+{{ #records }}
+	<button type="button" class="d-flex justify-content-between list-group-item list-group-item-action {{ #isRead }} bg-light {{ /isRead }}" onclick="forwardNoticeLink({{ id }},{{ link }})"><span class="d-inline-block text-truncate" style="max-width: 500px;">{{ message }}</span><span>{{ createDate }}</span></button>
+{{ /records }}
+
+</div>
+
+---------------------------------------------------------------------------------------
+<div id="noticeListPagination">
+
+<li class="page-item">
+    <button class="page-link" href="#" aria-label="Previous" onclick="prevNoticePage()">
+        <span aria-hidden="true">&laquo;</span>
+    </button>
+</li>
+
+{{ #noticeList }}
+<li class="page-item">
+	<button class="page-link" onclick="toNoticePage({{ index }})">{{ index }}</button>
+</li>
+{{ /noticeList }}
+
+<li class="page-item">
+    <button class="page-link" aria-label="Next" onclick="nextNoticePage()">
+        <span aria-hidden="true">&raquo;</span>
+    </button>
+</li>
 
 
+</div>
 

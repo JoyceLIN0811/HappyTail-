@@ -62,9 +62,9 @@
 						<li><a href="<c:url value='/shopIndex'/>">關於商城</a></li>
 							<li class="has-dropdown"><a href="<c:url value='/showProduct2'/> " >前往商城</a>
 								<ul class="dropdown">
-									<li><a href="single.html">飼料</a></li>
-									<li><a href="single.html">衣服</a></li>
-									<li><a href="single.html">玩具</a></li>
+									<li><a href="<c:url value='showProduct1.do'/>">飼料</a></li>
+									<li><a href="<c:url value='showProduct2.do'/>">衣服</a></li>
+									<li><a href="<c:url value='showProduct3.do'/>">玩具</a></li>
 								</ul></li>
 							
 							<li class="has-dropdown"><a href="<c:url value='/getOrderBean.do'/> ">我的訂單</a>
