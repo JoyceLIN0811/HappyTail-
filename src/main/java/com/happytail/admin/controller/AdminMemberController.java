@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.happytail.admin.model.AdminMembersDao;
 import com.happytail.admin.model.service.AdminMembersService;
@@ -101,7 +102,7 @@ public class AdminMemberController {
 	}
 	
 	//更改狀態
-	@GetMapping(value = "admin-changeStatus/{key}", produces= {"application/json"})
+	@PostMapping(value = "admin-changeStatus/{key}", produces= {"application/json"})
 	public ResponseEntity<PetMembers> changeMemberstatus(@PathVariable Integer key, PetMembers member) {
 		PetMembers members = adMemberService.changeMemberStatus(key);
 		ResponseEntity<PetMembers> re = new ResponseEntity<>(members, HttpStatus.OK);

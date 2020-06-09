@@ -437,7 +437,7 @@
 // 								alert("<c:url value='admin-changeStatus/" + id + "' />");
 								$.ajax({
 									async:false,
-									type: "GET",
+									type: "POST",
 									url: "<c:url value='admin-changeStatus/" + id + "' />",
 									data: {},
 									dataType: 'json',

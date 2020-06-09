@@ -208,7 +208,7 @@ public class AdminShoppingController {
 	}
 	
 	//改變訂單狀態
-	@GetMapping(value = "admin-changeOrderStatus-json/{key}", produces= {"application/json"})
+	@PostMapping(value = "admin-changeOrderStatus-json/{key}", produces= {"application/json"})
 	public ResponseEntity<OrderBean> changeStatus(@PathVariable Integer key, OrderBean orderBean) {
 		OrderBean order = adminShopService.changeOrderStatus(key);
 		ResponseEntity<OrderBean> re = new ResponseEntity<>(order, HttpStatus.OK);

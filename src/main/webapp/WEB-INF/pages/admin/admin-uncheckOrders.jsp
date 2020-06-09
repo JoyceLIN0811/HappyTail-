@@ -474,7 +474,7 @@
 					var id = $(this).data("test");
 					$.ajax({
 						async:false,
-						type: "GET",
+						type: "POST",
 						url: "<c:url value='admin-changeOrderStatus-json/" + id + "' />",
 						data: {},
 						dataType: 'json',
