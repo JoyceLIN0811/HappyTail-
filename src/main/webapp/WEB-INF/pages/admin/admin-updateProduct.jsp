@@ -43,8 +43,8 @@
 				<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="admin-Index" class="brand-link">
-				<img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-					class="brand-image img-circle elevation-3" style="opacity: .8">
+<%-- 				<img src="${pageContext.request.contextPath}/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" --%>
+<!-- 					class="brand-image img-circle elevation-3" style="opacity: .8"> -->
 				<span class="brand-text font-weight-light">後臺管理</span>
 			</a>
 
@@ -212,7 +212,7 @@
 
 							<div class="card-footer">
 								<button type="submit" class="btn btn-primary float-right">送出</button>
-								<button type="submit" class="btn btn-default float-right">取消</button>
+								<button type="reset" class="btn btn-default float-right">取消</button>
 							</div>
 						</form:form>
 					</div>

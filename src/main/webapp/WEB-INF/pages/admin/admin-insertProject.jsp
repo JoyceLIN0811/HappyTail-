@@ -210,7 +210,7 @@
 
 							<div class="card-footer">
 								<button type="submit" class="btn btn-primary float-right">送出</button>
-								<button type="submit" class="btn btn-default float-right">取消</button>
+								<button type="reset" class="btn btn-default float-right">取消</button>
 							</div>
 						</form:form>
 					</div>
