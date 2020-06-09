@@ -179,7 +179,7 @@
 									<p>未處理訂單</p>
 								</div>
 								<div class="icon">
-									<i class="ion ion-stats-bars"></i>
+									<i class="fas fa-cart-arrow-down"></i>
 								</div>
 								<a href="admin-uncheckOrders" class="small-box-footer">
 									More info
@@ -195,7 +195,7 @@
 									<p>總銷售金額</p>
 								</div>
 								<div class="icon">
-									<i class="ion ion-pie-graph"></i>
+									<i class="fas fa-dollar-sign"></i>
 								</div>
 								<a href="admin-AllOrders" class="small-box-footer">
 									More info

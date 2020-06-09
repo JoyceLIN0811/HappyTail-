@@ -143,7 +143,7 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1>訂單資料</h1>
-							<a href='<c:url value='admin-changeOrderStatus-json/1' />'>Json</a>
+<%-- 							<a href='<c:url value='admin-changeOrderStatus-json/1' />'>Json</a> --%>
 						</div>
 					</div>
 				</div>
