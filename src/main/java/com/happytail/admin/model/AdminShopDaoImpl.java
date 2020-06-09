@@ -120,6 +120,11 @@ public class AdminShopDaoImpl implements AdminShopDao {
 		return product;
 	}
 
+	@Override
+	public List<OrderBean> orderItemByOrderId(Integer id) {
+		return null;
+	}
+
 
 
 
