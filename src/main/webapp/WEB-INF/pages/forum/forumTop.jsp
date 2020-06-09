@@ -443,12 +443,16 @@
 	        		
 	        		// prevent duplicate loading, lock when execute function
 	        		replyListLoadLock = true;
+
+	        		$("#topic-content-loading-img-area").removeClass("d-none");
 	        			        		
 	        		replyListPageNum++;
 	        		
 	        		// wait 1 second to show loading animate
 	        		setTimeout(function(){
 	        			getReplyListData();
+
+		        		$("#topic-content-loading-img-area").addClass("d-none");
 	        			
 	        			replyListLoadLock = false;
 	    	        	
@@ -580,89 +584,94 @@
 		}
 		
 		function openTopicContentDialog(topicId, targetObj) {
-			// every time open dialog reset the reply page
-			replyListPageNum = 1;
-			
-			var likeNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".likeNum").text() : 0;
-			var replyNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".replyNum").text() : 0;
-
-			var topicurl = contextRoot + "/topic/" + topicId;
-
-			var replyurl = contextRoot + "/reply?pageSize=10&pageNum="
-			+ replyListPageNum +"&topicId=" + topicId;
-
-			var stageListObj = { stageList : [] };
-
-			$.ajax({
-				url : topicurl,
-				type : "GET",
-				async : false,
-				success : function(data) {
-					data.likeNum = likeNum;
-					data.replyNum = replyNum;
-					data.topicId = topicId;
+					// every time open dialog reset the reply page
+					replyListPageNum = 1;
 					
-					$("#topicContent").html(Mustache.render(topicContentTemplate, data));
-// 					console.log(data);
-				}
-
-			});
-			
-			$.ajax({
-				url : replyurl,
-				type: "GET",
-				async : false,
-				success : function(data){
-
-					for(let i=0 ; i<data.records.length ; i++){
-						  data.records[i].stage = 'B' + (i + 1);
-						  data.records[i].stageValue = i + 1;
+					var likeNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".likeNum").text() : 0;
+					var replyNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".replyNum").text() : 0;
+		
+					var topicurl = contextRoot + "/topic/" + topicId;
+		
+					var replyurl = contextRoot + "/reply?pageSize=10&pageNum="
+					+ replyListPageNum +"&topicId=" + topicId;
+		
+					var stageListObj = { stageList : [] };
+		
+				$.ajax({
+						url : topicurl,
+						type : "GET",
+						async : false,
+						success : function(data) {
+							data.likeNum = likeNum;
+							data.replyNum = replyNum;
+							data.topicId = topicId;
+							
+							$("#topicContent").html(Mustache.render(topicContentTemplate, data));
+		// 					console.log(data);
 						}
+		
+					});
+					
+					$.ajax({
+						url : replyurl,
+						type: "GET",
+						async : false,
+						success : function(data){
+		
+									for(let i=0 ; i<data.records.length ; i++){
+										  data.records[i].stage = 'B' + (i + 1);
+										  data.records[i].stageValue = i + 1;
+										}
+													
+									$("#replyContentList").html("");
+									$("#replyContentList").append(Mustache.render(replyListTemplate, data));
+				
+									isReplyListHasNextPage = data.isHasNext;
 									
-					$("#replyContentList").html("");
-					$("#replyContentList").append(Mustache.render(replyListTemplate, data));
-
-					// check whether has next page or not
-					if (data.hasNext) {
-						// to the next page
-						replyListPageNum++;
-					}
-
-				});
+								}	
+		
+						});
+		
+					initReplyCKEditor();
+					
+					history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
+		
+					$('#topicContentDialog').modal('show');
 
 			}
-			initReplyCKEditor();
-			
-			history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
-
-			$('#topicContentDialog').modal('show');
-		}
-		
+				
 		function getReplyListData(){
+
+			var topicId = $("#addReplyForm input[name='topicId']").val();
+			
 
 			var replyurl = contextRoot + "/reply?pageSize=10&pageNum="
 			+ replyListPageNum +"&topicId=" + topicId;
+			
 			var stageListObj = { stageList : [] };
-			if(isTopicListHasNextPage){
+
+			
+			if(isReplyListHasNextPage){
 				$.ajax({
 					url : replyurl,
 					type: "GET",
 					async : false,
 					success : function(data){
 
+						var maxStage = 0;
+
+						$(".replyList").each(function(index,element){
+							maxStage= parseInt($(element).find('.stage-value').text());
+						});
+						
+
 						for(let i=0 ; i<data.records.length ; i++){
-							  data.records[i].stage = 'B' + (i + 1);
-							  data.records[i].stageValue = i + 1;
+							  data.records[i].stage = 'B' + (maxStage + i + 1);
+							  data.records[i].stageValue = maxStage + i + 1;
 							}
 										
-						$("#replyContentList").html("");
 						$("#replyContentList").append(Mustache.render(replyListTemplate, data));
 
-						// check whether has next page or not
-						if (data.hasNext) {
-							// to the next page
-							replyListPageNum++;
-						}
 						// check whether has next page or not
 						isReplyListHasNextPage = data.isHasNext;
 					}

@@ -561,19 +561,4 @@ function readAllNotice(){
 	
 }
 
-function forwardNoticeLink(id,link){
-		
-	var url = contextRoot + "/myPage/notice/"+ id;
-
-	$.ajax({
-		url : url,
-		type : "PUT",
-		async : false,
-		success : function(data) {
-			console.log(data);	
-		}
-	
-	});
-	window.location.href = contextRoot + "link";
-}
 

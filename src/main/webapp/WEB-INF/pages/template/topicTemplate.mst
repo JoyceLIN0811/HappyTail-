@@ -330,11 +330,11 @@ $("#target").html(data);
                     <div class="row justify-content-md-center" style="height: 80px">
                         <div class=" col-md-4">
                             <i class="fas fa-thumbs-up fa-2x"></i>
-                            <i class="far fa-laugh-squint fa-2x"></i>
+                           <!-- <i class="far fa-laugh-squint fa-2x"></i>
                             <i class="far fa-sad-cry fa-2x"></i>
                             <i class="far fa-surprise fa-2x"></i>
                             <i class="fas fa-heart fa-2x"></i>
-                            <i class="far fa-angry fa-2x"></i>
+                            <i class="far fa-angry fa-2x"></i> -->
                             <span>{{ likeNum }}</span>
                         </div>
 
