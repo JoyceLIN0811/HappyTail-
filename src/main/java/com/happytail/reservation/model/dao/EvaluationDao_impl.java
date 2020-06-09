@@ -75,6 +75,8 @@ public class EvaluationDao_impl implements EvaluationDao{
 	private final String AllBackViewCounts = "SELECT COUNT(*) FROM com.happytail.reservation.model.backView";
 	
 	
+	
+	
 	@Override
 	public Page<backView> getAllEvaluationlist(PageInfo pageinfo) {
 		
@@ -87,6 +89,7 @@ public class EvaluationDao_impl implements EvaluationDao{
 	}
 	
 	private final String SelectByDateEvaluationView = "FROM com.happytail.reservation.model.backView WHERE createMonth=:createMonth ORDER BY createDate ASC";
+	private final String QueryByCreateMonthBackViewCounts = "SELECT COUNT(*) FROM com.happytail.reservation.model.backView where createMonth=:createMonth";
 	
 	@Override
 	public Page<backView> queryByDateEvaluationView(String createMonth, PageInfo pageinfo) {
@@ -94,7 +97,7 @@ public class EvaluationDao_impl implements EvaluationDao{
 		Integer startPosition = pageinfo.getPageSize() * (pageinfo.getPageNum() -1);
 		List<backView> resultList = getSession().createQuery(SelectByDateEvaluationView, backView.class)
 				.setParameter("createMonth", createMonth).setFirstResult(startPosition).setMaxResults(pageinfo.getPageSize()).getResultList();
-		Query query = getSession().createQuery(AllBackViewCounts);
+		Query query = getSession().createQuery(QueryByCreateMonthBackViewCounts).setParameter("createMonth", createMonth);
 		Long totalCount = (Long)query.uniqueResult();
 	
 		return new Page<backView>(resultList,pageinfo.getPageNum(),pageinfo.getPageSize(),totalCount);
@@ -129,6 +132,14 @@ public class EvaluationDao_impl implements EvaluationDao{
 		Evaluation et = getSession().get(Evaluation.class, evaluationId);
 		getSession().delete(et);
 		return et;
+	}
+
+	@Override
+	public List<backView> queryByreservationId(Integer reservationId) {
+		Query<backView> bean = getSession().createQuery("FROM backView where reservationId=:reservationId order by reservationId ", backView.class);
+		bean.setParameter("reservationId", reservationId);
+		List<backView> list = bean.list();
+		return list;
 	}
 
 

@@ -44,5 +44,8 @@ public class ReservationView {
 		view.setUrl("/WEB-INF/pages/reservation/updateEvaluation.jsp");
 		return view;
 	}
+	
+	
 
+	
 }

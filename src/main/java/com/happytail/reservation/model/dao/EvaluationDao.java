@@ -24,6 +24,7 @@ public interface EvaluationDao {
 	
 	Page<backView> getAllEvaluationlist(PageInfo pageinfo);
 	
+	
 //	List<backView> queryByDateEvaluationView(String createMonth);
 	
 	Page<backView> queryByDateEvaluationView(String createMonth,PageInfo pageinfo);
@@ -35,5 +36,7 @@ public interface EvaluationDao {
 	Evaluation queryByEvaluationId(Integer evaluationId);
 	
 	Evaluation deleteByEvaluationId(Integer evaluationId);
+	
+	List<backView> queryByreservationId(Integer reservationId);
 	
 }

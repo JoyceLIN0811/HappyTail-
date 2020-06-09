@@ -11,7 +11,7 @@
 <body>
 
 
-	  <%@include file="/HappytailHeader.jsp" %>
+	  
 	  
 	  
 	<img src='img/02.jpg' width="350" style='float: left;' >
@@ -79,6 +79,31 @@
 	</td>
 	</form>
 	
+<script>
+$(document).ready(function(){
+	console.log(hello3);
+	getmyReservation();
+	
+});
+
+function getmyReservation(){
+	console.log(hello);
+	var url=contextRoot + "/queryMyReservaitionView?Id=" + ${petMembers.id} + "&pageNum=1";
+	
+	$.ajax({
+		url : url,
+		type : "get",
+		async : false,
+		success : function(data){
+			
+		}
+	
+	});
+	console.log(hello2);
+}
+
+</script>
+	
 
 
 
@@ -104,7 +129,7 @@ for(var i = 0 ; i < datalist.length ; i++){
 
 
 	
-	<%@include file="/HappytailFooter.jsp" %>
+	
 
 
 </body>

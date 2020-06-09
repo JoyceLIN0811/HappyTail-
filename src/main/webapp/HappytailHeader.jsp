@@ -106,8 +106,8 @@
 	<c:if test="${empty LoginOK}">
 		<a href="<c:url value='login'/>">Personal Profile</a>
 	</c:if>
-	<a href="<c:url value='/shopIndex'/> ">Online Shop</a> <a
-		href="#Reservation Service">Reservation Service</a> <a
+	<a href="<c:url value='/shopIndex'/> ">Online Shop</a> 
+	<a href="<c:url value='/Evaluationlist?id=${petMembers.id}' />">Reservation Service</a> <a
 		href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">Pet Forum</a> 
 		<a class="subheader">Learn About
 		Us</a>
