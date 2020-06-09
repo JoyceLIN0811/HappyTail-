@@ -273,20 +273,32 @@ public class TestController {
 	
 	
 	
-	@PutMapping("/myPage/UpdateOrDeleteTopic/{topicId}")
+	@PostMapping("/myPage/UpdateOrDeleteTopic/{topicId}")
 	@ResponseBody
-	public void UpdateOrDeleteTopic(@SessionAttribute(required = false) PetMembers petMembers
+	public Topic UpdateOrDeleteTopic(@SessionAttribute(required = false) PetMembers petMembers
 							,  @PathVariable Integer topicId
-							, @RequestParam(name = "action") String action
-							, @RequestBody(required = false) Topic topic) {
+							, @ModelAttribute Topic topic
+							,@RequestParam (name = "action") String action
+							) {
+		System.out.println("Update start");
+		System.out.println("action=" + action);
+		System.out.println("topicId=" + topicId);
+		System.out.println("topic.getCategoryId=" + topic.getCategoryId());
+		System.out.println("topic=" + topic);
+		
+		topic.setId(topicId);
 		
 
 		if("delete".equals(action)){
 			fourmMemberService.deleteTopic(topicId);
-		}else if("update".equals(action)){
 
-			fourmMemberService.updateTopic(topic);
+		}else if("update".equals(action)){
+	
+			return fourmMemberService.updateTopic(topic);
 		}
+		
+		return	null;
+
 	}
 	
 	@PutMapping("/myPage/UpdateFavorateCategory/{userId}")

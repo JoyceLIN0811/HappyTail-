@@ -85,10 +85,11 @@ public class FavorateDAOImpl implements FavorateDAO {
 
 	@Override
 	public List<Integer> selectCategoryIdList(Integer userId) {
-		Query<Integer> check = getSession().createQuery(selectCategoryIdByUserId, Integer.class);
-		check.setParameter("userId", userId);
+		List<Integer> list = getSession().createQuery(selectCategoryIdByUserId, Integer.class)
+				.setParameter("userId", userId)
+				.getResultList();
 
-		return check.list();
+		return list;
 	}
 
 	@Override

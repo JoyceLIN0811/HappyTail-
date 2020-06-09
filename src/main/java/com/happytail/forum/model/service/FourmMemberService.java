@@ -108,9 +108,13 @@ public class FourmMemberService {
 	}
 
 	// update topic
-	public void updateTopic(Topic topic) {
+	public Topic updateTopic(Topic topic) {
 		
 		Topic bean = topicDAO.select(topic.getId());
+		System.out.println("topicId="+topic.getId());
+
+		System.out.println("bean="+bean);
+
 		if (bean != null) {
 			bean.setCategoryId(topic.getCategoryId());
 			bean.setTitle(topic.getTitle());
@@ -129,7 +133,11 @@ public class FourmMemberService {
 		}else {
 		
 		System.out.println("Update fail");
+		
 		}
+		
+		return bean;
+
 	}
 
 	// delete topic

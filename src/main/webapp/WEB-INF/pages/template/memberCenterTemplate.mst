@@ -542,7 +542,12 @@
 					</form>
 					<div class="row">
 						<div class="col-md-2 offset-md-5">
-							<button type="button" class="btn btn-info" name="add" onclick="clickAddTopic()">發表</button>
+							<button type="button" class="btn btn-info" name="add" onclick="clickUpdateTopic({{ topicId }},this)">確認修改</button>
 						</div>
 					</div>
 </div>
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+

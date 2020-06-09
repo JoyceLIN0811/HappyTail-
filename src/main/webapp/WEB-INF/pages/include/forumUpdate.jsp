@@ -17,15 +17,17 @@
     <a class="nav-link" id="favorate-tab" data-toggle="tab" href="#favorate" role="tab" aria-controls="favorate" aria-selected="false" onclick="setTagType('favorateCategorylist')">Favorate Category</a>
   </li>
 </ul>
-<div class="row">
+
+<div class="row" style="margin-top: 15px">
 <div class="col-sm-3"  id="topicNum">
 	<blockquote class="blockquote">
 		<span class="mb-0">總文章數量：<span id="totalNum"></span></span>
+	</blockquote>
+</div>
+</div>
 
-		</blockquote>
-</div>
-</div>
 <div class="tab-content" id="forum-tab-content">
+
   <div class="tab-pane fade show active" id="topic" role="tabpanel" aria-labelledby="topic-tab">
 	<!--   TODO : use memberCenterTemplate[id="myTopic"] here -->
   </div>
@@ -72,7 +74,8 @@
 		<div id="UpdateDialog" class="modal vh-100" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
-				<div class="modal-body" id="updateTopicContent"></div>
+				<div class="modal-body" id="updateTopicContent">
+				</div>
 			</div>
 		</div>
 	</div>

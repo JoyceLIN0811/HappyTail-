@@ -397,7 +397,7 @@
 // 	        	console.log("height = " + $("body").height());
 	        	
 	        	var scrollBottomPos = $("body").height(); 
-	        	var currentScrollPos = $(this).scrollTop() + $(this).height());
+	        	var currentScrollPos = $(this).scrollTop() + $(this).height();
 	        	
 	        	if((scrollBottomPos - currentScrollPos) < 300 
 	        			&& !topicListLoadLock // prevent duplicate loading 
@@ -429,7 +429,7 @@
 // 	        	console.log("height = " + ($("#topicContent").height() + $("#replyContentList").height()));
 	        	
 	        	var scrollBottomPos = $("#topicContent").height() + $("#replyContentList").height(); 
-	        	var currentScrollPos = $(this).scrollTop() + $(this).height());
+	        	var currentScrollPos = $(this).scrollTop() + $(this).height();
 	        	
 	        	// TODO : imitate topic list pagination function above
 	        	// TODO : check the function getReplyListData()

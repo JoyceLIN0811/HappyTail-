@@ -27,12 +27,12 @@ $(document).ready(function(){
 	// TODO : all the function below
 	getTopicListData();
 	
-//	initUpdateTopicCKEditor();
+// initUpdateTopicCKEditor();
 	
-//	getMyTopicData();
-//	getMyFollowListData();
-//	getMyLikeTopicData();
-//	getMyReadHistoryData();
+// getMyTopicData();
+// getMyFollowListData();
+// getMyLikeTopicData();
+// getMyReadHistoryData();
 	getFavorateCategory();
 	
 	// TODO : all the delete function and update function
@@ -67,12 +67,23 @@ function initTemplate() {
 
 function setTagType(tagTypeSrc) {
 	tagType = tagTypeSrc;
+	if(tagType == 'favorateCategorylist'){
+		$("#topicNum").addClass("d-none");
+	}else{
+		
+		$("#topicNum").removeClass("d-none");
+
+	}
+	
 	pageNum = 1;
 	getTopicListData();
 }
 
 
 function getTopicListData() {
+	
+	// TODO : need to clear list area first
+	refreshAllListArea();
 	
 	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 	+ myTopicPage +  "&tagType=myTopiclist";	
@@ -99,6 +110,8 @@ function getTopicListData() {
 		
 		if(tagType == "myTopiclist"){
 		
+		refreshAllListArea();
+		
 		var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 		+ myTopicPage +  "&tagType=myTopiclist";	
 		
@@ -120,6 +133,9 @@ function getTopicListData() {
 		
 			});
 		}else if(tagType == "myFollowlist"){
+			
+			refreshAllListArea();
+			
 			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 			+ myFollowListPage +  "&tagType=myFollowlist";	
 			
@@ -141,6 +157,9 @@ function getTopicListData() {
 			
 				});
 		}else if(tagType == "myThumbsUplist"){
+			
+			refreshAllListArea();
+
 				var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 				+ myLikeTopicPage +  "&tagType=myThumbsUplist";	
 				
@@ -163,6 +182,9 @@ function getTopicListData() {
 					});
 			
 		}else if(tagType == "myReadHistorylist") {
+			
+			refreshAllListArea();
+			
 			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
 			+ myReadHistoryPage +  "&tagType=myReadHistorylist";	
 			
@@ -184,14 +206,81 @@ function getTopicListData() {
 			
 				});
 		}else{
-			$("#topicNum").addClass("d-none");
 			
-					
+			var codeMapList = null;
+			var url = contextRoot + "/myPage/favorateCategorylist";
+
+			$.ajax({
+				  url: url,
+				  type: "GET",
+				  async: false,
+	   		      contentType: "application/json",
+				  success: function(data){
+							console.log(data);
+							if(data){
+								codeMapList = data;
+							}
+					}
+			});
+			
+			var categoryIdList = []; // need to get from API
+			
+			// get categoryId from codeMap JSON Object
+			for(let i=0 ; i<codeMapList.length ; i++){
+				categoryIdList.push(codeMapList[i].key);
+			}
+			
+			console.log(categoryIdList);
+			
+			$("#favorateCategoryList .list-group-item").each(function(index,element){
+				for(let categoryId of categoryIdList){
+					if($(element).attr("value") == categoryId){
+						$(element).addClass("active");
+					}
+				}
+			});
+			
+			
 		}
 	}
 }
 	
-	function openTopicContentDialog(topicId, targetObj) {
+	
+function refreshAllListArea(){
+	// Tip : $(element).html("")
+	
+	// TODO : clear myTopic area
+	// TODO : clear myFollow area
+	// TODO : clear myLike area
+	// TODO : clear myReadHistory area
+	
+	
+if (tagType != null) {
+		
+	if(tagType == "myTopiclist"){
+	
+		$("#topic").html("");
+	
+	}else if(tagType == "myFollowlist"){
+		
+		$("#follow").html("");
+	}else if(tagType == "myThumbsUplist"){
+		
+		$("#like").html("");
+		
+	}else{
+		
+		$("#history").html("");
+		
+		}
+	}
+	
+	console.log("Please clear the list area first");
+}
+
+
+
+function openTopicContentDialog(topicId, targetObj) {
 
 	
 	var likeNum = targetObj != null ? $(targetObj).parentsUntil(".card").find(".likeNum").text() : 0;
@@ -251,8 +340,8 @@ function getTopicListData() {
 		}
 	
 	function openUpdateDialog(topicId, targetObj){
-//		console.log($("#articleContent input[name='content']").val());
-//		var content = updatetopicEditor.getData();
+// console.log($("#articleContent input[name='content']").val());
+// var content = updatetopicEditor.getData();
 
 		var topicurl = contextRoot + "/topic/" + topicId;
 		
@@ -273,9 +362,7 @@ function getTopicListData() {
 		});
 		
 		initUpdateTopicCKEditor();
-//		updatetopicEditor.setData(document.getElementById(articleContent).value);
-//		updatetopicEditor.setData(content);
-		
+
 		console.log($("#addTopicForm input[type='hidden']"));
 		console.log($("#addTopicForm input[type='hidden']").find("input[name='categoryId']"));
 		
@@ -297,6 +384,54 @@ function getTopicListData() {
 		$('#UpdateDialog').modal('show');
 		
 	}
+	
+	function clickUpdateTopic(topicId, targetObj){
+		
+		console.log("topicId=" +topicId);
+		
+		var content = updatetopicEditor.getData();
+		console.log("content=" +content);
+
+		var imgListStr = "";
+		$(content).find("img").each(function(index,element){
+			console.log("index = " + index);// number of picture
+			console.log("src = " + $(element).attr("src"));
+			
+			imgListStr += $(element).attr("src") + ",";
+		});
+		
+		if(imgListStr.length != 0){
+			imgListStr = imgListStr.substring(0,imgListStr.length - 1);//cut the ,
+		}
+		
+		$("#addTopicForm input[name='imgList']").val(imgListStr);
+		$("#addTopicForm input[name='content']").val(content);
+		console.log("updatecontent=" + $("#addTopicForm input[name='content']").val()); 
+		console.log("form=" + $(addTopicForm).serialize());
+
+		var url = contextRoot + "/myPage/UpdateOrDeleteTopic/" + topicId + "?action=update";
+		var form = $(addTopicForm);
+		console.log(form);
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			async : false,
+			data: form.serialize(),
+			success : function(data) {
+						console.log("data="+data);
+						alert("更新成功 !");
+						
+						window.location.reload();
+						
+					}
+			});
+		
+		console.log("GoodBye!");
+
+	}
+	
+	
 	
 	function closeUpdateTopicDialog(topicId,targetObj){
 		$('#UpdateDialog').modal('hide')
@@ -342,239 +477,44 @@ function getTopicListData() {
 
 
 
-function setTagType(tagTypeSrc) {
-	tagType = tagTypeSrc;
-	pageNum = 1;
-	getTopicListData();
-}
-
-
-function getTopicListData() {
-	
-	// TODO : need to clear list area first
-	refreshAllListArea();
-	
-	var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
-	+ myTopicPage +  "&tagType=myTopiclist";	
-	
-	$.ajax({
-		url : url,
-		type : "get",
-		async : false,
-		success : function(data) {
-			
-			$("#topic").append(Mustache.render(myTopicTemplate, data));
-
-			$("#totalNum").text(data.totalNum);
-			// check whether has next page or not
-			if (data.hasNext) {
-				// to the next page
-				myTopicPage++;
-				}
-			}
-	
-		});
-	
-	if (tagType != null) {
-		
-		if(tagType == "myTopiclist"){
-		
-		var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
-		+ myTopicPage +  "&tagType=myTopiclist";	
-		
-		$.ajax({
-			url : url,
-			type : "get",
-			async : false,
-			success : function(data) {
-				
-				$("#topic").append(Mustache.render(myTopicTemplate, data));
-
-				$("#totalNum").text(data.totalNum);
-				// check whether has next page or not
-				if (data.hasNext) {
-					// to the next page
-					myTopicPage++;
-					}
-				}
-		
-			});
-		}else if(tagType == "myFollowlist"){
-			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
-			+ myFollowListPage +  "&tagType=myFollowlist";	
-			
-			$.ajax({
-				url : url,
-				type : "get",
-				async : false,
-				success : function(data) {
-					
-					$("#follow").append(Mustache.render(myLikeTopicTemplate, data));
-
-					$("#totalNum").text(data.totalNum);
-					// check whether has next page or not
-					if (data.hasNext) {
-						// to the next page
-						myFollowListPage++;
-						}
-					}
-			
-				});
-		}else if(tagType == "myThumbsUplist"){
-				var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
-				+ myLikeTopicPage +  "&tagType=myThumbsUplist";	
-				
-				$.ajax({
-					url : url,
-					type : "get",
-					async : false,
-					success : function(data) {
-						
-						$("#like").append(Mustache.render(myFollowListTemplate, data));
-
-						$("#totalNum").text(data.totalNum);
-						// check whether has next page or not
-						if (data.hasNext) {
-							// to the next page
-							myLikeTopicPage++;
-							}
-						}
-				
-					});
-			
-		}else if(tagType == "myReadHistorylist") {
-			var url = contextRoot + "/myPage/topiclist?pageSize=10&pageNum="
-			+ myReadHistoryPage +  "&tagType=myReadHistorylist";	
-			
-			$.ajax({
-				url : url,
-				type : "get",
-				async : false,
-				success : function(data) {
-					
-					$("#history").append(Mustache.render(myReadHistoryTemplate, data));
-
-					$("#totalNum").text(data.totalNum);
-					// check whether has next page or not
-					if (data.hasNext) {
-						// to the next page
-						myReadHistoryPage++;
-						}
-					}
-			
-				});
-		}else{
-			$("#topicNum").addClass("d-none");
-			
-			
-			
-			
-		}
-	}
-}
-	
-	
-function refreshAllListArea(){
-	// Tip : $(element).html("")
-	
-	// TODO : clear myTopic area
-	// TODO : clear myFollow area
-	// TODO : clear myLike area
-	// TODO : clear myReadHistory area
-	
-	console.log("Please clear the list area first");
-}
 
 
 
 
+// function getFavorateCategory(){
+// var codeMapList = null;
+// var url = contextRoot + "/myPage/favorateCategorylist";
+//
+// $.ajax({
+// url: url,
+// type: "GET",
+// async: false,
+// success: function(data){
+// console.log(data);
+// if(data){
+// codeMapList = data;
+// }
+// }
+// });
+//	
+// var categoryIdList = []; // need to get from API
+//	
+// // get categoryId from codeMap JSON Object
+// for(let i=0 ; i<codeMapList.length ; i++){
+// categoryIdList.push(codeMapList[i].key);
+// }
+//	
+// console.log(categoryIdList);
+//	
+// $("#favorateCategoryList .list-group-item").each(function(index,element){
+// for(let categoryId of categoryIdList){
+// if($(element).attr("value") == categoryId){
+// $(element).addClass("active");
+// }
+// }
+// });
+// }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function getMyTopicData(){
-	// TODO : use myTopicTemplate and myTopicPage to render
-	// target area : id="topic"
-	
-}
-
-function getMyFollowListData(){
-	// TODO : use myFollowListTemplate and  myFollowListPage to render
-	// target area : id="follow"
-}
-
-function getMyLikeTopicData(){
-	// TODO : use myLikeTopicTemplate and  myLikeTopicPage to render
-	// target area : id="like"
-}
-
-function getMyReadHistoryData(){
-	// TODO : use myReadHistoryTemplate and  myReadHistoryPage to render
-	// target area : id="history"
-}
-
-function getFavorateCategory(){
-	var codeMapList = null;
-	var url = contextRoot + "/myPage/favorateCategorylist";
-
-	$.ajax({
-		url: url,
-	   type: "GET",
-	  async: false,
-	success: function(data){
-				console.log(data);
-				if(data){
-					codeMapList = data;
-				}
-		}
-	});
-	
-	var categoryIdList = []; // need to get from API
-	
-	// get categoryId from codeMap JSON Object
-	for(let i=0 ; i<codeMapList.length ; i++){
-		categoryIdList.push(codeMapList[i].key);
-	}
-	
-	console.log(categoryIdList);
-	
-	$("#favorateCategoryList .list-group-item").each(function(index,element){
-		for(let categoryId of categoryIdList){
-			if($(element).attr("value") == categoryId){
-				$(element).addClass("active");
-			}
-		}
-	});
-}
-
-//function deleteTopic(topicId){
-//	// TODO : get user id from Header
-//}
-
-function deleteFollow(topicId){
-	// TODO : get user id from Header
-}
-
-function deleteLike(topicId){
-	// TODO : get user id from Header
-}
-
-function deleteHistory(topicId){
-	// TODO : get user id from Header
-}
 
 // for favorate
 function toggleActive(targetObj){
