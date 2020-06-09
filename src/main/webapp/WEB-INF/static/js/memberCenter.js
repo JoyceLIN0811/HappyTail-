@@ -10,6 +10,9 @@ var myLikeTopicPage = 1;
 var myReadHistoryTemplate = "";
 var myReadHistoryPage = 1;
 
+var myNoticeTemplate = "";
+var myNoticePage = 1;
+
 var topicContentTemplate = "";
 var replyListTemplate = "";
 var replyListPageNum = 1; // start from page 1
@@ -33,7 +36,7 @@ $(document).ready(function(){
 // getMyFollowListData();
 // getMyLikeTopicData();
 // getMyReadHistoryData();
-	getFavorateCategory();
+//getFavorateCategory();
 	
 	// TODO : all the delete function and update function
 	
@@ -58,6 +61,7 @@ function initTemplate() {
 						topicContentTemplate = $(template).filter("#topicContent").html();
 						replyListTemplate = $(template).filter("#replyContentList").html();
 						updatTopicTemplate = $(template).filter("#updateContent").html();
+						myNoticeTemplate = $(template).filter("#noticeList").html();
 
 		}
 	});
@@ -69,6 +73,10 @@ function setTagType(tagTypeSrc) {
 	tagType = tagTypeSrc;
 	if(tagType == 'favorateCategorylist'){
 		$("#topicNum").addClass("d-none");
+	}else if(tagType == 'noticelist'){
+		
+		$("#topicNum").addClass("d-none");
+
 	}else{
 		
 		$("#topicNum").removeClass("d-none");
@@ -205,7 +213,7 @@ function getTopicListData() {
 					}
 			
 				});
-		}else{
+		}else if(tagType == "favorateCategorylist"){
 			
 			var codeMapList = null;
 			var url = contextRoot + "/myPage/favorateCategorylist";
@@ -241,6 +249,28 @@ function getTopicListData() {
 			});
 			
 			
+		}else{
+			
+			var url = contextRoot + "/myPage/forumNotice?module=Forum&pageSize=10&pageNum=" + myNoticePage;
+			
+			$.ajax({
+				url : url,
+				type : "get",
+				async : false,
+				success : function(data) {
+					
+					$("#noticeList").append(Mustache.render(myNoticeTemplate, data));
+
+					$("#totalNum").text(data.totalNum);
+					// check whether has next page or not
+					if (data.hasNext) {
+						// to the next page
+						myNoticePage++;
+						}
+					}
+			
+				});
+			
 		}
 	}
 }
@@ -257,21 +287,23 @@ function refreshAllListArea(){
 	
 if (tagType != null) {
 		
-	if(tagType == "myTopiclist"){
-	
-		$("#topic").html("");
-	
-	}else if(tagType == "myFollowlist"){
+		if(tagType == "myTopiclist"){
 		
-		$("#follow").html("");
-	}else if(tagType == "myThumbsUplist"){
+			$("#topic").html("");
 		
-		$("#like").html("");
-		
-	}else{
-		
-		$("#history").html("");
-		
+		}else if(tagType == "myFollowlist"){
+			
+			$("#follow").html("");
+		}else if(tagType == "myThumbsUplist"){
+			
+			$("#like").html("");
+			
+		}else if(tagType == "myReadHistorylist"){
+			
+			$("#history").html("");
+			
+		}else{
+			$("#noticeList").html("");
 		}
 	}
 	
@@ -462,7 +494,7 @@ function openTopicContentDialog(topicId, targetObj) {
 		
 		$.ajax({
 			url : url,
-			type : "PUT",
+			type : "POST",
 			async : false,
 			success : function(data) {
 						console.log($(targetObj).parentsUntil(".myTopicItem").parent());
@@ -473,47 +505,6 @@ function openTopicContentDialog(topicId, targetObj) {
 		
 		
 	}
-
-
-
-
-
-
-
-
-// function getFavorateCategory(){
-// var codeMapList = null;
-// var url = contextRoot + "/myPage/favorateCategorylist";
-//
-// $.ajax({
-// url: url,
-// type: "GET",
-// async: false,
-// success: function(data){
-// console.log(data);
-// if(data){
-// codeMapList = data;
-// }
-// }
-// });
-//	
-// var categoryIdList = []; // need to get from API
-//	
-// // get categoryId from codeMap JSON Object
-// for(let i=0 ; i<codeMapList.length ; i++){
-// categoryIdList.push(codeMapList[i].key);
-// }
-//	
-// console.log(categoryIdList);
-//	
-// $("#favorateCategoryList .list-group-item").each(function(index,element){
-// for(let categoryId of categoryIdList){
-// if($(element).attr("value") == categoryId){
-// $(element).addClass("active");
-// }
-// }
-// });
-// }
 
 
 // for favorate
@@ -531,15 +522,58 @@ function updateFavorateCategory(){
 	
 	
 	// TODO : need to defined
-	var url = "";
+	var url = contextRoot + "/myPage/UpdateFavorateCategory/" + userId;
 	
 	$.ajax({
 		url: url,
 	   type: "POST",
-	   data: JSON.stringify(),
+	   data: JSON.stringify(categoryList),
+	   contentType: "application/json",
 	success: function(data){
 				alert("更新成功 !");
 			}
 	});
 	
 }
+
+function readAllNotice(){
+	//all read 
+	var userId =  parseInt($("#loginUserId").text());
+	var url = contextRoot + "/myPage/notice";
+	var noticeList = [];
+
+	$("#noticeList").each(function(index,element){
+		noticeList.push({ userId: userId});
+	});
+	
+	$.ajax({
+		url: url,
+	   type: "POST",
+	   data: JSON.stringify(noticeList),
+	   contentType: "application/json",
+	success: function(data){
+			window.location.reload();
+	
+			}
+	});
+	
+
+	
+}
+
+function forwardNoticeLink(id,link){
+		
+	var url = contextRoot + "/myPage/notice/"+ id;
+
+	$.ajax({
+		url : url,
+		type : "PUT",
+		async : false,
+		success : function(data) {
+			console.log(data);	
+		}
+	
+	});
+	window.location.href = contextRoot + "link";
+}
+

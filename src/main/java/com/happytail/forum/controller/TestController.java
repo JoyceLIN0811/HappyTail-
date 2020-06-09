@@ -156,7 +156,7 @@ public class TestController {
 
 	@PostMapping("/topicPost")
 	@ResponseBody
-	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam List<String> imgList, @RequestParam(defaultValue = "false") Boolean isCover) {
+	public Topic addTopic(@ModelAttribute Topic topic,@RequestParam(required = false) List<String> imgList, @RequestParam(defaultValue = "false") Boolean isCover) {
 		// TODO : Add image source to TopicImage
 //		topic = forumService.addTopic(topic);
 //
@@ -256,12 +256,13 @@ public class TestController {
 		return fourmMemberService.getMyFavorateCategory(petMembers.getId());
 	}
 
-	@GetMapping("/myPage/forumNotice/{userId}")
+	@GetMapping("/myPage/forumNotice")
+	@ResponseBody
 	public Page<Notice> getMyForumNotice(@SessionAttribute(required = false) PetMembers petMembers,
-			@RequestParam String module, @PathVariable Integer userId, @RequestParam Integer pageSize,
+			@RequestParam String module,  @RequestParam Integer pageSize,
 			@RequestParam Integer pageNum) {
 
-		return fourmMemberService.getAllMyForumNotice(module, userId, new PageInfo(pageSize, pageNum));
+		return fourmMemberService.getAllMyForumNotice(petMembers.getId(), module, new PageInfo(pageSize, pageNum));
 	}
 	
 	@GetMapping("/myPage/topicContent/{topicId}")
@@ -301,7 +302,8 @@ public class TestController {
 
 	}
 	
-	@PutMapping("/myPage/UpdateFavorateCategory/{userId}")
+	@PostMapping("/myPage/UpdateFavorateCategory/{userId}")
+	@ResponseBody
 	public void UpdateFavorateCategory(@SessionAttribute(required = false) PetMembers petMembers
 			, @RequestBody List<Favorate> list, @PathVariable Integer userId) {
 		fourmMemberService.refereshFavorateCategory(list, petMembers, userId);
@@ -329,15 +331,17 @@ public class TestController {
 	fourmMemberService.removeFollow(topicId, petMembers, userId);
 	}
 	
-	@PutMapping("/myPage/notice/{noticeId}")
+	@PostMapping("/myPage/notice/{noticeId}")
+	@ResponseBody
 	public void updateIsReadStatusViaMyPage(@SessionAttribute(required = false) PetMembers petMembers, @PathVariable Integer noticeId) {
 		fourmMemberService.updateIsReadStatus(noticeId);
 
 	}
 	
-	@PutMapping("/myPage/notice")
-	public void updateAllIsReadStatusViaMyPage(@SessionAttribute(required = false) PetMembers petMembers,  @RequestParam Integer userId) {
-		fourmMemberService.updateAllIsReadStatus(petMembers, userId);
+	@PostMapping("/myPage/notice")
+	@ResponseBody
+	public void updateAllIsReadStatusViaMyPage(@SessionAttribute(required = false) PetMembers petMembers) {
+		fourmMemberService.updateAllIsReadStatus(petMembers);
 
 	}
 	

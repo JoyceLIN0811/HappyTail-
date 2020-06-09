@@ -552,7 +552,7 @@
 <div id="noticeList">
 
 {{ #records }}
-	<button type="button" class="d-flex justify-content-between list-group-item list-group-item-action {{ #isRead }} bg-light {{ /isRead }}" onclick="forwardNoticeLink({{ id }},{{ link }})"><span class="d-inline-block text-truncate" style="max-width: 500px;">{{ message }}</span><span>{{ createDate }}</span></button>
+	<button type="button" class="d-flex justify-content-between list-group-item list-group-item-action {{ #isRead }} bg-light {{ /isRead }}" onclick="forwardNoticeLink({{ id }},'{{ link }}')"><span class="d-inline-block text-truncate" style="max-width: 500px;">{{ message }}</span><span>{{ createDate }}</span></button>
 {{ /records }}
 
 </div>

@@ -97,7 +97,7 @@ public class FourmMemberService {
 		 return codeMapDAO.getMyFavorateCategorylist(list, Const.ModuleType.Forum, Const.CategoryType.topicCategory);
 	}
 	// get all my forum notice
-	public Page<Notice> getAllMyForumNotice(String module, Integer userId, PageInfo pageInfo) {
+	public Page<Notice> getAllMyForumNotice(Integer userId, String module, PageInfo pageInfo) {
 		return noticeDAO.getAllNoticelist(userId, module, pageInfo);
 	}
 
@@ -199,13 +199,13 @@ public class FourmMemberService {
 	}
 
 	// update per notice isRead status
-	public void updateAllIsReadStatus(PetMembers petMembers, Integer userId) {
+	public void updateAllIsReadStatus(PetMembers petMembers) {
 
 //		Notice notice = noticeDAO.selectByUserId(petMembers.getId());
 //		Notice notice = noticeDAO.selectByUserId(userId);
 		
-		List<Notice> noticeList= noticeDAO.selectByModule(userId, Const.ModuleType.Forum);
-		System.out.println(userId);
+		List<Notice> noticeList= noticeDAO.selectByModule(petMembers.getId(), Const.ModuleType.Forum);
+		System.out.println(petMembers.getId());
 		System.out.println(noticeList);
 		for(Notice notice : noticeList) {
 		

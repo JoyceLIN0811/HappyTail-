@@ -71,33 +71,33 @@
 					</div>
 				</div>
 
-				<div class="row justify-content-around">
+<!-- 				<div class="row justify-content-around"> -->
 
-					<div class=" col-md-2">
-						<img src="<c:url value='/img/story2.png'/>" class="card-img"
-							alt="...">
-					</div>
-					<div class="col-md-2">
-						<img src="<c:url value='/img/story2.png'/>" class="card-img"
-							alt="...">
-					</div>
-					<div class="col-md-2">
-						<img src="<c:url value='/img/story2.png'/>" class="card-img"
-							alt="...">
-					</div>
-					<div class="col-md-2">
-						<img src="<c:url value='/img/story2.png'/>" class="card-img"
-							alt="...">
-					</div>
-					<div class="col-md-2">
-						<img src="<c:url value='/img/story2.png'/>" class="card-img"
-							alt="...">
-					</div>
-					<div class="col-md-2">
-						<img src="<c:url value='/img/story2.png'/>" class="card-img"
-							alt="...">
-					</div>
-				</div>
+<!-- 					<div class=" col-md-2"> -->
+<%-- 						<img src="<c:url value='/img/story2.png'/>" class="card-img" --%>
+<!-- 							alt="..."> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-2"> -->
+<%-- 						<img src="<c:url value='/img/story2.png'/>" class="card-img" --%>
+<!-- 							alt="..."> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-2"> -->
+<%-- 						<img src="<c:url value='/img/story2.png'/>" class="card-img" --%>
+<!-- 							alt="..."> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-2"> -->
+<%-- 						<img src="<c:url value='/img/story2.png'/>" class="card-img" --%>
+<!-- 							alt="..."> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-2"> -->
+<%-- 						<img src="<c:url value='/img/story2.png'/>" class="card-img" --%>
+<!-- 							alt="..."> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-2"> -->
+<%-- 						<img src="<c:url value='/img/story2.png'/>" class="card-img" --%>
+<!-- 							alt="..."> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<article class="all-browsers">
 					<article id="topicListArea" class="browser bg-transparent">
 					</article>
@@ -351,8 +351,11 @@
 		var topicListPageNum = 1; // start from page 1
 		var replyListPageNum = 1; // start from page 1
 		var isTopicListHasNextPage = true;
+		var isReplyListHasNextPage = true;
+		
 		var topicListIndexArray = [];
 		var topicListLoadLock = false; 
+		var replyListLoadLock = false; 
 		var categoryId = null;
 		var tagType = null;
 		var topicEditor = null;
@@ -432,6 +435,26 @@
 	        	var currentScrollPos = $(this).scrollTop() + $(this).height();
 	        	
 	        	// TODO : imitate topic list pagination function above
+	        	
+	        	if((scrollBottomPos - currentScrollPos) < 300 
+	        			&& !replyListLoadLock // prevent duplicate loading 
+	        			&& isReplyListHasNextPage
+	        			){
+	        		
+	        		// prevent duplicate loading, lock when execute function
+	        		replyListLoadLock = true;
+	        			        		
+	        		replyListPageNum++;
+	        		
+	        		// wait 1 second to show loading animate
+	        		setTimeout(function(){
+	        			getReplyListData();
+	        			
+	        			replyListLoadLock = false;
+	    	        	
+	        		}, 1000);
+	        	}
+	        	
 	        	// TODO : check the function getReplyListData()
 	        
 	        });
@@ -584,7 +607,7 @@
 				}
 
 			});
-
+			
 			$.ajax({
 				url : replyurl,
 				type: "GET",
@@ -604,9 +627,10 @@
 						// to the next page
 						replyListPageNum++;
 					}
-				}
 
 				});
+
+			}
 			initReplyCKEditor();
 			
 			history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
@@ -615,8 +639,39 @@
 		}
 		
 		function getReplyListData(){
-			// TODO : imitate getTopicListData
-		}
+
+			var replyurl = contextRoot + "/reply?pageSize=10&pageNum="
+			+ replyListPageNum +"&topicId=" + topicId;
+			var stageListObj = { stageList : [] };
+			if(isTopicListHasNextPage){
+				$.ajax({
+					url : replyurl,
+					type: "GET",
+					async : false,
+					success : function(data){
+
+						for(let i=0 ; i<data.records.length ; i++){
+							  data.records[i].stage = 'B' + (i + 1);
+							  data.records[i].stageValue = i + 1;
+							}
+										
+						$("#replyContentList").html("");
+						$("#replyContentList").append(Mustache.render(replyListTemplate, data));
+
+						// check whether has next page or not
+						if (data.hasNext) {
+							// to the next page
+							replyListPageNum++;
+						}
+						// check whether has next page or not
+						isReplyListHasNextPage = data.isHasNext;
+					}
+
+					});
+
+				}
+
+			}
 
 		function openAddTopicDialog() {
 
@@ -727,6 +782,8 @@
 
 		function clickAddTopic(){
 
+			var url = contextRoot + "/topicPost";
+			
 			var content = topicEditor.getData();
 			
 			var imgListStr = "";
@@ -738,17 +795,17 @@
 			});
 			
 			if(imgListStr.length != 0){
-				imgListStr = imgListStr.substring(0,imgListStr.length - 1);//cut the ,
+				imgListStr = imgListStr.substring(0,imgListStr.length - 1);//cut the ,				
 			}
 			
 			$("#addTopicForm input[name='imgList']").val(imgListStr);
-			
 			$("#addTopicForm input[name='content']").val(content);
 			console.log($("#addTopicForm input[name='content']").val()); 
 			console.log($(addTopicForm).serialize());
 
-			var url = contextRoot + "/topicPost";
 			var form = $(addTopicForm);
+			console.log(form);
+			
 
 			$.ajax({
 				url : url,
@@ -756,22 +813,25 @@
 				async : false,
 				data: form.serialize(),
 				success : function(data) {
-					console.log(data);
+					console.log("data="+data);
+
+					window.location.reload();
+					
 
 				}
 
 			});
 
-	        $("#content").val("");
-	        topicEditor.setData("");
-			$("input[name='title']").val("");
-			$("input[name='isCover']").val("");
-			$("input[name='categoryId']").val("");
+// 	        $("#content").val("");
+// 	        topicEditor.setData("");
+// 			$("input[name='title']").val("");
+// 			$("input[name='isCover']").val("");
+// 			$("input[name='categoryId']").val("");
 	        
 	        
 			console.log("GoodBye!");
 
-			$('#addTopicDialog').modal('hide')
+// 			$('#addTopicDialog').modal('hide')
 
 			}
 

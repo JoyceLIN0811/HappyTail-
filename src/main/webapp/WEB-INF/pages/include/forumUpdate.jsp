@@ -1,28 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="topic-tab" data-toggle="tab" href="#topic" role="tab" aria-controls="topic" aria-selected="true" onclick="setTagType('myTopiclist')">My Topic</a>
+    <a class="nav-link active" id="topic-tab" data-toggle="tab" href="#topic" role="tab" aria-controls="topic" aria-selected="true" onclick="setTagType('myTopiclist')">我的文章</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="false" onclick="setTagType('myFollowlist')">My Follow List</a>
+    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="false" onclick="setTagType('myFollowlist')">追蹤文章</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="like-tab" data-toggle="tab" href="#like" role="tab" aria-controls="like" aria-selected="false" onclick="setTagType('myThumbsUplist')">My Like Topic</a>
+    <a class="nav-link" id="like-tab" data-toggle="tab" href="#like" role="tab" aria-controls="like" aria-selected="false" onclick="setTagType('myThumbsUplist')">按讚文章</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false" onclick="setTagType('myReadHistorylist')">My Read History</a>
+    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false" onclick="setTagType('myReadHistorylist')">閱讀歷史</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="favorate-tab" data-toggle="tab" href="#favorate" role="tab" aria-controls="favorate" aria-selected="false" onclick="setTagType('favorateCategorylist')">Favorate Category</a>
+    <a class="nav-link" id="favorate-tab" data-toggle="tab" href="#favorate" role="tab" aria-controls="favorate" aria-selected="false" onclick="setTagType('favorateCategorylist')">喜好看板類別</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="notice-tab" data-toggle="tab" href="#notice" role="tab" aria-controls="notice" aria-selected="false">Notice</a>
+    <a class="nav-link" id="notice-tab" data-toggle="tab" href="#notice" role="tab" aria-controls="notice" aria-selected="false" onclick="setTagType('noticelist')">討論區通知</a>
   </li>
 </ul>
 
 <div class="row" style="margin-top: 15px">
-<div class="col-sm-3"  id="topicNum">
+<div class="col-sm-3"  id="topicNum">	
 	<blockquote class="blockquote">
 		<span class="mb-0">總文章數量：<span id="totalNum"></span></span>
 	</blockquote>
