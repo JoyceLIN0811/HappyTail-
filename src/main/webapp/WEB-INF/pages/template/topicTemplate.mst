@@ -329,17 +329,10 @@ $("#target").html(data);
 
                     <div class="row justify-content-md-center" style="height: 80px">
                         <div class=" col-md-4">
-                            <i id="like" class="fas fa-thumbs-up fa-2x pointer" onmouseenter="showLikeArea()" onmouseout="hideLikeArea()"></i>
+                            <i class="fas fa-thumbs-up fa-2x checked"></i>
+                            <i class="far fa-surprise fa-2x text-warning"></i>
+		                    <i class="fas fa-heart fa-2x text-danger"></i>
                             <span>{{ likeNum }}</span>
-                            <div id="like-area" class="d-none px-2 py-2">
-		                        <i class="fas fa-thumbs-up fa-2x pointer" onclick="chooseLike({{ topicId }},1,this)"></i>
-		                        <i class="far fa-laugh-squint fa-2x pointer" onclick="chooseLike({{ topicId }},2,this)"></i>
-		                        <i class="far fa-sad-cry fa-2x pointer" onclick="chooseLike({{ topicId }},3,this)"></i>
-		                        <i class="far fa-surprise fa-2x pointer" onclick="chooseLike({{ topicId }},4,this)"></i>
-		                        <i class="fas fa-heart fa-2x pointer" onclick="chooseLike({{ topicId }},5,this)"></i>
-		                        <i class="far fa-angry fa-2x pointer" onclick="chooseLike({{ topicId }},6,this)"></i>
-		                    </div>
-                            
                         </div>
 
 
@@ -349,8 +342,16 @@ $("#target").html(data);
                             <span>{{ replyNum }}</span>
                         </div>
 
-                        <div class="col-md-1">
-                            <i class="{{#isThumbsUp}}fas checked{{/isThumbsUp}} {{^isThumbsUp}} far{{/isThumbsUp}} fa-thumbs-up fa-2x" onclick="clickTopicThumbsUp({{ topicId }}, this)"></i>
+                        <div class="col-md-1 position-relative">
+                            <i id="like" class="{{#isThumbsUp}}fas checked{{/isThumbsUp}} {{^isThumbsUp}} far{{/isThumbsUp}} fa-thumbs-up fa-2x" onmouseenter="showLikeArea()" onmouseout="hideLikeArea()" onclick="clickTopicThumbsUp({{ topicId }}, this)"></i>
+                        	<div id="like-area" class="d-none px-2 py-2 text-nowrap">
+		                        <i class="fas fa-thumbs-up fa-2x pointer" onclick="chooseLike({{ topicId }},1,this)"></i>
+		                        <i class="far fa-laugh-squint fa-2x pointer" onclick="chooseLike({{ topicId }},2,this)"></i>
+		                        <i class="far fa-sad-cry fa-2x pointer" onclick="chooseLike({{ topicId }},3,this)"></i>
+		                        <i class="far fa-surprise fa-2x pointer" onclick="chooseLike({{ topicId }},4,this)"></i>
+		                        <i class="fas fa-heart fa-2x pointer" onclick="chooseLike({{ topicId }},5,this)"></i>
+		                        <i class="far fa-angry fa-2x pointer" onclick="chooseLike({{ topicId }},6,this)"></i>
+		                    </div>
                         </div>
 
                         <div class="col-md-1">

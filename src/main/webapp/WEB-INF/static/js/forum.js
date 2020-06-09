@@ -569,10 +569,14 @@ function clickTopicThumbsUp(topicId, targetObj){
 			type : "DELETE",
 			async : false,
 			success : function(data) {
-				$(targetObj).attr("class", "far fa-thumbs-up fa-2x");
-				 var likeValue = parseInt($(targetObj).next().text());
-				 likeValue--;
-				 $(targetObj).next().text(likeValue);
+					$(targetObj).attr("class", "far fa-thumbs-up fa-2x");
+					
+					// stop working at topic content area
+					if($(targetObj).attr("id") != "like"){
+						var likeValue = parseInt($(targetObj).next().text());
+						 likeValue--;
+						 $(targetObj).next().text(likeValue);
+					}
 			
 				}
 			});
@@ -598,10 +602,14 @@ function clickTopicThumbsUp(topicId, targetObj){
 			data : JSON.stringify(dataObj),
 			contentType : "application/json",
 			success : function(data) {
-					$(targetObj).attr("class", "fas checked  fa-thumbs-up fa-2x");
-						 var likeValue = parseInt($(targetObj).next().text());
-						 likeValue++;
-						 $(targetObj).next().text(likeValue);
+						$(targetObj).attr("class", "fas checked  fa-thumbs-up fa-2x");
+						
+						// stop working at topic content area
+						if($(targetObj).attr("id") != "like"){
+							var likeValue = parseInt($(targetObj).next().text());
+							 likeValue++;
+							 $(targetObj).next().text(likeValue);
+						}
 				
 					}
 			});
@@ -812,9 +820,66 @@ function updateFavorateCategory(){
 }
 
 function chooseLike(topicId,categoryId,targetObj){
-	// TODO : update like
 	
-    $("#like").attr("class",$(targetObj).attr("class"));
+	if($("#like").hasClass("checked")){
+		// delete before insert
+		var url = contextRoot + "/thumbsUp/topic/" + $("#loginUserId").text()+ "/" + topicId;
+		
+		$.ajax({
+			url : url,
+			type : "DELETE",
+			async : false,
+			success : function(data) {
+						url = contextRoot + "/thumbsUpPost";
+						var dataObj = {
+									type : "topic",
+									topicId : topicId, 
+									replyId : null,
+									userId : $("#loginUserId").text(),
+									username : $("#loginUsername").text(),	
+									categoryId : categoryId
+								}
+						
+						$.ajax({
+							url : url,
+							type : "POST",
+							async : false,
+							data : JSON.stringify(dataObj),
+							contentType : "application/json",
+							success : function(data) {
+								
+										// show chosen like on #like
+										$("#like").attr("class",$(targetObj).attr("class") + " checked");
+									}
+						});
+					}
+		});
+	} else {
+		var url = contextRoot + "/thumbsUpPost";
+		var dataObj = {
+					type : "topic",
+					topicId : topicId, 
+					replyId : null,
+					userId : $("#loginUserId").text(),
+					username : $("#loginUsername").text(),	
+					categoryId : categoryId
+				}
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			async : false,
+			data : JSON.stringify(dataObj),
+			contentType : "application/json",
+			success : function(data) {
+				
+						// show chosen like on #like
+						$("#like").attr("class",$(targetObj).attr("class") + " checked");
+					}
+		});
+	}
+	
+    
 }
 
 function showLikeArea(){
