@@ -26,6 +26,8 @@ public interface AdminShopDao {
 	OrderBean changeOrderStatus(Integer id);
 	//所有訂單
 	public List<OrderBean> adminAllOrders();
+	//單一訂單
+	public List<OrderBean> orderItemByOrderId(Integer id);
 	//未處理訂單
 	public List<OrderBean> unCheckOrderList();
 	

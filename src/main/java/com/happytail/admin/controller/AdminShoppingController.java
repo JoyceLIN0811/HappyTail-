@@ -213,7 +213,15 @@ public class AdminShoppingController {
 		OrderBean order = adminShopService.changeOrderStatus(key);
 		ResponseEntity<OrderBean> re = new ResponseEntity<>(order, HttpStatus.OK);
 		return re;
-		
+	}
+	
+	//查詢訂單
+	@GetMapping(value = "admin-getOrderItem-json/{key}", produces= {"application/json"})
+	public ResponseEntity<List<OrderItemBean>> AdminOrderDtail(@PathVariable Integer key) {
+		OrderBean orderBean = orderService.selectOrder(key);
+		List<OrderItemBean> dtail = orderService.getOrderItemBean(orderBean);
+		ResponseEntity<List<OrderItemBean>> re = new ResponseEntity<>(dtail, HttpStatus.OK);
+		return re;
 	}
 
 
