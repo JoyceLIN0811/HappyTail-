@@ -16,6 +16,9 @@
   <li class="nav-item">
     <a class="nav-link" id="favorate-tab" data-toggle="tab" href="#favorate" role="tab" aria-controls="favorate" aria-selected="false" onclick="setTagType('favorateCategorylist')">Favorate Category</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="notice-tab" data-toggle="tab" href="#notice" role="tab" aria-controls="notice" aria-selected="false">Notice</a>
+  </li>
 </ul>
 <div class="row">
 <div class="col-sm-3"  id="topicNum">
@@ -58,6 +61,31 @@
           <div class="col-4"></div>
       </div>
   </div>
+  <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
+      <div class="row mt-5">
+          <div class="col-12">
+              <div id="noticeList" class="list-group">
+              	<!--   TODO : use memberCenterTemplate[id="noticeList"] here -->
+              </div>
+              <!--   TODO : function readAllNotice() -->
+              <button type="button" class="btn btn-primary btn-lg btn-block mt-3" onclick="readAllNotice()">
+                  	設定全部已讀
+              </button>
+              <div class="row mt-3">
+                  <div class="col-12 d-flex justify-content-center">
+                      <nav aria-label="Page navigation example">
+                          <ul id="noticeListPagination" class="pagination">
+                          		<!--   TODO : use memberCenterTemplate[id="noticeListPagination"] here -->
+                          </ul>
+                      </nav>
+                  </div>
+              </div>
+              
+          </div>
+
+      </div>
+  </div>
+  
 </div>
 
 	<div id="topicContentDialog" class="modal vh-100" tabindex="-1" role="dialog">
