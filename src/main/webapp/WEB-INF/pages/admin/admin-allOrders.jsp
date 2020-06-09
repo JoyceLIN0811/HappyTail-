@@ -361,10 +361,21 @@
 					</button>
 				</div>
 				<div class="modal-body" id="detail">
-					<p id="name"></p>
-					<p id="unitPrice"></p>
-					<p id="quantity"></p>
-					<p id="totalPrice"></p>					
+					<h4>總金額：</h4>
+					<p id="totalPrice"></p> 
+					<h4>購買時間：</h4>
+					<p id="orderDate"></p>
+					<table class="table table-striped" id="tbale">
+                    	<thead>
+                    		<tr>
+                      			<th>編號</th>
+                      			<th>商品名稱</th>
+                      			<th>商品數量</th>
+                      			<th>購買價格</th>
+                   			</tr>
+                  		</thead>
+                  		<tbody id="tbody"></tbody>
+                  </table>					
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" id="close" class="btn btn-default"data-dismiss="modal">關閉</button>
@@ -480,6 +491,15 @@
 						$("#unitPrice").append(data[i]['unitPrice']);
 						$("#quantity").append(data[i]['quantity']);
 						$("#totalPrice").empty().append(data[i]['orderBean']['totalPrice']);
+						$("#orderDate").empty().append(data[i]['orderBean']['orderDate']);
+
+						var tr="<tr>";
+						tr += "<td>" + data[i]['seqno'] + "</td>";
+						tr += "<td>" + data[i]['description'] + "</td>";
+						tr += "<td>" + data[i]['quantity'] + "</td>";
+						tr += "<td>" + data[i]['unitPrice'] + "</td>";
+						tr += "</tr>";
+						$('#tbody').append(tr);
 						i++;
 						})
 				}
@@ -492,6 +512,7 @@
 			$('#unitPrice').empty();
 			$('#quantity').empty();
 			$('#totalPrice').empty();
+			$('#tbody').empty();
 			})
 	</script>
 </body>
