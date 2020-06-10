@@ -66,8 +66,8 @@
 		document.getElementById("petName").value='小馬';
 		document.getElementById("breed").value='拉不拉多';
 		document.getElementById("petAge").value=2;
-		document.getElementById("date").value='2020-06-12';
-		document.getElementById("require").value='要很乾淨我有潔癖';
+		document.getElementById("date").value='2020-06-15';
+		document.getElementById("require").value='舒服的';
 	}
 
 </script>
@@ -82,6 +82,7 @@ function checkbreed(){
 		document.getElementById("str1").innerHTML = "不可空白";
 		check = false;
 	} else{
+		document.getElementById("str1").innerHTML = "";
 		check = true
 	} 
 	return check;
@@ -95,6 +96,7 @@ function checkpetname(){
 		document.getElementById("str2").innerHTML = "不可空白";
 		check = false;
 	} else{
+		document.getElementById("str2").innerHTML = "";
 		check = true
 	} 
 	return check;
@@ -108,6 +110,7 @@ function checkpetAge(){
 		document.getElementById("str3").innerHTML = "不可空白";
 		check = false;
 	} else{
+		document.getElementById("str3").innerHTML = "";
 		check = true
 	} 
 	return check;
@@ -121,6 +124,7 @@ function checkdate(){
 		document.getElementById("str4").innerHTML = "不可空白";
 		check = false;
 	} else{
+		document.getElementById("str4").innerHTML = "";
 		check = true
 	} 
 	return check;
@@ -134,6 +138,7 @@ function checkpetname(){
 		document.getElementById("str2").innerHTML = "不可空白";
 		check = false;
 	} else{
+		document.getElementById("str2").innerHTML = "";
 		check = true
 	} 
 	return check;

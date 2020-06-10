@@ -44,8 +44,8 @@
 
 <script>
 function Send() {
-	document.getElementById("account").value='a03163084@gmail.com';
-	document.getElementById("password").value='aaSS#$12345';
+	document.getElementById("account").value='petProject113@gmail.com';
+	document.getElementById("password").value='eeit11339';
 	
 }
 </script>

@@ -69,7 +69,7 @@
 	</td>
 	</form>
 
-	<p style='float: left;margin-right: 10px;margin-top: 10px'>第  ${page.currentPage} 頁 , 共 ${page.totalPages+1}頁</p>
+	<p style='float: left;margin-right: 10px;margin-top: 10px'>第  ${page.currentPage} 頁 , 共 ${page.totalPages}頁</p>
 
 	<form method="get" action="queryMyReservaitionView" >
 	<td>
