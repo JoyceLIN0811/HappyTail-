@@ -49,12 +49,10 @@ public class AdminForumController {
 	
 	//刪除文章
 	@PostMapping(value =  "admin-deleteTopic/{id}")
-	public String deleteTopic(@PathVariable Integer id) {
-		
+	public ResponseEntity<String> deleteTopic(@PathVariable Integer id) {
+		ResponseEntity<String> re = new ResponseEntity<>("1", HttpStatus.OK);
 		fourmMemberService.deleteTopic(id);
-		
-		return "adminForum";
-		
+		return re;		
 	}
 	
 

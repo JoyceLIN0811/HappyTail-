@@ -294,8 +294,7 @@
 							//刪除文章
 							$("#all tbody").on("click", ".btn-default", function () {
 								var id = $(this).data("test");
-								alert(id);
-								$.ajax({
+								$.ajax({	
 									async:false,
 									type: "POST",
 									url: "<c:url value='admin-deleteTopic/" + id + "' />",
@@ -303,7 +302,7 @@
 									dataType: 'json',
 									success: function() {
 										alert("修改成功");
-										$('#allOrders').DataTable().ajax.reload();
+										$('#all').DataTable().ajax.reload();
 										}													
 									})							              
 				            });
