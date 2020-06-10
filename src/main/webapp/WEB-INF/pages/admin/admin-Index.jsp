@@ -230,8 +230,8 @@
 				</div>
 				<!-- /.card -->
 
-				<div class="card">
-					<div class="card-header border-0">
+				<div class="card card-dark">
+					<div class="card-header">
 						<h3 class="card-title">熱銷商品前三名</h3>
 						<div class="card-tools">
 							<a href="#" class="btn btn-tool btn-sm">
