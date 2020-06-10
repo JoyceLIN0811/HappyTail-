@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -29,14 +28,13 @@ import com.happytail.forum.model.Report;
 import com.happytail.forum.model.ThumbsUp;
 import com.happytail.forum.model.ThumbsUpView;
 import com.happytail.forum.model.Topic;
-import com.happytail.forum.model.TopicImage;
 import com.happytail.forum.model.TopiclistView;
-import com.happytail.forum.model.dao.TopicImageDAO;
 import com.happytail.forum.model.service.ForumService;
 import com.happytail.forum.model.service.FourmMemberService;
 import com.happytail.forum.model.service.LimitPostService;
 import com.happytail.general.model.CodeMap;
 import com.happytail.general.model.Notice;
+import com.happytail.general.model.service.NoticeService;
 import com.happytail.general.util.Page;
 import com.happytail.general.util.PageInfo;
 import com.happytail.member.model.PetMembers;
@@ -51,6 +49,9 @@ public class TestController {
 	@Autowired
 	private FourmMemberService fourmMemberService;
 
+	@Autowired
+	private NoticeService noticeService;
+	
 	@Autowired
 	private LimitPostService limitPostService;
 	
@@ -178,8 +179,15 @@ public class TestController {
 
 	@PostMapping("/replyPost")
 	@ResponseBody
-	public Reply addReply(@ModelAttribute Reply reply) {
-		return forumService.addReply(reply);
+	public Reply addReply(@ModelAttribute Reply reply,@RequestParam List<Integer> atUserIdList) {
+		
+		reply = forumService.addReply(reply);
+		
+		for(Integer userId : atUserIdList) {
+			noticeService.sendAtReplyNotice(reply, userId);
+		}
+		
+		return reply;
 	}
 
 	@PostMapping("/thumbsUpPost")
