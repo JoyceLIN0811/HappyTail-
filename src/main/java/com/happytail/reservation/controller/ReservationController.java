@@ -120,6 +120,7 @@ public class ReservationController {
 		obj.setTradeDesc("test Description");
 		obj.setItemName("寵物SPA");
 		obj.setReturnURL("http://localhost:8080/happytail/HappyTailIndex.jsp");
+		obj.setClientBackURL("http://localhost:8080/happytail/HappyTailIndex.jsp");
 		obj.setNeedExtraPaidInfo("N");
 		obj.setPeriodAmount("700");
 		obj.setPeriodType("D");
