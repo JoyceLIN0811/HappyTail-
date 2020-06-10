@@ -142,9 +142,6 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1>討論區</h1>
-							<a href='<c:url value='admin-allReportJson' />'>Json</a>
-							<a href='<c:url value='admin-singleTopic/90' />'>single</a>
-
 						</div>
 					</div>
 				</div>
@@ -165,7 +162,7 @@
 											<tr>
 												<th>文章編號</th>
 												<th>文章標題</th>
-												<th>檢舉帳號</th>
+												<th>被檢舉帳號</th>
 												<th>發文日期</th>
 												<th>檢舉原因</th>
 												<th>修改</th>
@@ -301,7 +298,7 @@
 									data: {},
 									dataType: 'json',
 									success: function() {
-										alert("修改成功");
+										alert("刪除成功");
 										$('#all').DataTable().ajax.reload();
 										}													
 									})							              
