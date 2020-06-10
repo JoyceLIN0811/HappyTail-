@@ -328,14 +328,8 @@
 
 						</div>
 						<!-- /.card -->
-
-
 					</div>
-
 				</div>
-
-
-
 			</section>
 
 		</div>

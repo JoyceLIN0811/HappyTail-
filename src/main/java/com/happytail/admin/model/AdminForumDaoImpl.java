@@ -25,17 +25,19 @@ public class AdminForumDaoImpl implements AdminForumDao {
 	//所有檢舉清單
 	@Override
 	public List<ReportlistView> allReportlist() {
-		Query<ReportlistView> query = getSession().createQuery("FROM ReportlistView", ReportlistView.class);
+		Query<ReportlistView> query = getSession().createQuery("FROM ReportlistView r where r.title is not null", ReportlistView.class);
 		List<ReportlistView> list = query.list();
 		return list;
 	}
 
 	@Override
 	public List<Topic> singleTopic(Integer id) {
+			
 		Query<Topic> query = getSession().createQuery("FROM Topic t where t.id=:id", Topic.class);
 		query.setParameter("id", id);
 		List<Topic> list = query.getResultList();
 		return list;
-	}
+		
+		}
 
 }

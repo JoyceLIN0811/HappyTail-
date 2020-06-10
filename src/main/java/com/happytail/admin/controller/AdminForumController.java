@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.happytail.admin.model.service.AdminForumService;
 import com.happytail.forum.model.ReportlistView;
 import com.happytail.forum.model.Topic;
+import com.happytail.forum.model.service.FourmMemberService;
 
 @Controller
 public class AdminForumController {
@@ -21,8 +22,8 @@ public class AdminForumController {
 	@Autowired
 	AdminForumService forumService;
 	
-	
-	
+	@Autowired
+	FourmMemberService fourmMemberService;	
 	
 	//討論區管理
 	@GetMapping(value = "admin-forum")
@@ -44,6 +45,16 @@ public class AdminForumController {
 		List<Topic> list = forumService.singleTopic(id);
 		ResponseEntity<List<Topic>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
+	}
+	
+	//刪除文章
+	@PostMapping(value =  "admin-deleteTopic/{id}")
+	public String deleteTopic(@PathVariable Integer id) {
+		
+		fourmMemberService.deleteTopic(id);
+		
+		return "adminForum";
+		
 	}
 	
 

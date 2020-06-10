@@ -143,7 +143,7 @@
 						<div class="col-sm-6">
 							<h1>討論區</h1>
 							<a href='<c:url value='admin-allReportJson' />'>Json</a>
-							<a href='<c:url value='admin-singleTopic/1' />'>single</a>
+							<a href='<c:url value='admin-singleTopic/90' />'>single</a>
 
 						</div>
 					</div>
@@ -285,31 +285,48 @@
 													orderable : false,
 													render : function(data,
 															type, row, meta) {
-														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看</button>&emsp;";
+														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看</button>&emsp;"
+														+ "<a class='btn btn-default btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>刪除</a>";
 
 													}
 												} ]
 											});
+							//刪除文章
+							$("#all tbody").on("click", ".btn-default", function () {
+								var id = $(this).data("test");
+								alert(id);
+								$.ajax({
+									async:false,
+									type: "POST",
+									url: "<c:url value='admin-deleteTopic/" + id + "' />",
+									data: {},
+									dataType: 'json',
+									success: function() {
+										alert("修改成功");
+										$('#allOrders').DataTable().ajax.reload();
+										}													
+									})							              
+				            });
+
+							//查看文章
+							$('#all tbody').on('click', '.btn-info', function() {
+								var id = $(this).attr("id");
+//					 			alert(id);
+								$.ajax({
+									url : "<c:url value='admin-singleTopic/" + id + "' />",
+									method : "GET",
+									async : false,
+									data : {},
+									dataType : "json",
+									success : function(data) {
+										$("#title").empty().append(data[0]['title']);
+										$("#content").empty().append(data[0]['content']);
+									}
+								})
+							})
 						});
 	</script>
-	<script type="text/javascript">
-		$(document).on('click', '.btn', function() {
-			var id = $(this).attr("id");
 
-			$.ajax({
-				url : "<c:url value='admin-singleTopic/" + id + "' />",
-				method : "GET",
-				async : false,
-				data : {},
-				dataType : "json",
-				success : function(data) {
-					$("#title").empty().append(data[0]['title']);
-					$("#content").empty().append(data[0]['content']);
-
-				}
-			})
-		})
-	</script>
 </body>
 
 </html>
