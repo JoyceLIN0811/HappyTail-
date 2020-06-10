@@ -35,6 +35,10 @@ $(document).ready(function() {
 	
     initTemplate();
     
+    $('#topicContentDialog').on('hide.bs.modal', function (e) {
+    	history.pushState({foo: "Post"},"",contextRoot + "/forum/topiclist?isForumArea=isForumArea");
+	})
+    
 	if(location.href.indexOf("/topicPage/") != -1){
 		var topicId = location.href.substring(location.href.indexOf("/topicPage/") + 11);
 		openTopicContentDialog(topicId, null);
