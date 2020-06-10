@@ -24,8 +24,10 @@ public interface AdminShopDao {
 	//熱銷商品前三名
 	public List<Object> top3SalesProduct();
 	
-	//更改訂單
+	//更改訂單-完成
 	OrderBean changeOrderStatus(Integer id);
+	//刪除訂單-失敗
+	OrderBean deleteOrder(Integer id);
 	//所有訂單
 	public List<OrderBean> adminAllOrders();
 	//單一訂單

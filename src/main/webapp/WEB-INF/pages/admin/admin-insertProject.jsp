@@ -153,19 +153,19 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="exampleInputEmail1">商品名稱</label>
-											<form:input path='name' class="form-control" />
+											<form:input path='name' class="form-control" id="name"/>
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="exampleInputPassword1">商品價格</label>
-											<form:input path='price' class="form-control" />
+											<form:input path='price' class="form-control" id="price"/>
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="exampleInputPassword1">商品庫存</label>
-											<form:input path='amount' class="form-control" />
+											<form:input path='amount' class="form-control" id="amount" />
 										</div>
 									</div>
 								</div>
@@ -174,7 +174,6 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品種類</label>
 									<form:select path='categoryId' class="form-control">
-										<option>選擇商品種類</option>
 										<option value='1'>飼料</option>
 										<option value='2'>衣服</option>
 										<option value='3'>玩具</option>
@@ -185,7 +184,6 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品狀態</label>
 									<form:select path='status' class="form-control">
-										<option>選擇狀態</option>
 										<option value='1'>上架</option>
 										<option value='2'>下架</option>
 									</form:select>
@@ -194,7 +192,7 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品描述</label>
-									<form:input path='descriptrion' class="form-control" />
+									<form:input path='descriptrion' class="form-control" id="descriptrion"/>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputFile">照片</label>
@@ -211,8 +209,10 @@
 							<div class="card-footer">
 								<button type="submit" class="btn btn-primary float-right">送出</button>
 								<button type="reset" class="btn btn-default float-right">取消</button>
+								<button type="button" class="btn btn-info float-left"  onclick='Send()'>一鍵新增</button>
 							</div>
 						</form:form>
+						
 					</div>
 				</div>
 
@@ -259,5 +259,22 @@
 	<script src="${pageContext.request.contextPath}/admin/dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
+	
+	<script type="text/javascript">
+	function Send() {
+		document.getElementById("name").value='北歐艾格 熟齡貓 1.8kg';
+		document.getElementById("price").value='690';
+		document.getElementById("amount").value='100';
+		document.getElementById("descriptrion").value='動物性蛋白質含量高';
+	}
+	$('#file').change(function() {
+		  var file = $('#file')[0].files[0];
+		  var reader = new FileReader;
+		  reader.onload = function(e) {
+		    $('#demo').attr('src', e.target.result);
+		  };
+		  reader.readAsDataURL(file);
+		});
+	</script>
 </body>
 </html>

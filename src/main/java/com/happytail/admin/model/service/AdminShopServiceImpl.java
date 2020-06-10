@@ -91,5 +91,11 @@ public class AdminShopServiceImpl implements AdminShopService{
 		return list;
 	}
 
+	@Override
+	public OrderBean deleteOrder(Integer id) {
+		OrderBean order = adsDao.deleteOrder(id);
+		return order;
+	}
+
 
 }

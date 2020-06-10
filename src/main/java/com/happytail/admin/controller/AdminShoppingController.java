@@ -223,6 +223,16 @@ public class AdminShoppingController {
 		ResponseEntity<List<OrderItemBean>> re = new ResponseEntity<>(dtail, HttpStatus.OK);
 		return re;
 	}
+	
+	//過期訂單
+	@PostMapping(value = "admin-overtimeOrders-json/{key}", produces= {"application/json"})
+	public ResponseEntity<OrderBean> overTimeOrders(@PathVariable Integer key, OrderBean orderBean) {
+		OrderBean order = adminShopService.deleteOrder(key);
+		ResponseEntity<OrderBean> re = new ResponseEntity<>(order,HttpStatus.OK);
+		return re;
+		
+		
+	}
 
 
 }

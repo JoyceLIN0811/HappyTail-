@@ -50,7 +50,7 @@ public class AdminShopDaoImpl implements AdminShopDao {
 	//未處理訂單數
 	@Override
 	public Long unCheckOrders() {
-		String hql = "select count(o.state) from OrderBean o where state = '已付款'";
+		String hql = "select count(o.state) from OrderBean o where state != '完成'";
 		Query query = getSession().createQuery(hql);
 		return (Long)query.uniqueResult();
 	}
@@ -94,7 +94,7 @@ public class AdminShopDaoImpl implements AdminShopDao {
 
 	@Override
 	public List<OrderBean> unCheckOrderList() {
-		String hql = "From OrderBean o where o.state='已付款'";
+		String hql = "From OrderBean o where o.state != '完成'";
 		Query<OrderBean> query = getSession().createQuery(hql);
 		List<OrderBean> list = query.getResultList();
 		return list;
@@ -134,6 +134,19 @@ public class AdminShopDaoImpl implements AdminShopDao {
 		Query<Object> query = getSession().createSQLQuery(sql);
 		List<Object> list = query.getResultList();
 		return list;
+	}
+
+	@Override
+	public OrderBean deleteOrder(Integer id) {
+		Query<OrderBean> query = getSession().createQuery("From OrderBean o where o.orderId=:id",OrderBean.class);
+		query.setParameter("id", id);
+		OrderBean order = (OrderBean) query.uniqueResult();
+		
+		if(order != null) {			
+				order.setState("過期");
+				getSession().update(order);
+		}
+		return order;
 	}
 
 

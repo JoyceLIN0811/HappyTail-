@@ -176,7 +176,6 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品種類</label>
 									<form:select path='categoryId' class="form-control">
-										<option>選擇商品種類</option>
 										<option value='1'>飼料</option>
 										<option value='2'>衣服</option>
 										<option value='3'>玩具</option>
@@ -187,7 +186,6 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">商品狀態</label>
 									<form:select path='status' class="form-control">
-										<option>選擇狀態</option>
 										<option value='1'>上架</option>
 										<option value='2'>下架</option>
 									</form:select>

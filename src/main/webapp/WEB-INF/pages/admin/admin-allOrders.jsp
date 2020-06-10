@@ -284,7 +284,7 @@
 							$('#allOrders')
 									.DataTable(
 											{
-												searching : false,
+// 												searching : false,
 												"ajax" : {
 													"url" : "<c:url value='admin-AllOrders-json' />",
 													"dataSrc" : ""
@@ -319,7 +319,7 @@
 																	return data = '<span class="badge badge-secondary">未付款</span>';
 																} else if (data == "已付款") {
 																	return data = '<span class="badge badge-warning">已付款</span>';
-																} else if (data == "失敗") {
+																} else if (data == "過期") {
 																	return data = '<span class="badge badge-danger">失敗</span>';
 																}
 															}
@@ -335,7 +335,7 @@
 													render : function(data,
 															type, row, meta) {
 														return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;";
-// 																+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>";
+																+ "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#member-update' id='" + data + "'><i class='fas fa-pencil-alt'></i>編輯</button>&emsp;";
 
 													}
 												} ]

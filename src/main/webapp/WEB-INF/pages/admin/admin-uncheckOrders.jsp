@@ -142,7 +142,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>訂單資料</h1>
+							<h1>未處理訂單</h1>
 <%-- 							<a href='<c:url value='admin-changeOrderStatus-json/1' />'>Json</a> --%>
 						</div>
 					</div>
@@ -276,7 +276,6 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${pageContext.request.contextPath}/admin/dist/js/demo.js"></script>
 	<!-- page script -->
-	//所有訂單
 	<script>
 	$(document)
 	.ready(
@@ -319,7 +318,7 @@
 														return data = '<span class="badge badge-secondary">未付款</span>';
 													} else if (data == "已付款") {
 														return data = '<span class="badge badge-warning">已付款</span>';
-													} else if (data == "失敗") {
+													} else if (data == "過期") {
 														return data = '<span class="badge badge-danger">失敗</span>';
 													}
 												}
@@ -335,11 +334,12 @@
 										render : function(data,
 												type, row, meta) {
 											return "<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#Topic' id='" + data + "'><i class='fas fa-eye'></i>查看訂單</button>&emsp;"
-												+ "<a class='btn btn-default btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>出貨</a>";
+												+ "<a class='btn btn-default btn-sm' data-test='" + data + "'><i class='fas fa-pencil-alt'></i>出貨</a>&emsp;"
+												+ "<a class='btn btn-danger btn-sm' data-test='" + data + "'><i class='fas fa-trash-alt'></i>刪除</a>";
 										}
 									} ]
 								});
-				$("#allOrders tbody").on("click", ".btn", function () {
+				$("#allOrders tbody").on("click", ".btn-info", function () {
 					var id = $(this).data("test");
 					$.ajax({
 						async:false,
@@ -349,6 +349,21 @@
 						dataType: 'json',
 						success: function() {
 							alert("修改成功");
+							$('#allOrders').DataTable().ajax.reload();
+							}													
+						})							              
+	            });
+
+				$("#allOrders tbody").on("click", ".btn-danger", function () {
+					var id = $(this).data("test");
+					$.ajax({
+						async:false,
+						type: "POST",
+						url: "<c:url value='admin-overtimeOrders-json/" + id + "' />",
+						data: {},
+						dataType: 'json',
+						success: function() {
+							alert("刪除成功");
 							$('#allOrders').DataTable().ajax.reload();
 							}													
 						})							              

@@ -33,6 +33,8 @@ public interface AdminShopService {
 	//修改產品
 	ProductBean updateProduct(ProductBean product);
 	
+	OrderBean deleteOrder(Integer id);
+	
 	OrderBean changeOrderStatus(Integer id);
 	
 
