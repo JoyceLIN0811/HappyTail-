@@ -78,7 +78,7 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="<c:url value='/shopIndex'/>">網路商城</a> 
 					<a class='dropdown-item' href="<c:url value='/Evaluationlist?id=${petMembers.id}' />">美容服務預約</a> 
-					<a class="dropdown-item" href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">討論區</a>
+					<a class="dropdown-item" href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">寵物論壇</a>
 				</div></li>
 			<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 		</ul>
@@ -109,7 +109,7 @@
 
 	<a href="<c:url value='/shopIndex'/> ">網路商城</a> <a
 		href="<c:url value='/Evaluationlist?id=${petMembers.id}' />">美容服務預約</a> <a
-		href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">討論區</a> 
+		href="<c:url value='/forum/topiclist?isForumArea=isForumArea' />">寵物論壇</a> 
 		<a class="subheader">認識我們</a>
 
 </div>
