@@ -153,7 +153,7 @@ function getTopicListData() {
 				async : false,
 				success : function(data) {
 					
-					$("#follow").append(Mustache.render(myLikeTopicTemplate, data));
+					$("#follow").append(Mustache.render(myFollowListTemplate, data));
 
 					$("#totalNum").text(data.totalNum);
 					// check whether has next page or not
@@ -177,7 +177,7 @@ function getTopicListData() {
 					async : false,
 					success : function(data) {
 						
-						$("#like").append(Mustache.render(myFollowListTemplate, data));
+						$("#like").append(Mustache.render(myLikeTopicTemplate, data));
 
 						$("#totalNum").text(data.totalNum);
 						// check whether has next page or not
@@ -502,6 +502,63 @@ function openTopicContentDialog(topicId, targetObj) {
 						alert("刪除成功 !");
 					}
 			});
+		
+		
+	}
+	
+	function deleteThumbsUp(topicId, targetObj){
+		var userId =  parseInt($("#loginUserId").text());
+		var url = contextRoot + "/thumbsUp/topic/" + userId + "/" +  topicId;
+		
+		// can't get type now, fixed this function, 
+		// just delete the topic which shown on the browser 
+		
+//		$.ajax({
+//			url : url,
+//			type : "DELETE",
+//			async : false,
+//			success : function(data) {
+//				console.log($(targetObj).parentsUntil(".myTopicItem").parent());
+				$(targetObj).parentsUntil(".myTopicItem").parent().hide();
+				alert("刪除成功 !");
+//			}
+//		});
+		
+		
+	}
+	
+	function deleteFollow(topicId, targetObj){
+		var userId =  parseInt($("#loginUserId").text());
+		var url = contextRoot + "/follow/" + userId + "/" +  topicId;
+		
+		$.ajax({
+			url : url,
+			type : "DELETE",
+			async : false,
+			success : function(data) {
+				console.log($(targetObj).parentsUntil(".myTopicItem").parent());
+				$(targetObj).parentsUntil(".myTopicItem").parent().hide();
+				alert("刪除成功 !");
+			}
+		});
+		
+		
+	}
+	
+	function deleteHistory(topicId, targetObj){
+		var userId =  parseInt($("#loginUserId").text());
+		var url = contextRoot + "/myPage/removeHistory/" + userId + "/" +  topicId;
+		
+		$.ajax({
+			url : url,
+			type : "DELETE",
+			async : false,
+			success : function(data) {
+				console.log($(targetObj).parentsUntil(".myTopicItem").parent());
+				$(targetObj).parentsUntil(".myTopicItem").parent().hide();
+				alert("刪除成功 !");
+			}
+		});
 		
 		
 	}

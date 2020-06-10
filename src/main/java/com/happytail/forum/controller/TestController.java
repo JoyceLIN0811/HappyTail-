@@ -318,9 +318,10 @@ public class TestController {
 		return Collections.singletonMap("status", "delete success");
 	}
 	
-	@DeleteMapping("/myPage/removeHistory/{topicId}")
+	@DeleteMapping("/myPage/removeHistory/{userId}/{topicId}")
+	@ResponseBody
 	public void removeThumbsUpViaMyPage(@SessionAttribute PetMembers petMembers,
-			@PathVariable Integer topicId, @RequestParam Integer userId) {
+			@PathVariable Integer topicId, @PathVariable Integer userId) {
 		fourmMemberService.removeHistory(petMembers, topicId, userId);
 	}
 	
