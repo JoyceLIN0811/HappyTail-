@@ -371,6 +371,7 @@ $("#target").html(data);
                         <div class="col-md-12">
        						<form id="addReplyForm">
        							<input type="hidden" name="replyContent"/>
+       							<input type="hidden" name="atUserIdList"/>
                          		<input type="hidden" name="username" />
                          		<input type="hidden" name="userId" />
                          		<input type="hidden" name="topicId" value="{{topicId}}"/>
@@ -402,6 +403,7 @@ $("#target").html(data);
                     <div class="d-inline-block center-block">
                         <div class="row">
                             <div class="col-4">
+                            	<span class="reply-userId d-none">{{ userId }}</span>
                                 <span>{{ username }}</span>
                             </div>
                             <div class="col-8">

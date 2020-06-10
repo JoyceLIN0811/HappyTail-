@@ -2,6 +2,8 @@ var topicListTemplate = "";
 var topicContentTemplate = "";
 var addTopicTemplate = "";
 var replyListTemplate = "";
+var stageLinkTemplate = "";
+var replyListTemplate = "";
 var topicListPageNum = 1; // start from page 1
 var replyListPageNum = 1; // start from page 1
 var isTopicListHasNextPage = true;
@@ -125,9 +127,11 @@ function initTemplate() {
 			type : "GET",
 			async : false,
 			success : function(template) {
-				topicListTemplate = $(template).filter("#topicList").html();
-				topicContentTemplate = $(template).filter("#topicContent").html();
-				replyListTemplate = $(template).filter("#replyContentList").html();
+						topicListTemplate = $(template).filter("#topicList").html();
+						topicContentTemplate = $(template).filter("#topicContent").html();
+						replyListTemplate = $(template).filter("#replyContentList").html();
+						stageLinkTemplate = $(template).filter("#stage").html();
+		                stageListTemplate = $(template).filter("#stage-list").html();
 
 				}
 			});
@@ -286,7 +290,7 @@ function openTopicContentDialog(topicId, targetObj) {
 
 				});
 
-			initReplyCKEditor();
+//			initReplyCKEditor();
 			
 			history.pushState({foo: "Post"},"",contextRoot + "/forum/topicPage/" + topicId);
 
@@ -356,16 +360,6 @@ function initTopicCKEditor(){
     } )
     .then( editorInstance => {
     	topicEditor = editorInstance;
-        
-        // 將輸入區綁定change事件(:data為僅限輸入值更動,不包含輸入區中工具列及滑鼠的任何操作)
-//                 editor.model.document.on( 'change:data', () => {
-            // console.log( 'The Document has changed!' );
-
-//                     let lastTagText = getLastOuterTagText($(editor.getData()));
-
-//                     atSignCheck(lastTagText);
-
-//                 } );
     })
     
     .catch( error => {
@@ -384,14 +378,14 @@ function initReplyCKEditor(){
     	replyEditor = editorInstance;
         
         // 將輸入區綁定change事件(:data為僅限輸入值更動,不包含輸入區中工具列及滑鼠的任何操作)
-//                 editor.model.document.on( 'change:data', () => {
-            // console.log( 'The Document has changed!' );
+    	replyEditor.model.document.on( 'change:data', () => {
+//    			console.log( 'The Document has changed!' );
 
-//                     let lastTagText = getLastOuterTagText($(editor.getData()));
-
-//                     atSignCheck(lastTagText);
-
-//                 } );
+		         let lastTagText = getLastOuterTagText($(replyEditor.getData()));
+		
+		         atSignCheck(lastTagText);
+		
+		     });
         })
         
         .catch( error => {
@@ -399,7 +393,31 @@ function initReplyCKEditor(){
         });
     }
 
+function getLastOuterTagText(inputElements){
+    /*
+    * 輸入區中的"最外層"tag數量
+    * ex:
+    * <p> AAA </p>
+    * <p> BBB <b>DDD</b> </p>
+    * <p> CCC <b>EEE</b> </p>
+    * 
+    * 總共數量為3
+    */
+    let tagTotalNum = inputElements.length;
 
+    let returnStr = "";
+    
+    // 將輸入區的"最外層"標籤一個一個取出來
+    inputElements.each(function(index,element){
+
+        // 只取最後一段標籤內的值檢查
+        if((index + 1) == tagTotalNum){
+            returnStr = $(element).text();
+        }
+    });
+
+    return returnStr;
+}
 
  // 檢查@是否出現於輸入區
 function atSignCheck(text){
@@ -422,6 +440,69 @@ function atSignCheck(text){
         }
     }
 
+}
+
+function showStageSelectDialog(){
+    var stageListObj = { stageList : [] };
+
+    $("#replyContentList .stage").each(function(index,element){
+        stageListObj.stageList[index] = {stage : $(element).text()};
+    });
+
+    renderStageList(stageListObj);
+
+    $('#stageListDialog').modal('show');
+}
+
+function renderStageList(stageListObj){
+    $("#stage-list").html(""); // 先清空, 再渲染
+    $("#stage-list").append(Mustache.render(stageListTemplate,stageListObj));
+}
+
+/*
+ * 好友名單點擊某位好友後執行以下動作:
+ * 1.將選擇的好友名稱回寫到輸入區域的尾端
+ * 2.關閉好友名單
+ */
+function setStage(stageNum){
+     let tagTotalNum = $(replyEditor.getData()).length;
+             
+     // 用於儲存輸入區的標籤
+     // 並在最後一段標籤中偵測並修改
+     let input = "";
+
+     // 檢查是否有偵測到輸入@的事件
+     let changeFlag = false;
+
+     $(replyEditor.getData()).each(function(index,element){
+
+         // 只取最後一段標籤內的值檢查
+         if((index + 1) == tagTotalNum){
+
+             let targetElement = $(element); 
+             let originalText = targetElement.text();
+             let strLen = originalText.length;
+
+             let hasAtSign = originalText.lastIndexOf("@") == (strLen - 1);
+             let modifiedText = hasAtSign ? originalText.substring(0,strLen - 1) : originalText; 
+             modifiedText += getStageLink(stageNum);
+
+             targetElement.html(modifiedText);
+
+             input += targetElement.prop('outerHTML');
+         } else {
+             input += $(element).prop('outerHTML');
+         }
+
+     });
+
+     replyEditor.setData(input);
+
+     $('#stageListDialog').modal('hide');
+}
+
+function getStageLink(stageStr){
+    return Mustache.render(stageLinkTemplate,{stage : stageStr});
 }
 
 function setCategoryId(catId, targetObj) {
@@ -502,17 +583,43 @@ function clickAddReply(){
 
 	var content = replyEditor.getData();
 	
-	console.log($("#loginUsername"));
-	console.log($("#loginUserId"));
-	console.log("text = " + $("#loginUsername").text());
-	console.log("text = " + $("#loginUserId").text());
-	console.log("val = " + $("#loginUsername").val());
-	console.log("val = " + $("#loginUserId").val());
+	var atStageList = [];
+	var atUserIdListStr = "";
+	$(content).find("a").each(function(index,element){
+		if($(element).attr("href").indexOf("#B") != -1){
+			// #B10 -> B10
+			atStageList.push($(element).attr("href").substring(1));
+		}
+	});
+	
+	$(".replyList").each(function(index,element){
+        for(let i=0 ; i<atStageList.length ; i++){
+        	if($(element).find(".stage").text() == atStageList[i]){
+        		atUserIdListStr += $(element).find(".reply-userId").text() + ",";
+        	}
+        }
+    });
+	
+	
+	
+	if(atUserIdListStr.length != 0){
+		atUserIdListStr = atUserIdListStr.substring(0,atUserIdListStr.length - 1);//cut the comma				
+	}
+	
+	console.log(atUserIdListStr);
+	
+//	console.log($("#loginUsername"));
+//	console.log($("#loginUserId"));
+//	console.log("text = " + $("#loginUsername").text());
+//	console.log("text = " + $("#loginUserId").text());
+//	console.log("val = " + $("#loginUsername").val());
+//	console.log("val = " + $("#loginUserId").val());
 	
 	$("#addReplyForm input[name='username']").val($("#loginUsername").text());
 	$("#addReplyForm input[name='userId']").val($("#loginUserId").text());
 	$("#addReplyForm input[name='replyContent']").val(content);
-	console.log($(addReplyForm).serialize());
+	$("#addReplyForm input[name='atUserIdList']").val(atUserIdListStr);
+//	console.log($(addReplyForm).serialize());
 
 	var url = contextRoot + "/replyPost";
 	var form = $(addReplyForm);
