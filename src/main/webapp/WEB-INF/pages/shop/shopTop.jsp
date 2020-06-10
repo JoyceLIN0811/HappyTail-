@@ -69,10 +69,9 @@
 							
 							<li class="has-dropdown"><a href="<c:url value='/getOrderBean.do'/> ">我的訂單</a>
 								<ul class="dropdown">
-									<li><a href="#">Web Design</a></li>
-									<li><a href="#">eCommerce</a></li>
-									<li><a href="#">Branding</a></li>
-									<li><a href="#">API</a></li>
+									<li><a href="#">未付款</a></li>
+									<li><a href="#">已付款</a></li>
+									<li><a href="#">已完成</a></li>
 								</ul></li>
 							<li><a href="<c:url value='/getFavorite.do'/>">我的最愛</a></li>
 						</ul>
