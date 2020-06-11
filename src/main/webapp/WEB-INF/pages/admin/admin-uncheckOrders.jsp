@@ -339,7 +339,7 @@
 										}
 									} ]
 								});
-				$("#allOrders tbody").on("click", ".btn-info", function () {
+				$("#allOrders tbody").on("click", ".btn-default", function () {
 					var id = $(this).data("test");
 					$.ajax({
 						async:false,
