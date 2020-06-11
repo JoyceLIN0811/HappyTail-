@@ -162,7 +162,7 @@
 											<tr>
 												<th>文章編號</th>
 												<th>文章標題</th>
-												<th>被檢舉帳號</th>
+												<th>被檢舉人</th>
 												<th>發文日期</th>
 												<th>檢舉原因</th>
 												<th>修改</th>
@@ -267,7 +267,7 @@
 													"data" : "title"
 												}, {
 													orderable : false,
-													"data" : "userId"
+													"data" : "username"
 												}, {
 													"data" : "createDate"
 												}, {

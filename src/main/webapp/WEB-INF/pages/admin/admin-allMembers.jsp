@@ -242,7 +242,7 @@
 							$('#allMembers')
 									.DataTable(
 											{
-												"searching" : false,
+// 												"searching" : false,
 												"ajax" : {
 													"url" : "<c:url value='admin-allMembersJSON' />",
 													
