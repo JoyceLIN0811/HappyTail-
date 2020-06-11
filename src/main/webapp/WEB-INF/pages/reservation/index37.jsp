@@ -63,9 +63,9 @@
 							
 <script>
 	function Send() {
-		document.getElementById("petName").value='小馬';
-		document.getElementById("breed").value='拉不拉多';
-		document.getElementById("petAge").value=2;
+		document.getElementById("petName").value='烏龜';
+		document.getElementById("breed").value='馬爾濟斯';
+		document.getElementById("petAge").value=1;
 		document.getElementById("date").value='2020-06-15';
 		document.getElementById("require").value='舒服的';
 	}

@@ -33,7 +33,8 @@
 			
 
 		<button class="btn btn-info" type="submit" name="login">登入</button>
-		<input class="btn btn-info" type="button" value='一鍵新增' onclick='Send()'>
+		<input class="btn btn-info" type="button" value='petProject113' onclick='Send()'>
+		<input class="btn btn-info" type="button" value='admin' onclick='Send2()'>
 
 <!-- 		<button class="btn btn-info" type="submit" name="login">登入</button> -->
 
@@ -46,7 +47,11 @@
 function Send() {
 	document.getElementById("account").value='petProject113@gmail.com';
 	document.getElementById("password").value='eeit11339';
-	
+}
+
+function Send2(){
+	document.getElementById("account").value='admin@gmail.com';
+	document.getElementById("password").value='Do!ng123';
 }
 </script>
 

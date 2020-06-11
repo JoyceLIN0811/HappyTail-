@@ -19,13 +19,22 @@
 		<h5>請輸入您的 HappyTail 會員帳號 (您的email) : </h5>
 		
 			<label class="lab">帳號 :</label>
-			<input class="inpu" type="text" name="temporaryPasswordAccount"  value = "${param.temporaryPasswordAccount }"/>
+			<input class="inpu" type="text" id='account' name="temporaryPasswordAccount"  value = "${param.temporaryPasswordAccount }"/>
 		<br>
 			<font color='red' size="-1">${errorMsg.temporaryPasswordAccountError }</font>
 		<br><br>
 		<button class="btn btn-info" type="submit" name="sendTemporaryPassword">寄送臨時密碼</button>
+		<button class="btn btn-info" type="submit" value='daiyoyo199' onclick='Send()'>daiyoyo199</button>
 	</form>
 </div>
+
+<script type="text/javascript">
+function Send(){
+	document.getElementById("account").value='daiyoyo199@gmail.com';
+}
+</script>
+
+
 	<%@include file="/HappytailFooter.jsp" %>
 </body>
 </html>
